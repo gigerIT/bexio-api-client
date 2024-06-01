@@ -1,0 +1,24 @@
+{
+  "name": "gigerit/bexio-api-client",
+  "type": "library",
+  "description": "A PHP client for the Bexio API",
+  "version": "0.0.1",
+  "keywords": [
+    "bexio"
+  ],
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Bexio\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Manuel Giger",
+      "email": "info@gigeirt.ch"
+    }
+  ],
+  "require": {
+    "saloonphp/saloon": "^3.0"
+  }
+}
