@@ -20,8 +20,8 @@ class Data
         return $reflection->newInstanceArgs($args);
     }
 
-    public static function collect(array $data): array
+    public static function collect(array $resources): array
     {
-        return array_map(fn($contact) => self::from($contact), $data);
+        return array_map(fn($resource) => self::from($resource), $resources);
     }
 }
