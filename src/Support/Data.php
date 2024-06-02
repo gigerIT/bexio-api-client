@@ -24,4 +24,21 @@ class Data
     {
         return array_map(fn($resource) => self::from($resource), $resources);
     }
+
+    public function toArray(): array
+    {
+        $reflection = new \ReflectionClass($this);
+        $properties = $reflection->getProperties();
+        $data = [];
+
+        foreach ($properties as $property) {
+            $name = $property->getName();
+            if($this->$name){
+                $data[$name] = $this->$name;
+            }
+
+        }
+
+        return $data;
+    }
 }

@@ -17,10 +17,19 @@ class CreateContactRequest extends Request implements HasBody
 
     protected Method $method = Method::POST;
 
+    public function __construct(readonly protected Contact $contact)
+    {
+    }
+
 
     public function resolveEndpoint(): string
     {
         return "/contact";
+    }
+
+    protected function defaultBody(): array
+    {
+        return $this->contact->toArray();
     }
 
     public function createDtoFromResponse(Response $response): Contact
