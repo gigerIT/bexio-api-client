@@ -4,6 +4,8 @@ namespace Bexio\Resources\Contacts\Contacts\Requests;
 
 use Bexio\Resources\Contacts\Contacts\Contact;
 use Bexio\Resources\Contacts\Contacts\Enums\ContactType;
+use Saloon\Http\Faking\MockClient;
+use Saloon\Http\Faking\MockResponse;
 use function Pest\Faker\fake;
 
 it('can get a contact', function () {

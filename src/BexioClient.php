@@ -34,7 +34,7 @@ class BexioClient extends Connector
         ];
     }
 
-//    public function send(Request $request, MockClient $mockClient = null, callable $handleRetry = null)
+//    public function send(Request $request, MockClient $mockClient = null, callable $handleRetry = null): Response
 //    {
 //        $response = parent::send($request, $mockClient, $handleRetry);
 //

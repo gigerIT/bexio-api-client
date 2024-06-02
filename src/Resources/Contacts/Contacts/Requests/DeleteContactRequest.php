@@ -9,9 +9,9 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 use Saloon\Http\Response;
 
-class GetContactRequest extends Request
+class DeleteContactRequest extends Request
 {
-    protected Method $method = Method::GET;
+    protected Method $method = Method::DELETE;
 
     public function __construct(protected readonly int $id)
     {
@@ -22,10 +22,4 @@ class GetContactRequest extends Request
     {
         return "/contact/$this->id";
     }
-
-    public function createDtoFromResponse(Response $response): Contact
-    {
-        return Contact::from($response->json());
-    }
-
 }

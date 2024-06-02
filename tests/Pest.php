@@ -1,5 +1,13 @@
 <?php
 
+use Bexio\BexioClient;
+use Saloon\Http\Faking\MockClient;
+
+
+uses()
+    ->beforeEach(fn() => MockClient::destroyGlobal())
+    ->in(__DIR__);
+
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -24,6 +32,7 @@
 |
 */
 
+
 expect()->extend('toBeOne', function () {
     return $this->toBe(1);
 });
@@ -39,7 +48,14 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function testClient()
+function testClient(): BexioClient
 {
-    return \Bexio\BexioClient::testAccount();
+    return BexioClient::testAccount();
+}
+
+function testMockClient(string $requestClass, string $fixture): BexioClient
+{
+    return BexioClient::testAccount()->withMockClient(new MockClient([
+        $requestClass => \Saloon\Http\Faking\MockResponse::fixture($fixture),
+    ]));
 }
