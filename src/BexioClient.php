@@ -6,6 +6,9 @@ namespace Bexio;
 
 use Saloon\Http\Auth\TokenAuthenticator;
 use Saloon\Http\Connector;
+use Saloon\Http\Faking\MockClient;
+use Saloon\Http\Request;
+use Saloon\Http\Response;
 
 class BexioClient extends Connector
 {
@@ -30,6 +33,13 @@ class BexioClient extends Connector
             'Content-Type' => 'application/json',
         ];
     }
+
+//    public function send(Request $request, MockClient $mockClient = null, callable $handleRetry = null)
+//    {
+//        $response = parent::send($request, $mockClient, $handleRetry);
+//
+//        return  $request->createDtoFromResponse($response);
+//    }
 
     public static function testAccount(): static
     {
