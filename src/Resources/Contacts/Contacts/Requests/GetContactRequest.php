@@ -13,6 +13,8 @@ class GetContactRequest extends Request
 {
     protected Method $method = Method::GET;
 
+    protected string $resource = Contact::class;
+
     public function __construct(protected readonly int $id)
     {
 

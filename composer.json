@@ -19,10 +19,17 @@
     }
   ],
   "require": {
-    "saloonphp/saloon": "^3.0",
-    "symfony/var-dumper": "^7.1"
+    "saloonphp/saloon": "^3.0"
   },
   "require-dev": {
-    "fakerphp/faker": "^1.23"
+    "pestphp/pest": "^2.34",
+    "pestphp/pest-plugin-faker": "^2.0",
+    "symfony/var-dumper": "^7.1"
+
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
   }
 }

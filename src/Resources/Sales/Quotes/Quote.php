@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Bexio\Resources\Sales\Quotes;
 
-use Bexio\Support\Data;
+use Bexio\Resources\Resource;
 
 /**
  * title
@@ -116,7 +116,7 @@ use Bexio\Support\Data;
  * parent_id
  * integer or null
  */
-class Quote extends Data
+class Quote extends Resource
 {
     public function __construct(
         public readonly ?int    $id,

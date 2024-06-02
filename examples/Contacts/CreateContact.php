@@ -9,14 +9,18 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 
 $faker = Faker\Factory::create();
 
-$client = new BexioClient();
+$client = BexioClient::test();
 
 
 $contact = new Contact(
     name_1: $faker->firstName(),
     contact_type_id: ContactType::PERSON,
     name_2: $faker->lastName(),
-    mail: $faker->email(),
+    address: $faker->streetAddress(),
+    postcode: $faker->randomNumber(4),
+    city: $faker->city(),
+    mail: $faker->safeEmail(),
+    phone_fixed: $faker->phoneNumber(),
 );
 
 

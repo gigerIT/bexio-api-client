@@ -2,9 +2,9 @@
 declare(strict_types=1);
 
 
-namespace Bexio\Support;
+namespace Bexio\Resources;
 
-class Data
+class Resource
 {
     public static function from(array $data): static
     {

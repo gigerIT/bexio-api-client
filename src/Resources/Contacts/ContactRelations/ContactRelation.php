@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace Bexio\Resources\Contacts\ContactRelations;
 
-use Bexio\Support\Data;
+use Bexio\Resources\Resource;
 
-class ContactRelation extends Data
+class ContactRelation extends Resource
 {
     public function __construct(
         public readonly int     $id,

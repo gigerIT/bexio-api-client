@@ -4,9 +4,9 @@ declare(strict_types=1);
 namespace Bexio\Resources\Contacts\Contacts;
 
 use Bexio\Resources\Contacts\Contacts\Enums\ContactType;
-use Bexio\Support\Data;
+use Bexio\Resources\Resource;
 
-class Contact extends Data
+class Contact extends Resource
 {
     public function __construct(
         public string          $name_1,
@@ -19,7 +19,7 @@ class Contact extends Data
         public ?int            $titel_id = null,
         public ?string         $birthday = null,
         public ?string         $address = null,
-        public ?string            $postcode = null,
+        public ?string         $postcode = null,
         public ?string         $city = null,
         public ?int            $country_id = null,
         public ?string         $mail = null,
