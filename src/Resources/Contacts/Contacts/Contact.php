@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Bexio\Resources\Contacts;
+namespace Bexio\Resources\Contacts\Contacts;
 
 use Bexio\Support\Data;
 

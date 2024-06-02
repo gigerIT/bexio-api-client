@@ -2,9 +2,9 @@
 declare(strict_types=1);
 
 
-namespace Bexio\Resources\Contacts\Requests;
+namespace Bexio\Resources\Contacts\Contacts\Requests;
 
-use Bexio\Resources\Contacts\Contact;
+use Bexio\Resources\Contacts\Contacts\Contact;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
