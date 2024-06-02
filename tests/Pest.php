@@ -39,7 +39,7 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+function testClient()
 {
-    // ..
+    return \Bexio\BexioClient::testAccount();
 }

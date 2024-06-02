@@ -9,7 +9,7 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 
 $faker = Faker\Factory::create();
 
-$client = BexioClient::test();
+$client = BexioClient::testAccount();
 
 
 $contact = new Contact(
