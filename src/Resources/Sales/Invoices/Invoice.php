@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Bexio\Resources\Sales\Quotes;
+namespace Bexio\Resources\Sales\Invoices;
 
 use Bexio\Resources\Sales\KbDocument;
 
-class Quote extends KbDocument
+class Invoice extends KbDocument
 {
     public function __construct()
     {
