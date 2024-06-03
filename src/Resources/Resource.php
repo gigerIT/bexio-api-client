@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bexio\Resources;
 
-use Bexio\BexioClient;
 use Saloon\Http\Request;
 
 class Resource
@@ -17,10 +16,9 @@ class Resource
     const UPDATE_REQUEST = Request::class;
     const DELETE_REQUEST = Request::class;
 
-
-    private BexioClient $client;
-
-
+    /**
+     * @throws \ReflectionException
+     */
     final public static function from(array $data): static
     {
         $reflector = new \ReflectionClass(static::class);

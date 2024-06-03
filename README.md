@@ -11,10 +11,34 @@ It provides an API Client and API Resources DTOs with types.
 composer require gigerit/bexio-api-client
 ```
 
-## Usage Examples
+## Examples
 
 ### Contacts
 
+#### Eloquent like usage
+
+```php 
+//Create a new BexioClient instance
+$client = new BexioClient('api_token');
+
+
+//Get the Contact with id 1
+$contact = Contact::useClient($client)->find(1);
+
+echo $contact->id;
+echo $contact->name_1;
+echo $contact->mail;
+
+
+//Change the Contact
+$contact->name_1 = 'New Name';
+
+
+//Send the updated Contact back to the API
+$contact->save();
+````
+
+#### Manual request building
 ```php
 //Create a new BexioClient instance
 $client = new BexioClient('api_token');
@@ -32,7 +56,6 @@ $contact = $request->createDtoFromResponse($response);
 //Use the Contact object
 echo $contact->id;
 echo $contact->name_1;
-echo $contact->name_2;
 echo $contact->mail;
 
 
