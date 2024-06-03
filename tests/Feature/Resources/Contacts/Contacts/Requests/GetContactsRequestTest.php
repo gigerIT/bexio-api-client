@@ -4,7 +4,7 @@ namespace Bexio\Resources\Contacts\Contacts\Requests;
 
 use Bexio\Resources\Contacts\Contacts\Contact;
 
-it('can get a contact', function () {
+it('can get Contacts', function () {
     $contacts = Contact::useClient(testClient())->all();
 
     expect($contacts)->toBeArray()

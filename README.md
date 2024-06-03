@@ -15,61 +15,99 @@ composer require gigerit/bexio-api-client
 
 ### Contacts
 
-#### Eloquent like usage
-
 ```php 
-//Create a new BexioClient instance
+use Bexio\BeixoClient;
+use Bexio\Resources\Contacts\Contacts\Contact;
+
+
 $client = new BexioClient('api_token');
 
+// Get the Contact with the ID 1
+$contact = Contact::useClient($client)->find(1); 
 
-//Get the Contact with id 1
-$contact = Contact::useClient($client)->find(1);
-
+// Access the Contact properties
 echo $contact->id;
 echo $contact->name_1;
 echo $contact->mail;
 
+// Simply change any properties of the Contact
+$contact->name_1 = 'New Name'; 
 
-//Change the Contact
-$contact->name_1 = 'New Name';
-
-
-//Send the updated Contact back to the API
-$contact->save();
+// Save the changes
+$contact->save(); 
 ````
 
-#### Manual request building
-```php
-//Create a new BexioClient instance
-$client = new BexioClient('api_token');
-
-
-//Get the Contact with id 1
-$request = new GetContactRequest(1);
-$response = $client->send($request);
-
-
-//Generate a Contact DTO from the response
-$contact = $request->createDtoFromResponse($response);
-
-
-//Use the Contact object
-echo $contact->id;
-echo $contact->name_1;
-echo $contact->mail;
-
-
-//Change the Contact
-$contact->name_1 = 'New Name';
-
-
-//Send the updated Contact back to the API
-$request = new UpdateContactRequest($contact);
-$response = $client->send($request);
-```
+See [Tests](tests/Feature) for more Examples.
 
 ## DTOs
 
-Our DTOs provide you with type hinting and autocompletion in your IDE.
-
+DTOs provide type hinting and autocompletion in the IDE, for a better development experience.
 <img src="docs/assets/contacts_typehint.png" alt="drawing" width="600"/>
+
+## Available Resources
+
+- CONTACTS
+    - ✅ Contacts
+    - Contact Relations
+    - Contact Groups
+    - Contact Sectors
+    - Additional Addresses
+    - Salutations
+    - Titles
+- SALES ORDER MANAGEMENT
+    - ✅ Quotes
+    - Orders
+    - Deliveries
+    - Invoices
+    - Document Settings
+    - Comments
+    - Default positions
+    - Item positions
+    - Text positions
+    - Subtotal positions
+    - Discount positions
+    - Pagebreak positions
+    - Sub positions
+    - Document templates
+- PURCHASE
+    - Bills
+    - Expenses
+    - Purchase Orders
+    - Outgoing Payment
+- ACCOUNTING
+    - Accounts
+    - Account Groups
+    - Calendar Years
+    - Business Years
+    - Currencies
+    - Manual Entries
+    - Reports
+    - ✅ Taxes
+    - Vat Periods
+- BANKING
+    - Bank Accounts
+    - IBAN Payments
+    - QR Payments
+    - Payments
+- ITEMS & PRODUCTS
+    - Items
+    - Stock locations
+    - Stock Areas
+- PROJECTS & TIME TRACKING
+    - Projects
+    - Timesheets
+    - Business Activities
+    - Communication Types
+- FILES
+    - Files
+- OTHER
+    - Company Profile
+    - Countries
+    - Languages
+    - Notes
+    - Payment Types
+    - Permissions
+    - Tasks
+    - Units
+    - User Management
+
