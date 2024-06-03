@@ -1,13 +1,15 @@
-# Bexio API PHP Client
+# bexio API PHP Client
 
-This is a <a href="https://docs.saloon.dev/">`saloonphp/saloon`</a> API Client for the Bexio
+This is a <a href="https://docs.saloon.dev/">`saloonphp/saloon`</a> API Client for the bexio
 API (https://docs.bexio.com).
 
 It provides an API Client and API Resources DTOs with types.
 
 ## Installation
 
-```composer require gigerit/bexio-api-client```
+```sh
+composer require gigerit/bexio-api-client
+```
 
 ## Usage Examples
 
