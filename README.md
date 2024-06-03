@@ -3,8 +3,6 @@
 This is a <a href="https://docs.saloon.dev/">`saloonphp/saloon`</a> API Client for the bexio
 API (https://docs.bexio.com).
 
-It provides an API Client and API Resources DTOs with types.
-
 ## Installation
 
 ```sh
@@ -37,7 +35,7 @@ $contact->name_1 = 'New Name';
 $contact->save(); 
 ````
 
-See [Tests](tests/Feature) for more Examples.
+See [Tests](tests/Feature/Resources) for more Examples.
 
 ## DTOs
 

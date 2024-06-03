@@ -3,10 +3,13 @@ declare(strict_types=1);
 
 namespace Bexio\Resources\Accounting\Taxes;
 
+use Bexio\Resources\Accounting\Taxes\Requests\GetTaxesRequest;
 use Bexio\Resources\Resource;
 
 class Tax extends Resource
 {
+    const INDEX_REQUEST = GetTaxesRequest::class;
+
     public readonly int $id;
     public readonly string $uuid;
     public readonly string $name;
