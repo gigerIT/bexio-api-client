@@ -11,7 +11,7 @@ use Saloon\Http\Request;
 use Saloon\Http\Response;
 use Saloon\Traits\Body\HasJsonBody;
 
-class CreateContactRequest extends Request implements HasBody
+class CreateInvoiceRequest extends Request implements HasBody
 {
     use HasJsonBody;
 

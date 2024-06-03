@@ -3,8 +3,12 @@ declare(strict_types=1);
 
 namespace Bexio\Resources\Sales\ItemPositions;
 
+use Bexio\Resources\Sales\ItemPositions\Enums\ItemPositionType;
+
 class ItemPositionCustom extends ItemPosition
 {
+    public ItemPositionType $type = ItemPositionType::CUSTOM;
+
     public function __construct(
         public ?string $amount,
         public ?int    $unit_id,
