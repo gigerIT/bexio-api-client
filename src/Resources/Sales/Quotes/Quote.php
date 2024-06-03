@@ -4,12 +4,14 @@ declare(strict_types=1);
 namespace Bexio\Resources\Sales\Quotes;
 
 use Bexio\Resources\Resource;
-use Bexio\Resources\Sales\ItemPositions\ItemPosition;
+use Bexio\Resources\Sales\ItemPositions\Concerns\HasPositions;
 use Bexio\Resources\Sales\Quotes\Enums\QuoteStatus;
 use Bexio\Resources\Sales\Quotes\Requests\CreateQuoteRequest;
 
 class Quote extends Resource
 {
+    use HasPositions;
+
     const CREATE_REQUEST = CreateQuoteRequest::class;
 
     public readonly string $total_gross;
@@ -65,10 +67,5 @@ class Quote extends Resource
         public ?array  $positions = null,
     )
     {
-    }
-
-    public function addPosition(ItemPosition $position): void
-    {
-        $this->positions[] = $position->toArray();
     }
 }

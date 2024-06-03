@@ -44,68 +44,105 @@ DTOs provide type hinting and autocompletion in the IDE, for a better developmen
 
 ## Available Resources
 
-- CONTACTS
-    - ✅ Contacts
-    - Contact Relations
-    - Contact Groups
-    - Contact Sectors
-    - Additional Addresses
-    - Salutations
-    - Titles
-- SALES ORDER MANAGEMENT
-    - ✅ Quotes
-    - Orders
-    - Deliveries
-    - Invoices
-    - Document Settings
-    - Comments
-    - Default positions
-    - Item positions
-    - Text positions
-    - Subtotal positions
-    - Discount positions
-    - Pagebreak positions
-    - Sub positions
-    - Document templates
-- PURCHASE
-    - Bills
-    - Expenses
-    - Purchase Orders
-    - Outgoing Payment
-- ACCOUNTING
-    - Accounts
-    - Account Groups
-    - Calendar Years
-    - Business Years
-    - Currencies
-    - Manual Entries
-    - Reports
-    - ✅ Taxes
-    - Vat Periods
-- BANKING
-    - Bank Accounts
-    - IBAN Payments
-    - QR Payments
-    - Payments
-- ITEMS & PRODUCTS
-    - Items
-    - Stock locations
-    - Stock Areas
-- PROJECTS & TIME TRACKING
-    - Projects
-    - Timesheets
-    - Business Activities
-    - Communication Types
-- FILES
-    - Files
-- OTHER
-    - Company Profile
-    - Countries
-    - Languages
-    - Notes
-    - Payment Types
-    - Permissions
-    - Tasks
-    - Units
-    - User Management
+### CONTACTS
+
+| Resource             | Implemented |
+|----------------------|-------------|
+| Contacts             | ✅           |
+| Contact Relations    | ❌           |
+| Contact Groups       | ❌           |
+| Contact Sectors      | ❌           |
+| Additional Addresses | ❌           |
+| Salutations          | ❌           |
+| Titles               | ❌           |
+
+### SALES ORDER MANAGEMENT
+
+| Resource            | Implemented |
+|---------------------|-------------|
+| Quotes              | ✅           |
+| Orders              | ❌           |
+| Deliveries          | ❌           |
+| Invoices            | ❌           |
+| Document Settings   | ❌           |
+| Comments            | ❌           |
+| Default positions   | ❌           |
+| Item positions      | ❌           |
+| Text positions      | ❌           |
+| Subtotal positions  | ❌           |
+| Discount positions  | ❌           |
+| Pagebreak positions | ❌           |
+| Sub positions       | ❌           |
+| Document templates  | ❌           |
+
+### PURCHASE
+
+| Resource         | Implemented |
+|------------------|-------------|
+| Bills            | ❌           |
+| Expenses         | ❌           |
+| Purchase Orders  | ❌           |
+| Outgoing Payment | ❌           |
+
+### ACCOUNTING
+
+| Resource       | Implemented |
+|----------------|-------------|
+| Accounts       | ❌           |
+| Account Groups | ❌           |
+| Calendar Years | ❌           |
+| Business Years | ❌           |
+| Currencies     | ❌           |
+| Manual Entries | ❌           |
+| Reports        | ❌           |
+| Taxes          | ✅           |
+| Vat Periods    | ❌           |
+
+### BANKING
+
+| Resource      | Implemented |
+|---------------|-------------|
+| Bank Accounts | ❌           |
+| IBAN Payments | ❌           |
+| QR Payments   | ❌           |
+| Payments      | ❌           |
+
+### ITEMS & PRODUCTS
+
+| Resource        | Implemented |
+|-----------------|-------------|
+| Items           | ❌           |
+| Stock locations | ❌           |
+| Stock Areas     | ❌           |
+
+### PROJECTS & TIME TRACKING
+
+| Resource            | Implemented |
+|---------------------|-------------|
+| Projects            | ❌           |
+| Timesheets          | ❌           |
+| Business Activities | ❌           |
+| Communication Types | ❌           |
+
+### FILES
+
+| Resource | Implemented |
+|----------|-------------|
+| Files    | ❌           |
+
+### OTHER
+
+| Resource        | Implemented |
+|-----------------|-------------|
+| Company Profile | ❌           |
+| Countries       | ❌           |
+| Languages       | ❌           |
+| Notes           | ❌           |
+| Payment Types   | ❌           |
+| Permissions     | ❌           |
+| Tasks           | ❌           |
+| Units           | ❌           |
+| User Management | ❌           |
+
+
 

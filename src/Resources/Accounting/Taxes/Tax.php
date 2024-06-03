@@ -3,12 +3,18 @@ declare(strict_types=1);
 
 namespace Bexio\Resources\Accounting\Taxes;
 
+use Bexio\Resources\Accounting\Taxes\Requests\DeleteTaxRequest;
 use Bexio\Resources\Accounting\Taxes\Requests\GetTaxesRequest;
+use Bexio\Resources\Accounting\Taxes\Requests\GetTaxRequest;
 use Bexio\Resources\Resource;
 
 class Tax extends Resource
 {
     const INDEX_REQUEST = GetTaxesRequest::class;
+
+    const SHOW_REQUEST = GetTaxRequest::class;
+
+    const DELETE_REQUEST = DeleteTaxRequest::class;
 
     public readonly int $id;
     public readonly string $uuid;
