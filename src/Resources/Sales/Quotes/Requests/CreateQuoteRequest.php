@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bexio\Resources\Sales\Quotes\Requests;
 
-use Bexio\Resources\Contacts\Contacts\Contact;
 use Bexio\Resources\Sales\Quotes\Quote;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -25,7 +24,7 @@ class CreateQuoteRequest extends Request implements HasBody
 
     public function resolveEndpoint(): string
     {
-        return "/kb_offer";
+        return "/2.0/kb_offer";
     }
 
     protected function defaultBody(): array

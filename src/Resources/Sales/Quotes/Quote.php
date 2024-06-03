@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Bexio\Resources\Sales\Quotes;
 
 use Bexio\Resources\Resource;
+use Bexio\Resources\Sales\ItemPositions\ItemPosition;
 use Bexio\Resources\Sales\Quotes\Enums\QuoteStatus;
 
 class Quote extends Resource
@@ -61,5 +62,10 @@ class Quote extends Resource
         public ?array  $positions = null,
     )
     {
+    }
+
+    public function addPosition(ItemPosition $position)
+    {
+        $this->positions[] = $position->toArray();
     }
 }

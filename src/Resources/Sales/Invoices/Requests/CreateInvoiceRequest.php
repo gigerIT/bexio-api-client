@@ -24,7 +24,7 @@ class CreateInvoiceRequest extends Request implements HasBody
 
     public function resolveEndpoint(): string
     {
-        return "/kb_invoice";
+        return "/2.0/kb_invoice";
     }
 
     protected function defaultBody(): array

@@ -1,7 +1,10 @@
 <?php
 
 use Bexio\BexioClient;
+use Bexio\Resources\Accounting\Taxes\Requests\GetTaxesRequest;
+use Bexio\Resources\Accounting\Taxes\Tax;
 use Saloon\Http\Faking\MockClient;
+use Saloon\Http\Faking\MockResponse;
 
 
 uses()
@@ -48,14 +51,41 @@ expect()->extend('toBeOne', function () {
 |
 */
 
+//region Clients
 function testClient(): BexioClient
 {
     return BexioClient::testAccount();
 }
 
+function testClientDebug(): BexioClient
+{
+    return testClient()->debug();
+}
+
 function testMockClient(string $requestClass, string $fixture): BexioClient
 {
     return BexioClient::testAccount()->withMockClient(new MockClient([
-        $requestClass => \Saloon\Http\Faking\MockResponse::fixture($fixture),
+        $requestClass => MockResponse::fixture($fixture),
     ]));
+}
+
+//endregion
+
+//region Helpers
+function testSaleTax(): Tax
+{
+    static $tax;
+    if ($tax === null) {
+        $request = new GetTaxesRequest();
+        $response = testClientDebug()->send($request);
+        $taxes = $request->createDtoFromResponse($response);
+        $tax = $taxes[0];
+    }
+    return $tax;
+}
+
+function testSaleTaxId(): int
+{
+    return 28;
+//    return testSaleTax()->id;
 }

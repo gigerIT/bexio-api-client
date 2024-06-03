@@ -53,17 +53,21 @@ class Resource
     public function toArray(): array
     {
         $reflection = new \ReflectionClass($this);
-        $properties = $reflection->getProperties();
+        $properties = $reflection->getProperties(\ReflectionProperty::IS_PUBLIC | \ReflectionProperty::IS_PROTECTED | \ReflectionProperty::IS_PRIVATE);
         $data = [];
 
         foreach ($properties as $property) {
-            $name = $property->getName();
-            if (isset($this->$name)) {
-                $data[$name] = $this->$name;
+            if (!$property->isStatic()) {
+                $property->setAccessible(true);
+                $name = $property->getName();
+                if (property_exists($this, $name) && isset($this->$name)) {
+                    $data[$name] = $property->getValue($this);
+                }
             }
-
         }
 
         return $data;
     }
+
+
 }

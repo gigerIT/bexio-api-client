@@ -10,14 +10,15 @@ class ItemPositionCustom extends ItemPosition
     public ItemPositionType $type = ItemPositionType::CUSTOM;
 
     public function __construct(
-        public ?string $amount,
-        public ?int    $unit_id,
-        public ?int    $account_id,
-        public ?int    $tax_id,
-        public ?string $text,
-        public ?string $unit_price,
-        public ?string $discount_in_percent,
-        public ?int    $parent_id,
+        public int     $tax_id,
+
+        public ?string $amount = null,
+        public ?int    $unit_id = null,
+        public ?int    $account_id = null,
+        public ?string $text = null,
+        public ?string $unit_price = null,
+        public ?string $discount_in_percent = null,
+        public ?int    $parent_id = null,
     )
 
     {

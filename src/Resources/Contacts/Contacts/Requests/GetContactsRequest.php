@@ -15,7 +15,7 @@ class GetContactsRequest extends Request
 
     public function resolveEndpoint(): string
     {
-        return "/contact";
+        return "/2.0/contact";
     }
 
     public function createDtoFromResponse(Response $response): array

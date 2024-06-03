@@ -6,9 +6,6 @@ namespace Bexio;
 
 use Saloon\Http\Auth\TokenAuthenticator;
 use Saloon\Http\Connector;
-use Saloon\Http\Faking\MockClient;
-use Saloon\Http\Request;
-use Saloon\Http\Response;
 
 class BexioClient extends Connector
 {
@@ -23,7 +20,7 @@ class BexioClient extends Connector
 
     public function resolveBaseUrl(): string
     {
-        return 'https://api.bexio.com/2.0';
+        return 'https://api.bexio.com';
     }
 
     public function defaultHeaders(): array
