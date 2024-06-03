@@ -72,6 +72,18 @@ function testMockClient(string $requestClass, string $fixture): BexioClient
 //endregion
 
 //region Helpers
+
+function testContact()
+{
+    static $contact;
+}
+
+function testContactId(): int
+{
+    return 1;
+}
+
+
 function testSaleTax(): Tax
 {
     static $tax;
