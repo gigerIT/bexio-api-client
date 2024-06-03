@@ -41,4 +41,4 @@ $response = $client->send($request);
 
 Our DTOs provide you with type hinting and autocompletion in your IDE.
 
-![img_1.png](docs/assets/contacts_typehint.png)
+<img src="docs/assets/contacts_typehint.png" alt="drawing" width="600"/>
