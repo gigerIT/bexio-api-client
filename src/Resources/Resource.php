@@ -6,7 +6,7 @@ namespace Bexio\Resources;
 
 class Resource
 {
-    public static function from(array $data): static
+    final public static function from(array $data): static
     {
         $reflector = new \ReflectionClass(static::class);
         $instance = $reflector->newInstanceWithoutConstructor();
@@ -44,13 +44,13 @@ class Resource
     }
 
 
-    public static function collect(array $resources): array
+    final public static function collect(array $resources): array
     {
         return array_map(fn($resource) => self::from($resource), $resources);
     }
 
 
-    public function toArray(): array
+    final public function toArray(): array
     {
         $reflection = new \ReflectionClass($this);
         $properties = $reflection->getProperties(\ReflectionProperty::IS_PUBLIC | \ReflectionProperty::IS_PROTECTED | \ReflectionProperty::IS_PRIVATE);

@@ -3,7 +3,6 @@
 namespace Bexio\Resources\Contacts\Contacts\Requests;
 
 use Bexio\Resources\Contacts\Contacts\Contact;
-use Bexio\Resources\Contacts\Contacts\Enums\ContactType;
 use function Pest\Faker\fake;
 
 it('can create a contact', function () {
@@ -11,8 +10,17 @@ it('can create a contact', function () {
 
     $response = testClient()->send($request);
 
-    $newContact = $request->createDtoFromResponse($response);
+    $contact = $request->createDtoFromResponse($response);
 
-    expect($newContact)->toBeInstanceOf(Contact::class)
-        ->and($newContact->name_1)->toBeString()->and($newContact->id)->toBeInt();
+    expect($contact)->toBeInstanceOf(Contact::class)
+        ->and($contact->name_1)->toBeString()->and($contact->id)->toBeInt();
+
+
+    $contact->
+
+
+    $contact->name_1 = fake()->name;
+
+
+
 });
