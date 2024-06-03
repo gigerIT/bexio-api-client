@@ -15,13 +15,10 @@ class Quote extends Resource
     public readonly float $total_rounding_difference;
     public readonly bool $show_total;
 
-
     public readonly string $contact_address;
 
     public readonly string $delivery_address;
-
     public readonly QuoteStatus $kb_item_status_id;
-
 
     public readonly string $updated_at;
 
