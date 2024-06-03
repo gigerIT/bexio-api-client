@@ -19,11 +19,7 @@ it('can create a contact', function () {
         phone_fixed: fake()->phoneNumber(),
     );
 
-    $request = new CreateContactRequest($contact);
-
-    $response = testClient()->send($request);
-
-    $newContact = $request->createDtoFromResponse($response);
+    $newContact = $contact->useClient(testClientDebug())->create();
 
     expect($newContact)->toBeInstanceOf(Contact::class)
         ->and($newContact->name_1)->toBeString()->and($newContact->id)->toBeInt();

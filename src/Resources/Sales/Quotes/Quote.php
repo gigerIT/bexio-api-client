@@ -6,9 +6,12 @@ namespace Bexio\Resources\Sales\Quotes;
 use Bexio\Resources\Resource;
 use Bexio\Resources\Sales\ItemPositions\ItemPosition;
 use Bexio\Resources\Sales\Quotes\Enums\QuoteStatus;
+use Bexio\Resources\Sales\Quotes\Requests\CreateQuoteRequest;
 
 class Quote extends Resource
 {
+    const CREATE_REQUEST = CreateQuoteRequest::class;
+
     public readonly string $total_gross;
     public readonly string $total_net;
     public readonly string $total_taxes;

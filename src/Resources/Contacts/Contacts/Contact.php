@@ -4,12 +4,24 @@ declare(strict_types=1);
 namespace Bexio\Resources\Contacts\Contacts;
 
 use Bexio\Resources\Contacts\Contacts\Enums\ContactType;
+use Bexio\Resources\Contacts\Contacts\Requests\CreateContactRequest;
+use Bexio\Resources\Contacts\Contacts\Requests\DeleteContactRequest;
+use Bexio\Resources\Contacts\Contacts\Requests\GetContactRequest;
+use Bexio\Resources\Contacts\Contacts\Requests\GetContactsRequest;
+use Bexio\Resources\Contacts\Contacts\Requests\UpdateContactRequest;
 use Bexio\Resources\Resource;
 
 class Contact extends Resource
 {
+    const INDEX_REQUEST = GetContactsRequest::class;
+    const SHOW_REQUEST = GetContactRequest::class;
+    const CREATE_REQUEST = CreateContactRequest::class;
+    const UPDATE_REQUEST = UpdateContactRequest::class;
+    const DELETE_REQUEST = DeleteContactRequest::class;
+
+
     public function __construct(
-        public string          $name_1,
+        public ?string $name_1 = null,
         public int|ContactType $contact_type_id = ContactType::COMPANY,
         public ?int            $id = null,
         public ?string         $nr = null,
