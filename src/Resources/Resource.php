@@ -9,6 +9,8 @@ use Saloon\Http\Request;
 
 class Resource
 {
+    use QueryBuilder;
+
     const INDEX_REQUEST = Request::class;
     const SHOW_REQUEST = Request::class;
     const CREATE_REQUEST = Request::class;
@@ -17,6 +19,7 @@ class Resource
 
 
     private BexioClient $client;
+
 
     final public static function from(array $data): static
     {
@@ -80,78 +83,22 @@ class Resource
         return $data;
     }
 
+//    public function __call($method, $args)
+//    {
+//        if ($method == 'useClient') {
+//            $this->useClient($args);
+//        }
+//    }
+//
+//    public static function __callStatic($name, $arguments)
+//    {
+//        $instance = new static();
+//
+//        if (method_exists($instance, $name)) {
+//            return call_user_func_array([$instance, $name], $arguments);
+//        } else {
+//            throw new \BadMethodCallException("Method $name does not exist");
+//        }
+//    }
 
-    final public function useClient(BexioClient $client): static
-    {
-        $this->client = $client;
-        return $this;
-    }
-
-
-    final public function all(): array
-    {
-        $request = $this->newRequestInstance(static::INDEX_REQUEST);
-        $response = $this->client->send($request);
-        return $request->createDtoFromResponse($response)->useClient($this->client);
-    }
-
-
-    final public function find(int $id): static
-    {
-        $request = $this->newRequestInstance(static::SHOW_REQUEST, $id);
-        $response = $this->client->send($request);
-        return $request->createDtoFromResponse($response)->useClient($this->client);
-    }
-
-    final public function create(): static
-    {
-        $request = $this->newRequestInstance(static::CREATE_REQUEST, $this);
-        $response = $this->client->send($request);
-        return $request->createDtoFromResponse($response)->useClient($this->client);
-    }
-
-    final public function update(): static
-    {
-        $request = $this->newRequestInstance(static::UPDATE_REQUEST, $this->id, $this);
-        $response = $this->client->send($request);
-        return $request->createDtoFromResponse($response)->useClient($this->client);
-    }
-
-    final public function delete(): bool
-    {
-        $request = $this->newRequestInstance(static::DELETE_REQUEST, $this->id);
-        $response = $this->client->send($request);
-        return $response->successful();
-    }
-
-    final public function save(): static
-    {
-        if ($this->id) {
-            return $this->update();
-        } else {
-            return $this->create();
-        }
-    }
-
-    private function newRequestInstance(string $requestClass, ...$args): Request
-    {
-        try {
-            $class = $requestClass;
-            return new $class(...$args);
-        } catch (\Throwable $e) {
-            throw new \RuntimeException("Failed to create request instance: " . $e->getMessage());
-        }
-
-    }
-
-    public static function __callStatic($name, $arguments)
-    {
-        $instance = new self();
-
-        if (method_exists($instance, $name)) {
-            return call_user_func_array([$instance, $name], $arguments);
-        } else {
-            throw new \BadMethodCallException("Method $name does not exist");
-        }
-    }
 }

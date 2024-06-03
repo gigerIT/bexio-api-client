@@ -8,7 +8,7 @@ use function Pest\Faker\fake;
 it('can delete a Contact', function () {
     $contact = new Contact(name_1: fake()->company());
 
-    $contact = $contact->useClient(testClientDebug())->create();
+    $contact = $contact->attachClient(testClient())->create();
 
     expect($contact->delete())->toBeTrue();
 });

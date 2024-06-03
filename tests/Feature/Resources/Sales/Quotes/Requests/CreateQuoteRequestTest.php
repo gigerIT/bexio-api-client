@@ -20,7 +20,7 @@ it('can create a Quote', function () {
     );
 
 
-    $quote = $quote->useClient(testClient())->create();
+    $quote = $quote->attachClient(testClient())->create();
 
     expect($quote->title)->toBe('Test Quote')
         ->and($quote->kb_item_status_id)->toBe(QuoteStatus::DRAFT);
