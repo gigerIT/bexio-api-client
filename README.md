@@ -1,6 +1,7 @@
 # Bexio API PHP Client
 
-This is a ```saloonphp/saloon``` API Client for the Bexio API (https://docs.bexio.com).
+This is a <a href="https://docs.saloon.dev/">`saloonphp/saloon`</a> API Client for the Bexio
+API (https://docs.bexio.com).
 
 It provides an API Client and API Resources DTOs with types.
 
