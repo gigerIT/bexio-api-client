@@ -67,7 +67,7 @@ class Quote extends Resource
     {
     }
 
-    public function addPosition(ItemPosition $position)
+    public function addPosition(ItemPosition $position): void
     {
         $this->positions[] = $position->toArray();
     }
