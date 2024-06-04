@@ -8,12 +8,12 @@ use Saloon\Http\Request;
 trait QueryBuilder
 {
     private BexioClient $client;
-    
+
     public static function useClient(BexioClient $client): static
     {
-        $instance = new static();
-        $instance->client = $client;
-
+        $reflectionClass = new \ReflectionClass(static::class);
+        $instance = $reflectionClass->newInstanceWithoutConstructor();
+        $instance->attachClient($client);
         return $instance;
     }
 
@@ -47,7 +47,7 @@ trait QueryBuilder
     }
 
 
-    final public function find(int $id): static
+    final public function find(int|string $id): static
     {
         $request = $this->newRequestInstance(static::SHOW_REQUEST, $id);
         $response = $this->client->send($request);

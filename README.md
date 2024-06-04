@@ -17,7 +17,6 @@ composer require gigerit/bexio-api-client
 use Bexio\BeixoClient;
 use Bexio\Resources\Contacts\Contacts\Contact;
 
-
 $client = new BexioClient('api_token');
 
 // Get the Contact with the ID 1
