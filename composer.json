@@ -10,7 +10,10 @@
   "autoload": {
     "psr-4": {
       "Bexio\\": "src/"
-    }
+    },
+    "files": [
+      "src/Support/Data.php"
+    ]
   },
   "authors": [
     {
@@ -19,13 +22,14 @@
     }
   ],
   "require": {
-    "saloonphp/saloon": "^3.0"
+    "saloonphp/saloon": "^3.0",
+    "illuminate/container": "^11.9",
+    "spatie/laravel-data": "^4.6"
   },
   "require-dev": {
     "pestphp/pest": "^2.34",
     "pestphp/pest-plugin-faker": "^2.0",
     "symfony/var-dumper": "^7.1"
-
   },
   "config": {
     "allow-plugins": {

@@ -43,6 +43,9 @@ trait QueryBuilder
     {
         $request = $this->newRequestInstance(static::INDEX_REQUEST);
         $response = $this->client->send($request);
+        if (!$response->successful()) {
+            throw new \RuntimeException("Failed to fetch resources: " . $response->json());
+        }
         return $request->createDtoFromResponse($response);
     }
 
@@ -51,6 +54,9 @@ trait QueryBuilder
     {
         $request = $this->newRequestInstance(static::SHOW_REQUEST, $id);
         $response = $this->client->send($request);
+        if (!$response->successful()) {
+            throw new \RuntimeException("Failed to find resource: " . $response->json());
+        }
         return $request->createDtoFromResponse($response)->attachClient($this->client);
     }
 
@@ -59,6 +65,9 @@ trait QueryBuilder
     {
         $request = $this->newRequestInstance(static::DELETE_REQUEST, $this->id);
         $response = $this->client->send($request);
+        if (!$response->successful()) {
+            throw new \RuntimeException("Failed to delete resource: " . $response->json());
+        }
         return $response->successful();
     }
 
@@ -67,6 +76,9 @@ trait QueryBuilder
     {
         $request = $this->newRequestInstance(static::UPDATE_REQUEST, $this->id, $this);
         $response = $this->client->send($request);
+        if (!$response->successful()) {
+            throw new \RuntimeException("Failed to update resource: " . $response->json());
+        }
         return $request->createDtoFromResponse($response)->attachClient($this->client);
     }
 
@@ -74,6 +86,9 @@ trait QueryBuilder
     {
         $request = $this->newRequestInstance(static::CREATE_REQUEST, $this);
         $response = $this->client->send($request);
+        if (!$response->successful()) {
+            throw new \RuntimeException("Failed to create resource: " . print_r($response->json(), true));
+        }
         return $request->createDtoFromResponse($response)->attachClient($this->client);
     }
 

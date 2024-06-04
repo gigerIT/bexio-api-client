@@ -5,8 +5,10 @@ namespace Bexio\Resources\Sales\Quotes;
 
 use Bexio\Resources\Resource;
 use Bexio\Resources\Sales\ItemPositions\Concerns\HasPositions;
+use Bexio\Resources\Sales\ItemPositions\ItemPosition;
 use Bexio\Resources\Sales\Quotes\Enums\QuoteStatus;
 use Bexio\Resources\Sales\Quotes\Requests\CreateQuoteRequest;
+use Spatie\LaravelData\Attributes\DataCollectionOf;
 
 class Quote extends Resource
 {
@@ -64,6 +66,8 @@ class Quote extends Resource
         public ?string $viewed_by_client_at = null,
         public ?int    $kb_terms_of_payment_template_id = null,
         public ?string $template_slug = null,
+
+        #[DataCollectionOf(ItemPosition::class)]
         public ?array  $positions = null,
     )
     {

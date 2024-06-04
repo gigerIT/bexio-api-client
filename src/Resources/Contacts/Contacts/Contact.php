@@ -19,6 +19,11 @@ class Contact extends Resource
     const UPDATE_REQUEST = UpdateContactRequest::class;
     const DELETE_REQUEST = DeleteContactRequest::class;
 
+    public ?bool $is_lead;
+
+    public ?string $updated_at;
+    public ?string $profile_image;
+
 
     public function __construct(
         public ?string $name_1 = null,
@@ -44,13 +49,13 @@ class Contact extends Resource
         public ?string         $skype_name = null,
         public ?string         $remarks = null,
         public ?int            $language_id = null,
-        public ?bool           $is_lead = null,
+
+
         public ?string         $contact_group_ids = null,
         public ?string         $contact_branch_ids = null,
         public int             $user_id = 1,
         public int             $owner_id = 1,
-        public ?string         $updated_at = null,
-        public ?string         $profile_image = null
+
     )
     {
     }

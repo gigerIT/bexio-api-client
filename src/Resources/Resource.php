@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Bexio\Resources;
 
 use Saloon\Http\Request;
+use Spatie\LaravelData\Data;
 
-class Resource
+class Resource extends Data
 {
     use QueryBuilder;
 
@@ -16,193 +17,193 @@ class Resource
     const UPDATE_REQUEST = Request::class;
     const DELETE_REQUEST = Request::class;
 
-    /**
-     * @throws \ReflectionException
-     */
-    final public static function from(array $data): static
-    {
-        $reflector = new \ReflectionClass(static::class);
-        $instance = $reflector->newInstanceWithoutConstructor();
-
-        foreach ($data as $key => $value) {
-            if ($reflector->hasProperty($key)) {
-                $property = $reflector->getProperty($key);
-                $propertyType = $property->getType();
-
-                if ($propertyType instanceof \ReflectionNamedType) {
-                    $typeName = $propertyType->getName();
-
-                    if (enum_exists($typeName)) {
-                        $enumClass = $typeName;
-                        $property->setValue($instance, $enumClass::from($value));
-
-                    } elseif (class_exists($typeName)) {
-                        if (is_array($value)) {
-                            if (self::isAssocArray($value)) {
-                                // Process nested enums and create the nested object
-                                $nestedObject = $typeName::from(self::processNestedEnums($typeName, $value));
-                                $property->setValue($instance, $nestedObject);
-                            } else {
-                                $nestedObjects = [];
-                                foreach ($value as $item) {
-                                    if (is_array($item)) {
-                                        $nestedObjects[] = $typeName::from(self::processNestedEnums($typeName, $item));
-                                    } else {
-                                        $nestedObjects[] = $item;
-                                    }
-                                }
-                                $property->setValue($instance, $nestedObjects);
-                            }
-                        } else {
-                            $property->setValue($instance, $value);
-                        }
-                    } else {
-                        $property->setValue($instance, $value);
-                    }
-                } else {
-                    $property->setValue($instance, $value);
-                }
-            }
-        }
-
-        // Process constructor parameters
-        $constructor = $reflector->getConstructor();
-        if ($constructor) {
-            $constructorParams = [];
-            foreach ($constructor->getParameters() as $param) {
-                $paramName = $param->getName();
-                if (array_key_exists($paramName, $data)) {
-                    $paramType = $param->getType();
-                    if ($paramType instanceof \ReflectionNamedType) {
-                        $paramTypeName = $paramType->getName();
-                        if (enum_exists($paramTypeName) && is_string($data[$paramName])) {
-                            $constructorParams[] = $paramTypeName::from($data[$paramName]);
-                        } elseif (class_exists($paramTypeName) && is_array($data[$paramName])) {
-                            $constructorParams[] = $paramTypeName::from(self::processNestedEnums($paramTypeName, $data[$paramName]));
-                        } else {
-                            $constructorParams[] = $data[$paramName];
-                        }
-                    } else {
-                        $constructorParams[] = $data[$paramName];
-                    }
-                } else {
-                    $constructorParams[] = $param->isDefaultValueAvailable() ? $param->getDefaultValue() : null;
-                }
-            }
-            $reflector->getConstructor()->invokeArgs($instance, $constructorParams);
-        }
-
-        // Set properties again to ensure all enums are correctly instantiated
-        foreach ($data as $key => $value) {
-            if ($reflector->hasProperty($key)) {
-                $property = $reflector->getProperty($key);
-                $propertyType = $property->getType();
-
-                if ($propertyType instanceof \ReflectionNamedType) {
-                    $typeName = $propertyType->getName();
-
-                    if (enum_exists($typeName)) {
-                        $enumClass = $typeName;
-                        if (is_string($value)) {
-                            $property->setValue($instance, $enumClass::from($value));
-                        } else {
-                            $property->setValue($instance, $value);
-                        }
-                    } elseif (class_exists($typeName)) {
-                        if (is_array($value)) {
-                            if (self::isAssocArray($value)) {
-                                $nestedObject = $typeName::from(self::processNestedEnums($typeName, $value));
-                                $property->setValue($instance, $nestedObject);
-                            } else {
-                                $nestedObjects = [];
-                                foreach ($value as $item) {
-                                    if (is_array($item)) {
-                                        $nestedObjects[] = $typeName::from(self::processNestedEnums($typeName, $item));
-                                    } else {
-                                        $nestedObjects[] = $item;
-                                    }
-                                }
-                                $property->setValue($instance, $nestedObjects);
-                            }
-                        } else {
-                            $property->setValue($instance, $value);
-                        }
-                    } else {
-                        $property->setValue($instance, $value);
-                    }
-                } else {
-                    $property->setValue($instance, $value);
-                }
-            }
-        }
-
-        return $instance;
-    }
-
-    /**
-     * Helper function to check if an array is associative.
-     */
-    private static function isAssocArray(array $arr): bool
-    {
-        if (array() === $arr) return false;
-        return array_keys($arr) !== range(0, count($arr) - 1);
-    }
-
-    /**
-     * Processes nested enums within a given class.
-     *
-     * @param string $className
-     * @param array $data
-     * @return array
-     * @throws \ReflectionException
-     */
-    private static function processNestedEnums(string $className, array $data): array
-    {
-        $reflector = new \ReflectionClass($className);
-
-        foreach ($data as $key => $value) {
-            if ($reflector->hasProperty($key)) {
-                $property = $reflector->getProperty($key);
-                $propertyType = $property->getType();
-
-                if ($propertyType instanceof \ReflectionNamedType) {
-                    $typeName = $propertyType->getName();
-
-                    if (enum_exists($typeName) && is_string($value)) {
-                        $data[$key] = $typeName::from($value);
-                    }
-                }
-            }
-        }
-
-        return $data;
-    }
-
-
-    final public static function collect(array $resources): array
-    {
-        return array_map(fn($resource) => self::from($resource), $resources);
-    }
-
-
-    final public function toArray(): array
-    {
-        $reflection = new \ReflectionClass($this);
-        $properties = $reflection->getProperties(\ReflectionProperty::IS_PUBLIC | \ReflectionProperty::IS_PROTECTED | \ReflectionProperty::IS_PRIVATE);
-        $data = [];
-
-        foreach ($properties as $property) {
-            if (!$property->isStatic()) {
-                $property->setAccessible(true);
-                $name = $property->getName();
-                if (property_exists($this, $name) && isset($this->$name)) {
-                    $data[$name] = $property->getValue($this);
-                }
-            }
-        }
-
-        return $data;
-    }
+//    /**
+//     * @throws \ReflectionException
+//     */
+//    final public static function from(array $data): static
+//    {
+//        $reflector = new \ReflectionClass(static::class);
+//        $instance = $reflector->newInstanceWithoutConstructor();
+//
+//        foreach ($data as $key => $value) {
+//            if ($reflector->hasProperty($key)) {
+//                $property = $reflector->getProperty($key);
+//                $propertyType = $property->getType();
+//
+//                if ($propertyType instanceof \ReflectionNamedType) {
+//                    $typeName = $propertyType->getName();
+//
+//                    if (enum_exists($typeName)) {
+//                        $enumClass = $typeName;
+//                        $property->setValue($instance, $enumClass::from($value));
+//
+//                    } elseif (class_exists($typeName)) {
+//                        if (is_array($value)) {
+//                            if (self::isAssocArray($value)) {
+//                                // Process nested enums and create the nested object
+//                                $nestedObject = $typeName::from(self::processNestedEnums($typeName, $value));
+//                                $property->setValue($instance, $nestedObject);
+//                            } else {
+//                                $nestedObjects = [];
+//                                foreach ($value as $item) {
+//                                    if (is_array($item)) {
+//                                        $nestedObjects[] = $typeName::from(self::processNestedEnums($typeName, $item));
+//                                    } else {
+//                                        $nestedObjects[] = $item;
+//                                    }
+//                                }
+//                                $property->setValue($instance, $nestedObjects);
+//                            }
+//                        } else {
+//                            $property->setValue($instance, $value);
+//                        }
+//                    } else {
+//                        $property->setValue($instance, $value);
+//                    }
+//                } else {
+//                    $property->setValue($instance, $value);
+//                }
+//            }
+//        }
+//
+//        // Process constructor parameters
+//        $constructor = $reflector->getConstructor();
+//        if ($constructor) {
+//            $constructorParams = [];
+//            foreach ($constructor->getParameters() as $param) {
+//                $paramName = $param->getName();
+//                if (array_key_exists($paramName, $data)) {
+//                    $paramType = $param->getType();
+//                    if ($paramType instanceof \ReflectionNamedType) {
+//                        $paramTypeName = $paramType->getName();
+//                        if (enum_exists($paramTypeName) && is_string($data[$paramName])) {
+//                            $constructorParams[] = $paramTypeName::from($data[$paramName]);
+//                        } elseif (class_exists($paramTypeName) && is_array($data[$paramName])) {
+//                            $constructorParams[] = $paramTypeName::from(self::processNestedEnums($paramTypeName, $data[$paramName]));
+//                        } else {
+//                            $constructorParams[] = $data[$paramName];
+//                        }
+//                    } else {
+//                        $constructorParams[] = $data[$paramName];
+//                    }
+//                } else {
+//                    $constructorParams[] = $param->isDefaultValueAvailable() ? $param->getDefaultValue() : null;
+//                }
+//            }
+//            $reflector->getConstructor()->invokeArgs($instance, $constructorParams);
+//        }
+//
+//        // Set properties again to ensure all enums are correctly instantiated
+//        foreach ($data as $key => $value) {
+//            if ($reflector->hasProperty($key)) {
+//                $property = $reflector->getProperty($key);
+//                $propertyType = $property->getType();
+//
+//                if ($propertyType instanceof \ReflectionNamedType) {
+//                    $typeName = $propertyType->getName();
+//
+//                    if (enum_exists($typeName)) {
+//                        $enumClass = $typeName;
+//                        if (is_string($value)) {
+//                            $property->setValue($instance, $enumClass::from($value));
+//                        } else {
+//                            $property->setValue($instance, $value);
+//                        }
+//                    } elseif (class_exists($typeName)) {
+//                        if (is_array($value)) {
+//                            if (self::isAssocArray($value)) {
+//                                $nestedObject = $typeName::from(self::processNestedEnums($typeName, $value));
+//                                $property->setValue($instance, $nestedObject);
+//                            } else {
+//                                $nestedObjects = [];
+//                                foreach ($value as $item) {
+//                                    if (is_array($item)) {
+//                                        $nestedObjects[] = $typeName::from(self::processNestedEnums($typeName, $item));
+//                                    } else {
+//                                        $nestedObjects[] = $item;
+//                                    }
+//                                }
+//                                $property->setValue($instance, $nestedObjects);
+//                            }
+//                        } else {
+//                            $property->setValue($instance, $value);
+//                        }
+//                    } else {
+//                        $property->setValue($instance, $value);
+//                    }
+//                } else {
+//                    $property->setValue($instance, $value);
+//                }
+//            }
+//        }
+//
+//        return $instance;
+//    }
+//
+//    /**
+//     * Helper function to check if an array is associative.
+//     */
+//    private static function isAssocArray(array $arr): bool
+//    {
+//        if (array() === $arr) return false;
+//        return array_keys($arr) !== range(0, count($arr) - 1);
+//    }
+//
+//    /**
+//     * Processes nested enums within a given class.
+//     *
+//     * @param string $className
+//     * @param array $data
+//     * @return array
+//     * @throws \ReflectionException
+//     */
+//    private static function processNestedEnums(string $className, array $data): array
+//    {
+//        $reflector = new \ReflectionClass($className);
+//
+//        foreach ($data as $key => $value) {
+//            if ($reflector->hasProperty($key)) {
+//                $property = $reflector->getProperty($key);
+//                $propertyType = $property->getType();
+//
+//                if ($propertyType instanceof \ReflectionNamedType) {
+//                    $typeName = $propertyType->getName();
+//
+//                    if (enum_exists($typeName) && is_string($value)) {
+//                        $data[$key] = $typeName::from($value);
+//                    }
+//                }
+//            }
+//        }
+//
+//        return $data;
+//    }
+//
+//
+//    final public static function collect(array $resources): array
+//    {
+//        return array_map(fn($resource) => self::from($resource), $resources);
+//    }
+//
+//
+//    final public function toArray(): array
+//    {
+//        $reflection = new \ReflectionClass($this);
+//        $properties = $reflection->getProperties(\ReflectionProperty::IS_PUBLIC | \ReflectionProperty::IS_PROTECTED | \ReflectionProperty::IS_PRIVATE);
+//        $data = [];
+//
+//        foreach ($properties as $property) {
+//            if (!$property->isStatic()) {
+//                $property->setAccessible(true);
+//                $name = $property->getName();
+//                if (property_exists($this, $name) && isset($this->$name)) {
+//                    $data[$name] = $property->getValue($this);
+//                }
+//            }
+//        }
+//
+//        return $data;
+//    }
 
 //    public function __call($method, $args)
 //    {
