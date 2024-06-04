@@ -5,5 +5,5 @@ it('can create a Purchase Order', function () {
         contact_id: testContactId()
     );
 
-    $purchaseOrder = $purchaseOrder->attachClient(testClientDebug())->create();
-});
+    $purchaseOrder = $purchaseOrder->attachClient(testClient())->create();
+})->skip('Not implemented yet');

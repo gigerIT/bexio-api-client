@@ -34,22 +34,19 @@ class Resource
 
                     if (enum_exists($typeName)) {
                         $enumClass = $typeName;
-                        if (is_string($value)) {
-                            $property->setValue($instance, $enumClass::from($value));
-                        } else {
-                            $property->setValue($instance, $value);
-                        }
+                        $property->setValue($instance, $enumClass::from($value));
+
                     } elseif (class_exists($typeName)) {
                         if (is_array($value)) {
                             if (self::isAssocArray($value)) {
-                                // Recursively create the nested object
-                                $nestedObject = $typeName::from($value);
+                                // Process nested enums and create the nested object
+                                $nestedObject = $typeName::from(self::processNestedEnums($typeName, $value));
                                 $property->setValue($instance, $nestedObject);
                             } else {
                                 $nestedObjects = [];
                                 foreach ($value as $item) {
                                     if (is_array($item)) {
-                                        $nestedObjects[] = $typeName::from($item);
+                                        $nestedObjects[] = $typeName::from(self::processNestedEnums($typeName, $item));
                                     } else {
                                         $nestedObjects[] = $item;
                                     }
@@ -68,7 +65,7 @@ class Resource
             }
         }
 
-        // Call the constructor manually if needed
+        // Process constructor parameters
         $constructor = $reflector->getConstructor();
         if ($constructor) {
             $constructorParams = [];
@@ -78,8 +75,10 @@ class Resource
                     $paramType = $param->getType();
                     if ($paramType instanceof \ReflectionNamedType) {
                         $paramTypeName = $paramType->getName();
-                        if (class_exists($paramTypeName) && is_array($data[$paramName])) {
+                        if (enum_exists($paramTypeName) && is_string($data[$paramName])) {
                             $constructorParams[] = $paramTypeName::from($data[$paramName]);
+                        } elseif (class_exists($paramTypeName) && is_array($data[$paramName])) {
+                            $constructorParams[] = $paramTypeName::from(self::processNestedEnums($paramTypeName, $data[$paramName]));
                         } else {
                             $constructorParams[] = $data[$paramName];
                         }
@@ -91,6 +90,50 @@ class Resource
                 }
             }
             $reflector->getConstructor()->invokeArgs($instance, $constructorParams);
+        }
+
+        // Set properties again to ensure all enums are correctly instantiated
+        foreach ($data as $key => $value) {
+            if ($reflector->hasProperty($key)) {
+                $property = $reflector->getProperty($key);
+                $propertyType = $property->getType();
+
+                if ($propertyType instanceof \ReflectionNamedType) {
+                    $typeName = $propertyType->getName();
+
+                    if (enum_exists($typeName)) {
+                        $enumClass = $typeName;
+                        if (is_string($value)) {
+                            $property->setValue($instance, $enumClass::from($value));
+                        } else {
+                            $property->setValue($instance, $value);
+                        }
+                    } elseif (class_exists($typeName)) {
+                        if (is_array($value)) {
+                            if (self::isAssocArray($value)) {
+                                $nestedObject = $typeName::from(self::processNestedEnums($typeName, $value));
+                                $property->setValue($instance, $nestedObject);
+                            } else {
+                                $nestedObjects = [];
+                                foreach ($value as $item) {
+                                    if (is_array($item)) {
+                                        $nestedObjects[] = $typeName::from(self::processNestedEnums($typeName, $item));
+                                    } else {
+                                        $nestedObjects[] = $item;
+                                    }
+                                }
+                                $property->setValue($instance, $nestedObjects);
+                            }
+                        } else {
+                            $property->setValue($instance, $value);
+                        }
+                    } else {
+                        $property->setValue($instance, $value);
+                    }
+                } else {
+                    $property->setValue($instance, $value);
+                }
+            }
         }
 
         return $instance;
@@ -105,7 +148,35 @@ class Resource
         return array_keys($arr) !== range(0, count($arr) - 1);
     }
 
+    /**
+     * Processes nested enums within a given class.
+     *
+     * @param string $className
+     * @param array $data
+     * @return array
+     * @throws \ReflectionException
+     */
+    private static function processNestedEnums(string $className, array $data): array
+    {
+        $reflector = new \ReflectionClass($className);
 
+        foreach ($data as $key => $value) {
+            if ($reflector->hasProperty($key)) {
+                $property = $reflector->getProperty($key);
+                $propertyType = $property->getType();
+
+                if ($propertyType instanceof \ReflectionNamedType) {
+                    $typeName = $propertyType->getName();
+
+                    if (enum_exists($typeName) && is_string($value)) {
+                        $data[$key] = $typeName::from($value);
+                    }
+                }
+            }
+        }
+
+        return $data;
+    }
 
 
     final public static function collect(array $resources): array
