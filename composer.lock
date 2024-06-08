@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-  "content-hash": "3ba05f1dc730ecf40373de7c75508534",
+  "content-hash": "6226c702b62c8a6e20321dc4dddc3f57",
     "packages": [
         {
           "name": "amphp/amp",
@@ -955,6 +955,47 @@
           "source": "https://github.com/doctrine/deprecations/tree/1.1.3"
         },
         "time": "2024-01-30T19:34:25+00:00"
+      },
+      {
+        "name": "gigerit/spatie-laravel-data-standalone",
+        "version": "v1.0.1",
+        "source": {
+          "type": "git",
+          "url": "https://github.com/gigerIT/spatie-laravel-data-standalone.git",
+          "reference": "fe2f8fc60f61d639da543238cae5330aa3722d3d"
+        },
+        "dist": {
+          "type": "zip",
+          "url": "https://api.github.com/repos/gigerIT/spatie-laravel-data-standalone/zipball/fe2f8fc60f61d639da543238cae5330aa3722d3d",
+          "reference": "fe2f8fc60f61d639da543238cae5330aa3722d3d",
+          "shasum": ""
+        },
+        "require": {
+          "illuminate/container": "^11.9",
+          "saloonphp/saloon": "^3.0",
+          "spatie/laravel-data": "^4.6"
+        },
+        "type": "library",
+        "autoload": {
+          "files": [
+            "src/spatie-laravel-data-standalone.php"
+          ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+          "MIT"
+        ],
+        "authors": [
+          {
+            "name": "gigerIT"
+          }
+        ],
+        "description": "A standalone version of the spatie/laravel-data package",
+        "support": {
+          "issues": "https://github.com/gigerIT/spatie-laravel-data-standalone/issues",
+          "source": "https://github.com/gigerIT/spatie-laravel-data-standalone/tree/v1.0.1"
+        },
+        "time": "2024-06-08T18:59:26+00:00"
       },
       {
             "name": "guzzlehttp/guzzle",

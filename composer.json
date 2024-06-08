@@ -10,10 +10,7 @@
   "autoload": {
     "psr-4": {
       "Bexio\\": "src/"
-    },
-    "files": [
-      "src/Support/Data.php"
-    ]
+    }
   },
   "authors": [
     {
@@ -24,7 +21,8 @@
   "require": {
     "saloonphp/saloon": "^3.0",
     "illuminate/container": "^11.9",
-    "spatie/laravel-data": "^4.6"
+    "spatie/laravel-data": "^4.6",
+    "gigerit/spatie-laravel-data-standalone": "^1.0"
   },
   "require-dev": {
     "pestphp/pest": "^2.34",
