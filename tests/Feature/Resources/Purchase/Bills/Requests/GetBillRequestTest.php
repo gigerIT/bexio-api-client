@@ -8,4 +8,4 @@ it('can get a Bill', function () {
     expect($bill)->toBeInstanceOf(Bill::class);
 
 //    dump($bill);
-})->skip('Until laravel-data bug is fixed');
+});

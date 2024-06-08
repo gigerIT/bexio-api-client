@@ -7,7 +7,6 @@ use Bexio\Resources\Purchase\Bills\Enums\BillStatus;
 use Bexio\Resources\Purchase\Bills\Requests\CreateBillRequest;
 use Bexio\Resources\Purchase\Bills\Requests\GetBillRequest;
 use Bexio\Resources\Resource;
-use Spatie\LaravelData\Attributes\DataCollectionOf;
 
 class Bill extends Resource
 {
@@ -35,12 +34,12 @@ class Bill extends Resource
     public function __construct(
         public int          $supplier_id,
         public int          $contact_partner_id,
-        public BillAddress  $address,
+//        public BillAddress  $address,
 
         public string       $bill_date,
         public string       $due_date,
 
-        #[DataCollectionOf(BillLineItem::class)]
+        /** @var BillLineItem[] */
         public array        $line_items,
 
         public ?string      $title = null,
@@ -68,7 +67,7 @@ class Bill extends Resource
         public array        $attachment_ids = [],
 
 
-        #[DataCollectionOf(BillDiscount::class)]
+        /** @var BillDiscount[] */
         public array        $discounts = [],
 
         public ?BillPayment $payment = null,

@@ -36,10 +36,15 @@ $contact->save();
 
 See [Tests](tests/Feature/Resources) for more Examples.
 
-## DTOs
+## Data Transfer Objects
 
 DTOs provide type hinting and autocompletion in the IDE, for a better development experience.
 <img src="docs/assets/contacts_typehint.png" alt="drawing" width="600"/>
+
+## Authentication
+
+Currently, the package only supports the simple API Token authentication, as we did the implementation for one client
+project only.
 
 ## Available Resources
 

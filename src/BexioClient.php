@@ -6,9 +6,12 @@ namespace Bexio;
 
 use Saloon\Http\Auth\TokenAuthenticator;
 use Saloon\Http\Connector;
+use Saloon\Traits\Plugins\AlwaysThrowOnErrors;
 
 class BexioClient extends Connector
 {
+    use AlwaysThrowOnErrors;
+
     public function __construct(public readonly string $apiToken)
     {
     }

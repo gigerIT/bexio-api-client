@@ -24,4 +24,4 @@ it('can create a Quote', function () {
 
     expect($quote)->toBeInstanceOf(Quote::class)->and($quote->title)->toBe('Test Quote')
         ->and($quote->kb_item_status_id)->toBe(QuoteStatus::DRAFT);
-})->skip('needs  positions types mapping implementation');
+})->skip('error with positions type because of bug in laravel-data (nested enum issue)');
