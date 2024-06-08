@@ -24,6 +24,11 @@ trait QueryBuilder
         return $this;
     }
 
+    protected function client(): BexioClient
+    {
+        return $this->client;
+    }
+
     private function newRequestInstance(?string $requestClass = null, ...$args): Request
     {
         if (!$requestClass) {
@@ -42,7 +47,7 @@ trait QueryBuilder
     final public function all(): array
     {
         $request = $this->newRequestInstance(static::INDEX_REQUEST);
-        $response = $this->client->send($request);
+        $response = $this->client()->send($request);
         if (!$response->successful()) {
             throw new \RuntimeException("Failed to fetch resources: " . $response->json());
         }
@@ -53,15 +58,15 @@ trait QueryBuilder
     final public function find(int|string $id): static
     {
         $request = $this->newRequestInstance(static::SHOW_REQUEST, $id);
-        $response = $this->client->send($request);
-        return $request->createDtoFromResponse($response)->attachClient($this->client);
+        $response = $this->client()->send($request);
+        return $request->createDtoFromResponse($response)->attachClient($this->client());
     }
 
 
     final public function delete(): bool
     {
         $request = $this->newRequestInstance(static::DELETE_REQUEST, $this->id);
-        $response = $this->client->send($request);
+        $response = $this->client()->send($request);
         return $response->successful();
     }
 
@@ -69,15 +74,15 @@ trait QueryBuilder
     final public function update(): static
     {
         $request = $this->newRequestInstance(static::UPDATE_REQUEST, $this->id, $this);
-        $response = $this->client->send($request);
-        return $request->createDtoFromResponse($response)->attachClient($this->client);
+        $response = $this->client()->send($request);
+        return $request->createDtoFromResponse($response)->attachClient($this->client());
     }
 
     final public function create(): static
     {
         $request = $this->newRequestInstance(static::CREATE_REQUEST, $this);
-        $response = $this->client->send($request);
-        return $request->createDtoFromResponse($response)->attachClient($this->client);
+        $response = $this->client()->send($request);
+        return $request->createDtoFromResponse($response)->attachClient($this->client());
     }
 
     final public function save(): static

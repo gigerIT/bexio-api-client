@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bexio\Resources\Sales\Invoices\Requests;
 
-use Bexio\Resources\Contacts\Contacts\Contact;
+use Bexio\Resources\Sales\Invoices\Invoice;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -17,7 +17,7 @@ class CreateInvoiceRequest extends Request implements HasBody
 
     protected Method $method = Method::POST;
 
-    public function __construct(readonly protected Contact $contact)
+    public function __construct(readonly protected Invoice $invoice)
     {
     }
 
@@ -29,12 +29,12 @@ class CreateInvoiceRequest extends Request implements HasBody
 
     protected function defaultBody(): array
     {
-        return $this->contact->toArray();
+        return $this->invoice->toArray();
     }
 
-    public function createDtoFromResponse(Response $response): Contact
+    public function createDtoFromResponse(Response $response): Invoice
     {
-        return Contact::from($response->json());
+        return Invoice::from($response->json());
     }
 
 }

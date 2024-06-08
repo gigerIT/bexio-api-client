@@ -958,16 +958,16 @@
       },
       {
         "name": "gigerit/spatie-laravel-data-standalone",
-        "version": "v1.0.1",
+        "version": "v1.0.3",
         "source": {
           "type": "git",
           "url": "https://github.com/gigerIT/spatie-laravel-data-standalone.git",
-          "reference": "fe2f8fc60f61d639da543238cae5330aa3722d3d"
+          "reference": "5abf6d9fbac20e52e51b5119e06389d0113ba7b8"
         },
         "dist": {
           "type": "zip",
-          "url": "https://api.github.com/repos/gigerIT/spatie-laravel-data-standalone/zipball/fe2f8fc60f61d639da543238cae5330aa3722d3d",
-          "reference": "fe2f8fc60f61d639da543238cae5330aa3722d3d",
+          "url": "https://api.github.com/repos/gigerIT/spatie-laravel-data-standalone/zipball/5abf6d9fbac20e52e51b5119e06389d0113ba7b8",
+          "reference": "5abf6d9fbac20e52e51b5119e06389d0113ba7b8",
           "shasum": ""
         },
         "require": {
@@ -993,9 +993,9 @@
         "description": "A standalone version of the spatie/laravel-data package",
         "support": {
           "issues": "https://github.com/gigerIT/spatie-laravel-data-standalone/issues",
-          "source": "https://github.com/gigerIT/spatie-laravel-data-standalone/tree/v1.0.1"
+          "source": "https://github.com/gigerIT/spatie-laravel-data-standalone/tree/v1.0.3"
         },
-        "time": "2024-06-08T18:59:26+00:00"
+        "time": "2024-06-08T21:01:24+00:00"
       },
       {
             "name": "guzzlehttp/guzzle",

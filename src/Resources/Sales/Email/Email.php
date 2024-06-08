@@ -8,6 +8,7 @@ use Bexio\Resources\Resource;
 class Email extends Resource
 {
     public function __construct(
+        #[\Spatie\LaravelData\Attributes\Validation\Email]
         public string $recipient_email,
         public string $subject,
         public string $message,
