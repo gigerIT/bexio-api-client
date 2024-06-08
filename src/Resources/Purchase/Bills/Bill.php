@@ -7,6 +7,7 @@ use Bexio\Resources\Purchase\Bills\Enums\BillStatus;
 use Bexio\Resources\Purchase\Bills\Requests\CreateBillRequest;
 use Bexio\Resources\Purchase\Bills\Requests\GetBillRequest;
 use Bexio\Resources\Resource;
+use Spatie\LaravelData\Attributes\Validation\Date;
 
 class Bill extends Resource
 {
@@ -34,8 +35,9 @@ class Bill extends Resource
     public function __construct(
         public int          $supplier_id,
         public int          $contact_partner_id,
-//        public BillAddress  $address,
+        public BillAddress  $address,
 
+        #[Date]
         public string       $bill_date,
         public string       $due_date,
 

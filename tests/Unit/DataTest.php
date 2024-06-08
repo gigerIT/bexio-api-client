@@ -28,6 +28,8 @@ it('can create a data object from an array with nested enums', function () {
         case BAR = 'bar';
     }
 
+//    dump(config('data.casts'));
+
 
     $test = DataTest::from([
         'id' => '123',
@@ -37,5 +39,16 @@ it('can create a data object from an array with nested enums', function () {
         ]
     ]);
 
-    dd($test);
-})->skip('run manually only');
+//    dump(config('data'));
+//    dump(config('data.date_format'));
+
+    expect($test->nestedData)->toBeInstanceOf(NestedDataTest::class);
+    expect($test->nestedData->nestedEnum)->toEqual(NestedEnumTest::BAR);
+
+});
+
+
+
+
+
+

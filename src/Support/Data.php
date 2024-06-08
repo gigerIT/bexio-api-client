@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Container\Container;
+use Spatie\LaravelData\Support\Caching\DataStructureCache;
+use Spatie\LaravelData\Support\DataConfig;
 
 /**
  * This Helper imitates the Laravel config & app container functions, in order to make the laravel-data package work.
@@ -95,7 +97,7 @@ if (!function_exists('config')) {
                      * by `dump` or `dd`. Can be 'enabled', 'disabled' or 'development'
                      * which will only enable the caster locally.
                      */
-                    'var_dumper_caster_mode' => 'development',
+                    'var_dumper_caster_mode' => 'disabled',
 
                     /**
                      * It is possible to skip the PHP reflection analysis of data objects
@@ -189,21 +191,65 @@ if (!function_exists('config')) {
                 ]
         ];
 
-        $keys = explode('.', $key);
-        $value = $config;
-        foreach ($keys as $key) {
-            $value = $value[$key];
+        if (array_key_exists($key, $config)) {
+            return $config[$key];
         }
-        return $value;
+
+        $keys = explode('.', $key);
+        foreach ($keys as $segment) {
+            if (is_array($config) && array_key_exists($segment, $config)) {
+                $config = $config[$segment];
+            }
+        }
+
+        return $config;
+    }
+}
+
+if (!function_exists('array_get')) {
+    function array_get($array, $key, $default = null)
+    {
+        if (!is_array($array) || $key === null) {
+            return $default;
+        }
+
+        if (array_key_exists($key, $array)) {
+            return $array[$key];
+        }
+
+        $keys = explode('.', $key);
+        foreach ($keys as $segment) {
+            if (is_array($array) && array_key_exists($segment, $array)) {
+                $array = $array[$segment];
+            } else {
+                return $default;
+            }
+        }
+
+        return $array;
     }
 }
 
 if (!function_exists('app')) {
     function app($abstract = null, array $parameters = [])
     {
+
         if (is_null($abstract)) {
             return Container::getInstance();
         }
+
         return Container::getInstance()->make($abstract, $parameters);
     }
+
+    //run laravel-data service provider initialization manually if we're not in a laravel environment
+    app()->singleton(
+        DataConfig::class,
+        function () {
+            if (config('data.structure_caching.enabled') === false || $this->app->runningUnitTests()) {
+                return DataConfig::createFromConfig(config('data'));
+            }
+
+            return $this->app->make(DataStructureCache::class)->getConfig() ?? DataConfig::createFromConfig(config('data'));
+        }
+    );
 }

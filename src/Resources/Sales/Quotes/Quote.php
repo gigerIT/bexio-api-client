@@ -15,33 +15,36 @@ class Quote extends Resource
 
     const CREATE_REQUEST = CreateQuoteRequest::class;
 
-    public readonly string $total_gross;
-    public readonly string $total_net;
-    public readonly string $total_taxes;
-    public readonly string $total;
-    public readonly float $total_rounding_difference;
-    public readonly bool $show_total;
+    public string $document_nr;
 
-    public readonly string $contact_address;
+    public string $total_gross;
+    public string $total_net;
+    public string $total_taxes;
+    public string $total;
+    public float $total_rounding_difference;
+    public bool $show_total;
 
-    public readonly string $delivery_address;
-    public readonly QuoteStatus $kb_item_status_id;
+    public string $contact_address;
 
-    public readonly string $updated_at;
+    public string $delivery_address;
+    public QuoteStatus $kb_item_status_id;
 
-    public readonly array $taxs;
+    public string $updated_at;
 
-    public readonly string $network_link;
+    public array $taxs;
+
+    public string $network_link;
+
+    public ?bool $mwst_is_net;
 
 
     public function __construct(
         public ?int    $id = null,
-        public ?string $document_nr = null,
         public ?string $title = null,
         public ?int    $contact_id = null,
         public ?int    $contact_sub_id = null,
         public ?int    $user_id = 1,
-        public ?int    $project_id = null,
+        public ?int $pr_project_id = null,
         public ?int    $language_id = null,
 
         public ?int    $bank_account_id = null,
@@ -52,7 +55,6 @@ class Quote extends Resource
         public ?string $footer = null,
 
         public ?int    $mwst_type = null,
-        public ?bool   $mwst_is_net = null,
         public ?bool   $show_position_taxes = null,
 
         public ?string $is_valid_from = null,

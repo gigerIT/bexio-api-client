@@ -8,6 +8,6 @@ trait HasPositions
 {
     public function addPosition(ItemPosition $position): void
     {
-        $this->positions[] = $position->toArray();
+        $this->positions[] = $position;
     }
 }

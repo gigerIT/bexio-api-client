@@ -9,10 +9,11 @@ class ItemPositionText extends ItemPosition
 {
     public ItemPositionType $type = ItemPositionType::TEXT;
 
+    public ?int $parent_id;
+
     public function __construct(
         public ?string $text,
         public ?bool   $show_pos_nr,
-        public ?int    $parent_id,
     )
 
     {
