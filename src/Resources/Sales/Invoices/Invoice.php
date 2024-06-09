@@ -5,6 +5,10 @@ namespace Bexio\Resources\Sales\Invoices;
 
 use Bexio\Resources\Resource;
 use Bexio\Resources\Sales\Invoices\Enums\InvoiceStatus;
+use Bexio\Resources\Sales\Invoices\Requests\CreateInvoiceRequest;
+use Bexio\Resources\Sales\Invoices\Requests\DeleteInvoiceRequest;
+use Bexio\Resources\Sales\Invoices\Requests\GetInvoiceRequest;
+use Bexio\Resources\Sales\Invoices\Requests\GetInvoicesRequest;
 use Bexio\Resources\Sales\ItemPositions\ItemPosition;
 use Bexio\Resources\Sales\MwstType;
 use Bexio\Resources\Sales\SalesTax;
@@ -12,6 +16,13 @@ use Saloon\Http\Response;
 
 class Invoice extends Resource
 {
+    public const INDEX_REQUEST = GetInvoicesRequest::class;
+
+    public const SHOW_REQUEST = GetInvoiceRequest::class;
+    public const CREATE_REQUEST = CreateInvoiceRequest::class;
+
+    public const DELETE_REQUEST = DeleteInvoiceRequest::class;
+
     public string $document_nr;
     public string $total_gross;
     public string $total_net;
@@ -34,13 +45,16 @@ class Invoice extends Resource
     public ?int $qr_invoice_id;
     public ?string $viewed_by_client_at;
 
+    public ?int $pr_project_id;
+    public ?int $project_id;
+
+
     public function __construct(
         public ?int      $id = null,
         public ?string   $title = null,
         public ?int      $contact_id = null,
         public ?int      $contact_sub_id = null,
         public ?int      $user_id = 1,
-        public ?int    $project_id = null,
         public ?int      $language_id = null,
 
         public ?int      $bank_account_id = null,
