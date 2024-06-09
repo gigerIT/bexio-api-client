@@ -44,6 +44,13 @@ trait QueryBuilder
 
     }
 
+    final public function create(): static
+    {
+        $request = $this->newRequestInstance(static::CREATE_REQUEST, $this);
+        $response = $this->client()->send($request);
+        return $request->createDtoFromResponse($response)->attachClient($this->client());
+    }
+
     final public function all(): array
     {
         $request = $this->newRequestInstance(static::INDEX_REQUEST);
@@ -63,6 +70,13 @@ trait QueryBuilder
     }
 
 
+    final public function update(): static
+    {
+        $request = $this->newRequestInstance(static::UPDATE_REQUEST, $this);
+        $response = $this->client()->send($request);
+        return $request->createDtoFromResponse($response)->attachClient($this->client());
+    }
+
     final public function delete(): bool
     {
         $request = $this->newRequestInstance(static::DELETE_REQUEST, $this->id);
@@ -70,20 +84,6 @@ trait QueryBuilder
         return $response->successful();
     }
 
-
-    final public function update(): static
-    {
-        $request = $this->newRequestInstance(static::UPDATE_REQUEST, $this->id, $this);
-        $response = $this->client()->send($request);
-        return $request->createDtoFromResponse($response)->attachClient($this->client());
-    }
-
-    final public function create(): static
-    {
-        $request = $this->newRequestInstance(static::CREATE_REQUEST, $this);
-        $response = $this->client()->send($request);
-        return $request->createDtoFromResponse($response)->attachClient($this->client());
-    }
 
     final public function save(): static
     {

@@ -6,7 +6,9 @@ namespace Bexio\Resources\Purchase\Bills;
 use Bexio\Resources\Purchase\Bills\Enums\BillStatus;
 use Bexio\Resources\Purchase\Bills\Requests\CreateBillRequest;
 use Bexio\Resources\Purchase\Bills\Requests\DeleteBillRequest;
+use Bexio\Resources\Purchase\Bills\Requests\DuplicateBillRequest;
 use Bexio\Resources\Purchase\Bills\Requests\GetBillRequest;
+use Bexio\Resources\Purchase\Bills\Requests\UpdateBillRequest;
 use Bexio\Resources\Resource;
 
 
@@ -15,6 +17,8 @@ class Bill extends Resource
     const SHOW_REQUEST = GetBillRequest::class;
 
     const CREATE_REQUEST = CreateBillRequest::class;
+
+    const UPDATE_REQUEST = UpdateBillRequest::class;
 
     const DELETE_REQUEST = DeleteBillRequest::class;
 
@@ -79,5 +83,19 @@ class Bill extends Resource
         public ?string      $vendor_ref = null,
     )
     {
+    }
+
+
+    public function toApi(): Bill
+    {
+        return $this->except('id', 'document_no', 'status', 'overdue', 'firstname_suffix', 'lastname_company', 'created_at', 'pending_amount');
+    }
+
+
+    public function duplicate(?string $id = null): Bill
+    {
+        $request = new DuplicateBillRequest($id ?? $this->id);
+        $response = $this->client()->send($request);
+        return $request->createDtoFromResponse($response)->attachClient($this->client());
     }
 }

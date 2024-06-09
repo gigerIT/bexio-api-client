@@ -55,7 +55,34 @@ it('can get a Bill', function () use (&$testBill) {
 })->depends('it can create a Bill');
 
 
+it('can update a Bill', function () use (&$testBill) {
+    $testBill->title = 'Updated Test Bill';
+    $testBill->vendor_ref = 'Updated Test Vendor Ref 123';
+
+    $testBill = $testBill->attachClient(testClient())->update();
+
+    expect($testBill)->toBeInstanceOf(Bill::class)
+        ->and($testBill->id)->toBeString()
+        ->and($testBill->supplier_id)->toBeInt()
+        ->and($testBill->title)->toBe('Updated Test Bill')
+        ->and($testBill->vendor_ref)->toBe('Updated Test Vendor Ref 123');
+})->depends('it can create a Bill', 'it can get a Bill');
+
+
+it('can duplicate a Bill', function () use (&$testBill) {
+    $duplicate = $testBill->attachClient(testClient())->duplicate();
+    expect($duplicate)->toBeInstanceOf(Bill::class)
+        ->and($duplicate->id)->toBeString()
+        ->and($duplicate->supplier_id)->toBeInt()
+        ->and($duplicate->title)->toBe('Updated Test Bill')
+        ->and($duplicate->vendor_ref)->toBe('Updated Test Vendor Ref 123');
+
+    $duplicate->delete();
+
+})->depends('it can create a Bill', 'it can get a Bill', 'it can update a Bill');
+
+
 it('can delete a Bill', function () use (&$testBill) {
     $result = $testBill->attachClient(testClient())->delete();
     expect($result)->toBeTrue();
-})->depends('it can create a Bill', 'it can get a Bill');
+})->depends('it can create a Bill', 'it can get a Bill', 'it can update a Bill', 'it can duplicate a Bill');
