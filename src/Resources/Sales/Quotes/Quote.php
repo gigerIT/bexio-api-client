@@ -9,6 +9,7 @@ use Bexio\Resources\Sales\ItemPositions\ItemPosition;
 use Bexio\Resources\Sales\MwstType;
 use Bexio\Resources\Sales\Quotes\Enums\QuoteStatus;
 use Bexio\Resources\Sales\Quotes\Requests\CreateQuoteRequest;
+use Bexio\Resources\Sales\SalesTax;
 
 class Quote extends Resource
 {
@@ -32,6 +33,7 @@ class Quote extends Resource
 
     public string $updated_at;
 
+    /** @var SalesTax[] */
     public array $taxs;
 
     public string $network_link;
