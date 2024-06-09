@@ -8,12 +8,15 @@ use Bexio\Resources\Purchase\Bills\Requests\CreateBillRequest;
 use Bexio\Resources\Purchase\Bills\Requests\DeleteBillRequest;
 use Bexio\Resources\Purchase\Bills\Requests\DuplicateBillRequest;
 use Bexio\Resources\Purchase\Bills\Requests\GetBillRequest;
+use Bexio\Resources\Purchase\Bills\Requests\GetBillsRequest;
 use Bexio\Resources\Purchase\Bills\Requests\UpdateBillRequest;
 use Bexio\Resources\Resource;
 
 
 class Bill extends Resource
 {
+    const INDEX_REQUEST = GetBillsRequest::class;
+
     const SHOW_REQUEST = GetBillRequest::class;
 
     const CREATE_REQUEST = CreateBillRequest::class;
@@ -40,15 +43,15 @@ class Bill extends Resource
 
 
     public function __construct(
-        public int          $supplier_id,
-        public int          $contact_partner_id,
-        public BillAddress  $address,
+        public ?int         $supplier_id,
+        public ?int         $contact_partner_id,
+        public ?BillAddress $address,
 
         public string       $bill_date,
         public string       $due_date,
 
         /** @var BillLineItem[] */
-        public array        $line_items,
+        public ?array       $line_items,
 
         public ?string      $title = null,
 

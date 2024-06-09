@@ -44,6 +44,11 @@ it('can create a Bill', closure: function () use (&$testBill) {
         ->and($testBill->vendor_ref)->toBe('Test Vendor Ref 123');
 });
 
+it('can get Bills', function () {
+    $bills = Bill::useClient(testClient())->all();
+    expect($bills)->toBeArray()->and($bills[0])->toBeInstanceOf(Bill::class);
+})->depends('it can create a Bill');
+
 
 it('can get a Bill', function () use (&$testBill) {
     $bill = Bill::useClient(testClient())->find($testBill->id);
