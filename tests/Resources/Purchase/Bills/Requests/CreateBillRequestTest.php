@@ -7,8 +7,10 @@ use Bexio\Resources\Purchase\Bills\BillAddress;
 use Bexio\Resources\Purchase\Bills\BillLineItem;
 use Bexio\Resources\Purchase\Bills\Enums\BillAddressType;
 
-it('can create a Bill', closure: function () {
-    $bill = new Bill(
+$testBill = null;
+
+it('can create a Bill', closure: function () use (&$testBill) {
+    $testBill = new Bill(
         supplier_id: 1,
         contact_partner_id: 1,
         address: new BillAddress(
@@ -33,7 +35,27 @@ it('can create a Bill', closure: function () {
     );
 
 
-    $bill = $bill->attachClient(testClient())->create();
+    $testBill = $testBill->attachClient(testClient())->create();
 
-    expect($bill)->toBeInstanceOf(Bill::class);
+    expect($testBill)->toBeInstanceOf(Bill::class)
+        ->and($testBill->id)->toBeString()
+        ->and($testBill->supplier_id)->toBeInt()
+        ->and($testBill->title)->toBe('Test Bill')
+        ->and($testBill->vendor_ref)->toBe('Test Vendor Ref 123');
 });
+
+
+it('can get a Bill', function () use (&$testBill) {
+    $bill = Bill::useClient(testClient())->find($testBill->id);
+    expect($bill)->toBeInstanceOf(Bill::class)
+        ->and($bill->id)->toBeString()
+        ->and($bill->supplier_id)->toBeInt()
+        ->and($bill->title)->toBe('Test Bill')
+        ->and($bill->vendor_ref)->toBe('Test Vendor Ref 123');
+})->depends('it can create a Bill');
+
+
+it('can delete a Bill', function () use (&$testBill) {
+    $result = $testBill->attachClient(testClient())->delete();
+    expect($result)->toBeTrue();
+})->depends('it can create a Bill', 'it can get a Bill');

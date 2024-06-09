@@ -5,6 +5,7 @@ namespace Bexio\Resources\Purchase\Bills;
 
 use Bexio\Resources\Purchase\Bills\Enums\BillStatus;
 use Bexio\Resources\Purchase\Bills\Requests\CreateBillRequest;
+use Bexio\Resources\Purchase\Bills\Requests\DeleteBillRequest;
 use Bexio\Resources\Purchase\Bills\Requests\GetBillRequest;
 use Bexio\Resources\Resource;
 
@@ -15,21 +16,23 @@ class Bill extends Resource
 
     const CREATE_REQUEST = CreateBillRequest::class;
 
+    const DELETE_REQUEST = DeleteBillRequest::class;
 
-    public readonly string $id;
+
+    public string $id;
     public ?string $document_no;
 
-    public readonly BillStatus $status;
+    public BillStatus $status;
 
-    public readonly bool $overdue;
+    public bool $overdue;
 
-    public readonly ?string $firstname_suffix;
-    public readonly ?string $lastname_company;
-    public readonly ?string $created_at;
+    public ?string $firstname_suffix;
+    public ?string $lastname_company;
+    public ?string $created_at;
 
-    public readonly ?float $pending_amount;
+    public ?float $pending_amount;
 
-    public readonly bool $split_into_line_items;
+    public bool $split_into_line_items;
 
 
     public function __construct(
