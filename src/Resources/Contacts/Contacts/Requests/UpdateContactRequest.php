@@ -34,7 +34,7 @@ class UpdateContactRequest extends Request implements HasBody
 
     protected function defaultBody(): array
     {
-        return $this->contact->toArray();
+        return $this->contact->except("is_lead", "updated_at", "profile_image")->toArray();
     }
 
 }
