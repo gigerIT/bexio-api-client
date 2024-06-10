@@ -21,8 +21,7 @@
   "require": {
     "saloonphp/saloon": "^3.0",
     "illuminate/container": "^11.9",
-    "spatie/laravel-data": "^4.6",
-    "gigerit/spatie-laravel-data-standalone": "^1.0"
+    "spatie/laravel-data": "^4.6"
   },
   "require-dev": {
     "pestphp/pest": "^2.34",
@@ -33,5 +32,13 @@
     "allow-plugins": {
       "pestphp/pest-plugin": true
     }
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "php check-dependency.php"
+    ],
+    "post-update-cmd": [
+      "php check-dependency.php"
+    ]
   }
 }
