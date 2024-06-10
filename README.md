@@ -14,11 +14,54 @@ composer require gigerit/bexio-api-client
 
 ### Contacts
 
-```php 
-use Bexio\BeixoClient;
-use Bexio\Resources\Contacts\Contacts\Contact;
+Get a Contact by ID:
 
-$client = new BexioClient('api_token');
+```php
+$client = new BexioClient('API_TOKEN');
+
+// Get the Contact with the ID 1
+$contact = Contact::useClient($client)->find(1); 
+
+// Access the Contact properties
+echo $contact->id;
+echo $contact->name_1;
+echo $contact->mail;
+````
+
+Get all Contacts:
+
+```php
+$client = new BexioClient('API_TOKEN');
+
+// Get all Contacts
+$contacts = Contact::useClient($client)->all();
+
+// Access the Contacts
+foreach ($contacts as $contact) {
+    echo $contact->id;
+    echo $contact->name_1;
+    echo $contact->mail;
+}
+```
+
+Create a Contact:
+
+```php
+$client = new BexioClient('API_TOKEN');
+
+// Create a new Contact
+$contact = new Contact(
+    name_1: 'John Doe',
+);
+
+// Save the Contact
+$contact->save();
+```
+
+Combine actions:
+
+```php
+$client = new BexioClient('API_TOKEN');
 
 // Get the Contact with the ID 1
 $contact = Contact::useClient($client)->find(1); 
@@ -28,14 +71,14 @@ echo $contact->id;
 echo $contact->name_1;
 echo $contact->mail;
 
-// Simply change any properties of the Contact
-$contact->name_1 = 'New Name'; 
+// Simply update the Contact properties
+$contact->name_1 = 'Jane Doe';
 
-// Save the changes
-$contact->save(); 
+// Send the changes back to bexio
+$contact->save();
 ````
 
-See [Tests](tests/Feature/Resources) for more Examples.
+See [Tests](tests/Resources) for more Examples.
 
 ## Data Transfer Objects
 
@@ -44,8 +87,8 @@ DTOs provide type hinting and autocompletion in the IDE, for a better developmen
 
 ## Authentication
 
-Currently, the package only supports the simple API Token authentication, as we did the implementation for one client
-project only.
+Currently, the package only supports simple API Token authentication as it was created for a single project.
+If you need OAuth2 or other authentication methods, please feel free to open an issue or create a pull request.
 
 ## Available Resources
 
