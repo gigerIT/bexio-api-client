@@ -9,6 +9,7 @@ use Bexio\Resources\Sales\Invoices\Requests\CreateInvoiceRequest;
 use Bexio\Resources\Sales\Invoices\Requests\DeleteInvoiceRequest;
 use Bexio\Resources\Sales\Invoices\Requests\GetInvoiceRequest;
 use Bexio\Resources\Sales\Invoices\Requests\GetInvoicesRequest;
+use Bexio\Resources\Sales\ItemPositions\Concerns\HasPositions;
 use Bexio\Resources\Sales\ItemPositions\ItemPosition;
 use Bexio\Resources\Sales\MwstType;
 use Bexio\Resources\Sales\SalesTax;
@@ -16,6 +17,8 @@ use Saloon\Http\Response;
 
 class Invoice extends Resource
 {
+    use HasPositions;
+
     public const INDEX_REQUEST = GetInvoicesRequest::class;
 
     public const SHOW_REQUEST = GetInvoiceRequest::class;
