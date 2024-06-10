@@ -69,6 +69,14 @@ trait QueryBuilder
         return $request->createDtoFromResponse($response)->attachClient($this->client());
     }
 
+    /**
+     * Refresh the current instance with the latest data from the API.
+     */
+    final public function refresh(): static
+    {
+        return $this->find($this->id);
+    }
+
 
     final public function update(): static
     {
@@ -77,9 +85,9 @@ trait QueryBuilder
         return $request->createDtoFromResponse($response)->attachClient($this->client());
     }
 
-    final public function delete(): bool
+    final public function delete(string|int|null $id = null): bool
     {
-        $request = $this->newRequestInstance(static::DELETE_REQUEST, $this->id);
+        $request = $this->newRequestInstance(static::DELETE_REQUEST, $id ?? $this->id);
         $response = $this->client()->send($request);
         return $response->successful();
     }

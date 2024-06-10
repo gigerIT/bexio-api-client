@@ -20,7 +20,6 @@ it('can create a Contact', function () use (&$testContact) {
         phone_fixed: fake()->phoneNumber(),
     );
 
-
     $testContact = $contact->attachClient(testClient())->create();
 
     expect($testContact)->toBeInstanceOf(Contact::class)
@@ -28,11 +27,13 @@ it('can create a Contact', function () use (&$testContact) {
         ->and($testContact->id)->toBeInt();
 });
 
+
 it('can get Contacts', function () {
     $contacts = Contact::useClient(testClient())->all();
 
     expect($contacts)->toBeArray()->and($contacts[0])->toBeInstanceOf(Contact::class);
 })->depends('it can create a Contact');
+
 
 it('can get a Contact', function () use (&$testContact) {
     $contact = Contact::useClient(testClient())->find($testContact->id);
@@ -41,17 +42,18 @@ it('can get a Contact', function () use (&$testContact) {
         ->and($contact->name_1)->toBeString()->and($contact->id)->toBeInt();
 })->depends('it can create a Contact');
 
+
 it('can update a Contact', function () use (&$testContact) {
     $testContact->name_1 = fake()->firstName();
     $testContact->name_2 = fake()->lastName();
 
-    $testContact->update();
+    $testContact->save();
 
     expect($testContact->name_1)->toBeString()->and($testContact->name_2)->toBeString();
 })->depends('it can get a Contact');
 
-it('can delete a Contact', function () use (&$testContact) {
-    $testContact->delete();
 
+it('can delete a Contact', function () use (&$testContact) {
     expect($testContact->delete())->toBeTrue();
-})->depends('it can update a Contact');
+})->depends('it can create a Contact');
+
