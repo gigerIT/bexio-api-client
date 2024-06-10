@@ -12,6 +12,7 @@ use Bexio\Resources\Contacts\Contacts\Requests\SearchContactRequest;
 use Bexio\Resources\Contacts\Contacts\Requests\UpdateContactRequest;
 use Bexio\Resources\Resource;
 use Bexio\Support\Data\SearchCriteria;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
 class Contact extends Resource
@@ -84,4 +85,10 @@ class Contact extends Resource
         }
         return $request->createDtoFromResponse($response);
     }
+
+    public function first(): static
+    {
+        return Arr::first($this->search());
+    }
+
 }
