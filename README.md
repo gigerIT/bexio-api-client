@@ -2,7 +2,7 @@
 
 This is a <a href="https://docs.bexio.com">bexio
 API</a> client, built with <a href="https://docs.saloon.dev/">`saloonphp/saloon`</a>
-and <a href="https://github.com/spatie/laravel-data">`spatie/laravel-data`</a>.
+and <a href="https://github.com/spatie/laravel-data">`spatie/laravel-data`</a>
 
 ## Installation
 
