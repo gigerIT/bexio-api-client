@@ -1,7 +1,8 @@
 # bexio API PHP Client
 
-This is a <a href="https://docs.saloon.dev/">`saloonphp/saloon`</a> API Client for the bexio
-API (https://docs.bexio.com).
+This is a <a href="https://docs.bexio.com">bexio
+API</a> client, built with <a href="https://docs.saloon.dev/">`saloonphp/saloon`</a>
+and <a href="https://github.com/spatie/laravel-data">`spatie/laravel-data`</a>.
 
 ## Installation
 
