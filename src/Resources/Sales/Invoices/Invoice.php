@@ -9,15 +9,14 @@ use Bexio\Resources\Sales\Invoices\Requests\CreateInvoiceRequest;
 use Bexio\Resources\Sales\Invoices\Requests\DeleteInvoiceRequest;
 use Bexio\Resources\Sales\Invoices\Requests\GetInvoiceRequest;
 use Bexio\Resources\Sales\Invoices\Requests\GetInvoicesRequest;
-use Bexio\Resources\Sales\ItemPositions\Concerns\HasPositions;
 use Bexio\Resources\Sales\ItemPositions\ItemPosition;
 use Bexio\Resources\Sales\MwstType;
 use Bexio\Resources\Sales\SalesTax;
+use Illuminate\Support\Collection;
 use Saloon\Http\Response;
 
 class Invoice extends Resource
 {
-    use HasPositions;
 
     public const INDEX_REQUEST = GetInvoicesRequest::class;
 
@@ -53,34 +52,34 @@ class Invoice extends Resource
 
 
     public function __construct(
-        public ?int      $id = null,
-        public ?string   $title = null,
-        public ?int      $contact_id = null,
-        public ?int      $contact_sub_id = null,
-        public ?int      $user_id = 1,
-        public ?int      $language_id = null,
+        public ?int        $id = null,
+        public ?string     $title = null,
+        public ?int        $contact_id = null,
+        public ?int        $contact_sub_id = null,
+        public ?int        $user_id = 1,
+        public ?int        $language_id = null,
 
-        public ?int      $bank_account_id = null,
-        public ?int      $currency_id = null,
-        public ?int      $payment_type_id = null,
+        public ?int        $bank_account_id = null,
+        public ?int        $currency_id = null,
+        public ?int        $payment_type_id = null,
 
-        public ?string   $header = null,
-        public ?string   $footer = null,
+        public ?string     $header = null,
+        public ?string     $footer = null,
 
-        public ?MwstType $mwst_type = null,
-        public ?bool     $show_position_taxes = null,
+        public ?MwstType   $mwst_type = null,
+        public ?bool       $show_position_taxes = null,
 
-        public ?string   $is_valid_from = null,
-        public ?string $is_valid_to = null,
+        public ?string     $is_valid_from = null,
+        public ?string     $is_valid_to = null,
 
-        public ?string $reference = null,
-        public ?string $api_reference = null,
+        public ?string     $reference = null,
+        public ?string     $api_reference = null,
 
 
-        public ?string $template_slug = null,
+        public ?string     $template_slug = null,
 
-        /** @var ItemPosition[] */
-        public ?array  $positions = null,
+        /** @var Collection<int, ItemPosition> */
+        public ?Collection $positions = null,
     )
     {
     }

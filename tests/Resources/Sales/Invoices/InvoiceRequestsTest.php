@@ -2,6 +2,7 @@
 
 use Bexio\Resources\Sales\Invoices\Invoice;
 use Bexio\Resources\Sales\ItemPositions\ItemPositionCustom;
+use Illuminate\Support\Collection;
 
 $testInvoice = null;
 
@@ -9,15 +10,16 @@ it('can create an Invoice', function () use (&$testInvoice) {
     $testInvoice = new Invoice(
         title: 'Test Invoice',
         contact_id: 1,
-        positions: [
+        positions: new Collection([
             new ItemPositionCustom(
                 tax_id: testSaleTaxId(),
                 amount: '10',
                 text: 'Test Position',
                 unit_price: '100',
             )
-        ]
+        ])
     );
+
     $testInvoice = $testInvoice->attachClient(testClient())->create();
     expect($testInvoice->id)->toBeInt();
 });
