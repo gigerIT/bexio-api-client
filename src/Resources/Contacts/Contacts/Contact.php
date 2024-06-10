@@ -8,8 +8,11 @@ use Bexio\Resources\Contacts\Contacts\Requests\CreateContactRequest;
 use Bexio\Resources\Contacts\Contacts\Requests\DeleteContactRequest;
 use Bexio\Resources\Contacts\Contacts\Requests\GetContactRequest;
 use Bexio\Resources\Contacts\Contacts\Requests\GetContactsRequest;
+use Bexio\Resources\Contacts\Contacts\Requests\SearchContactRequest;
 use Bexio\Resources\Contacts\Contacts\Requests\UpdateContactRequest;
 use Bexio\Resources\Resource;
+use Bexio\Support\Data\SearchCriteria;
+use Illuminate\Support\Collection;
 
 class Contact extends Resource
 {
@@ -22,6 +25,8 @@ class Contact extends Resource
     public ?bool $is_lead;
     public ?string $updated_at;
     public ?string $profile_image;
+
+    private Collection $search_query;
 
 
     public function __construct(
@@ -57,5 +62,26 @@ class Contact extends Resource
 
     )
     {
+    }
+
+
+    public function where(string $field, SearchCriteria $operator = SearchCriteria::LIKE, string $value): static
+    {
+        if (!isset($this->search_query)) {
+            $this->search_query = new Collection();
+        }
+
+        $this->search_query->put($field, new ContactSearchWhereClause($field, $operator, $value));
+        return $this;
+    }
+
+    public function search(): array
+    {
+        $request = new SearchContactRequest($this->search_query->toArray());
+        $response = $this->client()->send($request);
+        if (!$response->successful()) {
+            throw new \RuntimeException("Failed to fetch resources: " . $response->json());
+        }
+        return $request->createDtoFromResponse($response);
     }
 }

@@ -4,6 +4,7 @@ namespace Bexio\Resources\Contacts\Contacts\Requests;
 
 use Bexio\Resources\Contacts\Contacts\Contact;
 use Bexio\Resources\Contacts\Contacts\Enums\ContactType;
+use Bexio\Support\Data\SearchCriteria;
 use function Pest\Faker\fake;
 
 $testContact = null;
@@ -40,6 +41,16 @@ it('can get a Contact', function () use (&$testContact) {
 
     expect($contact)->toBeInstanceOf(Contact::class)
         ->and($contact->name_1)->toBeString()->and($contact->id)->toBeInt();
+})->depends('it can create a Contact');
+
+
+it('can search a Contact', function () use (&$testContact) {
+    $contacts = Contact::useClient(testClient())
+        ->where('name_1', SearchCriteria::LIKE, $testContact->name_1)
+        ->where('name_2', SearchCriteria::LIKE, $testContact->name_2)
+        ->search();
+
+    expect($contacts)->toBeArray()->and($contacts[0])->toBeInstanceOf(Contact::class);
 })->depends('it can create a Contact');
 
 
