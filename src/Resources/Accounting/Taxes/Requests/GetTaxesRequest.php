@@ -33,7 +33,6 @@ class GetTaxesRequest extends Request
     {
         return [
             'scope' => 'active',
-            'types' => 'sales_tax'
         ];
     }
 }

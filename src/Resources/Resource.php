@@ -38,7 +38,7 @@ class Resource extends Data
         return $this->client;
     }
 
-    private function newRequestInstance(?string $requestClass = null, ...$args): Request
+    protected function newRequestInstance(?string $requestClass = null, ...$args): Request
     {
         if (!$requestClass) {
             throw new \RuntimeException(static::class . " does not support this operation.");
@@ -53,14 +53,14 @@ class Resource extends Data
 
     }
 
-    final public function create(): static
+    public function create(): static
     {
         $request = $this->newRequestInstance(static::CREATE_REQUEST, $this);
         $response = $this->client()->send($request);
         return $request->createDtoFromResponse($response)->attachClient($this->client());
     }
 
-    final public function all(): array
+    public function all(): array
     {
         $request = $this->newRequestInstance(static::INDEX_REQUEST);
         $response = $this->client()->send($request);
@@ -71,7 +71,7 @@ class Resource extends Data
     }
 
 
-    final public function find(int|string $id): static
+    public function find(int|string $id): static
     {
         $request = $this->newRequestInstance(static::SHOW_REQUEST, $id);
         $response = $this->client()->send($request);
@@ -81,20 +81,20 @@ class Resource extends Data
     /**
      * Refresh the current instance with the latest data from the API.
      */
-    final public function refresh(): static
+    public function refresh(): static
     {
         return $this->find($this->id);
     }
 
 
-    final public function update(): static
+    public function update(): static
     {
         $request = $this->newRequestInstance(static::UPDATE_REQUEST, $this);
         $response = $this->client()->send($request);
         return $request->createDtoFromResponse($response)->attachClient($this->client());
     }
 
-    final public function delete(string|int|null $id = null): bool
+    public function delete(string|int|null $id = null): bool
     {
         $request = $this->newRequestInstance(static::DELETE_REQUEST, $id ?? $this->id);
         $response = $this->client()->send($request);
@@ -102,7 +102,7 @@ class Resource extends Data
     }
 
 
-    final public function save(): static
+    public function save(): static
     {
         if ($this->id) {
             return $this->update();
