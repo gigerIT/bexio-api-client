@@ -31,10 +31,10 @@ class Contact extends Resource
 
 
     public function __construct(
-        public ?string $name_1 = null,
         public int|ContactType $contact_type_id = ContactType::COMPANY,
         public ?int            $id = null,
         public ?string         $nr = null,
+        public ?string $name_1 = null,
         public ?string         $name_2 = null,
         public ?int            $salutation_id = null,
         public ?string         $salutation_form = null,
@@ -86,7 +86,7 @@ class Contact extends Resource
         return $request->createDtoFromResponse($response);
     }
 
-    public function first(): static
+    public function first(): ?static
     {
         return Arr::first($this->search());
     }
