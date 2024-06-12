@@ -5,12 +5,13 @@ namespace Bexio\Resources\Sales\Quotes\Requests;
 use Bexio\Resources\Sales\ItemPositions\ItemPositionCustom;
 use Bexio\Resources\Sales\Quotes\Enums\QuoteStatus;
 use Bexio\Resources\Sales\Quotes\Quote;
+use Illuminate\Support\Collection;
 
 it('can create a Quote', function () {
 
-    $quote = new Quote(title: 'Test Quote', contact_id: 1, user_id: 1);
+    $quote = new Quote(title: 'Test Quote', contact_id: 1, user_id: 1, positions: new Collection());
 
-    $quote->addPosition(
+    $quote->positions->add(
         new ItemPositionCustom(
             tax_id: testSaleTaxId(),
             amount: '10',

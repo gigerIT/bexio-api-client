@@ -1,7 +1,9 @@
 <?php
 
+use Bexio\Resources\Purchase\PurchaseOrders\PurchaseOrder;
+
 it('can create a Purchase Order', function () {
-    $purchaseOrder = new \Bexio\Resources\Purchase\PurchaseOrders\PurchaseOrder(
+    $purchaseOrder = new PurchaseOrder(
         contact_id: testContactId()
     );
 

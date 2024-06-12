@@ -1,4 +1,5 @@
 <?php
+// Composer Helper Script to Check and Install Optional spatie-laravel-data-standalone Dependency if Laravel is not Installed
 
 $packageName = 'laravel/framework';
 $optionalPackage = 'gigerit/spatie-laravel-data-standalone';

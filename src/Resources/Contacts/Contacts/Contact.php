@@ -14,6 +14,7 @@ use Bexio\Resources\Resource;
 use Bexio\Support\Data\SearchCriteria;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use RuntimeException;
 
 class Contact extends Resource
 {
@@ -81,7 +82,7 @@ class Contact extends Resource
         $request = new SearchContactRequest($this->search_query->toArray());
         $response = $this->client()->send($request);
         if (!$response->successful()) {
-            throw new \RuntimeException("Failed to fetch resources: " . $response->json());
+            throw new RuntimeException("Failed to fetch resources: " . $response->json());
         }
         return $request->createDtoFromResponse($response);
     }

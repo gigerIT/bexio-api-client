@@ -9,6 +9,7 @@ use Bexio\Resources\Sales\Invoices\Requests\CreateInvoiceRequest;
 use Bexio\Resources\Sales\Invoices\Requests\DeleteInvoiceRequest;
 use Bexio\Resources\Sales\Invoices\Requests\GetInvoiceRequest;
 use Bexio\Resources\Sales\Invoices\Requests\GetInvoicesRequest;
+use Bexio\Resources\Sales\ItemPositions\Collections\ItemPositionCollection;
 use Bexio\Resources\Sales\ItemPositions\ItemPosition;
 use Bexio\Resources\Sales\MwstType;
 use Bexio\Resources\Sales\SalesTax;
@@ -78,10 +79,11 @@ class Invoice extends Resource
 
         public ?string     $template_slug = null,
 
-        /** @var Collection<int, ItemPosition> */
-        public ?Collection $positions = null,
+        /** @var ItemPositionCollection<int, ItemPosition> */
+        public ?ItemPositionCollection $positions = null,
     )
     {
+        $this->positions = $positions ?? new ItemPositionCollection();
     }
 
 

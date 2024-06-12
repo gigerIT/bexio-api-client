@@ -6,7 +6,18 @@ namespace Bexio\Resources\Sales\ItemPositions;
 use Bexio\Resources\Resource;
 use Bexio\Resources\Sales\ItemPositions\Enums\ItemPositionType;
 
-abstract class ItemPosition extends Resource
+class ItemPosition extends Resource
 {
     public ItemPositionType $type;
+
+//    public function __construct(
+//        ItemPositionType $type
+//    )
+//    {
+//        dump('ItemPosition::construct:', $type);
+//
+//        return match ($type) {
+//            ItemPositionType::CUSTOM => new ItemPositionCustom(),
+//        };
+//    }
 }

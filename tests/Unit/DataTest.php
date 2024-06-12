@@ -1,8 +1,10 @@
 <?php
 
 
+use Spatie\LaravelData\Data;
+
 it('can create a data object from an array with nested enums', function () {
-    class DataTest extends \Spatie\LaravelData\Data
+    class DataTest extends Data
     {
         public function __construct(
             public string         $id,
@@ -12,7 +14,7 @@ it('can create a data object from an array with nested enums', function () {
         }
     }
 
-    class NestedDataTest extends \Spatie\LaravelData\Data
+    class NestedDataTest extends Data
     {
         public function __construct(
             public string         $title,

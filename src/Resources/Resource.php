@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace Bexio\Resources;
 
 use Bexio\BexioClient;
+use ReflectionClass;
+use RuntimeException;
 use Saloon\Http\Request;
 use Spatie\LaravelData\Data;
+use Throwable;
 
 class Resource extends Data
 {
@@ -20,7 +23,7 @@ class Resource extends Data
 
     public static function useClient(BexioClient $client): static
     {
-        $reflectionClass = new \ReflectionClass(static::class);
+        $reflectionClass = new ReflectionClass(static::class);
         $instance = $reflectionClass->newInstanceWithoutConstructor();
         $instance->attachClient($client);
         return $instance;
@@ -41,14 +44,14 @@ class Resource extends Data
     protected function newRequestInstance(?string $requestClass = null, ...$args): Request
     {
         if (!$requestClass) {
-            throw new \RuntimeException(static::class . " does not support this operation.");
+            throw new RuntimeException(static::class . " does not support this operation.");
         }
 
         try {
             $class = $requestClass;
             return new $class(...$args);
-        } catch (\Throwable $e) {
-            throw new \RuntimeException("Failed to create request instance: " . $e->getMessage());
+        } catch (Throwable $e) {
+            throw new RuntimeException("Failed to create request instance: " . $e->getMessage());
         }
 
     }
@@ -65,7 +68,7 @@ class Resource extends Data
         $request = $this->newRequestInstance(static::INDEX_REQUEST);
         $response = $this->client()->send($request);
         if (!$response->successful()) {
-            throw new \RuntimeException("Failed to fetch resources: " . $response->json());
+            throw new RuntimeException("Failed to fetch resources: " . $response->json());
         }
         return $request->createDtoFromResponse($response);
     }
