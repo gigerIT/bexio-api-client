@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/gigerIT/bexio-api-client/compare/v1.0.0...v1.0.1) (2024-06-12)
+
+
+### Bug Fixes
+
+* CI trigger only on push ([e158b93](https://github.com/gigerIT/bexio-api-client/commit/e158b93276cd98d3641b2c620d804701074eea8d))
+
 ## 1.0.0 (2024-06-12)
 
 
