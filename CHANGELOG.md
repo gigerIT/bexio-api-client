@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.2](https://github.com/gigerIT/bexio-api-client/compare/v1.0.1...v1.0.2) (2024-06-14)
+
+
+### Bug Fixes
+
+* CI prevent second test run on release push ([2975fe3](https://github.com/gigerIT/bexio-api-client/commit/2975fe34abb151ad2c14465f6197a35a59cae48c))
+* make SearchCriteria required parameter ([16287f0](https://github.com/gigerIT/bexio-api-client/commit/16287f09d7f8ca727906b6f9590bbc3f858baf85))
+
 ## [1.0.1](https://github.com/gigerIT/bexio-api-client/compare/v1.0.0...v1.0.1) (2024-06-12)
 
 
