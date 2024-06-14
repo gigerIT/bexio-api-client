@@ -35,7 +35,7 @@ class Contact extends Resource
         public int|ContactType $contact_type_id = ContactType::COMPANY,
         public ?int            $id = null,
         public ?string         $nr = null,
-        public ?string $name_1 = null,
+        public ?string         $name_1 = null,
         public ?string         $name_2 = null,
         public ?int            $salutation_id = null,
         public ?string         $salutation_form = null,
@@ -67,7 +67,7 @@ class Contact extends Resource
     }
 
 
-    public function where(string $field, SearchCriteria $operator = SearchCriteria::LIKE, string $value): static
+    public function where(string $field, SearchCriteria $operator, string $value): static
     {
         if (!isset($this->search_query)) {
             $this->search_query = new Collection();
