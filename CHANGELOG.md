@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0](https://github.com/gigerIT/bexio-api-client/compare/v1.0.2...v1.1.0) (2024-07-29)
+
+
+### Features
+
+* add Accounts ([356ab4c](https://github.com/gigerIT/bexio-api-client/commit/356ab4c61208e34b4af8a89a0bab13ad77f8b361))
+
+
+### Bug Fixes
+
+* CI ([e435008](https://github.com/gigerIT/bexio-api-client/commit/e4350083c559d7d28a83cb5c18e8448256aeac52))
+
 ## [1.0.2](https://github.com/gigerIT/bexio-api-client/compare/v1.0.1...v1.0.2) (2024-06-14)
 
 
