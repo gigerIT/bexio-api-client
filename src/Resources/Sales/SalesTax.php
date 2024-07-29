@@ -10,7 +10,7 @@ class SalesTax extends Resource
 {
     public function __construct(
         public string $percentage,
-        public string $name,
+        public ?string $name,
     )
     {
     }
