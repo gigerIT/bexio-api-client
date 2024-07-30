@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/gigerIT/bexio-api-client/compare/v1.2.0...v1.2.1) (2024-07-30)
+
+
+### Bug Fixes
+
+* ContactSearchWhereClause optional prop before required ([db9a8bf](https://github.com/gigerIT/bexio-api-client/commit/db9a8bfb0e2ca9f12a660342ae3daec5ee330d3b))
+
 ## [1.2.0](https://github.com/gigerIT/bexio-api-client/compare/v1.1.0...v1.2.0) (2024-07-30)
 
 

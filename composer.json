@@ -2,7 +2,7 @@
   "name": "gigerit/bexio-api-client",
   "type": "library",
   "description": "A PHP client for the Bexio API",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "keywords": [
     "bexio"
   ],
