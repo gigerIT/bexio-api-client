@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/gigerIT/bexio-api-client/compare/v1.1.0...v1.2.0) (2024-07-30)
+
+
+### Features
+
+* add company profile resource ([9ef4a5d](https://github.com/gigerIT/bexio-api-client/commit/9ef4a5d7897dedcd0a387d3ed1acbf5bdd14bdd6))
+
 ## [1.1.0](https://github.com/gigerIT/bexio-api-client/compare/v1.0.2...v1.1.0) (2024-07-29)
 
 
