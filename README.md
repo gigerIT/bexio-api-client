@@ -136,7 +136,7 @@ If you need OAuth2 or other authentication methods, please feel free to open an 
 
 | Resource       | Implemented |
 |----------------|-------------|
-| Accounts       | ❌           |
+| Accounts       | ✅           |
 | Account Groups | ❌           |
 | Calendar Years | ❌           |
 | Business Years | ❌           |
@@ -182,7 +182,7 @@ If you need OAuth2 or other authentication methods, please feel free to open an 
 
 | Resource        | Implemented |
 |-----------------|-------------|
-| Company Profile | ❌           |
+| Company Profile | ✅           |
 | Countries       | ❌           |
 | Languages       | ❌           |
 | Notes           | ❌           |
