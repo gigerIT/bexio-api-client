@@ -4,15 +4,21 @@ declare(strict_types=1);
 namespace Bexio\Resources\Sales\Quotes;
 
 use Bexio\Resources\Resource;
+use Bexio\Resources\Sales\Comments\Enums\KbDocumentType;
+use Bexio\Resources\Sales\Comments\Traits\HasComments;
 use Bexio\Resources\Sales\ItemPositions\ItemPosition;
+use Bexio\Resources\Sales\KbDocumentContract;
 use Bexio\Resources\Sales\MwstType;
 use Bexio\Resources\Sales\Quotes\Enums\QuoteStatus;
 use Bexio\Resources\Sales\Quotes\Requests\CreateQuoteRequest;
 use Bexio\Resources\Sales\SalesTax;
 use Illuminate\Support\Collection;
 
-class Quote extends Resource
+class Quote extends Resource implements KbDocumentContract
 {
+    use HasComments;
+
+    const DOCUMENT_TYPE = KbDocumentType::OFFER;
 
     const CREATE_REQUEST = CreateQuoteRequest::class;
 

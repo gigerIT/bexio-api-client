@@ -5,14 +5,13 @@ namespace Bexio\Resources\Sales\ItemPositions;
 
 use Bexio\Resources\Sales\ItemPositions\Enums\ItemPositionType;
 
-class ItemPositionText extends ItemPosition
+class ItemPositionSubposition extends ItemPosition
 {
-    public ItemPositionType $type = ItemPositionType::TEXT;
-
+    public ItemPositionType $type = ItemPositionType::SUBPOSITION;
 
     public function __construct(
         public ?string $text,
-        public ?bool   $show_pos_nr,
+        public bool   $show_pos_nr = true,
     )
 
     {

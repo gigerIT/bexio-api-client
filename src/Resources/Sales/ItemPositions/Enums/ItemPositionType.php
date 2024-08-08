@@ -14,4 +14,6 @@ enum ItemPositionType: string
 
     case DISCOUNT = 'KbPositionDiscount';
 
+    case SUBPOSITION = 'KbPositionSubposition';
+
 }

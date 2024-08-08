@@ -8,9 +8,5 @@ use Illuminate\Support\Collection;
 
 class ItemPositionCollection extends Collection
 {
-//    public function __construct(array $items = [])
-//    {
-//        dump('ItemPositionCollection::construct:', $items);
-//        parent::__construct($items);
-//    }
+
 }

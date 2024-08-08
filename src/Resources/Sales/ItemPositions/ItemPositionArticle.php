@@ -9,8 +9,6 @@ class ItemPositionArticle extends ItemPosition
 {
     public ItemPositionType $type = ItemPositionType::ARTICLE;
 
-    public ?int $parent_id;
-
     public function __construct(
         public ?string $amount,
         public ?int    $unit_id,
