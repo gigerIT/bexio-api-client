@@ -25,8 +25,8 @@
     "gigerit/spatie-laravel-data-standalone": "^1.0"
   },
   "require-dev": {
-    "pestphp/pest": "^2.34",
-    "pestphp/pest-plugin-faker": "^2.0",
+    "pestphp/pest": "^v3.1.0",
+    "pestphp/pest-plugin-faker": "^v3.0.0",
     "symfony/var-dumper": "^7.1"
   },
   "config": {
@@ -40,6 +40,9 @@
     ],
     "post-update-cmd": [
       "php check-dependency.php"
+    ],
+    "test": [
+      "vendor/bin/pest"
     ]
   }
 }
