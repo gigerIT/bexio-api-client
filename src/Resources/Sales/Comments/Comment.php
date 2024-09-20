@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Bexio\Resources\Sales\Comments;
 
 use Bexio\Resources\Resource;
-use Bexio\Resources\Sales\Comments\Enums\KbDocumentType;
 use Bexio\Resources\Sales\Comments\Requests\CreateCommentRequest;
+use Bexio\Resources\Sales\KbDocumentContract;
 
 class Comment extends Resource
 {
@@ -28,11 +28,11 @@ class Comment extends Resource
     }
 
 
-    public function createFor(KbDocumentType $documentType, int $documentId): static
+    public function createFor(KbDocumentContract $documentResource): static
     {
         $request = new CreateCommentRequest(
-            documentType: $documentType,
-            documentId: $documentId,
+            documentType: $documentResource::DOCUMENT_TYPE,
+            documentId: $documentResource->id,
             comment: $this
         );
         $response = $this->client()->send($request);

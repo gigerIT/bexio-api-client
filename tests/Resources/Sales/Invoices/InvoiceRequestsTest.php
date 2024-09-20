@@ -1,5 +1,6 @@
 <?php
 
+use Bexio\Resources\Sales\Comments\Comment;
 use Bexio\Resources\Sales\Invoices\Invoice;
 use Bexio\Resources\Sales\ItemPositions\ItemPositionCustom;
 
@@ -31,6 +32,12 @@ it('can get Invoices', function () {
 it('can get an Invoice', function () use (&$testInvoice) {
     $invoice = Invoice::useClient(testClient())->find($testInvoice->id);
     expect($invoice)->toBeInstanceOf(Invoice::class)->and($invoice->id)->toBeInt();
+})->depends('it can create an Invoice');
+
+
+it('can add a comment to an invoice', function () use (&$testInvoice) {
+    $comment = $testInvoice->addComment('Test Comment');
+    expect($comment)->toBeInstanceOf(Comment::class)->and($comment->id)->toBeInt();
 })->depends('it can create an Invoice');
 
 

@@ -12,6 +12,7 @@ use Bexio\Resources\Sales\Invoices\Requests\DeleteInvoiceRequest;
 use Bexio\Resources\Sales\Invoices\Requests\GetInvoiceRequest;
 use Bexio\Resources\Sales\Invoices\Requests\GetInvoicesRequest;
 use Bexio\Resources\Sales\ItemPositions\Collections\ItemPositionCollection;
+use Bexio\Resources\Sales\ItemPositions\Concerns\HasSubItemPositions;
 use Bexio\Resources\Sales\ItemPositions\ItemPosition;
 use Bexio\Resources\Sales\ItemPositions\ItemPositionCast;
 use Bexio\Resources\Sales\KbDocumentContract;
@@ -23,6 +24,7 @@ use Spatie\LaravelData\Attributes\WithCast;
 class Invoice extends Resource implements KbDocumentContract
 {
     use HasComments;
+    use HasSubItemPositions;
 
     const DOCUMENT_TYPE = KbDocumentType::INVOICE;
 

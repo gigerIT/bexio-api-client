@@ -21,6 +21,6 @@ trait HasComments
             $comment->attachClient($this->client());
         }
 
-        return $comment->createFor(self::DOCUMENT_TYPE, $this->id);
+        return $comment->createFor($this);
     }
 }
