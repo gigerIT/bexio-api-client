@@ -9,7 +9,6 @@ class ItemPositionCustom extends ItemPosition
 {
     public ItemPositionType $type = ItemPositionType::CUSTOM;
 
-    public ?int $parent_id;
 
 
     public function __construct(

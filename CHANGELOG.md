@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.2.2](https://github.com/gigerIT/bexio-api-client/compare/v1.2.1...v1.2.2) (2024-08-08)
+
+
+### Features
+
+* New item position handling ([#7](https://github.com/gigerIT/bexio-api-client/issues/7)) ([75bf917](https://github.com/gigerIT/bexio-api-client/commit/75bf917a0f08fa240d04e43ec1440d254b0d6016))
+
+## [1.2.1](https://github.com/gigerIT/bexio-api-client/compare/v1.2.0...v1.2.1) (2024-07-30)
+
+
+### Bug Fixes
+
+* ContactSearchWhereClause optional prop before required ([db9a8bf](https://github.com/gigerIT/bexio-api-client/commit/db9a8bfb0e2ca9f12a660342ae3daec5ee330d3b))
+
 ## [1.2.0](https://github.com/gigerIT/bexio-api-client/compare/v1.1.0...v1.2.0) (2024-07-30)
 
 
