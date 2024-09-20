@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.3.0](https://github.com/gigerIT/bexio-api-client/compare/v1.2.2...v1.3.0) (2024-09-20)
+
+
+### Features
+
+* Sales item sub positions ([#10](https://github.com/gigerIT/bexio-api-client/issues/10)) ([b62b4e9](https://github.com/gigerIT/bexio-api-client/commit/b62b4e9e337722b7e8eacefe96328a0d674d50d5))
+* upgrade to pest 3 ([13a3648](https://github.com/gigerIT/bexio-api-client/commit/13a3648b8938327f91ff1b2c925498a0cefdd18f))
+
+
+### Bug Fixes
+
+* comment tests to new syntax ([9d79919](https://github.com/gigerIT/bexio-api-client/commit/9d7991958c26957c01c8639c812f1490a03b3128))
+
 ## [1.2.2](https://github.com/gigerIT/bexio-api-client/compare/v1.2.1...v1.2.2) (2024-08-08)
 
 
