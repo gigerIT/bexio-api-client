@@ -24,7 +24,7 @@ it('can create a Comment for a Invoice', function () {
         text: 'This is a comment',
     );
 
-    $comment = $comment->attachClient(testClient())->createFor(KbDocumentType::INVOICE, $testInvoice->id);
+    $comment = $comment->attachClient(testClient())->createFor($testInvoice);
 
     expect($comment->text)->toBe('This is a comment')
         ->and($comment->id)->toBeInt();
