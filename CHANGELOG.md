@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/gigerIT/bexio-api-client/compare/v1.3.0...v1.3.1) (2024-09-24)
+
+
+### Bug Fixes
+
+* bump deps ([340db30](https://github.com/gigerIT/bexio-api-client/commit/340db300178070c0b035f05f268a13728b1a8dba))
+
 ## [1.3.0](https://github.com/gigerIT/bexio-api-client/compare/v1.2.2...v1.3.0) (2024-09-20)
 
 
