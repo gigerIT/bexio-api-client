@@ -17,20 +17,19 @@ class ItemPositionCast implements Cast, IterableItemCast, Castable
 
     public static function dataCastUsing(array $arguments): Cast
     {
-        dump('ItemPositionCast::dataCastUsing:', $arguments);
-
+//        dump('ItemPositionCast::dataCastUsing:', $arguments);
         return new self();
     }
 
     public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): mixed
     {
-        dump('ItemPositionCast::cast');
+//        dump('ItemPositionCast::cast');
         return new ItemPositionCollection(array_map(fn ($item) => $this->matchItemPositionType($item), $value));
     }
 
     public function castIterableItem(DataProperty $property, mixed $value, array $properties, CreationContext $context): mixed
     {
-        dump('ItemPositionCast::castIterableItem:', $value);
+//        dump('ItemPositionCast::castIterableItem:', $value);
         return $this->matchItemPositionType($value);
     }
 
