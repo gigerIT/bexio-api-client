@@ -19,15 +19,14 @@
     }
   ],
   "require": {
-    "saloonphp/saloon": "^3.0",
-    "illuminate/container": "^11.9",
-    "spatie/laravel-data": "^4.6",
-    "gigerit/spatie-laravel-data-standalone": "^1.0"
+    "saloonphp/saloon": "^3",
+    "illuminate/container": "^11",
+    "spatie/laravel-data": "^4"
   },
   "require-dev": {
-    "pestphp/pest": "^v3.1.0",
-    "pestphp/pest-plugin-faker": "^v3.0.0",
-    "symfony/var-dumper": "^7.1"
+    "pestphp/pest": "^v3",
+    "pestphp/pest-plugin-faker": "^v3",
+    "symfony/var-dumper": "^7"
   },
   "config": {
     "allow-plugins": {
