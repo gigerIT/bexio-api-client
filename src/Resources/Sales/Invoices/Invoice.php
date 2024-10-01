@@ -18,6 +18,7 @@ use Bexio\Resources\Sales\ItemPositions\ItemPositionCast;
 use Bexio\Resources\Sales\KbDocumentContract;
 use Bexio\Resources\Sales\MwstType;
 use Bexio\Resources\Sales\SalesTax;
+use Bexio\Support\Concerns\HasOfficeLink;
 use Saloon\Http\Response;
 use Spatie\LaravelData\Attributes\WithCast;
 
@@ -25,6 +26,7 @@ class Invoice extends Resource implements KbDocumentContract
 {
     use HasComments;
     use HasSubItemPositions;
+    use HasOfficeLink;
 
     const DOCUMENT_TYPE = KbDocumentType::INVOICE;
 
@@ -34,6 +36,8 @@ class Invoice extends Resource implements KbDocumentContract
     public const CREATE_REQUEST = CreateInvoiceRequest::class;
 
     public const DELETE_REQUEST = DeleteInvoiceRequest::class;
+
+    public const SHOW_URI = '/index.php/kb_invoice/show/id/{id}';
 
     public string $document_nr;
     public string $total_gross;
@@ -94,6 +98,8 @@ class Invoice extends Resource implements KbDocumentContract
     )
     {
         $this->positions = $positions ?? new ItemPositionCollection([]);
+
+        $this->setOfficeLink();
     }
 
 

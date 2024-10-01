@@ -19,6 +19,8 @@ class Resource extends Data
     const UPDATE_REQUEST = Request::class;
     const DELETE_REQUEST = Request::class;
 
+    const OFFICE_BASE_URI = 'https://office.bexio.com';
+
     private BexioClient $client;
 
     public static function useClient(BexioClient $client): static
