@@ -7,8 +7,8 @@ use Bexio\Resources\Resource;
 /** @mixin Resource */
 trait HasOfficeLink
 {
-    public function officeLink(): string
+    public function officeLink(?int $id = null): string
     {
-        return self::OFFICE_BASE_URI . str_replace('{id}', (string)$this->id, self::SHOW_URI);
+        return self::OFFICE_BASE_URI . str_replace('{id}', (string)$id ?? $this->id, self::SHOW_URI);
     }
 }
