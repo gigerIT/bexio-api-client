@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.2](https://github.com/gigerIT/bexio-api-client/compare/v1.3.1...v1.3.2) (2024-09-24)
+
+
+### Bug Fixes
+
+* remove dump and add architecture test ([650b081](https://github.com/gigerIT/bexio-api-client/commit/650b0813de79213228c09fee0f44de17685e1afd))
+
 ## [1.3.1](https://github.com/gigerIT/bexio-api-client/compare/v1.3.0...v1.3.1) (2024-09-24)
 
 
