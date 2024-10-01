@@ -98,8 +98,6 @@ class Invoice extends Resource implements KbDocumentContract
     )
     {
         $this->positions = $positions ?? new ItemPositionCollection([]);
-
-        $this->setOfficeLink();
     }
 
 
