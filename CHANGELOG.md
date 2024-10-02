@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.1](https://github.com/gigerIT/bexio-api-client/compare/v1.5.0...v1.5.1) (2024-10-02)
+
+
+### Bug Fixes
+
+* officeLinkFor() static ([2787630](https://github.com/gigerIT/bexio-api-client/commit/2787630e4e91961e47d86a994ba8ec49f68ad523))
+
 ## [1.5.0](https://github.com/gigerIT/bexio-api-client/compare/v1.4.0...v1.5.0) (2024-10-02)
 
 
