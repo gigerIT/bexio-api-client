@@ -12,7 +12,7 @@ trait HasOfficeLink
         return self::OFFICE_BASE_URI . str_replace('{id}', (string)$this->id, self::SHOW_URI);
     }
 
-    public function officeLinkFor(int $id): string
+    public static function officeLinkFor(int $id): string
     {
         return self::OFFICE_BASE_URI . str_replace('{id}', (string)$id, self::SHOW_URI);
     }
