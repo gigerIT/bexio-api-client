@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.4.0](https://github.com/gigerIT/bexio-api-client/compare/v1.3.2...v1.4.0) (2024-10-02)
+
+
+### Features
+
+* add office link & add to invoice ([4aab947](https://github.com/gigerIT/bexio-api-client/commit/4aab9473474843ea44da3b9aa204bc7445b50366))
+* add office link & add to invoice ([96bf9c0](https://github.com/gigerIT/bexio-api-client/commit/96bf9c0f92a40fe4670f7994a81ac33f15349254))
+* add office link & add to invoice ([cab14a0](https://github.com/gigerIT/bexio-api-client/commit/cab14a09e65746f551a79cdf31d321389360e8e4))
+* add office link & add to invoice ([91cca4e](https://github.com/gigerIT/bexio-api-client/commit/91cca4e7f84c36d2526e5034fb9d95ef0d3147aa))
+* add PUBLIC_TEST_API_KEY to BexioClient ([14b628e](https://github.com/gigerIT/bexio-api-client/commit/14b628e3a769836fb595fd8c4842dac324547812))
+
 ## [1.3.2](https://github.com/gigerIT/bexio-api-client/compare/v1.3.1...v1.3.2) (2024-09-24)
 
 
