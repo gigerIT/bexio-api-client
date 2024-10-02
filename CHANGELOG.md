@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/gigerIT/bexio-api-client/compare/v1.4.0...v1.5.0) (2024-10-02)
+
+
+### Features
+
+* add officeLinkFor() mehtod ([bf5f138](https://github.com/gigerIT/bexio-api-client/commit/bf5f138678098a0ef925450ea70c9031bbcd930e))
+
 ## [1.4.0](https://github.com/gigerIT/bexio-api-client/compare/v1.3.2...v1.4.0) (2024-10-02)
 
 
