@@ -37,7 +37,7 @@ class Invoice extends Resource implements KbDocumentContract
 
     public const DELETE_REQUEST = DeleteInvoiceRequest::class;
 
-    public const SHOW_URI = '/index.php/kb_invoice/show/id/{id}';
+    public const SHOW_URL = '/index.php/kb_invoice/show/id/{id}';
 
     public string $document_nr;
     public string $total_gross;
