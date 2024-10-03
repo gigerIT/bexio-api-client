@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.2](https://github.com/gigerIT/bexio-api-client/compare/v1.5.1...v1.5.2) (2024-10-02)
+
+
+### Bug Fixes
+
+* office link comments ([d262039](https://github.com/gigerIT/bexio-api-client/commit/d2620399d851df0ece4d64fb4ffa7748cad41dbb))
+* office url const naming ([0a9b5e7](https://github.com/gigerIT/bexio-api-client/commit/0a9b5e7010cd29f99bafdcbd9d3ac574ed036e6a))
+
 ## [1.5.1](https://github.com/gigerIT/bexio-api-client/compare/v1.5.0...v1.5.1) (2024-10-02)
 
 
