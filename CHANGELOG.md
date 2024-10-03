@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.3](https://github.com/gigerIT/bexio-api-client/compare/v1.5.2...v1.5.3) (2024-10-03)
+
+
+### Bug Fixes
+
+* rotate API test key ([c3f405c](https://github.com/gigerIT/bexio-api-client/commit/c3f405c5308c58e27380aaa28c80bc3df624ca26))
+
 ## [1.5.2](https://github.com/gigerIT/bexio-api-client/compare/v1.5.1...v1.5.2) (2024-10-02)
 
 
