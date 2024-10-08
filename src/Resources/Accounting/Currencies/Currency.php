@@ -8,7 +8,7 @@ use Bexio\Resources\Resource;
 
 class Currency extends Resource
 {
-    //Default ID's for currencies in Bexio (most users never change this list)
+    //Default ID's for currencies in Bexio (most users don't change this list)
     const DEFAULT_ID = [
         'CHF' => 1,
         'EUR' => 2,
