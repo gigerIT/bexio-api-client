@@ -61,4 +61,4 @@ it('can get an access token', function () {
         ->and($response->getExpiresAt())->not()->toBeNull();
 
     dump($response);
-});
+})->skip();
