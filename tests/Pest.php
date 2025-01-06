@@ -11,6 +11,10 @@ uses()
     ->beforeEach(fn() => MockClient::destroyGlobal())
     ->in(__DIR__);
 
+
+uses(Tests\TestCase::class)->in('Auth');
+uses(Tests\TestCase::class)->in('Resources');
+
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -54,7 +58,7 @@ expect()->extend('toBeOne', function () {
 //region Clients
 function testClient(): BexioClient
 {
-    return BexioClient::testAccount();
+    return new BexioClient(authenticator: new \Saloon\Http\Auth\AccessTokenAuthenticator(''));
 }
 
 function testClientDebug(): BexioClient
