@@ -58,7 +58,7 @@ expect()->extend('toBeOne', function () {
 //region Clients
 function testClient(): BexioClient
 {
-    return new BexioClient(authenticator: new \Saloon\Http\Auth\AccessTokenAuthenticator(''));
+    return BexioClient::testAccount();
 }
 
 function testClientDebug(): BexioClient
