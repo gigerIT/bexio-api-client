@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/gigerIT/bexio-api-client/compare/v1.0.0...v2.0.0) (2025-01-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* oauth2
+
+### Features
+
+* oauth2 ([6a7a3ec](https://github.com/gigerIT/bexio-api-client/commit/6a7a3ece21b40abfabe5385f699574c13b4beb9a))
+
 ## 1.0.0 (2024-10-15)
 
 
