@@ -42,6 +42,4 @@ class BexioAuth extends Connector
             ->setTokenEndpoint('/token')
             ->setUserEndpoint('/userinfo');
     }
-
-
 }
