@@ -1,8 +1,10 @@
 # bexio API PHP Client
 
-This is a <a href="https://docs.bexio.com">bexio
-API</a> client, built with <a href="https://docs.saloon.dev/">`saloonphp/saloon`</a>
-and <a href="https://github.com/spatie/laravel-data">`spatie/laravel-data`</a>
+This is a [bexio API](https://docs.bexio.com) client, built with [`saloonphp/saloon`](https://docs.saloon.dev/) and [`spatie/laravel-data`](https://github.com/spatie/laravel-data).
+
+## Introduction
+
+The bexio API PHP Client allows you to interact with the bexio API seamlessly. It provides a simple and intuitive interface to manage contacts, sales orders, accounting, and more.
 
 ## Installation
 
@@ -26,7 +28,7 @@ $contact = Contact::useClient($client)->find(1);
 echo $contact->id;
 echo $contact->name_1;
 echo $contact->mail;
-````
+```
 
 Get all Contacts:
 
@@ -76,121 +78,171 @@ $contact->name_1 = 'Jane Doe';
 
 // Send the changes back to bexio
 $contact->save();
-````
+```
 
-See [Tests](tests/Resources) for more Examples.
+See [Tests](tests/Resources) for more examples.
 
 ## Data Transfer Objects
 
 DTOs provide type hinting and autocompletion in the IDE, for a better development experience.
-<img src="docs/assets/contacts_typehint.png" alt="drawing" width="600"/>
+![Type Hinting](docs/assets/contacts_typehint.png)
 
 ## Authentication
 
-Currently, the package only supports simple API Token authentication as it was created for a single project.
-If you need OAuth2 or other authentication methods, please feel free to open an issue or create a pull request.
+To obtain an API token, you can use the BexioAuth helper to generate and refresh OAuth2 tokens.
+
+1. Initialize the BexioAuth helper with your `client_id`, `client_secret`, and `redirect_uri`.
+
+```php
+use Bexio\BexioAuth;
+
+$auth = new BexioAuth(
+    'CLIENT_ID',
+    'CLIENT_SECRET',
+    'REDIRECT_URI'
+);
+```
+
+2. Generate an authorization URL and redirect the user to it.
+
+```php
+$url = $auth->getAuthorizationUrl(
+    scopes: [
+        "company_profile",
+        "email",
+        "offline_access",
+        "openid",
+        "profile",
+    ],
+    state: 'random-state-string'
+);
+
+header('Location: ' . $url);
+```
+
+3. After the user has authorized the app, the user will be redirected back to the `redirect_uri` with a `code` parameter.
+
+```php
+$code = $_GET['code'];
+$state = $_GET['state'];
+
+$oauthAuthenticator = $auth->getAccessToken($code, $state, 'random-state-string');
+
+// Your logic to store the access token and refresh token
+```
+
+4. Use the access token to authenticate the BexioClient.
+
+```php
+//Your logic to retrieve the access token and refresh token
+
+if ($auth->hasExpired()) {
+    $auth = BexioAuth::make()->refreshAccessToken($auth);
+   
+   // Your logic to store the new access token and refresh token
+}
+
+$client = new BexioClient($auth->getAccessToken());
+```
 
 ## Available Resources
 
 ### CONTACTS
 
 | Resource             | Implemented |
-|----------------------|-------------|
-| Contacts             | ✅           |
-| Contact Relations    | ❌           |
-| Contact Groups       | ❌           |
-| Contact Sectors      | ❌           |
-| Additional Addresses | ❌           |
-| Salutations          | ❌           |
-| Titles               | ❌           |
+| -------------------- | ----------- |
+| Contacts             | ✅          |
+| Contact Relations    | ❌          |
+| Contact Groups       | ❌          |
+| Contact Sectors      | ❌          |
+| Additional Addresses | ❌          |
+| Salutations          | ❌          |
+| Titles               | ❌          |
 
 ### SALES ORDER MANAGEMENT
 
 | Resource            | Implemented |
-|---------------------|-------------|
-| Quotes              | ✅           |
-| Orders              | ❌           |
-| Deliveries          | ❌           |
-| Invoices            | ❌           |
-| Document Settings   | ❌           |
-| Comments            | ❌           |
-| Default positions   | ❌           |
-| Item positions      | ❌           |
-| Text positions      | ❌           |
-| Subtotal positions  | ❌           |
-| Discount positions  | ❌           |
-| Pagebreak positions | ❌           |
-| Sub positions       | ❌           |
-| Document templates  | ❌           |
+| ------------------- | ----------- |
+| Quotes              | ✅          |
+| Orders              | ❌          |
+| Deliveries          | ❌          |
+| Invoices            | ❌          |
+| Document Settings   | ❌          |
+| Comments            | ❌          |
+| Default positions   | ❌          |
+| Item positions      | ❌          |
+| Text positions      | ❌          |
+| Subtotal positions  | ❌          |
+| Discount positions  | ❌          |
+| Pagebreak positions | ❌          |
+| Sub positions       | ❌          |
+| Document templates  | ❌          |
 
 ### PURCHASE
 
 | Resource         | Implemented |
-|------------------|-------------|
-| Bills            | ❌           |
-| Expenses         | ❌           |
-| Purchase Orders  | ❌           |
-| Outgoing Payment | ❌           |
+| ---------------- | ----------- |
+| Bills            | ❌          |
+| Expenses         | ❌          |
+| Purchase Orders  | ❌          |
+| Outgoing Payment | ❌          |
 
 ### ACCOUNTING
 
 | Resource       | Implemented |
-|----------------|-------------|
-| Accounts       | ✅           |
-| Account Groups | ❌           |
-| Calendar Years | ❌           |
-| Business Years | ❌           |
-| Currencies     | ❌           |
-| Manual Entries | ❌           |
-| Reports        | ❌           |
-| Taxes          | ✅           |
-| Vat Periods    | ❌           |
+| -------------- | ----------- |
+| Accounts       | ✅          |
+| Account Groups | ❌          |
+| Calendar Years | ❌          |
+| Business Years | ❌          |
+| Currencies     | ❌          |
+| Manual Entries | ❌          |
+| Reports        | ❌          |
+| Taxes          | ✅          |
+| Vat Periods    | ❌          |
 
 ### BANKING
 
 | Resource      | Implemented |
-|---------------|-------------|
-| Bank Accounts | ❌           |
-| IBAN Payments | ❌           |
-| QR Payments   | ❌           |
-| Payments      | ❌           |
+| ------------- | ----------- |
+| Bank Accounts | ❌          |
+| IBAN Payments | ❌          |
+| QR Payments   | ❌          |
+| Payments      | ❌          |
 
 ### ITEMS & PRODUCTS
 
 | Resource        | Implemented |
-|-----------------|-------------|
-| Items           | ❌           |
-| Stock locations | ❌           |
-| Stock Areas     | ❌           |
+| --------------- | ----------- |
+| Items           | ❌          |
+| Stock locations | ❌          |
+| Stock Areas     | ❌          |
 
 ### PROJECTS & TIME TRACKING
 
 | Resource            | Implemented |
-|---------------------|-------------|
-| Projects            | ❌           |
-| Timesheets          | ❌           |
-| Business Activities | ❌           |
-| Communication Types | ❌           |
+| ------------------- | ----------- |
+| Projects            | ❌          |
+| Timesheets          | ❌          |
+| Business Activities | ❌          |
+| Communication Types | ❌          |
 
 ### FILES
 
 | Resource | Implemented |
-|----------|-------------|
-| Files    | ❌           |
+| -------- | ----------- |
+| Files    | ❌          |
 
 ### OTHER
 
 | Resource        | Implemented |
-|-----------------|-------------|
-| Company Profile | ✅           |
-| Countries       | ❌           |
-| Languages       | ❌           |
-| Notes           | ❌           |
-| Payment Types   | ❌           |
-| Permissions     | ❌           |
-| Tasks           | ❌           |
-| Units           | ❌           |
-| User Management | ❌           |
-
-
-
+| --------------- | ----------- |
+| Company Profile | ✅          |
+| Countries       | ❌          |
+| Languages       | ❌          |
+| Notes           | ❌          |
+| Payment Types   | ❌          |
+| Permissions     | ❌          |
+| Tasks           | ❌          |
+| Units           | ❌          |
+| User Management | ❌          |

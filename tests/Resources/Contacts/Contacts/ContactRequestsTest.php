@@ -2,12 +2,15 @@
 
 namespace Bexio\Resources\Contacts\Contacts\Requests;
 
+use Bexio\BexioClient;
 use Bexio\Resources\Contacts\Contacts\Contact;
 use Bexio\Resources\Contacts\Contacts\Enums\ContactType;
 use Bexio\Support\Data\SearchCriteria;
 use function Pest\Faker\fake;
 
 $testContact = null;
+
+
 
 it('can create a Contact', function () use (&$testContact) {
     $contact = new Contact(

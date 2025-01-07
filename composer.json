@@ -9,7 +9,8 @@
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "Bexio\\": "src/"
+      "Bexio\\": "src/",
+      "Tests\\": "tests/"
     }
   },
   "authors": [

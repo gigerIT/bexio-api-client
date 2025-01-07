@@ -11,6 +11,10 @@ uses()
     ->beforeEach(fn() => MockClient::destroyGlobal())
     ->in(__DIR__);
 
+
+uses(Tests\TestCase::class)->in('Auth');
+uses(Tests\TestCase::class)->in('Resources');
+
 /*
 |--------------------------------------------------------------------------
 | Test Case
