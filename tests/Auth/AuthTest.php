@@ -47,7 +47,7 @@ it('can generate a oauth2 authorization url', function () {
 
     expect($url)->toBeString();
 
-    dump($url);
+//    dump($url);
 });
 
 it('can get an access token', function () {
@@ -60,5 +60,5 @@ it('can get an access token', function () {
         ->and($response->getRefreshToken())->toBeString()
         ->and($response->getExpiresAt())->not()->toBeNull();
 
-    dump($response);
+//    dump($response);
 })->skip();

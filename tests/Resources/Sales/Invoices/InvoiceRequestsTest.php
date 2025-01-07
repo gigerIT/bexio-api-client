@@ -27,7 +27,6 @@ it('can create an Invoice', function () use (&$testInvoice) {
 it('can get Invoices', function () {
     $invoices = Invoice::useClient(testClient())->all();
     expect($invoices)->toBeArray()->and($invoices[0])->toBeInstanceOf(Invoice::class);
-    dump($invoices);
 })->depends('it can create an Invoice');
 
 it('can get an Invoice', function () use (&$testInvoice) {
