@@ -23,6 +23,9 @@ class Resource extends Data
 
     private BexioClient $client;
 
+    /**
+     * Instantiates a new instance of the resource with the provided BexioClient attached.
+     */
     public static function useClient(BexioClient $client): static
     {
         $reflectionClass = new ReflectionClass(static::class);
@@ -32,6 +35,9 @@ class Resource extends Data
     }
 
 
+    /**
+     * Attaches a BexioClient to the current instance of the resource.
+     */
     public function attachClient(BexioClient $client): static
     {
         $this->client = $client;

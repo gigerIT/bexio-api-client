@@ -1,10 +1,10 @@
 # bexio API PHP Client
 
-This is a [bexio API](https://docs.bexio.com) client, built with [`saloonphp/saloon`](https://docs.saloon.dev/) and [`spatie/laravel-data`](https://github.com/spatie/laravel-data).
+This is a [bexio API](https://docs.bexio.com) client, built with [`saloonphp/saloon`](https://docs.saloon.dev/) as API connector and [`spatie/laravel-data`](https://github.com/spatie/laravel-data) for DTOs.
 
 ## Introduction
 
-The bexio API PHP Client allows you to interact with the bexio API seamlessly. It provides a simple and intuitive interface to manage contacts, sales orders, accounting, and more.
+The bexio API PHP Client allows you to interact with the bexio API seamlessly. It provides a simple and intuitive interface to manage contacts, sales orders, accounting, and more. As we come from the Laravel world we gave this client a Laravel-like feel.
 
 ## Installation
 
@@ -24,7 +24,7 @@ $client = new BexioClient('API_TOKEN');
 // Get the Contact with the ID 1
 $contact = Contact::useClient($client)->find(1); 
 
-// Access the Contact properties
+// User the Contact properties
 echo $contact->id;
 echo $contact->name_1;
 echo $contact->mail;
@@ -57,7 +57,7 @@ $contact = new Contact(
 );
 
 // Save the Contact
-$contact->save();
+$contact->attachClient($client)->save();
 ```
 
 Combine actions:
@@ -90,9 +90,7 @@ DTOs provide type hinting and autocompletion in the IDE, for a better developmen
 ## Authentication
 
 To obtain an API token, you can use the BexioAuth helper to generate and refresh OAuth2 tokens.
-
-1. Initialize the BexioAuth helper with your `client_id`, `client_secret`, and `redirect_uri`.
-
+1. Connect to Bexio: Generate an authorization URL and redirect the user to it.
 ```php
 use Bexio\BexioAuth;
 
@@ -101,11 +99,7 @@ $auth = new BexioAuth(
     'CLIENT_SECRET',
     'REDIRECT_URI'
 );
-```
 
-2. Generate an authorization URL and redirect the user to it.
-
-```php
 $url = $auth->getAuthorizationUrl(
     scopes: [
         "company_profile",
@@ -119,22 +113,37 @@ $url = $auth->getAuthorizationUrl(
 
 header('Location: ' . $url);
 ```
-
-3. After the user has authorized the app, the user will be redirected back to the `redirect_uri` with a `code` parameter.
-
+2. Callback: After the user has authorized the app, the user will be redirected back to the `redirect_uri` with a `code` parameter.
 ```php
+use Bexio\BexioAuth;
+
 $code = $_GET['code'];
 $state = $_GET['state'];
+
+//Provided from https://developer.bexio.com/ (Create a new app)
+$auth = new BexioAuth(
+    'CLIENT_ID',
+    'CLIENT_SECRET',
+    'REDIRECT_URI'
+);
 
 $oauthAuthenticator = $auth->getAccessToken($code, $state, 'random-state-string');
 
 // Your logic to store the access token and refresh token
+// (e.g. in a database, you can just serialize the $oauthAuthenticator object for example)
 ```
 
-4. Use the access token to authenticate the BexioClient.
+3. Use Client & Refresh Token: Use the access token to authenticate the BexioClient.
 
 ```php
 //Your logic to retrieve the access token and refresh token
+
+//create a AccessTokenAuthenticator object or unserialize it from your store/database
+$auth = new AccessTokenAuthenticator(
+    $yourDatastore->access_token,
+    $yourDatastore->refresh_token,
+    $yourDatastore->access_token_expires_at //as DateTimeImmutable
+);
 
 if ($auth->hasExpired()) {
     $auth = BexioAuth::make()->refreshAccessToken($auth);
@@ -143,6 +152,8 @@ if ($auth->hasExpired()) {
 }
 
 $client = new BexioClient($auth->getAccessToken());
+
+// Use the client to interact with the bexio API
 ```
 
 ## Available Resources
@@ -152,7 +163,7 @@ $client = new BexioClient($auth->getAccessToken());
 | Resource             | Implemented |
 | -------------------- | ----------- |
 | Contacts             | ✅          |
-| Contact Relations    | ❌          |
+| Contact Relations    | ✅          |
 | Contact Groups       | ❌          |
 | Contact Sectors      | ❌          |
 | Additional Addresses | ❌          |
@@ -166,25 +177,25 @@ $client = new BexioClient($auth->getAccessToken());
 | Quotes              | ✅          |
 | Orders              | ❌          |
 | Deliveries          | ❌          |
-| Invoices            | ❌          |
+| Invoices            | ✅          |
 | Document Settings   | ❌          |
-| Comments            | ❌          |
-| Default positions   | ❌          |
-| Item positions      | ❌          |
-| Text positions      | ❌          |
-| Subtotal positions  | ❌          |
-| Discount positions  | ❌          |
-| Pagebreak positions | ❌          |
-| Sub positions       | ❌          |
+| Comments            | ✅          |
+| Default positions   | ✅          |
+| Item positions      | ✅          |
+| Text positions      | ✅          |
+| Subtotal positions  | ✅          |
+| Discount positions  | ✅          |
+| Pagebreak positions | ✅          |
+| Sub positions       | ✅          |
 | Document templates  | ❌          |
 
 ### PURCHASE
 
 | Resource         | Implemented |
 | ---------------- | ----------- |
-| Bills            | ❌          |
-| Expenses         | ❌          |
-| Purchase Orders  | ❌          |
+| Bills            | ✅          |
+| Expenses         | ✅          |
+| Purchase Orders  | ✅          |
 | Outgoing Payment | ❌          |
 
 ### ACCOUNTING
@@ -195,7 +206,7 @@ $client = new BexioClient($auth->getAccessToken());
 | Account Groups | ❌          |
 | Calendar Years | ❌          |
 | Business Years | ❌          |
-| Currencies     | ❌          |
+| Currencies     | ✅          |
 | Manual Entries | ❌          |
 | Reports        | ❌          |
 | Taxes          | ✅          |

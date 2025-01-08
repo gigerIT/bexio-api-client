@@ -24,7 +24,7 @@ it('can create a Contact', function () use (&$testContact) {
         phone_fixed: fake()->phoneNumber(),
     );
 
-    $testContact = $contact->attachClient(testClient())->create();
+    $testContact = $contact->attachClient(testClient())->save();
 
     expect($testContact)->toBeInstanceOf(Contact::class)
         ->and($testContact->name_1)->toBeString()
