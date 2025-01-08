@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.1.0](https://github.com/gigerIT/bexio-api-client/compare/v2.0.0...v2.1.0) (2025-01-08)
+
+
+### Features
+
+* allow multiple constructor types ([823c496](https://github.com/gigerIT/bexio-api-client/commit/823c4960aeef0925edd475134e2869a08713c5a9))
+
+
+### Bug Fixes
+
+* remove dumps in tests ([adf9d07](https://github.com/gigerIT/bexio-api-client/commit/adf9d07da6b88abc2fd7a42ff1fb6b9eed01d81b))
+
+
+### Miscellaneous Chores
+
+* loads test api key in CI from github secrets ([1a2b23a](https://github.com/gigerIT/bexio-api-client/commit/1a2b23aadf8eb0a0ef311bceae2b049c3aa70205))
+
 ## [2.0.0](https://github.com/gigerIT/bexio-api-client/compare/v1.0.0...v2.0.0) (2025-01-07)
 
 
