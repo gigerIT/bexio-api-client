@@ -30,6 +30,8 @@ jobs:
           composer-options: --prefer-dist
 
       - name: Run Tests
+        env:
+          TEST_API_KEY: ${{ secrets.TEST_API_KEY }}
         run: php vendor/bin/pest --colors=always -v --parallel --processes=6
 
   Release:
