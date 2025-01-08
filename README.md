@@ -19,6 +19,9 @@ composer require gigerit/bexio-api-client
 Get a Contact by ID:
 
 ```php
+use Bexio\BexioClient;
+use Bexio\Resources\Contact;
+
 $client = new BexioClient('API_TOKEN');
 
 // Get the Contact with the ID 1
@@ -33,6 +36,9 @@ echo $contact->mail;
 Get all Contacts:
 
 ```php
+use Bexio\BexioClient;
+use Bexio\Resources\Contact;
+
 $client = new BexioClient('API_TOKEN');
 
 // Get all Contacts
@@ -49,6 +55,9 @@ foreach ($contacts as $contact) {
 Create a Contact:
 
 ```php
+use Bexio\BexioClient;
+use Bexio\Resources\Contact;
+
 $client = new BexioClient('API_TOKEN');
 
 // Create a new Contact
@@ -63,6 +72,9 @@ $contact->attachClient($client)->save();
 Combine actions:
 
 ```php
+use Bexio\BexioClient;
+use Bexio\Resources\Contact;
+
 $client = new BexioClient('API_TOKEN');
 
 // Get the Contact with the ID 1
@@ -94,10 +106,11 @@ To obtain an API token, you can use the BexioAuth helper to generate and refresh
 ```php
 use Bexio\BexioAuth;
 
+//Provided from https://developer.bexio.com/
 $auth = new BexioAuth(
     'CLIENT_ID',
     'CLIENT_SECRET',
-    'REDIRECT_URI'
+    'http://localhost/bexio/callback'
 );
 
 $url = $auth->getAuthorizationUrl(
@@ -120,23 +133,32 @@ use Bexio\BexioAuth;
 $code = $_GET['code'];
 $state = $_GET['state'];
 
-//Provided from https://developer.bexio.com/ (Create a new app)
+
 $auth = new BexioAuth(
     'CLIENT_ID',
     'CLIENT_SECRET',
-    'REDIRECT_URI'
+    'http://localhost/bexio/callback'
 );
 
 $oauthAuthenticator = $auth->getAccessToken($code, $state, 'random-state-string');
 
+// ----------------------------------------
 // Your logic to store the access token and refresh token
 // (e.g. in a database, you can just serialize the $oauthAuthenticator object for example)
+// ----------------------------------------
+
 ```
 
 3. Use Client & Refresh Token: Use the access token to authenticate the BexioClient.
 
 ```php
-//Your logic to retrieve the access token and refresh token
+use Saloon\Http\Auth\AccessTokenAuthenticator;
+use Bexio\BexioClient;
+use Bexio\BexioAuth;
+    
+// ----------------------------------------
+// Your logic to retrieve the access token and refresh token
+// ----------------------------------------
 
 //create a AccessTokenAuthenticator object or unserialize it from your store/database
 $auth = new AccessTokenAuthenticator(
@@ -148,7 +170,9 @@ $auth = new AccessTokenAuthenticator(
 if ($auth->hasExpired()) {
     $auth = BexioAuth::make()->refreshAccessToken($auth);
    
+   // ----------------------------------------
    // Your logic to store the new access token and refresh token
+   // ----------------------------------------
 }
 
 $client = new BexioClient($auth->getAccessToken());
