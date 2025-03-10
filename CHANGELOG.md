@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.1.3](https://github.com/gigerIT/bexio-api-client/compare/v2.1.2...v2.1.3) (2025-03-10)
+
+
+### Bug Fixes
+
+* allow illuminate/container to support version 12 ([7a40f8f](https://github.com/gigerIT/bexio-api-client/commit/7a40f8f1cf3f234f79466cdb9d0b8d1ccfcea552))
+
+
+### Miscellaneous Chores
+
+* bump version to 2.1.3 ([81994b6](https://github.com/gigerIT/bexio-api-client/commit/81994b6d9fbe40e47a7fb8c91ad944d58c46167c))
+
 ## [2.1.2](https://github.com/gigerIT/bexio-api-client/compare/v2.1.1...v2.1.2) (2025-01-08)
 
 
