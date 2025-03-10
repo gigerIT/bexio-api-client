@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.2](https://github.com/gigerIT/bexio-api-client/compare/v2.1.1...v2.1.2) (2025-01-08)
+
+
+### Miscellaneous Chores
+
+* readme updated ([2a3678d](https://github.com/gigerIT/bexio-api-client/commit/2a3678d370d8701f6c2704820344d917aabaf7e8))
+
 ## [2.1.1](https://github.com/gigerIT/bexio-api-client/compare/v2.1.0...v2.1.1) (2025-01-08)
 
 

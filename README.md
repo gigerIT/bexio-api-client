@@ -24,10 +24,10 @@ use Bexio\Resources\Contact;
 
 $client = new BexioClient('API_TOKEN');
 
-// Get the Contact with the ID 1
+// Get the Contact with ID 1
 $contact = Contact::useClient($client)->find(1); 
 
-// User the Contact properties
+// Access the Contact properties
 echo $contact->id;
 echo $contact->name_1;
 echo $contact->mail;
