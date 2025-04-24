@@ -1,5 +1,19 @@
 # Changelog
 
+## [2.1.4](https://github.com/gigerIT/bexio-api-client/compare/v2.1.3...v2.1.4) (2025-04-24)
+
+
+### Bug Fixes
+
+* illuminate/container version ([e04062f](https://github.com/gigerIT/bexio-api-client/commit/e04062f558a9acae10b2ae843b9560f80d9764e6))
+* updated testSaleTaxId ([7eb0244](https://github.com/gigerIT/bexio-api-client/commit/7eb024499ebc9f3be647e17211c79e780921e35f))
+
+
+### Miscellaneous Chores
+
+* **main:** release 2.1.3 ([6717775](https://github.com/gigerIT/bexio-api-client/commit/67177755dda5acfbe505737aed3bc61cfd6d13b5))
+* **main:** release 2.1.3 ([6f590f9](https://github.com/gigerIT/bexio-api-client/commit/6f590f98ddfdd8cf41b52bceaf32ba19130ccbdc))
+
 ## [2.1.3](https://github.com/gigerIT/bexio-api-client/compare/v2.1.2...v2.1.3) (2025-03-10)
 
 
