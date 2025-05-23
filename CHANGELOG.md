@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.5](https://github.com/gigerIT/bexio-api-client/compare/v2.1.4...v2.1.5) (2025-05-23)
+
+
+### Miscellaneous Chores
+
+* bump deps ([375b99d](https://github.com/gigerIT/bexio-api-client/commit/375b99d299d0fc4fed0e5826826b559855935574))
+
 ## [2.1.4](https://github.com/gigerIT/bexio-api-client/compare/v2.1.3...v2.1.4) (2025-04-24)
 
 
