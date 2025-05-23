@@ -2,7 +2,7 @@
   "name": "gigerit/bexio-api-client",
   "type": "library",
   "description": "A PHP client for the Bexio API",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "keywords": [
     "bexio"
   ],
@@ -22,11 +22,10 @@
   "require": {
     "saloonphp/saloon": "^3",
     "illuminate/container": "^11|^12",
-    "spatie/laravel-data": "^4",
-    "gigerit/spatie-laravel-data-standalone": "^1.0"
+    "spatie/laravel-data": "^4"
   },
   "require-dev": {
-    "pestphp/pest": "^3.7",
+    "pestphp/pest": "^v3",
     "pestphp/pest-plugin-faker": "^v3",
     "symfony/var-dumper": "^7"
   },
