@@ -22,7 +22,8 @@
   "require": {
     "saloonphp/saloon": "^3",
     "illuminate/container": "^11|^12",
-    "spatie/laravel-data": "^4"
+    "spatie/laravel-data": "^4",
+    "gigerit/spatie-laravel-data-standalone": "^1.0"
   },
   "require-dev": {
     "pestphp/pest": "^v3",
