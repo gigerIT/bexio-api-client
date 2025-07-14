@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.6](https://github.com/gigerIT/bexio-api-client/compare/v2.1.5...v2.1.6) (2025-05-27)
+
+
+### Miscellaneous Chores
+
+* bump deps ([18b8a53](https://github.com/gigerIT/bexio-api-client/commit/18b8a5395a1a695868fe039e5ac54abeeab1508f))
+* **workflow:** add issue permissions to CI workflow ([3f02055](https://github.com/gigerIT/bexio-api-client/commit/3f02055bbf762d25e7fc107b225f91fe73471919))
+
 ## [2.1.5](https://github.com/gigerIT/bexio-api-client/compare/v2.1.4...v2.1.5) (2025-05-23)
 
 
