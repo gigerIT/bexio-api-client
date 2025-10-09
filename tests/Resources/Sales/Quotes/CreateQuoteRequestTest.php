@@ -13,6 +13,7 @@ it('can create a Quote', function () {
 
     $salesAccount = testSalesAccount();
 
+
     $quote->positions->add(
         new ItemPositionCustom(
             tax_id: $salesAccount->tax_id,
