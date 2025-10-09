@@ -117,7 +117,7 @@ function testSalesAccount(): Account
         $request = new GetAccountsRequest();
         $response = testClientDebug()->send($request);
         $accounts = Account::collect($response->json());
-        $account = $accounts->firstWhere('account_type', '=', 2);
+        $account = $accounts->firstWhere('account_type', '=', 3);
     }
 
     return $account;
