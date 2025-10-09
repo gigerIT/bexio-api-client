@@ -103,6 +103,6 @@ function testSaleTax(): Tax
 function testSaleTaxId(): int
 {
     //in fresh bexio instances tax id 28 is the default sales tax
-    return 29;
-//    return testSaleTax()->id;
+    // return 29;
+    return testSaleTax()->id;
 }
