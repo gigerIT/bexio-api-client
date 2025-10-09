@@ -29,12 +29,12 @@ class CreateContactRequest extends Request implements HasBody
 
     protected function defaultBody(): array
     {
-        return $this->contact->toArray();
+        return $this->contact->except("updated_at", "profile_image")->toArray();
     }
 
     public function createDtoFromResponse(Response $response): Contact
     {
-//        dump($response->json());
+        //        dump($response->json());
         return Contact::from($response->json());
     }
 
