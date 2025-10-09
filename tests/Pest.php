@@ -110,19 +110,20 @@ function testSaleTaxId(): int
 }
 
 
-function testAccount(): Account
+function testSalesAccount(): Account
 {
     static $account;
     if ($account === null) {
         $request = new GetAccountsRequest();
         $response = testClientDebug()->send($request);
-        $accounts = $request->createDtoFromResponse($response);
-        $account = $accounts[0];
+        $accounts = Account::collect($response->json());
+        $account = $accounts->firstWhere('account_type', '=', 2);
     }
+
     return $account;
 }
 
 function testAccountId(): int
 {
-    return testAccount()->id;
+    return testSalesAccount()->id;
 }

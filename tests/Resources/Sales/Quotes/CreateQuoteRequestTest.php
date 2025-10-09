@@ -11,10 +11,12 @@ it('can create a Quote', function () {
 
     $quote = new Quote(title: 'Test Quote', contact_id: 1, user_id: 1, positions: new Collection());
 
+    $salesAccount = testSalesAccount();
+
     $quote->positions->add(
         new ItemPositionCustom(
-            tax_id: testSaleTaxId(),
-            account_id: testAccountId(),
+            tax_id: $salesAccount->tax_id,
+            account_id: $salesAccount->id,
             amount: '10',
             text: 'Test Position',
             unit_price: '100',

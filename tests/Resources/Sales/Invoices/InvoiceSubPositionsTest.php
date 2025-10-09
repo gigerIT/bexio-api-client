@@ -11,14 +11,17 @@ it('can create an Invoice with a subitem position', function () use (&$testInvoi
         title: 'Test Invoice',
         contact_id: 1,
     );
+    $salesAccount = testSalesAccount();
 
     $testInvoice->positions->add(
         new ItemPositionCustom(
-            tax_id: testSaleTaxId(),
+            tax_id: $salesAccount->tax_id,
+            account_id: $salesAccount->id,
             amount: '10',
             text: 'Test Position',
             unit_price: '100',
-        ));
+        )
+    );
 
     $testInvoice = $testInvoice->attachClient(testClient())->create();
     expect($testInvoice->id)->toBeInt();
@@ -31,7 +34,8 @@ it('can create an Invoice with a subitem position', function () use (&$testInvoi
 
 
     $subItemPositionChild = new ItemPositionCustom(
-        tax_id: testSaleTaxId(),
+        tax_id: $salesAccount->tax_id,
+        account_id: $salesAccount->id,
         amount: '10',
         text: 'Test Position',
         unit_price: '100',
