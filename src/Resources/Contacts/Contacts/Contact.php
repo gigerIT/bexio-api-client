@@ -24,7 +24,6 @@ class Contact extends Resource
     const UPDATE_REQUEST = UpdateContactRequest::class;
     const DELETE_REQUEST = DeleteContactRequest::class;
 
-    public ?bool $is_lead;
     public ?string $updated_at;
     public ?string $profile_image;
 
