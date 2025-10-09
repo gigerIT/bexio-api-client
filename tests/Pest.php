@@ -1,6 +1,8 @@
 <?php
 
 use Bexio\BexioClient;
+use Bexio\Resources\Accounting\Accounts\Account;
+use Bexio\Resources\Accounting\Accounts\Requests\GetAccountsRequest;
 use Bexio\Resources\Accounting\Taxes\Requests\GetTaxesRequest;
 use Bexio\Resources\Accounting\Taxes\Tax;
 use Saloon\Http\Faking\MockClient;
@@ -105,4 +107,22 @@ function testSaleTaxId(): int
     //in fresh bexio instances tax id 28 is the default sales tax
     // return 29;
     return testSaleTax()->id;
+}
+
+
+function testAccount(): Account
+{
+    static $account;
+    if ($account === null) {
+        $request = new GetAccountsRequest();
+        $response = testClientDebug()->send($request);
+        $accounts = $request->createDtoFromResponse($response);
+        $account = $accounts[0];
+    }
+    return $account;
+}
+
+function testAccountId(): int
+{
+    return testAccount()->id;
 }
