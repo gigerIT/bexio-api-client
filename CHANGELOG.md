@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.2.0](https://github.com/gigerIT/bexio-api-client/compare/v2.1.6...v2.2.0) (2025-10-09)
+
+
+### Features
+
+* add testAccount and testAccountId functions to retrieve account information ([7824314](https://github.com/gigerIT/bexio-api-client/commit/78243140014ba1305e2bd161dbd4e5815cbafb2b))
+* Remove deprecated `$is_lead` property from Contact ([ec0cc8e](https://github.com/gigerIT/bexio-api-client/commit/ec0cc8ee62a0023f97890a91f6a53b308aa6c845))
+
+
+### Bug Fixes
+
+* exclude `updated_at` and `profile_image` from contact payload in CreateContactRequest ([21350d4](https://github.com/gigerIT/bexio-api-client/commit/21350d40d71345c42f5facfe49d9eb45e501aa03))
+* update Account collection instantiation in testSalesAccount to use Collection class ([3a3ac11](https://github.com/gigerIT/bexio-api-client/commit/3a3ac11880278ff702bdc1197d395caa1b7ea3bf))
+* update account type in testSalesAccount to correctly retrieve sales account ([def521e](https://github.com/gigerIT/bexio-api-client/commit/def521ebbdd1ab158a18fc719bd76f977ef405e2))
+* update testAccount method to use a hardcoded API key and adjust account retrieval logic in tests ([9b25ed6](https://github.com/gigerIT/bexio-api-client/commit/9b25ed606aadab70bccf2fd8eff16f2e1c5fdaa3))
+* update testSaleTaxId to return the correct sales tax ID ([2957a76](https://github.com/gigerIT/bexio-api-client/commit/2957a76c4f905fbf60406ed9d24db0066636862a))
+
 ## [2.1.6](https://github.com/gigerIT/bexio-api-client/compare/v2.1.5...v2.1.6) (2025-05-27)
 
 
