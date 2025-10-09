@@ -5,6 +5,7 @@ use Bexio\Resources\Accounting\Accounts\Account;
 use Bexio\Resources\Accounting\Accounts\Requests\GetAccountsRequest;
 use Bexio\Resources\Accounting\Taxes\Requests\GetTaxesRequest;
 use Bexio\Resources\Accounting\Taxes\Tax;
+use Illuminate\Support\Collection;
 use Saloon\Http\Faking\MockClient;
 use Saloon\Http\Faking\MockResponse;
 
@@ -116,7 +117,7 @@ function testSalesAccount(): Account
     if ($account === null) {
         $request = new GetAccountsRequest();
         $response = testClientDebug()->send($request);
-        $accounts = Account::collect($response->json());
+        $accounts = Account::collect($response->json(), Collection::class);
         $account = $accounts->firstWhere('account_type', '=', 3);
     }
 
