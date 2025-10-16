@@ -8,15 +8,13 @@ use Bexio\Resources\Contacts\Contacts\Requests\CreateContactRequest;
 use Bexio\Resources\Contacts\Contacts\Requests\DeleteContactRequest;
 use Bexio\Resources\Contacts\Contacts\Requests\GetContactRequest;
 use Bexio\Resources\Contacts\Contacts\Requests\GetContactsRequest;
-use Bexio\Resources\Contacts\Contacts\Requests\SearchContactRequest;
 use Bexio\Resources\Contacts\Contacts\Requests\UpdateContactRequest;
 use Bexio\Resources\Resource;
 use Bexio\Support\Concerns\HasOfficeLink;
-use Bexio\Support\Data\SearchCriteria;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
-use RuntimeException;
 
+/**
+ * @method ContactQueryBuilder query()
+ */
 class Contact extends Resource
 {
     use HasOfficeLink;
@@ -26,14 +24,12 @@ class Contact extends Resource
     const CREATE_REQUEST = CreateContactRequest::class;
     const UPDATE_REQUEST = UpdateContactRequest::class;
     const DELETE_REQUEST = DeleteContactRequest::class;
+    const QUERY_BUILDER = ContactQueryBuilder::class;
 
     public const SHOW_URL = '/index.php/kontakt/show/id/{id}';
 
     public ?string $updated_at;
     public ?string $profile_image;
-
-    private Collection $search_query;
-
 
     public function __construct(
         public int|ContactType $contact_type_id = ContactType::COMPANY,
@@ -68,31 +64,4 @@ class Contact extends Resource
 
     ) {
     }
-
-
-    public function where(string $field, SearchCriteria $operator, string $value): static
-    {
-        if (!isset($this->search_query)) {
-            $this->search_query = new Collection();
-        }
-
-        $this->search_query->put($field, new ContactSearchWhereClause($field, $operator, $value));
-        return $this;
-    }
-
-    public function search(): array
-    {
-        $request = new SearchContactRequest($this->search_query->toArray());
-        $response = $this->client()->send($request);
-        if (!$response->successful()) {
-            throw new RuntimeException("Failed to fetch resources: " . $response->json());
-        }
-        return $request->createDtoFromResponse($response);
-    }
-
-    public function first(): ?static
-    {
-        return Arr::first($this->search());
-    }
-
 }

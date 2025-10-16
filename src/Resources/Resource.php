@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bexio\Resources;
 
 use Bexio\BexioClient;
+use Bexio\Support\QueryBuilder;
 use ReflectionClass;
 use RuntimeException;
 use Saloon\Http\Request;
@@ -18,6 +19,7 @@ class Resource extends Data
     const CREATE_REQUEST = Request::class;
     const UPDATE_REQUEST = Request::class;
     const DELETE_REQUEST = Request::class;
+    const QUERY_BUILDER = QueryBuilder::class;
 
     const OFFICE_BASE_URL = 'https://office.bexio.com';
 
@@ -49,6 +51,15 @@ class Resource extends Data
         return $this->client;
     }
 
+    /**
+     * Start a query builder for this resource
+     */
+    public function query(): QueryBuilder
+    {
+        $queryBuilderClass = static::QUERY_BUILDER;
+        return new $queryBuilderClass(static::class, $this->client);
+    }
+
     protected function newRequestInstance(?string $requestClass = null, ...$args): Request
     {
         if (!$requestClass) {
@@ -73,12 +84,7 @@ class Resource extends Data
 
     public function all(): array
     {
-        $request = $this->newRequestInstance(static::INDEX_REQUEST);
-        $response = $this->client()->send($request);
-        if (!$response->successful()) {
-            throw new RuntimeException("Failed to fetch resources: " . $response->json());
-        }
-        return $request->createDtoFromResponse($response);
+        return $this->query()->get();
     }
 
 

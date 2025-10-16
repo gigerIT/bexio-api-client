@@ -23,3 +23,19 @@ it('can get a Company Profile', function () {
         ->and($companyProfile->name)->toBeString();
 });
 
+
+it('can get Company Profiles using query builder', function () {
+    $companyProfiles = CompanyProfile::useClient(testClient())->query()->get();
+
+    expect($companyProfiles)->toBeArray()
+        ->and($companyProfiles[0])->toBeInstanceOf(CompanyProfile::class);
+});
+
+
+it('can get first Company Profile using query builder', function () {
+    $companyProfile = CompanyProfile::useClient(testClient())->query()->first();
+
+    expect($companyProfile)->toBeInstanceOf(CompanyProfile::class)
+        ->and($companyProfile->id)->toBeInt();
+});
+

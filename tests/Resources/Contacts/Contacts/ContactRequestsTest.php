@@ -36,7 +36,33 @@ it('can get Contacts', function () {
     $contacts = Contact::useClient(testClient())->all();
 
     expect($contacts)->toBeArray()->and($contacts[0])->toBeInstanceOf(Contact::class);
-})->depends('it can create a Contact');
+
+    dump(count($contacts));
+});
+
+
+it('can get Contacts using query builder', function () {
+    $contacts = Contact::useClient(testClient())->query()->limit(10)->get();
+
+    expect($contacts)->toBeArray()
+        ->and(count($contacts))->toBeLessThanOrEqual(10);
+});
+
+
+it('can get Contacts with archived using query builder', function () {
+    $contacts = Contact::useClient(testClient())->query()->withArchived()->limit(5)->get();
+
+    expect($contacts)->toBeArray()
+        ->and(count($contacts))->toBeLessThanOrEqual(5);
+});
+
+
+it('can get first Contact using query builder', function () {
+    $contact = Contact::useClient(testClient())->query()->first();
+
+    expect($contact)->toBeInstanceOf(Contact::class)
+        ->and($contact->id)->toBeInt();
+});
 
 
 it('can get a Contact', function () use (&$testContact) {
@@ -49,6 +75,7 @@ it('can get a Contact', function () use (&$testContact) {
 
 it('can search a Contact', function () use (&$testContact) {
     $contacts = Contact::useClient(testClient())
+        ->query()
         ->where('name_1', SearchCriteria::LIKE, $testContact->name_1)
         ->where('name_2', SearchCriteria::LIKE, $testContact->name_2)
         ->search();
