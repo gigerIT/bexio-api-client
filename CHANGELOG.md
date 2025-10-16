@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.3.0](https://github.com/gigerIT/bexio-api-client/compare/v2.2.0...v2.3.0) (2025-10-16)
+
+
+### Features
+
+* add HasOfficeLink trait to Contact class and define SHOW_URL constant ([e5ab284](https://github.com/gigerIT/bexio-api-client/commit/e5ab284b792afbe85e641068100f45425acf4084))
+
+
+### Bug Fixes
+
+* exclude deprecated `is_lead` from contact payload in UpdateContactRequest ([5ea7dd4](https://github.com/gigerIT/bexio-api-client/commit/5ea7dd46a9f849a3d5fdc9806823e9d4ccaa946c))
+
 ## [2.2.0](https://github.com/gigerIT/bexio-api-client/compare/v2.1.6...v2.2.0) (2025-10-09)
 
 
