@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.4.0](https://github.com/gigerIT/bexio-api-client/compare/v2.3.0...v2.4.0) (2025-10-16)
+
+
+### Features
+
+* add comprehensive API documentation for various resources including Contacts, Sales Orders, and more ([a11f3c9](https://github.com/gigerIT/bexio-api-client/commit/a11f3c9981ec7a380b65bc39517454de31ffe381))
+* enhance GetContactsRequest with limit and offset validation, and add default query parameters ([0e62b21](https://github.com/gigerIT/bexio-api-client/commit/0e62b219ef8572a7270888afcdb72859e351bc49))
+* implement query builder for Contact resource and refactor related methods ([6bce692](https://github.com/gigerIT/bexio-api-client/commit/6bce692677e606c160bc4eb51696ccb8901604de))
+* introduce AdditionalAddresses, ContactGroups, ContactRelations, Salutations, and Titles resources with comprehensive request handling and query capabilities ([06ab255](https://github.com/gigerIT/bexio-api-client/commit/06ab255088e8369a8797dec61b951e88e3c49868))
+
 ## [2.3.0](https://github.com/gigerIT/bexio-api-client/compare/v2.2.0...v2.3.0) (2025-10-16)
 
 
