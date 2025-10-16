@@ -30,6 +30,24 @@ class QueryBuilder
     }
 
     /**
+     * Set the limit for the query
+     */
+    public function limit(int $limit): static
+    {
+        $this->setParameter('limit', $limit);
+        return $this;
+    }
+
+    /**
+     * Set the offset for the query
+     */
+    public function offset(int $offset): static
+    {
+        $this->setParameter('offset', $offset);
+        return $this;
+    }
+
+    /**
      * Execute the query and return the results
      */
     public function get(): array

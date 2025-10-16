@@ -25,7 +25,7 @@ use Bexio\Resources\Contact;
 $client = new BexioClient('API_TOKEN');
 
 // Get the Contact with ID 1
-$contact = Contact::useClient($client)->find(1); 
+$contact = Contact::useClient($client)->find(1);
 
 // Access the Contact properties
 echo $contact->id;
@@ -78,7 +78,7 @@ use Bexio\Resources\Contact;
 $client = new BexioClient('API_TOKEN');
 
 // Get the Contact with the ID 1
-$contact = Contact::useClient($client)->find(1); 
+$contact = Contact::useClient($client)->find(1);
 
 // Access the Contact properties
 echo $contact->id;
@@ -94,6 +94,10 @@ $contact->save();
 
 See [Tests](tests/Resources) for more examples.
 
+## Documentation
+
+- [Contacts Documentation](docs/CONTACTS.md) - Comprehensive guide for all contact-related resources
+
 ## Data Transfer Objects
 
 DTOs provide type hinting and autocompletion in the IDE, for a better development experience.
@@ -102,7 +106,9 @@ DTOs provide type hinting and autocompletion in the IDE, for a better developmen
 ## Authentication
 
 To obtain an API token, you can use the BexioAuth helper to generate and refresh OAuth2 tokens.
+
 1. Connect to Bexio: Generate an authorization URL and redirect the user to it.
+
 ```php
 use Bexio\BexioAuth;
 
@@ -126,7 +132,9 @@ $url = $auth->getAuthorizationUrl(
 
 header('Location: ' . $url);
 ```
+
 2. Callback: After the user has authorized the app, the user will be redirected back to the `redirect_uri` with a `code` parameter.
+
 ```php
 use Bexio\BexioAuth;
 
@@ -155,7 +163,7 @@ $oauthAuthenticator = $auth->getAccessToken($code, $state, 'random-state-string'
 use Saloon\Http\Auth\AccessTokenAuthenticator;
 use Bexio\BexioClient;
 use Bexio\BexioAuth;
-    
+
 // ----------------------------------------
 // Your logic to retrieve the access token and refresh token
 // ----------------------------------------
@@ -169,7 +177,7 @@ $auth = new AccessTokenAuthenticator(
 
 if ($auth->hasExpired()) {
     $auth = BexioAuth::make()->refreshAccessToken($auth);
-   
+
    // ----------------------------------------
    // Your logic to store the new access token and refresh token
    // ----------------------------------------
@@ -188,11 +196,11 @@ $client = new BexioClient($auth->getAccessToken());
 | -------------------- | ----------- |
 | Contacts             | ✅          |
 | Contact Relations    | ✅          |
-| Contact Groups       | ❌          |
-| Contact Sectors      | ❌          |
-| Additional Addresses | ❌          |
-| Salutations          | ❌          |
-| Titles               | ❌          |
+| Contact Groups       | ✅          |
+| Contact Sectors      | ✅          |
+| Additional Addresses | ✅          |
+| Salutations          | ✅          |
+| Titles               | ✅          |
 
 ### SALES ORDER MANAGEMENT
 

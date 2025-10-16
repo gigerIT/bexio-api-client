@@ -4,10 +4,12 @@ declare(strict_types=1);
 namespace Bexio\Resources\Contacts\Contacts;
 
 use Bexio\Resources\Contacts\Contacts\Enums\ContactType;
+use Bexio\Resources\Contacts\Contacts\Requests\BulkCreateContactsRequest;
 use Bexio\Resources\Contacts\Contacts\Requests\CreateContactRequest;
 use Bexio\Resources\Contacts\Contacts\Requests\DeleteContactRequest;
 use Bexio\Resources\Contacts\Contacts\Requests\GetContactRequest;
 use Bexio\Resources\Contacts\Contacts\Requests\GetContactsRequest;
+use Bexio\Resources\Contacts\Contacts\Requests\RestoreContactRequest;
 use Bexio\Resources\Contacts\Contacts\Requests\UpdateContactRequest;
 use Bexio\Resources\Resource;
 use Bexio\Support\Concerns\HasOfficeLink;
@@ -63,5 +65,25 @@ class Contact extends Resource
         public int $owner_id = 1,
 
     ) {
+    }
+
+    /**
+     * Bulk create contacts
+     */
+    public static function bulkCreate(array $contacts, \Bexio\BexioClient $client): array
+    {
+        $request = new BulkCreateContactsRequest($contacts);
+        $response = $client->send($request);
+        return $request->createDtoFromResponse($response);
+    }
+
+    /**
+     * Restore an archived contact
+     */
+    public function restore(): array
+    {
+        $request = new RestoreContactRequest($this->id);
+        $response = $this->client()->send($request);
+        return $request->createDtoFromResponse($response);
     }
 }

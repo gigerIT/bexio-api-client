@@ -37,7 +37,6 @@ it('can get Contacts', function () {
 
     expect($contacts)->toBeArray()->and($contacts[0])->toBeInstanceOf(Contact::class);
 
-    dump(count($contacts));
 });
 
 
@@ -92,6 +91,53 @@ it('can update a Contact', function () use (&$testContact) {
 
     expect($testContact->name_1)->toBeString()->and($testContact->name_2)->toBeString();
 })->depends('it can get a Contact');
+
+
+it('can bulk create Contacts', function () {
+    $contacts = [
+        new Contact(
+            name_1: fake()->firstName(),
+            contact_type_id: ContactType::PERSON,
+            name_2: fake()->lastName(),
+        ),
+        new Contact(
+            name_1: fake()->company(),
+            contact_type_id: ContactType::COMPANY,
+        ),
+    ];
+
+    $createdContacts = Contact::bulkCreate($contacts, testClient());
+
+    expect($createdContacts)->toBeArray()
+        ->and(count($createdContacts))->toBe(2)
+        ->and($createdContacts[0])->toBeInstanceOf(Contact::class)
+        ->and($createdContacts[0]->id)->toBeInt();
+
+    // Clean up
+    foreach ($createdContacts as $contact) {
+        $contact->attachClient(testClient())->delete();
+    }
+});
+
+
+it('can restore a Contact', function () {
+    // Create and delete a contact first
+    $contact = new Contact(
+        name_1: fake()->firstName(),
+        contact_type_id: ContactType::PERSON,
+    );
+    $createdContact = $contact->attachClient(testClient())->save();
+    $createdContact->delete();
+
+    // Restore it
+    $result = $createdContact->restore();
+
+    expect($result)->toBeArray()
+        ->and($result['success'])->toBeTrue();
+
+    // Clean up
+    $createdContact->delete();
+});
 
 
 it('can delete a Contact', function () use (&$testContact) {

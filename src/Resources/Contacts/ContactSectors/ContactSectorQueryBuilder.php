@@ -2,26 +2,17 @@
 declare(strict_types=1);
 
 
-namespace Bexio\Resources\Contacts\Contacts;
+namespace Bexio\Resources\Contacts\ContactSectors;
 
-use Bexio\Resources\Contacts\Contacts\Requests\SearchContactRequest;
+use Bexio\Resources\Contacts\ContactSectors\Requests\SearchContactSectorRequest;
 use Bexio\Support\Data\SearchCriteria;
 use Bexio\Support\QueryBuilder;
 use Illuminate\Support\Collection;
 use RuntimeException;
 
-class ContactQueryBuilder extends QueryBuilder
+class ContactSectorQueryBuilder extends QueryBuilder
 {
     private Collection $searchQuery;
-
-    /**
-     * Include archived contacts in the results
-     */
-    public function withArchived(): static
-    {
-        $this->setParameter('showArchived', true);
-        return $this;
-    }
 
     /**
      * Add a where clause to the search query
@@ -32,7 +23,7 @@ class ContactQueryBuilder extends QueryBuilder
             $this->searchQuery = new Collection();
         }
 
-        $this->searchQuery->put($field, new ContactSearchWhereClause($field, $operator, $value));
+        $this->searchQuery->put($field, new ContactSectorSearchWhereClause($field, $operator, $value));
         return $this;
     }
 
@@ -41,7 +32,7 @@ class ContactQueryBuilder extends QueryBuilder
      */
     public function search(): array
     {
-        $request = new SearchContactRequest($this->searchQuery->toArray());
+        $request = new SearchContactSectorRequest($this->searchQuery->toArray());
         $response = $this->client->send($request);
 
         if (!$response->successful()) {
@@ -58,10 +49,11 @@ class ContactQueryBuilder extends QueryBuilder
     {
         if (isset($this->searchQuery) && $this->searchQuery->isNotEmpty()) {
             $results = $this->search();
-            return $results[0] ?? null;
+        } else {
+            $this->limit(1);
+            $results = $this->get();
         }
 
-        $results = $this->limit(1)->get();
         return $results[0] ?? null;
     }
 }
