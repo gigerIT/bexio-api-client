@@ -9,10 +9,9 @@ use Spatie\LaravelData\Data;
 class SearchWhereClause extends Data
 {
     public function __construct(
-        public string         $field,
+        public string $field,
         public SearchCriteria $criteria = SearchCriteria::LIKE,
-        public string         $value,
-    )
-    {
+        public string $value = "",
+    ) {
     }
 }
