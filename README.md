@@ -66,7 +66,8 @@ $contact = new Contact(
     contact_type_id: ContactType::PERSON,
     name_1: 'Doe',              // Last name
     name_2: 'John',             // First name
-    address: 'Main Street 123',
+    street_name: 'Main Street',
+    house_number: '123',
     postcode: '8000',
     city: 'Zurich',
     country_id: 1,

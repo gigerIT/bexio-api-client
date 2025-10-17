@@ -78,7 +78,8 @@ $contact = new Contact(
     contact_type_id: ContactType::PERSON,
     name_1: 'Doe',              // Last name
     name_2: 'John',             // First name
-    address: 'Main Street 123',
+    street_name: 'Main Street',
+    house_number: '123',
     postcode: '8000',
     city: 'Zurich',
     country_id: 1,
@@ -98,7 +99,8 @@ $contact = new Contact(
     contact_type_id: ContactType::COMPANY,
     name_1: 'ACME Corporation',  // Company name
     name_2: 'Inc.',              // Company addition
-    address: 'Business Park 1',
+    street_name: 'Business Park',
+    house_number: '1',
     postcode: '8001',
     city: 'Zurich',
     mail: 'info@acme.com',
@@ -347,7 +349,8 @@ $address = new AdditionalAddress(
     id: null,
     contact_id: 1,
     name: 'Billing Address',
-    address: 'PO Box 123',
+    street_name: 'PO Box',
+    house_number: '123',
     postcode: '8000',
     city: 'Zurich',
     country_id: 1,
@@ -567,7 +570,8 @@ $group = $group->attachClient($client)->save();
 $contact = new Contact(
     contact_type_id: ContactType::COMPANY,
     name_1: 'Tech Solutions AG',
-    address: 'Innovation Street 1',
+    street_name: 'Innovation Street',
+    house_number: '1',
     postcode: '8000',
     city: 'Zurich',
     mail: 'info@techsolutions.ch',
@@ -582,7 +586,8 @@ $additionalAddress = new AdditionalAddress(
     id: null,
     contact_id: $contact->id,
     name: 'Delivery Address',
-    address: 'Warehouse Road 5',
+    street_name: 'Warehouse Road',
+    house_number: '5',
     postcode: '8001',
     city: 'Zurich',
     subject: 'Delivery',
