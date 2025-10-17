@@ -4,6 +4,10 @@
          bootstrap="vendor/autoload.php"
          colors="true"
 >
+    <php>
+        <env name="COLLISION_PRINTER_MAX_WIDTH" value="200"/>
+    </php>
+    
     <testsuites>
         <testsuite name="gigerIT Test Suite">
             <directory suffix="Test.php">./tests</directory>
