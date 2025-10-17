@@ -1,0 +1,11 @@
+includes:
+    - phar://phpstan.phar/conf/bleedingEdge.neon
+
+parameters:
+
+    paths:
+        - src
+
+    level: 1
+
+    tmpDir: /tmp/phpstan
