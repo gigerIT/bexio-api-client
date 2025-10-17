@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.0.1](https://github.com/gigerIT/bexio-api-client/compare/v3.0.0...v3.0.1) (2025-10-17)
+
+
+### Miscellaneous Chores
+
+* add phpstan as a development dependency and configure initial phpstan settings in phpstan.neon ([fdad8c5](https://github.com/gigerIT/bexio-api-client/commit/fdad8c54a01a21bdcec29dde00eeebee7f480766))
+* update composer.lock to reflect package version upgrades for illuminate and spatie libraries ([33d454e](https://github.com/gigerIT/bexio-api-client/commit/33d454e4af53d633809bf4976c80e774b19b7f90))
+
 ## [2.4.0](https://github.com/gigerIT/bexio-api-client/compare/v2.3.0...v2.4.0) (2025-10-16)
 
 
