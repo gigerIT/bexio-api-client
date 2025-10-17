@@ -45,6 +45,7 @@
     ],
     "test": [
       "vendor/bin/pest"
-    ]
+    ],
+    "test:types": "phpstan analyse --memory-limit=1G"
   }
 }
