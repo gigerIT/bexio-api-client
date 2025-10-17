@@ -3,15 +3,24 @@
 namespace Bexio\Resources\Contacts\ContactRelations\Requests;
 
 use Bexio\Resources\Contacts\ContactRelations\ContactRelation;
+use Bexio\Resources\Contacts\Contacts\Contact;
+use Bexio\Resources\Contacts\Contacts\Enums\ContactType;
 use Bexio\Support\Data\SearchCriteria;
 use function Pest\Faker\fake;
 
 $testRelation = null;
 
 it('can create a ContactRelation', function () use (&$testRelation) {
+    $connectToContact = new Contact(
+        contact_type_id: ContactType::PERSON,
+        name_1: fake()->firstName(),
+        name_2: fake()->lastName(),
+    );
+    $connectToContact = $connectToContact->attachClient(testClient())->save();
+
     $relation = new ContactRelation(
-        contact_id: 1,
-        contact_sub_id: 2,
+        contact_id: testContactId(),
+        contact_sub_id: $connectToContact->id,
         description: fake()->sentence(),
     );
 
