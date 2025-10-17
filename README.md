@@ -4,7 +4,7 @@ This is a [bexio API](https://docs.bexio.com) client, built with [`saloonphp/sal
 
 ## Introduction
 
-The bexio API PHP Client allows you to interact with the bexio API seamlessly. It provides a simple and intuitive interface to manage contacts, sales orders, accounting, and more. As we come from the Laravel world we gave this client a Laravel-like feel.
+The bexio API PHP Client allows you to interact with the bexio API seamlessly. It provides a simple and intuitive interface to manage contacts, sales orders, accounting, and more. As we come from the Laravel world we gave this client a Laravel-like feel but still keeping it framework agnostic.
 
 ## Installation
 
@@ -12,15 +12,15 @@ The bexio API PHP Client allows you to interact with the bexio API seamlessly. I
 composer require gigerit/bexio-api-client
 ```
 
-## Examples
+## Quick Start
 
-### Contacts
+### Basic Contact Operations
 
 Get a Contact by ID:
 
 ```php
 use Bexio\BexioClient;
-use Bexio\Resources\Contact;
+use Bexio\Resources\Contacts\Contacts\Contact;
 
 $client = new BexioClient('API_TOKEN');
 
@@ -37,7 +37,7 @@ Get all Contacts:
 
 ```php
 use Bexio\BexioClient;
-use Bexio\Resources\Contact;
+use Bexio\Resources\Contacts\Contacts\Contact;
 
 $client = new BexioClient('API_TOKEN');
 
@@ -56,47 +56,76 @@ Create a Contact:
 
 ```php
 use Bexio\BexioClient;
-use Bexio\Resources\Contact;
+use Bexio\Resources\Contacts\Contacts\Contact;
+use Bexio\Resources\Contacts\Contacts\Enums\ContactType;
 
 $client = new BexioClient('API_TOKEN');
 
-// Create a new Contact
+// Create a new Person Contact
 $contact = new Contact(
-    name_1: 'John Doe',
+    contact_type_id: ContactType::PERSON,
+    name_1: 'Doe',              // Last name
+    name_2: 'John',             // First name
+    address: 'Main Street 123',
+    postcode: '8000',
+    city: 'Zurich',
+    country_id: 1,
+    mail: 'john.doe@example.com',
+    user_id: 1,
+    owner_id: 1,
 );
 
 // Save the Contact
 $contact->attachClient($client)->save();
 ```
 
-Combine actions:
+Update a Contact:
 
 ```php
 use Bexio\BexioClient;
-use Bexio\Resources\Contact;
+use Bexio\Resources\Contacts\Contacts\Contact;
 
 $client = new BexioClient('API_TOKEN');
 
-// Get the Contact with the ID 1
+// Get the Contact with ID 1
 $contact = Contact::useClient($client)->find(1);
 
-// Access the Contact properties
-echo $contact->id;
-echo $contact->name_1;
-echo $contact->mail;
-
-// Simply update the Contact properties
-$contact->name_1 = 'Jane Doe';
+// Update the Contact properties
+$contact->name_2 = 'Jane';
+$contact->mail = 'jane.doe@example.com';
 
 // Send the changes back to bexio
 $contact->save();
 ```
 
-See [Tests](tests/Resources) for more examples.
+Search Contacts:
+
+```php
+use Bexio\BexioClient;
+use Bexio\Resources\Contacts\Contacts\Contact;
+use Bexio\Support\Data\SearchCriteria;
+
+$client = new BexioClient('API_TOKEN');
+
+// Search contacts with criteria
+$contacts = Contact::useClient($client)
+    ->query()
+    ->where('name_1', SearchCriteria::LIKE, 'John')
+    ->where('city', SearchCriteria::EQUAL, 'Zurich')
+    ->search();
+```
 
 ## Documentation
 
-- [Contacts Documentation](docs/CONTACTS.md) - Comprehensive guide for all contact-related resources
+For detailed documentation and advanced usage examples, see:
+
+### Resource Guides
+
+- **[Contacts Documentation](docs/CONTACTS.md)** - Comprehensive guide for Contacts, Contact Relations, Contact Groups, Contact Sectors, Additional Addresses, Salutations, and Titles
+
+### Additional Resources
+
+- [Tests](tests/Resources) - Unit tests with practical examples
 
 ## Data Transfer Objects
 
