@@ -10,12 +10,10 @@ $testAddress = null;
 
 it('can create an AdditionalAddress', function () use (&$testAddress) {
     $address = new AdditionalAddress(
-        id: null,
         contact_id: testContactId(),
         name: fake()->word(),
         street_name: fake()->streetName(),
         house_number: fake()->buildingNumber(),
-        address_addition: fake()->secondaryAddress(),
         postcode: fake()->postcode(),
         city: fake()->city(),
         subject: fake()->sentence(),

@@ -29,7 +29,7 @@ class UpdateAdditionalAddressRequest extends Request implements HasBody
 
     protected function defaultBody(): array
     {
-        return $this->additionalAddress->except("id", "contact_id")->toArray();
+        return $this->additionalAddress->except("id", "contact_id", 'address')->toArray();
     }
 
     public function createDtoFromResponse(Response $response): AdditionalAddress

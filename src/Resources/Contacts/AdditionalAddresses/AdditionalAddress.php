@@ -23,8 +23,8 @@ class AdditionalAddress extends Resource
     const QUERY_BUILDER = AdditionalAddressQueryBuilder::class;
 
 
-    /** @deprecated use street_name, house_number, address_addition instead. */
-    public ?string $address;
+    /** @deprecated use street_name, house_number, address_addition instead. This property is not included in the create and update requests. */
+    public ?string $address = null;
 
     public function __construct(
         public ?int $id = null,
