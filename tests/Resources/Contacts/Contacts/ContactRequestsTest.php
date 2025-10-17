@@ -14,10 +14,11 @@ $testContact = null;
 
 it('can create a Contact', function () use (&$testContact) {
     $contact = new Contact(
+        contact_type_id: fake()->randomElement([ContactType::PERSON, ContactType::COMPANY]),
         name_1: fake()->firstName(),
-        contact_type_id: ContactType::PERSON,
         name_2: fake()->lastName(),
-        address: fake()->streetAddress(),
+        street_name: fake()->streetName(),
+        house_number: fake()->buildingNumber(),
         postcode: fake()->randomNumber(4),
         city: fake()->city(),
         mail: fake()->safeEmail(),

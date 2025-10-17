@@ -22,11 +22,17 @@ class AdditionalAddress extends Resource
     const DELETE_REQUEST = DeleteAdditionalAddressRequest::class;
     const QUERY_BUILDER = AdditionalAddressQueryBuilder::class;
 
+
+    /** @deprecated use street_name, house_number, address_addition instead. */
+    public readonly ?string $address;
+
     public function __construct(
         public ?int $id = null,
         public ?int $contact_id = null,
         public ?string $name = null,
-        public ?string $address = null,
+        public ?string $street_name = null,
+        public ?string $house_number = null,
+        public ?string $address_addition = null,
         public ?string $postcode = null,
         public ?string $city = null,
         public ?int $country_id = null,

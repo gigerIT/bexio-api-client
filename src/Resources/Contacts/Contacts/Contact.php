@@ -33,6 +33,9 @@ class Contact extends Resource
     public ?string $updated_at;
     public ?string $profile_image;
 
+    /** @deprecated use street_name, house_number, address_addition instead. */
+    public readonly ?string $address;
+
     public function __construct(
         public int|ContactType $contact_type_id = ContactType::COMPANY,
         public ?int $id = null,
@@ -43,7 +46,9 @@ class Contact extends Resource
         public ?string $salutation_form = null,
         public ?int $titel_id = null,
         public ?string $birthday = null,
-        public ?string $address = null,
+        public ?string $street_name = null,
+        public ?string $house_number = null,
+        public ?string $address_addition = null,
         public ?string $postcode = null,
         public ?string $city = null,
         public ?int $country_id = null,
