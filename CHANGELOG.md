@@ -1,5 +1,19 @@
 # Changelog
 
+## [3.0.2](https://github.com/gigerIT/bexio-api-client/compare/v3.0.1...v3.0.2) (2025-10-17)
+
+
+### Bug Fixes
+
+* update address handling in AdditionalAddress and Contact classes to clarify deprecation and exclude address from create/update requests ([0af2ffe](https://github.com/gigerIT/bexio-api-client/commit/0af2ffedfa75033ed0d2d8d424d682cf59757b25))
+
+
+### Miscellaneous Chores
+
+* add COLLISION_PRINTER_MAX_WIDTH environment variable to phpunit configuration ([456aeb9](https://github.com/gigerIT/bexio-api-client/commit/456aeb9dc93569a63cf9227da39486fb89866986))
+* add phpstan analysis command for testing types in composer.json ([679e776](https://github.com/gigerIT/bexio-api-client/commit/679e776d1aa241c61d1cf53d50c875593c12713e))
+* update API documentation structure and content, including new sections for authentication, overview, and detailed endpoint descriptions ([440e2e6](https://github.com/gigerIT/bexio-api-client/commit/440e2e67d0559f70546decd069453f2631e86daf))
+
 ## [3.0.1](https://github.com/gigerIT/bexio-api-client/compare/v3.0.0...v3.0.1) (2025-10-17)
 
 
