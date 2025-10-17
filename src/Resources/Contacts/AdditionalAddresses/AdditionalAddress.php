@@ -24,7 +24,7 @@ class AdditionalAddress extends Resource
 
 
     /** @deprecated use street_name, house_number, address_addition instead. */
-    public readonly ?string $address;
+    public ?string $address;
 
     public function __construct(
         public ?int $id = null,
