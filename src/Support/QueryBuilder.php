@@ -48,6 +48,20 @@ class QueryBuilder
     }
 
     /**
+     * Apply callback conditionally when the given value is truthy
+     */
+    public function when(mixed $value, callable $callback, ?callable $default = null): static
+    {
+        if ($value) {
+            $callback($this, $value);
+        } elseif ($default) {
+            $default($this, $value);
+        }
+
+        return $this;
+    }
+
+    /**
      * Execute the query and return the results
      */
     public function get(): array
