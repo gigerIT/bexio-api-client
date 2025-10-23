@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.0](https://github.com/gigerIT/bexio-api-client/compare/v3.0.2...v3.1.0) (2025-10-23)
+
+
+### Features
+
+* add conditional callback method to QueryBuilder for improved query flexibility ([d7aa542](https://github.com/gigerIT/bexio-api-client/commit/d7aa542d4778b743b7bdaaf00df72d9a8bea0abc))
+
 ## [3.0.2](https://github.com/gigerIT/bexio-api-client/compare/v3.0.1...v3.0.2) (2025-10-17)
 
 
