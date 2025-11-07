@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.1.1](https://github.com/gigerIT/bexio-api-client/compare/v3.1.0...v3.1.1) (2025-11-07)
+
+
+### Miscellaneous Chores
+
+* **deps-dev:** bump symfony/var-dumper from 7.3.4 to 7.3.5 ([24c7a1b](https://github.com/gigerIT/bexio-api-client/commit/24c7a1bd5f99d3fdc0acc9927c73b5bde133200c))
+* **deps-dev:** bump symfony/var-dumper from 7.3.4 to 7.3.5 ([04d27be](https://github.com/gigerIT/bexio-api-client/commit/04d27be14560f7dd8d68b8c08ea1c8f169ef124f))
+* **deps:** bump illuminate/container from 12.34.0 to 12.37.0 ([312645a](https://github.com/gigerIT/bexio-api-client/commit/312645adcc75dbc7f7b523cb0541088de55e05ba))
+* **deps:** bump illuminate/container from 12.34.0 to 12.37.0 ([eb99abc](https://github.com/gigerIT/bexio-api-client/commit/eb99abc10ad97680a77197115990649dd6e7b543))
+
 ## [3.1.0](https://github.com/gigerIT/bexio-api-client/compare/v3.0.2...v3.1.0) (2025-10-23)
 
 
