@@ -278,33 +278,33 @@ $client = new BexioClient($auth->getAccessToken());
 
 | Resource      | Implemented |
 | ------------- | ----------- |
-| Bank Accounts | ❌          |
-| IBAN Payments | ❌          |
-| QR Payments   | ❌          |
-| Payments      | ❌          |
+| Bank Accounts | ✅          |
+| IBAN Payments | ✅          |
+| QR Payments   | ✅          |
+| Payments      | ✅          |
 
 ### ITEMS & PRODUCTS
 
 | Resource        | Implemented |
 | --------------- | ----------- |
-| Items           | ❌          |
-| Stock locations | ❌          |
-| Stock Areas     | ❌          |
+| Items           | ✅          |
+| Stock locations | ✅          |
+| Stock Areas     | ✅          |
 
 ### PROJECTS & TIME TRACKING
 
 | Resource            | Implemented |
 | ------------------- | ----------- |
-| Projects            | ❌          |
-| Timesheets          | ❌          |
-| Business Activities | ❌          |
-| Communication Types | ❌          |
+| Projects            | ✅          |
+| Timesheets          | ✅          |
+| Business Activities | ✅          |
+| Communication Types | ✅          |
 
 ### FILES
 
 | Resource | Implemented |
 | -------- | ----------- |
-| Files    | ❌          |
+| Files    | ✅          |
 
 ### OTHER
 
