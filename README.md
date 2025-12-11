@@ -258,7 +258,7 @@ $client = new BexioClient($auth->getAccessToken());
 | Bills            | ✅          |
 | Expenses         | ✅          |
 | Purchase Orders  | ✅          |
-| Outgoing Payment | ❌          |
+| Outgoing Payment | ✅          |
 
 ### ACCOUNTING
 
