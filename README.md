@@ -237,10 +237,10 @@ $client = new BexioClient($auth->getAccessToken());
 | Resource            | Implemented |
 | ------------------- | ----------- |
 | Quotes              | ✅          |
-| Orders              | ❌          |
-| Deliveries          | ❌          |
+| Orders              | ✅          |
+| Deliveries          | ✅          |
 | Invoices            | ✅          |
-| Document Settings   | ❌          |
+| Document Settings   | ✅          |
 | Comments            | ✅          |
 | Default positions   | ✅          |
 | Item positions      | ✅          |
@@ -249,7 +249,7 @@ $client = new BexioClient($auth->getAccessToken());
 | Discount positions  | ✅          |
 | Pagebreak positions | ✅          |
 | Sub positions       | ✅          |
-| Document templates  | ❌          |
+| Document templates  | ✅          |
 
 ### PURCHASE
 
