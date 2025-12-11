@@ -311,11 +311,11 @@ $client = new BexioClient($auth->getAccessToken());
 | Resource        | Implemented |
 | --------------- | ----------- |
 | Company Profile | ✅          |
-| Countries       | ❌          |
-| Languages       | ❌          |
-| Notes           | ❌          |
-| Payment Types   | ❌          |
-| Permissions     | ❌          |
-| Tasks           | ❌          |
-| Units           | ❌          |
-| User Management | ❌          |
+| Countries       | ✅          |
+| Languages       | ✅          |
+| Notes           | ✅          |
+| Payment Types   | ✅          |
+| Permissions     | ✅          |
+| Tasks           | ✅          |
+| Units           | ✅          |
+| User Management | ✅          |
