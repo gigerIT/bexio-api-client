@@ -20,6 +20,7 @@
     }
   ],
   "require": {
+    "php": "^8.4",
     "saloonphp/saloon": "^3",
     "illuminate/container": "^11|^12",
     "spatie/laravel-data": "^4",
