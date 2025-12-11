@@ -1,5 +1,33 @@
 # Changelog
 
+## [3.2.0](https://github.com/gigerIT/bexio-api-client/compare/v3.1.1...v3.2.0) (2025-12-11)
+
+
+### Features
+
+* add Outgoing Payments resource and related request classes ([42f3e4e](https://github.com/gigerIT/bexio-api-client/commit/42f3e4eb0772cebe065579f6fc268e2190795555))
+* implement Account Groups, Calendar Years, Business Years, Manual Entries, and VAT Periods resources ([933f793](https://github.com/gigerIT/bexio-api-client/commit/933f793c4b6517d173f2521f5f681ce8222eb136))
+* implement Banking resources including Bank Accounts, Payments, and QR Payments ([d44cfde](https://github.com/gigerIT/bexio-api-client/commit/d44cfde8611f8147c9a9c2549ebddcbb988f97b9))
+* implement Business Activities, Communication Types, Projects, and Timesheets resources with related request classes ([75ddf63](https://github.com/gigerIT/bexio-api-client/commit/75ddf632011c5174d3be14d9d4d69d2709c7a160))
+* implement countries, languages, notes, payment types, permissions, tasks, units, and user management resources ([61e78c5](https://github.com/gigerIT/bexio-api-client/commit/61e78c5c58a6f7d647e900100815717e43cc537a))
+* implement File resource and related request classes ([31d9898](https://github.com/gigerIT/bexio-api-client/commit/31d9898968d6b400e52ae3a266792542471f908c))
+* implement Items and Stock Areas resources with related request classes ([10c0250](https://github.com/gigerIT/bexio-api-client/commit/10c025068968dbf9020554e8dc9f81c3863ba11d))
+* implement Orders, Deliveries, Document Settings, and Document Templates resources ([43c4133](https://github.com/gigerIT/bexio-api-client/commit/43c4133ec5b6c994457e43e24b08759aec78810d))
+
+
+### Bug Fixes
+
+* update address property in Contact class to remove default value ([d98442a](https://github.com/gigerIT/bexio-api-client/commit/d98442ad39f1648851cdb64661d37d329078c534))
+* update default headers in BexioClient to use 'Accept' instead of 'Content-Type' ([f92e465](https://github.com/gigerIT/bexio-api-client/commit/f92e46537dddf39d6b4ca2ae436ebe0472b8b235))
+
+
+### Miscellaneous Chores
+
+* **deps:** bump actions/checkout from 5 to 6 ([386f680](https://github.com/gigerIT/bexio-api-client/commit/386f68039019e0d46dcd38ff912cbfec0a753691))
+* **deps:** bump actions/checkout from 5 to 6 ([da1786d](https://github.com/gigerIT/bexio-api-client/commit/da1786d6623379b8911cb3759a8d45b0e3e3ada6))
+* increase memory limit for PHPStan analysis in composer.json ([6f90c09](https://github.com/gigerIT/bexio-api-client/commit/6f90c0961f8a3d9d42fa4c343794d59d9aafebdd))
+* update PHP version to 8.4 in composer.json and CI workflow ([fd97431](https://github.com/gigerIT/bexio-api-client/commit/fd9743136937ff85fa64e15e9f68e625aa253c7a))
+
 ## [3.1.1](https://github.com/gigerIT/bexio-api-client/compare/v3.1.0...v3.1.1) (2025-11-07)
 
 
