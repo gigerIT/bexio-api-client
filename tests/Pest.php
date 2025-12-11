@@ -96,7 +96,7 @@ function testSaleTax(): Tax
     static $tax;
     if ($tax === null) {
         $request = new GetTaxesRequest();
-        $response = testClientDebug()->send($request);
+        $response = testClient()->send($request);
         $taxes = $request->createDtoFromResponse($response);
         $tax = $taxes[0];
     }
@@ -116,7 +116,7 @@ function testSalesAccount(): Account
     static $account;
     if ($account === null) {
         $request = new GetAccountsRequest();
-        $response = testClientDebug()->send($request);
+        $response = testClient()->send($request);
         $accounts = Account::collect($response->json(), Collection::class);
         $account = $accounts->firstWhere('account_no', '=', 3200);
     }
