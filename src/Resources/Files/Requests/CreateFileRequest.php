@@ -1,0 +1,59 @@
+<?php
+declare(strict_types=1);
+
+namespace Bexio\Resources\Files\Requests;
+
+use Bexio\Resources\Files\File;
+use InvalidArgumentException;
+use Saloon\Contracts\Body\HasBody;
+use Saloon\Data\MultipartValue;
+use Saloon\Enums\Method;
+use Saloon\Http\Request;
+use Saloon\Http\Response;
+use Saloon\Traits\Body\HasMultipartBody;
+
+class CreateFileRequest extends Request implements HasBody
+{
+    use HasMultipartBody;
+
+    protected Method $method = Method::POST;
+
+    public function __construct(protected readonly File $file)
+    {
+        if (empty($this->file->path)) {
+            throw new InvalidArgumentException('A file path is required to create a file.');
+        }
+
+        if (!is_readable($this->file->path)) {
+            throw new InvalidArgumentException("File {$this->file->path} is not readable.");
+        }
+    }
+
+    public function resolveEndpoint(): string
+    {
+        return '/3.0/files';
+    }
+
+    protected function defaultBody(): array
+    {
+        $fileStream = fopen($this->file->path, 'r');
+
+        if ($fileStream === false) {
+            throw new InvalidArgumentException("Unable to open file {$this->file->path} for reading.");
+        }
+
+        return [
+            new MultipartValue(
+                name: 'file',
+                value: $fileStream,
+                filename: basename($this->file->path)
+            ),
+        ];
+    }
+
+    public function createDtoFromResponse(Response $response): File
+    {
+        return File::from($response->json());
+    }
+}
+
