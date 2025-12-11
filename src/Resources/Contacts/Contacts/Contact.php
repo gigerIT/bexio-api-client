@@ -34,7 +34,7 @@ class Contact extends Resource
     public ?string $profile_image;
 
     /** @deprecated use street_name, house_number, address_addition instead. This property is not included in the create and update requests. */
-    public ?string $address = null;
+    public ?string $address;
 
     public function __construct(
         public int|ContactType $contact_type_id = ContactType::COMPANY,
