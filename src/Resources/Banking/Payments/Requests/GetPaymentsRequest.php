@@ -44,8 +44,15 @@ class GetPaymentsRequest extends Request
 
     public function createDtoFromResponse(Response $response): array
     {
-        $data = $response->json('data') ?? $response->json();
-        return Payment::collect($data);
+        $payload = $response->json();
+
+        $results = $payload['results'] ?? $payload['data']['results'] ?? $payload['data'] ?? $payload;
+
+        if (!is_array($results) || !array_is_list($results)) {
+            return [];
+        }
+
+        return Payment::collect($results);
     }
 }
 

@@ -27,3 +27,4 @@ class GetCommunicationTypeRequest extends Request
     }
 }
 
+

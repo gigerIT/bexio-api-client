@@ -19,3 +19,4 @@ class BankPaymentRecipient extends Resource
 }
 
 
+

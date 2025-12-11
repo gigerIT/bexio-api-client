@@ -53,6 +53,18 @@ class FileQueryBuilder extends QueryBuilder
     {
         $searchClauses = $this->searchQuery?->toArray() ?? [];
 
+        $searchClauses = array_map(function ($clause) {
+            $clauseArray = is_object($clause) && method_exists($clause, 'toArray')
+                ? $clause->toArray()
+                : (array)$clause;
+
+            if (($clauseArray['field'] ?? null) === 'id' && is_numeric($clauseArray['value'] ?? null)) {
+                $clauseArray['value'] = (int)$clauseArray['value'];
+            }
+
+            return $clauseArray;
+        }, $searchClauses);
+
         $request = new SearchFilesRequest(
             searchClauses: $searchClauses,
             archivedState: $this->parameters->get('archivedState'),

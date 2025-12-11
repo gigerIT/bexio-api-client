@@ -16,3 +16,4 @@ class StockAreaSearchWhereClause extends Data
     }
 }
 
+

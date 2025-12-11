@@ -27,3 +27,4 @@ class GetBusinessActivityRequest extends Request
     }
 }
 
+

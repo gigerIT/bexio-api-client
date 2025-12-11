@@ -79,3 +79,4 @@ it('can get first Business Activity using query builder', function () {
         ->and($activity->id)->toBeInt();
 });
 
+

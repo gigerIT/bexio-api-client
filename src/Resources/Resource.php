@@ -121,11 +121,11 @@ class Resource extends Data
 
     public function save(): static
     {
-        if ($this->id) {
+        if (isset($this->id) && $this->id !== null) {
             return $this->update();
-        } else {
-            return $this->create();
         }
+
+        return $this->create();
     }
 
 }

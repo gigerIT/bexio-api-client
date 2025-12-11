@@ -79,3 +79,4 @@ it('can get first Communication Type using query builder', function () {
         ->and($type->id)->toBeInt();
 });
 
+

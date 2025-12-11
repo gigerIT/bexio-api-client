@@ -21,3 +21,4 @@ class StockLocation extends Resource
     }
 }
 
+

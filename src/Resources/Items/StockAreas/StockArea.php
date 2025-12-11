@@ -22,3 +22,4 @@ class StockArea extends Resource
     }
 }
 
+

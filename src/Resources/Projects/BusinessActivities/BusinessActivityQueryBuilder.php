@@ -48,3 +48,4 @@ class BusinessActivityQueryBuilder extends QueryBuilder
     }
 }
 
+

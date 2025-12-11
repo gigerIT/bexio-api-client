@@ -36,3 +36,4 @@ class SearchBusinessActivitiesRequest extends Request implements HasBody
     }
 }
 
+

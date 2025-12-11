@@ -17,3 +17,4 @@ class CommunicationTypeSearchWhereClause extends SearchWhereClause
     }
 }
 
+

@@ -79,3 +79,4 @@ it('can get first Project using query builder', function () {
         ->and($project->id)->toBeInt();
 });
 
+

@@ -50,3 +50,4 @@ class GetStockLocationsRequest extends Request
 }
 
 
+

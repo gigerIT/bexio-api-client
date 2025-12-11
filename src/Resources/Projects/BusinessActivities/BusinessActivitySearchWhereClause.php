@@ -17,3 +17,4 @@ class BusinessActivitySearchWhereClause extends SearchWhereClause
     }
 }
 
+

@@ -28,3 +28,4 @@ class BusinessActivity extends Resource
     }
 }
 
+

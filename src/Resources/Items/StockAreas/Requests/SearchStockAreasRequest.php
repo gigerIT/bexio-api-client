@@ -37,3 +37,4 @@ class SearchStockAreasRequest extends Request implements HasBody
 }
 
 
+

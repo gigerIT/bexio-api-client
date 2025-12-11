@@ -54,3 +54,4 @@ class StockLocationQueryBuilder extends QueryBuilder
     }
 }
 
+

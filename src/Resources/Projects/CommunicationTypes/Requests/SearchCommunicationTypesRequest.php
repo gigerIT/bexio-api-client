@@ -36,3 +36,4 @@ class SearchCommunicationTypesRequest extends Request implements HasBody
     }
 }
 
+

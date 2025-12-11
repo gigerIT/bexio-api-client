@@ -54,3 +54,4 @@ class StockAreaQueryBuilder extends QueryBuilder
     }
 }
 
+
