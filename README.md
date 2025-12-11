@@ -265,14 +265,14 @@ $client = new BexioClient($auth->getAccessToken());
 | Resource       | Implemented |
 | -------------- | ----------- |
 | Accounts       | ✅          |
-| Account Groups | ❌          |
-| Calendar Years | ❌          |
-| Business Years | ❌          |
+| Account Groups | ✅          |
+| Calendar Years | ✅          |
+| Business Years | ✅          |
 | Currencies     | ✅          |
-| Manual Entries | ❌          |
-| Reports        | ❌          |
+| Manual Entries | ✅          |
+| Reports        | ✅          |
 | Taxes          | ✅          |
-| Vat Periods    | ❌          |
+| Vat Periods    | ✅          |
 
 ### BANKING
 

@@ -1,0 +1,29 @@
+<?php
+declare(strict_types=1);
+
+namespace Bexio\Resources\Accounting\AccountGroups\Requests;
+
+use Bexio\Resources\Accounting\AccountGroups\AccountGroup;
+use Saloon\Enums\Method;
+use Saloon\Http\Request;
+use Saloon\Http\Response;
+
+class GetAccountGroupRequest extends Request
+{
+    protected Method $method = Method::GET;
+
+    public function __construct(protected readonly int $id)
+    {
+    }
+
+    public function resolveEndpoint(): string
+    {
+        return "/2.0/account_groups/{$this->id}";
+    }
+
+    public function createDtoFromResponse(Response $response): AccountGroup
+    {
+        return AccountGroup::from($response->json());
+    }
+}
+
