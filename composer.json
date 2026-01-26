@@ -29,7 +29,7 @@
   "require-dev": {
     "pestphp/pest": "^v3",
     "pestphp/pest-plugin-faker": "^v3",
-    "symfony/var-dumper": "^7",
+    "symfony/var-dumper": "^7 || ^8",
     "phpstan/phpstan": "^2.1"
   },
   "config": {
