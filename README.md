@@ -1,10 +1,11 @@
-# bexio API PHP Client
+# Bexio API Laravel Package
 
-This is a [bexio API](https://docs.bexio.com) client, built with [`saloonphp/saloon`](https://docs.saloon.dev/) as API connector and [`spatie/laravel-data`](https://github.com/spatie/laravel-data) for DTOs.
+A Laravel package for the [Bexio API](https://docs.bexio.com), built with [`saloonphp/saloon`](https://docs.saloon.dev/) as API connector and [`spatie/laravel-data`](https://github.com/spatie/laravel-data) for DTOs.
 
-## Introduction
+## Requirements
 
-The bexio API PHP Client allows you to interact with the bexio API seamlessly. It provides a simple and intuitive interface to manage contacts, sales orders, accounting, and more. As we come from the Laravel world we gave this client a Laravel-like feel but still keeping it framework agnostic.
+- PHP 8.2+
+- Laravel 10.x, 11.x, or 12.x
 
 ## Installation
 
@@ -12,7 +13,69 @@ The bexio API PHP Client allows you to interact with the bexio API seamlessly. I
 composer require gigerit/bexio-api-client
 ```
 
+The package will automatically register its service provider.
+
+### Publish Configuration
+
+```sh
+php artisan vendor:publish --tag=bexio-config
+```
+
+This will create a `config/bexio.php` configuration file.
+
+### Environment Variables
+
+Add your Bexio API credentials to your `.env` file:
+
+```env
+# For Personal Access Token (simplest method)
+BEXIO_ACCESS_TOKEN=your-access-token
+
+# For OAuth2 (user-based authentication)
+BEXIO_CLIENT_ID=your-client-id
+BEXIO_CLIENT_SECRET=your-client-secret
+BEXIO_REDIRECT_URI=https://your-app.com/bexio/callback
+```
+
 ## Quick Start
+
+### Using Dependency Injection
+
+```php
+use Bexio\BexioClient;
+use Bexio\Resources\Contacts\Contacts\Contact;
+
+class ContactController extends Controller
+{
+    public function index(BexioClient $client)
+    {
+        $contacts = Contact::useClient($client)->all();
+
+        return view('contacts.index', compact('contacts'));
+    }
+
+    public function show(BexioClient $client, int $id)
+    {
+        $contact = Contact::useClient($client)->find($id);
+
+        return view('contacts.show', compact('contact'));
+    }
+}
+```
+
+### Using the Facade
+
+```php
+use Bexio\Facades\Bexio;
+use Bexio\Resources\Contacts\Contacts\Contact;
+
+// Get all contacts
+$contacts = Contact::useClient(Bexio::getFacadeRoot())->all();
+
+// Or resolve the client directly
+$client = app('bexio');
+$contacts = Contact::useClient($client)->all();
+```
 
 ### Basic Contact Operations
 
@@ -22,7 +85,7 @@ Get a Contact by ID:
 use Bexio\BexioClient;
 use Bexio\Resources\Contacts\Contacts\Contact;
 
-$client = new BexioClient('API_TOKEN');
+$client = app(BexioClient::class);
 
 // Get the Contact with ID 1
 $contact = Contact::useClient($client)->find(1);
@@ -39,7 +102,7 @@ Get all Contacts:
 use Bexio\BexioClient;
 use Bexio\Resources\Contacts\Contacts\Contact;
 
-$client = new BexioClient('API_TOKEN');
+$client = app(BexioClient::class);
 
 // Get all Contacts
 $contacts = Contact::useClient($client)->all();
@@ -59,7 +122,7 @@ use Bexio\BexioClient;
 use Bexio\Resources\Contacts\Contacts\Contact;
 use Bexio\Resources\Contacts\Contacts\Enums\ContactType;
 
-$client = new BexioClient('API_TOKEN');
+$client = app(BexioClient::class);
 
 // Create a new Person Contact
 $contact = new Contact(
@@ -86,7 +149,7 @@ Update a Contact:
 use Bexio\BexioClient;
 use Bexio\Resources\Contacts\Contacts\Contact;
 
-$client = new BexioClient('API_TOKEN');
+$client = app(BexioClient::class);
 
 // Get the Contact with ID 1
 $contact = Contact::useClient($client)->find(1);
@@ -106,7 +169,7 @@ use Bexio\BexioClient;
 use Bexio\Resources\Contacts\Contacts\Contact;
 use Bexio\Support\Data\SearchCriteria;
 
-$client = new BexioClient('API_TOKEN');
+$client = app(BexioClient::class);
 
 // Search contacts with criteria
 $contacts = Contact::useClient($client)
@@ -114,6 +177,101 @@ $contacts = Contact::useClient($client)
     ->where('name_1', SearchCriteria::LIKE, 'John')
     ->where('city', SearchCriteria::EQUAL, 'Zurich')
     ->search();
+```
+
+## OAuth2 Authentication
+
+For user-based authentication where users authenticate with their own Bexio account:
+
+### 1. Generate Authorization URL
+
+```php
+use Bexio\BexioAuth;
+
+class BexioAuthController extends Controller
+{
+    public function redirect()
+    {
+        $auth = new BexioAuth(
+            config('bexio.oauth.client_id'),
+            config('bexio.oauth.client_secret'),
+            config('bexio.oauth.redirect_uri')
+        );
+
+        $url = $auth->getAuthorizationUrl(
+            scopes: config('bexio.scopes'),
+            state: session()->put('bexio_state', Str::random(40))
+        );
+
+        return redirect($url);
+    }
+}
+```
+
+### 2. Handle Callback
+
+```php
+use Bexio\BexioAuth;
+
+public function callback(Request $request)
+{
+    $code = $request->get('code');
+    $state = $request->get('state');
+
+    if ($state !== session('bexio_state')) {
+        abort(403, 'Invalid state');
+    }
+
+    $auth = new BexioAuth(
+        config('bexio.oauth.client_id'),
+        config('bexio.oauth.client_secret'),
+        config('bexio.oauth.redirect_uri')
+    );
+
+    $authenticator = $auth->getAccessToken($code, $state, session('bexio_state'));
+
+    // Store the tokens (serialize the $authenticator or store individual values)
+    auth()->user()->update([
+        'bexio_access_token' => $authenticator->getAccessToken(),
+        'bexio_refresh_token' => $authenticator->getRefreshToken(),
+        'bexio_expires_at' => $authenticator->getExpiresAt(),
+    ]);
+
+    return redirect()->route('dashboard');
+}
+```
+
+### 3. Use with Per-User Authentication
+
+```php
+use Bexio\BexioAuth;
+use Bexio\BexioClient;
+use Saloon\Http\Auth\AccessTokenAuthenticator;
+
+public function getContacts()
+{
+    $user = auth()->user();
+
+    $auth = new AccessTokenAuthenticator(
+        $user->bexio_access_token,
+        $user->bexio_refresh_token,
+        new DateTimeImmutable($user->bexio_expires_at)
+    );
+
+    if ($auth->hasExpired()) {
+        $auth = BexioAuth::make()->refreshAccessToken($auth);
+
+        $user->update([
+            'bexio_access_token' => $auth->getAccessToken(),
+            'bexio_refresh_token' => $auth->getRefreshToken(),
+            'bexio_expires_at' => $auth->getExpiresAt(),
+        ]);
+    }
+
+    $client = new BexioClient($auth->getAccessToken());
+
+    return Contact::useClient($client)->all();
+}
 ```
 
 ## Documentation
@@ -132,91 +290,6 @@ For detailed documentation and advanced usage examples, see:
 
 DTOs provide type hinting and autocompletion in the IDE, for a better development experience.
 ![Type Hinting](docs/assets/contacts_typehint.png)
-
-## Authentication
-
-To obtain an API token, you can use the BexioAuth helper to generate and refresh OAuth2 tokens.
-
-1. Connect to Bexio: Generate an authorization URL and redirect the user to it.
-
-```php
-use Bexio\BexioAuth;
-
-//Provided from https://developer.bexio.com/
-$auth = new BexioAuth(
-    'CLIENT_ID',
-    'CLIENT_SECRET',
-    'http://localhost/bexio/callback'
-);
-
-$url = $auth->getAuthorizationUrl(
-    scopes: [
-        "company_profile",
-        "email",
-        "offline_access",
-        "openid",
-        "profile",
-    ],
-    state: 'random-state-string'
-);
-
-header('Location: ' . $url);
-```
-
-2. Callback: After the user has authorized the app, the user will be redirected back to the `redirect_uri` with a `code` parameter.
-
-```php
-use Bexio\BexioAuth;
-
-$code = $_GET['code'];
-$state = $_GET['state'];
-
-
-$auth = new BexioAuth(
-    'CLIENT_ID',
-    'CLIENT_SECRET',
-    'http://localhost/bexio/callback'
-);
-
-$oauthAuthenticator = $auth->getAccessToken($code, $state, 'random-state-string');
-
-// ----------------------------------------
-// Your logic to store the access token and refresh token
-// (e.g. in a database, you can just serialize the $oauthAuthenticator object for example)
-// ----------------------------------------
-
-```
-
-3. Use Client & Refresh Token: Use the access token to authenticate the BexioClient.
-
-```php
-use Saloon\Http\Auth\AccessTokenAuthenticator;
-use Bexio\BexioClient;
-use Bexio\BexioAuth;
-
-// ----------------------------------------
-// Your logic to retrieve the access token and refresh token
-// ----------------------------------------
-
-//create a AccessTokenAuthenticator object or unserialize it from your store/database
-$auth = new AccessTokenAuthenticator(
-    $yourDatastore->access_token,
-    $yourDatastore->refresh_token,
-    $yourDatastore->access_token_expires_at //as DateTimeImmutable
-);
-
-if ($auth->hasExpired()) {
-    $auth = BexioAuth::make()->refreshAccessToken($auth);
-
-   // ----------------------------------------
-   // Your logic to store the new access token and refresh token
-   // ----------------------------------------
-}
-
-$client = new BexioClient($auth->getAccessToken());
-
-// Use the client to interact with the bexio API
-```
 
 ## Available Resources
 
@@ -319,3 +392,13 @@ $client = new BexioClient($auth->getAccessToken());
 | Tasks           | ✅          |
 | Units           | ✅          |
 | User Management | ✅          |
+
+## Testing
+
+```sh
+composer test
+```
+
+## License
+
+MIT License - see the [LICENSE](LICENSE) file for details.

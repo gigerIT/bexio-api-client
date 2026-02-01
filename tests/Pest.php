@@ -9,15 +9,6 @@ use Illuminate\Support\Collection;
 use Saloon\Http\Faking\MockClient;
 use Saloon\Http\Faking\MockResponse;
 
-
-uses()
-    ->beforeEach(fn() => MockClient::destroyGlobal())
-    ->in(__DIR__);
-
-
-uses(Tests\TestCase::class)->in('Auth');
-uses(Tests\TestCase::class)->in('Resources');
-
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -29,7 +20,9 @@ uses(Tests\TestCase::class)->in('Resources');
 |
 */
 
-// uses(Tests\TestCase::class)->in('Feature');
+uses(Tests\TestCase::class)
+    ->beforeEach(fn () => MockClient::destroyGlobal())
+    ->in(__DIR__);
 
 /*
 |--------------------------------------------------------------------------
@@ -71,7 +64,10 @@ function testClientDebug(): BexioClient
 
 function testMockClient(string $requestClass, string $fixture): BexioClient
 {
-    return BexioClient::testAccount()->withMockClient(new MockClient([
+    // For mock tests, we can use a dummy token since requests are mocked
+    $client = new BexioClient('mock-token');
+
+    return $client->withMockClient(new MockClient([
         $requestClass => MockResponse::fixture($fixture),
     ]));
 }

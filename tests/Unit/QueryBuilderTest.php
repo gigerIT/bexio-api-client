@@ -4,7 +4,8 @@ use Bexio\BexioClient;
 use Bexio\Support\QueryBuilder;
 
 beforeEach(function () {
-    $this->client = BexioClient::testAccount();
+    // Use a simple mock client for unit tests - no real API token needed
+    $this->client = new BexioClient('mock-token');
     $this->queryBuilder = new QueryBuilder(
         resourceClass: TestResource::class,
         client: $this->client
@@ -173,4 +174,3 @@ class TestIndexRequest
     ) {
     }
 }
-

@@ -1,2 +1,11 @@
 .idea
 /vendor
+.env
+.env.local
+.env.*.local
+.phpunit.result.cache
+.phpunit.cache
+composer.lock
+phpunit.xml.dist
+coverage/
+.php-cs-fixer.cache

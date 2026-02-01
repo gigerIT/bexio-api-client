@@ -1,10 +1,13 @@
 {
   "name": "gigerit/bexio-api-client",
   "type": "library",
-  "description": "A PHP client for the Bexio API",
-  "version": "3.2.0",
+  "description": "A Laravel package for the Bexio API",
+  "version": "4.0.0",
   "keywords": [
-    "bexio"
+    "bexio",
+    "laravel",
+    "api",
+    "client"
   ],
   "license": "MIT",
   "autoload": {
@@ -20,15 +23,16 @@
     }
   ],
   "require": {
-    "php": "^8.4",
+    "php": "^8.2",
+    "illuminate/support": "^10.0|^11.0|^12.0",
     "saloonphp/saloon": "^3",
-    "illuminate/container": "^11.0|^12.0",
-    "spatie/laravel-data": "^4",
-    "gigerit/spatie-laravel-data-standalone": "^1.0"
+    "spatie/laravel-data": "^4"
   },
   "require-dev": {
+    "orchestra/testbench": "^8.0|^9.0|^10.0",
     "pestphp/pest": "^v3",
     "pestphp/pest-plugin-faker": "^v3",
+    "pestphp/pest-plugin-laravel": "^v3",
     "symfony/var-dumper": "^7",
     "phpstan/phpstan": "^2.1"
   },
@@ -37,16 +41,22 @@
       "pestphp/pest-plugin": true
     }
   },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Bexio\\BexioServiceProvider"
+      ],
+      "aliases": {
+        "Bexio": "Bexio\\Facades\\Bexio"
+      }
+    }
+  },
   "scripts": {
-    "post-install-cmd": [
-      "php check-dependency.php"
-    ],
-    "post-update-cmd": [
-      "php check-dependency.php"
-    ],
     "test": [
       "vendor/bin/pest"
     ],
     "test:types": "phpstan analyse --memory-limit=2G"
-  }
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
 }
