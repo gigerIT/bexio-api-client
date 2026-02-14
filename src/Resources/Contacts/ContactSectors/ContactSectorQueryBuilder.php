@@ -23,7 +23,7 @@ class ContactSectorQueryBuilder extends QueryBuilder
             $this->searchQuery = new Collection();
         }
 
-        $this->searchQuery->put($field, new ContactSectorSearchWhereClause($field, $operator, $value));
+        $this->searchQuery->push(new ContactSectorSearchWhereClause($field, $operator, $value));
         return $this;
     }
 

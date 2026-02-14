@@ -43,7 +43,7 @@ class AdditionalAddressQueryBuilder extends QueryBuilder
             $this->searchQuery = new Collection();
         }
 
-        $this->searchQuery->put($field, new AdditionalAddressSearchWhereClause($field, $operator, $value));
+        $this->searchQuery->push(new AdditionalAddressSearchWhereClause($field, $operator, $value));
         return $this;
     }
 

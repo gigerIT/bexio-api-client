@@ -23,7 +23,7 @@ class SalutationQueryBuilder extends QueryBuilder
             $this->searchQuery = new Collection();
         }
 
-        $this->searchQuery->put($field, new SalutationSearchWhereClause($field, $operator, $value));
+        $this->searchQuery->push(new SalutationSearchWhereClause($field, $operator, $value));
         return $this;
     }
 

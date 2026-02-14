@@ -23,7 +23,7 @@ class ContactGroupQueryBuilder extends QueryBuilder
             $this->searchQuery = new Collection();
         }
 
-        $this->searchQuery->put($field, new ContactGroupSearchWhereClause($field, $operator, $value));
+        $this->searchQuery->push(new ContactGroupSearchWhereClause($field, $operator, $value));
         return $this;
     }
 

@@ -25,7 +25,7 @@ class ItemQueryBuilder extends QueryBuilder
             $this->searchQuery = new Collection();
         }
 
-        $this->searchQuery->put($field, new ItemSearchWhereClause($field, $operator, $value));
+        $this->searchQuery->push(new ItemSearchWhereClause($field, $operator, $value));
         return $this;
     }
 

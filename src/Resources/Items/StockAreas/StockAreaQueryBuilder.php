@@ -25,7 +25,7 @@ class StockAreaQueryBuilder extends QueryBuilder
             $this->searchQuery = new Collection();
         }
 
-        $this->searchQuery->put($field, new StockAreaSearchWhereClause($field, $operator, $value));
+        $this->searchQuery->push(new StockAreaSearchWhereClause($field, $operator, $value));
         return $this;
     }
 

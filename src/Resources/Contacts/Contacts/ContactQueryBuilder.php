@@ -32,7 +32,7 @@ class ContactQueryBuilder extends QueryBuilder
             $this->searchQuery = new Collection();
         }
 
-        $this->searchQuery->put($field, new ContactSearchWhereClause($field, $operator, $value));
+        $this->searchQuery->push(new ContactSearchWhereClause($field, $operator, $value));
         return $this;
     }
 

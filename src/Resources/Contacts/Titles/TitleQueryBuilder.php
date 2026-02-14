@@ -23,7 +23,7 @@ class TitleQueryBuilder extends QueryBuilder
             $this->searchQuery = new Collection();
         }
 
-        $this->searchQuery->put($field, new TitleSearchWhereClause($field, $operator, $value));
+        $this->searchQuery->push(new TitleSearchWhereClause($field, $operator, $value));
         return $this;
     }
 
