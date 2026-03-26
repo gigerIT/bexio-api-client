@@ -39,7 +39,6 @@ class Invoice extends Resource implements KbDocumentContract
 
     public const SHOW_URL = '/index.php/kb_invoice/show/id/{id}';
 
-    public string $document_nr;
     public string $total_gross;
     public string $total_net;
     public string $total_taxes;
@@ -52,25 +51,30 @@ class Invoice extends Resource implements KbDocumentContract
     /** @var SalesTax[] */
     public array $taxs;
     public string $network_link;
-    public ?bool $mwst_is_net;
-    public ?int $logopaper_id;
     public ?string $total_received_payments;
     public ?string $total_credit_vouchers;
     public ?string $total_remaining_payments;
     public ?int $esr_id;
     public ?int $qr_invoice_id;
     public ?string $viewed_by_client_at;
+    public ?string $invoice_date = null;
+    public ?string $currency_code = null;
+    public ?float $exchange_rate = null;
+    public ?float $base_currency_amount = null;
+    public ?string $base_currency_code = null;
 
-    public ?int $pr_project_id;
     public ?int $project_id;
 
 
     public function __construct(
         public ?int                    $id = null,
+        public ?string                 $document_nr = null,
         public ?string                 $title = null,
         public ?int                    $contact_id = null,
         public ?int                    $contact_sub_id = null,
         public ?int                    $user_id = 1,
+        public ?int                    $pr_project_id = null,
+        public ?int                    $logopaper_id = null,
         public ?int                    $language_id = null,
 
         public ?int                    $bank_account_id = null,
@@ -81,14 +85,16 @@ class Invoice extends Resource implements KbDocumentContract
         public ?string                 $footer = null,
 
         public ?MwstType               $mwst_type = null,
+        public ?bool                   $mwst_is_net = null,
         public ?bool                   $show_position_taxes = null,
 
         public ?string                 $is_valid_from = null,
         public ?string                 $is_valid_to = null,
 
+        public ?string                 $contact_address_manual = null,
+
         public ?string                 $reference = null,
         public ?string                 $api_reference = null,
-
 
         public ?string                 $template_slug = null,
 
@@ -98,6 +104,56 @@ class Invoice extends Resource implements KbDocumentContract
     )
     {
         $this->positions = $positions ?? new ItemPositionCollection([]);
+    }
+
+    public static function createFromApiPayload(array $payload): static
+    {
+        $invoiceDate = $payload['invoice_date'] ?? $payload['is_valid_from'] ?? null;
+
+        if ($invoiceDate !== null) {
+            $payload['invoice_date'] = $invoiceDate;
+            $payload['is_valid_from'] ??= $invoiceDate;
+        }
+
+        return static::from($payload);
+    }
+
+    /**
+     * @param array<int, array<string, mixed>> $payloads
+     * @return array<int, static>
+     */
+    public static function collectFromApiPayload(array $payloads): array
+    {
+        return array_map(static fn (array $payload): static => static::createFromApiPayload($payload), $payloads);
+    }
+
+    public function toApi(): Invoice
+    {
+        return $this->except(
+            'id',
+            'total_gross',
+            'total_net',
+            'total_taxes',
+            'total',
+            'total_rounding_difference',
+            'contact_address',
+            'kb_item_status_id',
+            'updated_at',
+            'taxs',
+            'network_link',
+            'total_received_payments',
+            'total_credit_vouchers',
+            'total_remaining_payments',
+            'esr_id',
+            'qr_invoice_id',
+            'viewed_by_client_at',
+            'invoice_date',
+            'currency_code',
+            'exchange_rate',
+            'base_currency_amount',
+            'base_currency_code',
+            'project_id',
+        );
     }
 
 

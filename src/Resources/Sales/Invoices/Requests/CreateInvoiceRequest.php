@@ -29,12 +29,12 @@ class CreateInvoiceRequest extends Request implements HasBody
 
     protected function defaultBody(): array
     {
-        return $this->invoice->toArray();
+        return $this->invoice->toApi()->toArray();
     }
 
     public function createDtoFromResponse(Response $response): Invoice
     {
-        return Invoice::from($response->json());
+        return Invoice::createFromApiPayload($response->json());
     }
 
 }

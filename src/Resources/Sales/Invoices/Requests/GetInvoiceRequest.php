@@ -25,7 +25,7 @@ class GetInvoiceRequest extends Request
 
     public function createDtoFromResponse(Response $response): Invoice
     {
-        return Invoice::from($response->json());
+        return Invoice::createFromApiPayload($response->json());
     }
 
 }
