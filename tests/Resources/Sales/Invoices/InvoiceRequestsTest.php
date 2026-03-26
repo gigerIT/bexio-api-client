@@ -41,15 +41,20 @@ it('can get an Invoice', function () use (&$testInvoice) {
     expect($invoice)->toBeInstanceOf(Invoice::class)->and($invoice->id)->toBeInt();
 })->depends('it can create an Invoice');
 
-it('can filter Invoices with the query builder', function () use (&$testInvoice) {
+it('can find an Invoice by invoice date range via the search endpoint', function () use (&$testInvoice) {
+    $invoice = Invoice::useClient(testClient())->find($testInvoice->id);
+
     $invoices = Invoice::useClient(testClient())
         ->query()
         ->status(InvoiceStatus::DRAFT)
-        ->validBetween($testInvoice->is_valid_from, $testInvoice->is_valid_to)
-        ->forPage(1, 10)
+        ->validBetween($invoice->invoice_date, $invoice->is_valid_to)
+        ->orderBy('id', 'desc')
+        ->limit(100)
         ->get();
 
-    expect($invoices)->toBeArray();
+    expect($invoices)->toBeArray()
+        ->and($invoices[0])->toBeInstanceOf(Invoice::class)
+        ->and(array_map(static fn (Invoice $invoice): ?int => $invoice->id, $invoices))->toContain($testInvoice->id);
 })->depends('it can create an Invoice');
 
 
@@ -57,7 +62,6 @@ it('can add a comment to an invoice', function () use (&$testInvoice) {
     $comment = $testInvoice->addComment('Test Comment');
     expect($comment)->toBeInstanceOf(Comment::class)->and($comment->id)->toBeInt();
 })->depends('it can create an Invoice');
-
 
 it('can issue an Invoice', function () use (&$testInvoice) {
     $response = Invoice::useClient(testClient())->issue($testInvoice->id);

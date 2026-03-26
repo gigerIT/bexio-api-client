@@ -121,6 +121,7 @@ All API DTOs extend `src/Resources/Resource.php`, which itself extends `Spatie\L
 
 - `src/Resources/Sales/Invoices/InvoiceQueryBuilder.php` is the first resource-specific consumer of `SearchableQueryBuilder`.
 - Invoice filtering uses `POST /2.0/kb_invoice/search` through `src/Resources/Sales/Invoices/Requests/SearchInvoicesRequest.php`.
+- Live API verification shows `/2.0/kb_invoice/search` rejects a literal `invoice_date` search field; use `validFrom()`, `validTo()`, or `validBetween()` against the invoice's normalized `invoice_date`/validity dates instead.
 - Preferred fluent helpers are `status()`, `statusIn()`, `validFrom()`, `validTo()`, and `validBetween()`.
 
 ### Additional addresses need contact context
