@@ -182,7 +182,7 @@ $contacts = Contact::useClient($client)
     ->query()
     ->where('name_1', SearchCriteria::LIKE, 'John')
     ->where('city', SearchCriteria::EQUAL, 'Zurich')
-    ->search();
+    ->get();
 ```
 
 ## OAuth2 Authentication

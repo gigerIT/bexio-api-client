@@ -161,13 +161,20 @@ All API DTOs extend `src/Resources/Resource.php`, which itself extends `Spatie\L
   - `testClient()` for live API access via `BexioClient::testAccount()`
   - `testMockClient()` for Saloon mock responses
   - cached helpers like `testSaleTax()`, `testSalesAccount()`, `testAccountId()`
-- Many resource tests are live integration tests and skip when no test token or suitable remote data is available.
+- Resource coverage is expected to use real API requests. A working API key is available in local development and in CI, so new feature/resource tests should use `testClient()` and exercise the real Bexio endpoints rather than mocks.
+- Keep mocks/fixtures for narrow unit tests only, such as DTO, casting, or request-construction behavior; do not treat mocked tests as sufficient coverage for a new API feature.
+- Existing live API test patterns to follow:
+  - create/update/delete flows that generate disposable records and clean them up, as in `tests/Resources/Contacts/Contacts/ContactRequestsTest.php`, `tests/Resources/Purchase/Bills/BillRequestsTest.php`, and `tests/Resources/Sales/Invoices/InvoiceRequestsTest.php`
+  - read/search/query-builder coverage that fetches existing remote records, then skips only when the remote account genuinely lacks suitable data, as in `tests/Resources/Projects/Projects/ProjectRequestsTest.php` and `tests/Resources/Banking/PaymentRequestsTest.php`
+- When an endpoint supports writes, prefer creating the prerequisite record inside the test instead of depending on pre-existing account data.
+- When an endpoint is read-only or depends on account-specific data, fetch a small live dataset first and skip only if the remote account truly has no compatible records.
 - One Saloon fixture currently exists at `tests/Fixtures/Saloon/contacts/contacts/get.json`.
 
 ### Test environment behavior
 
 - `tests/TestCase.php` loads `LaravelDataServiceProvider` and `BexioServiceProvider`.
 - The package test environment sets `config('bexio.access_token')` from `BEXIO_ACCESS_TOKEN` or `TEST_API_KEY`.
+- Missing credentials should not be treated as the normal path for local development or CI; if a test cannot run, the first assumption should be missing remote fixtures/data, not missing authentication.
 - `tests/ArchitectureTest.php` currently bans debug helpers like `dd`, `dump`, `ray`, and `sleep`.
 
 ## CI and Release
@@ -195,6 +202,7 @@ All API DTOs extend `src/Resources/Resource.php`, which itself extends `Spatie\L
   4. Integration or unit tests in the matching `tests/Resources/...` or `tests/Unit/...` location
 - Reuse the base `Resource` helpers unless the endpoint needs extra route context, custom normalization, or custom request assembly.
 - Match existing endpoint versioning and local naming in the area you are editing.
+- Every new API-facing feature should ship with real, working API tests in `tests/Resources/...`, following the established live-request style used by the existing resource suites.
 - If you add response-only fields, keep outgoing payload filtering up to date.
 - If you add a new pattern or project caveat, update this file in the same task.
 
