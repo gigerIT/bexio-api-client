@@ -5,7 +5,7 @@ A Laravel package for the [Bexio API](https://docs.bexio.com), built with [`salo
 ## Requirements
 
 - PHP 8.2+
-- Laravel 10.x, 11.x, or 12.x
+- Laravel 10.x, 11.x, 12.x, or 13.x
 
 ## Installation
 
@@ -35,6 +35,10 @@ BEXIO_ACCESS_TOKEN=your-access-token
 BEXIO_CLIENT_ID=your-client-id
 BEXIO_CLIENT_SECRET=your-client-secret
 BEXIO_REDIRECT_URI=https://your-app.com/bexio/callback
+
+# Optional: persisted OAuth tokens
+BEXIO_OAUTH_ACCESS_TOKEN=your-oauth-access-token
+BEXIO_OAUTH_REFRESH_TOKEN=your-oauth-refresh-token
 ```
 
 ## Quick Start
@@ -142,6 +146,8 @@ $contact = new Contact(
 // Save the Contact
 $contact->attachClient($client)->save();
 ```
+
+Note: if you need to assign a contact title, use the `titel_id` field name. That matches the payload shape used by this package even though some Bexio docs refer to `title_id`.
 
 Update a Contact:
 

@@ -183,9 +183,7 @@ All API DTOs extend `src/Resources/Resource.php`, which itself extends `Spatie\L
 
 ## Documentation Drift To Watch
 
-- `README.md` says Laravel `10.x, 11.x, or 12.x`, but `composer.json` allows Laravel 13 as well.
 - `Contact` uses `titel_id` in `src/Resources/Contacts/Contacts/Contact.php`; some bundled Bexio docs may use `title_id` instead.
-- `docs/CONTACTS.md` examples for additional addresses do not fully reflect the `contact_id` requirement enforced by the current code.
 - Some Pest resource test files contain copied namespace declarations unrelated to their directory. Pest still executes them, so do not treat those namespaces as authoritative project structure.
 
 ## When Adding Or Updating Resources

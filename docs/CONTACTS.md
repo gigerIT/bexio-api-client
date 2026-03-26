@@ -92,6 +92,8 @@ $contact = new Contact(
 $createdContact = $contact->attachClient($client)->save();
 ```
 
+**Note:** When assigning a title to a contact, use the `titel_id` field name. This matches the payloads handled by the package, even if some Bexio documentation uses `title_id`.
+
 ### Create a Company Contact
 
 ```php
@@ -325,6 +327,8 @@ $sectors = ContactSector::useClient($client)
 
 Additional Addresses allow you to add multiple addresses to a single contact.
 
+**Note:** Additional address endpoints are contact-scoped. For `find()` and `delete()`, you must provide the parent `contact_id` on the resource instance. For list and search operations, use `->query()->forContact($contactId)`.
+
 ### Get all Additional Addresses for a Contact
 
 ```php
@@ -339,7 +343,9 @@ $addresses = AdditionalAddress::useClient($client)
 ### Get a specific Additional Address
 
 ```php
-$address = AdditionalAddress::useClient($client)->find(1);
+$address = (new AdditionalAddress(contact_id: 1))
+    ->attachClient($client)
+    ->find(1);
 ```
 
 ### Create an Additional Address
@@ -364,7 +370,10 @@ $createdAddress = $address->attachClient($client)->save();
 ### Update an Additional Address
 
 ```php
-$address = AdditionalAddress::useClient($client)->find(1);
+$address = (new AdditionalAddress(contact_id: 1))
+    ->attachClient($client)
+    ->find(1);
+
 $address->name = 'Shipping Address';
 $address->city = 'Bern';
 $address->save();
@@ -373,7 +382,10 @@ $address->save();
 ### Delete an Additional Address
 
 ```php
-$address = AdditionalAddress::useClient($client)->find(1);
+$address = (new AdditionalAddress(contact_id: 1))
+    ->attachClient($client)
+    ->find(1);
+
 $address->delete();
 ```
 
