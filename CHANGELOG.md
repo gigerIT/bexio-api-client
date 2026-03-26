@@ -1,5 +1,19 @@
 # Changelog
 
+## [3.3.0](https://github.com/gigerIT/bexio-api-client/compare/v3.2.0...v3.3.0) (2026-03-26)
+
+
+### Features
+
+* upgrade to saloon v4 ([7e9383c](https://github.com/gigerIT/bexio-api-client/commit/7e9383c2fff72ca2edcef2d8ea0d9d096fb3d580))
+
+
+### Miscellaneous Chores
+
+* **deps-dev:** bump symfony/var-dumper from 7.4.0 to 8.0.6 ([d2c82a5](https://github.com/gigerIT/bexio-api-client/commit/d2c82a598df874db3236745d5641e9131d2749dc))
+* **deps-dev:** bump symfony/var-dumper from 7.4.0 to 8.0.6 ([615e695](https://github.com/gigerIT/bexio-api-client/commit/615e695a1f7a12ef7e25c09e0889e7e8d5cd0b5c))
+* Specify exact versions for illuminate/container ([613a2b3](https://github.com/gigerIT/bexio-api-client/commit/613a2b3534e43e6d0bcff6c247d25ae7f378895c))
+
 ## [3.2.0](https://github.com/gigerIT/bexio-api-client/compare/v3.1.1...v3.2.0) (2025-12-11)
 
 
