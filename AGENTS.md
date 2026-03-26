@@ -183,7 +183,7 @@ All API DTOs extend `src/Resources/Resource.php`, which itself extends `Spatie\L
 ### Test environment behavior
 
 - `tests/TestCase.php` loads `LaravelDataServiceProvider` and `BexioServiceProvider`.
-- The package test environment sets `config('bexio.access_token')` from `BEXIO_ACCESS_TOKEN` or `TEST_API_KEY`.
+- The package test environment explicitly loads the package-root `.env` when neither `BEXIO_ACCESS_TOKEN` nor `TEST_API_KEY` is already present in the process environment, then sets `config('bexio.access_token')` from those variables.
 - Missing credentials should not be treated as the normal path for local development or CI; if a test cannot run, the first assumption should be missing remote fixtures/data, not missing authentication.
 - `tests/ArchitectureTest.php` currently bans debug helpers like `dd`, `dump`, `ray`, and `sleep`.
 

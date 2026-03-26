@@ -3,6 +3,7 @@
 namespace Tests;
 
 use Bexio\BexioServiceProvider;
+use Dotenv\Dotenv;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Spatie\LaravelData\LaravelDataServiceProvider;
 
@@ -43,6 +44,10 @@ abstract class TestCase extends BaseTestCase
      */
     protected function defineEnvironment($app): void
     {
+        if (! isset($_ENV['BEXIO_ACCESS_TOKEN']) && ! isset($_ENV['TEST_API_KEY'])) {
+            Dotenv::createUnsafeMutable(dirname(__DIR__))->safeLoad();
+        }
+
         $app['config']->set('bexio.access_token', env('BEXIO_ACCESS_TOKEN') ?: env('TEST_API_KEY'));
     }
 }
