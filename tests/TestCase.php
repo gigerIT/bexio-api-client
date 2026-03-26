@@ -43,7 +43,6 @@ abstract class TestCase extends BaseTestCase
      */
     protected function defineEnvironment($app): void
     {
-        // Set up config for testing
-        $app['config']->set('bexio.access_token', env('BEXIO_ACCESS_TOKEN'));
+        $app['config']->set('bexio.access_token', env('BEXIO_ACCESS_TOKEN') ?: env('TEST_API_KEY'));
     }
 }

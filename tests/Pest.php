@@ -54,7 +54,11 @@ expect()->extend('toBeOne', function () {
 //region Clients
 function testClient(): BexioClient
 {
-    return BexioClient::testAccount();
+    try {
+        return BexioClient::testAccount();
+    } catch (RuntimeException $exception) {
+        \PHPUnit\Framework\Assert::markTestSkipped($exception->getMessage());
+    }
 }
 
 function testClientDebug(): BexioClient

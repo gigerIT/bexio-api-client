@@ -11,9 +11,9 @@ class PurchaseOrder extends Resource
 {
     const CREATE_REQUEST = CreatePurchaseOrderRequest::class;
 
-    public readonly PurchaseOrderStatus $kb_item_status_id;
+    public ?PurchaseOrderStatus $kb_item_status_id = null;
 
-    public readonly ?string $viewed_by_client_at;
+    public ?string $viewed_by_client_at = null;
 
     public function __construct(
         public int     $contact_id,

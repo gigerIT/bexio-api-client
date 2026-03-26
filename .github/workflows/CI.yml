@@ -32,6 +32,7 @@ jobs:
 
       - name: Run Tests
         env:
+          BEXIO_ACCESS_TOKEN: ${{ secrets.TEST_API_KEY }}
           TEST_API_KEY: ${{ secrets.TEST_API_KEY }}
         run: php vendor/bin/pest --colors=always -v --parallel --processes=6
 

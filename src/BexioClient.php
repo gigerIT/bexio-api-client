@@ -45,16 +45,18 @@ class BexioClient extends Connector
     /**
      * Create a test account client using environment variable.
      *
-     * @throws \RuntimeException When BEXIO_ACCESS_TOKEN is not set
+     * @throws \RuntimeException When no test token is configured
      */
     public static function testAccount(): static
     {
-        $token = getenv('BEXIO_ACCESS_TOKEN') ?: (function_exists('config') ? config('bexio.access_token') : null);
+        $token = getenv('BEXIO_ACCESS_TOKEN')
+            ?: getenv('TEST_API_KEY')
+            ?: (function_exists('config') ? config('bexio.access_token') : null);
 
         if (empty($token)) {
             throw new \RuntimeException(
-                'BEXIO_ACCESS_TOKEN environment variable is not set. '
-                . 'Please set it in your .env file or environment variables.'
+                'No Bexio test token is configured. '
+                . 'Set BEXIO_ACCESS_TOKEN, TEST_API_KEY, or config(bexio.access_token).'
             );
         }
 

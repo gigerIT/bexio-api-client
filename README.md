@@ -187,6 +187,7 @@ For user-based authentication where users authenticate with their own Bexio acco
 
 ```php
 use Bexio\BexioAuth;
+use Illuminate\Support\Str;
 
 class BexioAuthController extends Controller
 {
@@ -198,9 +199,13 @@ class BexioAuthController extends Controller
             config('bexio.oauth.redirect_uri')
         );
 
+        $state = Str::random(40);
+
+        session()->put('bexio_state', $state);
+
         $url = $auth->getAuthorizationUrl(
             scopes: config('bexio.scopes'),
-            state: session()->put('bexio_state', Str::random(40))
+            state: $state
         );
 
         return redirect($url);
@@ -245,12 +250,20 @@ public function callback(Request $request)
 
 ```php
 use Bexio\BexioAuth;
+use DateTimeImmutable;
+use Bexio\Resources\Contacts\Contacts\Contact;
 use Bexio\BexioClient;
 use Saloon\Http\Auth\AccessTokenAuthenticator;
 
 public function getContacts()
 {
     $user = auth()->user();
+
+    $authService = new BexioAuth(
+        config('bexio.oauth.client_id'),
+        config('bexio.oauth.client_secret'),
+        config('bexio.oauth.redirect_uri')
+    );
 
     $auth = new AccessTokenAuthenticator(
         $user->bexio_access_token,
@@ -259,7 +272,7 @@ public function getContacts()
     );
 
     if ($auth->hasExpired()) {
-        $auth = BexioAuth::make()->refreshAccessToken($auth);
+        $auth = $authService->refreshAccessToken($auth);
 
         $user->update([
             'bexio_access_token' => $auth->getAccessToken(),

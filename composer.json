@@ -2,7 +2,6 @@
   "name": "gigerit/bexio-api-client",
   "type": "library",
   "description": "A Laravel package for the Bexio API",
-  "version": "4.0.0",
   "keywords": [
     "bexio",
     "laravel",
@@ -25,7 +24,7 @@
   "require": {
     "php": "^8.2",
     "illuminate/support": "^10.0|^11.0|^12.0|^13.0",
-    "saloonphp/saloon": "^3",
+    "saloonphp/saloon": "^4",
     "spatie/laravel-data": "^4"
   },
   "require-dev": {

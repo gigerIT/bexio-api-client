@@ -6,6 +6,7 @@ namespace Bexio\Resources;
 
 use Bexio\BexioClient;
 use Bexio\Support\QueryBuilder;
+use LogicException;
 use ReflectionClass;
 use RuntimeException;
 use Saloon\Http\Request;
@@ -100,7 +101,7 @@ class Resource extends Data
      */
     public function refresh(): static
     {
-        return $this->find($this->id);
+        return $this->find($this->resolveResourceId());
     }
 
 
@@ -113,7 +114,7 @@ class Resource extends Data
 
     public function delete(string|int|null $id = null): bool
     {
-        $request = $this->newRequestInstance(static::DELETE_REQUEST, $id ?? $this->id);
+        $request = $this->newRequestInstance(static::DELETE_REQUEST, $id ?? $this->resolveResourceId());
         $response = $this->client()->send($request);
         return $response->successful();
     }
@@ -121,11 +122,39 @@ class Resource extends Data
 
     public function save(): static
     {
-        if (isset($this->id) && $this->id !== null) {
+        if ($this->hasResourceId()) {
             return $this->update();
         }
 
         return $this->create();
+    }
+
+    protected function hasResourceId(): bool
+    {
+        $reflectionClass = new ReflectionClass($this);
+
+        if (! $reflectionClass->hasProperty('id')) {
+            return false;
+        }
+
+        return $reflectionClass->getProperty('id')->getValue($this) !== null;
+    }
+
+    protected function resolveResourceId(): int|string
+    {
+        $reflectionClass = new ReflectionClass($this);
+
+        if (! $reflectionClass->hasProperty('id')) {
+            throw new LogicException(static::class . ' does not define an id property.');
+        }
+
+        $id = $reflectionClass->getProperty('id')->getValue($this);
+
+        if (! is_int($id) && ! is_string($id)) {
+            throw new LogicException(static::class . ' does not have a persisted id.');
+        }
+
+        return $id;
     }
 
 }
