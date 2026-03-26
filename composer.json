@@ -24,12 +24,12 @@
   ],
   "require": {
     "php": "^8.2",
-    "illuminate/support": "^10.0|^11.0|^12.0",
+    "illuminate/support": "^10.0|^11.0|^12.0|^13.0",
     "saloonphp/saloon": "^3",
     "spatie/laravel-data": "^4"
   },
   "require-dev": {
-    "orchestra/testbench": "^8.0|^9.0|^10.0",
+    "orchestra/testbench": "^8.0|^9.0|^10.0|^11.0",
     "pestphp/pest": "^v3",
     "pestphp/pest-plugin-faker": "^v3",
     "pestphp/pest-plugin-laravel": "^v3",
