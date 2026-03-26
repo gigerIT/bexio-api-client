@@ -11,7 +11,7 @@ use Saloon\Http\Faking\MockResponse;
 use Tests\TestCase;
 
 uses()
-    ->beforeEach(fn () => MockClient::destroyGlobal())
+    ->beforeEach(fn() => MockClient::destroyGlobal())
     ->in(__DIR__);
 
 uses(TestCase::class)->in('Auth');
@@ -96,6 +96,10 @@ function testSaleTax(): Tax
         $response = testClient()->send($request);
         $taxes = $request->createDtoFromResponse($response);
         $tax = $taxes[0];
+
+        if (!$tax) {
+            throw new Exception("No Tax Code found");
+        }
     }
 
     return $tax;

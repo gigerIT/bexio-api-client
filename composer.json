@@ -21,7 +21,7 @@
   ],
   "require": {
     "php": "^8.4",
-    "saloonphp/saloon": "^3",
+    "saloonphp/saloon": "^4",
     "illuminate/container": "^11|^12",
     "spatie/laravel-data": "^4",
     "gigerit/spatie-laravel-data-standalone": "^1.0"
@@ -30,7 +30,8 @@
     "pestphp/pest": "^v3",
     "pestphp/pest-plugin-faker": "^v3",
     "symfony/var-dumper": "^7",
-    "phpstan/phpstan": "^2.1"
+    "phpstan/phpstan": "^2.1",
+    "laravel/pint": "^1.29"
   },
   "config": {
     "allow-plugins": {
@@ -47,6 +48,7 @@
     "test": [
       "vendor/bin/pest"
     ],
-    "test:types": "phpstan analyse --memory-limit=2G"
+    "test:types": "phpstan analyse --memory-limit=2G",
+    "lint": "./vendor/bin/pint"
   }
 }

@@ -1,4 +1,5 @@
 <?php
+
 // Composer Helper Script to Check and Install Optional spatie-laravel-data-standalone Dependency if Laravel is not Installed
 
 $packageName = 'laravel/framework';
@@ -7,7 +8,7 @@ $optionalPackage = 'gigerit/spatie-laravel-data-standalone';
 // Function to check if a package is installed
 function isPackageInstalled($packageName)
 {
-    exec("composer show -N", $output, $returnVar);
+    exec('composer show -N', $output, $returnVar);
     if ($returnVar !== 0) {
         echo "Error: Unable to execute 'composer show'.\n";
         exit(1);
@@ -17,6 +18,7 @@ function isPackageInstalled($packageName)
             return true;
         }
     }
+
     return false;
 }
 
@@ -27,7 +29,7 @@ $mainPackageInstalled = isPackageInstalled($packageName);
 $optionalPackageInstalled = isPackageInstalled($optionalPackage);
 
 // If the main package is not installed and the optional package is not installed, add the optional package
-if (!$mainPackageInstalled && !$optionalPackageInstalled) {
+if (! $mainPackageInstalled && ! $optionalPackageInstalled) {
     echo "$packageName is not installed. Installing $optionalPackage...\n";
     exec("composer require $optionalPackage", $requireOutput, $requireReturnVar);
     if ($requireReturnVar !== 0) {
