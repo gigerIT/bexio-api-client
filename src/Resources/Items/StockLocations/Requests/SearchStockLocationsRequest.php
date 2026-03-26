@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Items\StockLocations\Requests;
@@ -16,9 +17,7 @@ class SearchStockLocationsRequest extends Request implements HasBody
 
     protected Method $method = Method::POST;
 
-    public function __construct(protected readonly array $searchClauses = [])
-    {
-    }
+    public function __construct(protected readonly array $searchClauses = []) {}
 
     public function resolveEndpoint(): string
     {
@@ -35,6 +34,3 @@ class SearchStockLocationsRequest extends Request implements HasBody
         return StockLocation::collect($response->json());
     }
 }
-
-
-

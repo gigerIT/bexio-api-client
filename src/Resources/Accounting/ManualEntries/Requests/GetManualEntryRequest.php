@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Accounting\ManualEntries\Requests;
@@ -12,9 +13,7 @@ class GetManualEntryRequest extends Request
 {
     protected Method $method = Method::GET;
 
-    public function __construct(protected readonly string $uuid)
-    {
-    }
+    public function __construct(protected readonly string $uuid) {}
 
     public function resolveEndpoint(): string
     {
@@ -26,4 +25,3 @@ class GetManualEntryRequest extends Request
         return ManualEntry::from($response->json());
     }
 }
-

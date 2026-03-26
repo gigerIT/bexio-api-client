@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Contacts\Contacts;
 
@@ -20,6 +20,7 @@ class ContactQueryBuilder extends QueryBuilder
     public function withArchived(): static
     {
         $this->setParameter('showArchived', true);
+
         return $this;
     }
 
@@ -28,11 +29,12 @@ class ContactQueryBuilder extends QueryBuilder
      */
     public function where(string $field, SearchCriteria $operator, string $value): static
     {
-        if (!isset($this->searchQuery)) {
-            $this->searchQuery = new Collection();
+        if (! isset($this->searchQuery)) {
+            $this->searchQuery = new Collection;
         }
 
         $this->searchQuery->put($field, new ContactSearchWhereClause($field, $operator, $value));
+
         return $this;
     }
 
@@ -44,8 +46,8 @@ class ContactQueryBuilder extends QueryBuilder
         $request = new SearchContactRequest($this->searchQuery->toArray());
         $response = $this->client->send($request);
 
-        if (!$response->successful()) {
-            throw new RuntimeException("Failed to fetch resources: " . $response->json());
+        if (! $response->successful()) {
+            throw new RuntimeException('Failed to fetch resources: '.$response->json());
         }
 
         return $request->createDtoFromResponse($response);
@@ -58,11 +60,12 @@ class ContactQueryBuilder extends QueryBuilder
     {
         if (isset($this->searchQuery) && $this->searchQuery->isNotEmpty()) {
             $results = $this->search();
+
             return $results[0] ?? null;
         }
 
         $results = $this->limit(1)->get();
+
         return $results[0] ?? null;
     }
 }
-

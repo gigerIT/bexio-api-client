@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Contacts\AdditionalAddresses\Requests;
 
@@ -11,11 +11,9 @@ use Saloon\Http\Response;
 
 class GetAdditionalAddressesRequest extends Request
 {
-
     const LIMIT_MAX = 2000;
 
     protected Method $method = Method::GET;
-
 
     public function __construct(
         protected int $contactId,
@@ -23,10 +21,10 @@ class GetAdditionalAddressesRequest extends Request
         protected int $offset = 0,
     ) {
         if ($limit > self::LIMIT_MAX) {
-            throw new \InvalidArgumentException("Limit cannot be greater than " . self::LIMIT_MAX);
+            throw new \InvalidArgumentException('Limit cannot be greater than '.self::LIMIT_MAX);
         }
         if ($offset < 0) {
-            throw new \InvalidArgumentException("Offset cannot be less than 0");
+            throw new \InvalidArgumentException('Offset cannot be less than 0');
         }
     }
 
@@ -43,16 +41,16 @@ class GetAdditionalAddressesRequest extends Request
         ];
     }
 
-
     public function createDtoFromResponse(Response $response): array
     {
         $data = $response->json();
         // Add contact_id to each address
         $data = array_map(function ($item) {
             $item['contact_id'] = $this->contactId;
+
             return $item;
         }, $data);
+
         return AdditionalAddress::collect($data);
     }
 }
-

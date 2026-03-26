@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Sales\Deliveries\Requests;
@@ -22,4 +23,3 @@ class GetDeliveriesRequest extends Request
         return Delivery::collect($response->json());
     }
 }
-

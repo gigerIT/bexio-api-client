@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Purchase\OutgoingPayments\Requests;
@@ -20,7 +21,7 @@ class GetOutgoingPaymentsRequest extends Request
     public function createDtoFromResponse(Response $response): array
     {
         $data = $response->json('data') ?? [];
+
         return OutgoingPayment::collect($data);
     }
 }
-

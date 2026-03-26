@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Banking\BankAccounts\Requests;
@@ -19,11 +20,11 @@ class GetBankAccountsRequest extends Request
         protected int $offset = 0,
     ) {
         if ($limit > self::LIMIT_MAX) {
-            throw new \InvalidArgumentException("Limit cannot be greater than " . self::LIMIT_MAX);
+            throw new \InvalidArgumentException('Limit cannot be greater than '.self::LIMIT_MAX);
         }
 
         if ($offset < 0) {
-            throw new \InvalidArgumentException("Offset cannot be less than 0");
+            throw new \InvalidArgumentException('Offset cannot be less than 0');
         }
     }
 
@@ -45,6 +46,3 @@ class GetBankAccountsRequest extends Request
         return BankAccount::collect($response->json());
     }
 }
-
-
-

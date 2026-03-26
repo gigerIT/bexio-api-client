@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Sales\ItemPositions;
 
@@ -12,32 +12,31 @@ use Spatie\LaravelData\Casts\IterableItemCast;
 use Spatie\LaravelData\Support\Creation\CreationContext;
 use Spatie\LaravelData\Support\DataProperty;
 
-class ItemPositionCast implements Cast, IterableItemCast, Castable
+class ItemPositionCast implements Cast, Castable, IterableItemCast
 {
-
     public static function dataCastUsing(array $arguments): Cast
     {
-//        dump('ItemPositionCast::dataCastUsing:', $arguments);
-        return new self();
+        //        dump('ItemPositionCast::dataCastUsing:', $arguments);
+        return new self;
     }
 
     public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): mixed
     {
-//        dump('ItemPositionCast::cast');
+        //        dump('ItemPositionCast::cast');
         return new ItemPositionCollection(array_map(fn ($item) => $this->matchItemPositionType($item), $value));
     }
 
     public function castIterableItem(DataProperty $property, mixed $value, array $properties, CreationContext $context): mixed
     {
-//        dump('ItemPositionCast::castIterableItem:', $value);
+        //        dump('ItemPositionCast::castIterableItem:', $value);
         return $this->matchItemPositionType($value);
     }
 
-
     private function matchItemPositionType(mixed $item)
     {
-//        return $item;
+        //        return $item;
         $type = ItemPositionType::from($item['type']);
+
         return match ($type) {
             ItemPositionType::ARTICLE => ItemPositionArticle::from($item),
             ItemPositionType::CUSTOM => ItemPositionCustom::from($item),
@@ -46,12 +45,11 @@ class ItemPositionCast implements Cast, IterableItemCast, Castable
         };
     }
 
-//    public static function dataCastUsing(...$arguments): Cast
-//    {
-//        return new class implements Cast {
-//
-//        };
-//    }
-
+    //    public static function dataCastUsing(...$arguments): Cast
+    //    {
+    //        return new class implements Cast {
+    //
+    //        };
+    //    }
 
 }

@@ -26,4 +26,3 @@ it('can get first Unit using query builder', function () {
     expect($unit)->toBeInstanceOf(Unit::class)
         ->and($unit->id)->toBeInt();
 });
-

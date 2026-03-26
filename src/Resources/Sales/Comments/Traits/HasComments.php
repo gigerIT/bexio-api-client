@@ -6,13 +6,12 @@ use Bexio\Resources\Sales\Comments\Comment;
 
 trait HasComments
 {
-
     /**
      * @throws \Exception
      */
     public function addComment(string|Comment $comment): Comment
     {
-        if (!isset($this->id)) {
+        if (! isset($this->id)) {
             throw new \Exception('The resource must be saved before adding a comment.');
         }
 

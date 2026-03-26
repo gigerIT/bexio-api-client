@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Accounting\Taxes\Requests;
 
@@ -13,10 +13,7 @@ class GetTaxRequest extends Request
 {
     protected Method $method = Method::GET;
 
-    public function __construct(public readonly int $id)
-    {
-
-    }
+    public function __construct(public readonly int $id) {}
 
     public function resolveEndpoint(): string
     {
@@ -27,5 +24,4 @@ class GetTaxRequest extends Request
     {
         return Tax::from($response->json());
     }
-
 }

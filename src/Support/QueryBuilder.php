@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Support;
 
@@ -17,7 +17,7 @@ class QueryBuilder
         protected string $resourceClass,
         protected BexioClient $client,
     ) {
-        $this->parameters = new Collection();
+        $this->parameters = new Collection;
     }
 
     /**
@@ -26,6 +26,7 @@ class QueryBuilder
     protected function setParameter(string $key, mixed $value): static
     {
         $this->parameters->put($key, $value);
+
         return $this;
     }
 
@@ -35,6 +36,7 @@ class QueryBuilder
     public function limit(int $limit): static
     {
         $this->setParameter('limit', $limit);
+
         return $this;
     }
 
@@ -44,6 +46,7 @@ class QueryBuilder
     public function offset(int $offset): static
     {
         $this->setParameter('offset', $offset);
+
         return $this;
     }
 
@@ -72,8 +75,8 @@ class QueryBuilder
 
         $response = $this->client->send($request);
 
-        if (!$response->successful()) {
-            throw new RuntimeException("Failed to fetch resources: " . $response->json());
+        if (! $response->successful()) {
+            throw new RuntimeException('Failed to fetch resources: '.$response->json());
         }
 
         return $request->createDtoFromResponse($response);
@@ -85,6 +88,7 @@ class QueryBuilder
     public function first(): mixed
     {
         $results = $this->get();
+
         return $results[0] ?? null;
     }
 
@@ -97,8 +101,8 @@ class QueryBuilder
         $constructor = $reflection->getConstructor();
 
         // If there's no constructor, just instantiate the class
-        if (!$constructor) {
-            return new $requestClass();
+        if (! $constructor) {
+            return new $requestClass;
         }
 
         $constructorParams = $constructor->getParameters();

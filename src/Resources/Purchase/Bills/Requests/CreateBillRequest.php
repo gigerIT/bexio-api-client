@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Purchase\Bills\Requests;
 
@@ -17,14 +17,11 @@ class CreateBillRequest extends Request implements HasBody
 
     protected Method $method = Method::POST;
 
-    public function __construct(readonly protected Bill $bill)
-    {
-
-    }
+    public function __construct(protected readonly Bill $bill) {}
 
     public function resolveEndpoint(): string
     {
-        return "/4.0/purchase/bills";
+        return '/4.0/purchase/bills';
     }
 
     public function createDtoFromResponse(Response $response): Bill
@@ -36,5 +33,4 @@ class CreateBillRequest extends Request implements HasBody
     {
         return $this->bill->toArray();
     }
-
 }

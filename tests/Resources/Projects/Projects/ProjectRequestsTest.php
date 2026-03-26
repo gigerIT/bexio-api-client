@@ -4,16 +4,17 @@ namespace Bexio\Resources\Sales\Quotes\Requests;
 
 use Bexio\Resources\Projects\Projects\Project;
 use Bexio\Support\Data\SearchCriteria;
+use PHPUnit\Framework\Assert;
 
 it('can get Projects', function () {
     try {
         $projects = Project::useClient(testClient())->all();
     } catch (\Throwable $e) {
-        \PHPUnit\Framework\Assert::markTestSkipped('Projects endpoint unavailable: ' . $e->getMessage());
+        Assert::markTestSkipped('Projects endpoint unavailable: '.$e->getMessage());
     }
 
     if (count($projects) === 0) {
-        \PHPUnit\Framework\Assert::markTestSkipped('No projects available');
+        Assert::markTestSkipped('No projects available');
     }
 
     expect($projects)->toBeArray()
@@ -25,11 +26,11 @@ it('can get a Project', function () {
     try {
         $projects = Project::useClient(testClient())->all();
     } catch (\Throwable $e) {
-        \PHPUnit\Framework\Assert::markTestSkipped('Projects endpoint unavailable: ' . $e->getMessage());
+        Assert::markTestSkipped('Projects endpoint unavailable: '.$e->getMessage());
     }
 
     if (count($projects) === 0) {
-        \PHPUnit\Framework\Assert::markTestSkipped('No projects available');
+        Assert::markTestSkipped('No projects available');
     }
 
     $project = Project::useClient(testClient())->find($projects[0]->id);
@@ -42,17 +43,17 @@ it('can search Projects', function () {
     try {
         $projects = Project::useClient(testClient())->all();
     } catch (\Throwable $e) {
-        \PHPUnit\Framework\Assert::markTestSkipped('Projects endpoint unavailable: ' . $e->getMessage());
+        Assert::markTestSkipped('Projects endpoint unavailable: '.$e->getMessage());
     }
 
     if (count($projects) === 0) {
-        \PHPUnit\Framework\Assert::markTestSkipped('No projects available');
+        Assert::markTestSkipped('No projects available');
     }
 
     $searchable = $projects[0];
 
-    if (!$searchable->name) {
-        \PHPUnit\Framework\Assert::markTestSkipped('No searchable project name available');
+    if (! $searchable->name) {
+        Assert::markTestSkipped('No searchable project name available');
     }
 
     $results = Project::useClient(testClient())
@@ -68,15 +69,13 @@ it('can get first Project using query builder', function () {
     try {
         $project = Project::useClient(testClient())->query()->first();
     } catch (\Throwable $e) {
-        \PHPUnit\Framework\Assert::markTestSkipped('Projects endpoint unavailable: ' . $e->getMessage());
+        Assert::markTestSkipped('Projects endpoint unavailable: '.$e->getMessage());
     }
 
-    if (!$project) {
-        \PHPUnit\Framework\Assert::markTestSkipped('No projects available');
+    if (! $project) {
+        Assert::markTestSkipped('No projects available');
     }
 
     expect($project)->toBeInstanceOf(Project::class)
         ->and($project->id)->toBeInt();
 });
-
-

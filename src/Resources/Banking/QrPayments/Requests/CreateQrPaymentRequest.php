@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Banking\QrPayments\Requests;
@@ -39,6 +40,3 @@ class CreateQrPaymentRequest extends Request implements HasBody
             ->withBankAccountId($this->qrPayment->bank_account_id);
     }
 }
-
-
-

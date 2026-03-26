@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Purchase\Bills;
 
@@ -63,26 +63,24 @@ class BillPayment extends Resource
      */
     public function __construct(
         public BillPaymentType $type,
-        public string          $execution_date,
-        public float           $amount,
-        public bool            $salary_payment = false,
+        public string $execution_date,
+        public float $amount,
+        public bool $salary_payment = false,
 
-        public ?int            $bank_account_id = null,
+        public ?int $bank_account_id = null,
         public ?BillPaymentFee $fee = null,
-        public ?float          $exchange_rate = null,
-        public ?string         $iban = null,
-        public ?string         $name = null,
-        public ?string         $address = null,
-        public ?string         $street = null,
-        public ?string         $house_no = null,
-        public ?string         $postcode = null,
-        public ?string         $city = null,
-        public ?string         $country_code = null,
-        public ?string         $message = null,
-        public ?string         $booking_text = null,
-        public ?string         $reference_no = null,
-        public ?string         $note = null,
-    )
-    {
-    }
+        public ?float $exchange_rate = null,
+        public ?string $iban = null,
+        public ?string $name = null,
+        public ?string $address = null,
+        public ?string $street = null,
+        public ?string $house_no = null,
+        public ?string $postcode = null,
+        public ?string $city = null,
+        public ?string $country_code = null,
+        public ?string $message = null,
+        public ?string $booking_text = null,
+        public ?string $reference_no = null,
+        public ?string $note = null,
+    ) {}
 }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Other\PaymentTypes;
@@ -13,7 +14,5 @@ class PaymentType extends Resource
     public function __construct(
         public ?int $id = null,
         public ?string $name = null,
-    ) {
-    }
+    ) {}
 }
-

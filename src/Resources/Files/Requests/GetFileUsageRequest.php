@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Files\Requests;
@@ -11,9 +12,7 @@ class GetFileUsageRequest extends Request
 {
     protected Method $method = Method::GET;
 
-    public function __construct(protected readonly int $fileId)
-    {
-    }
+    public function __construct(protected readonly int $fileId) {}
 
     public function resolveEndpoint(): string
     {
@@ -25,4 +24,3 @@ class GetFileUsageRequest extends Request
         return $response->json();
     }
 }
-

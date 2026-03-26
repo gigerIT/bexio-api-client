@@ -1,8 +1,10 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Contacts\Contacts;
 
+use Bexio\BexioClient;
 use Bexio\Resources\Contacts\Contacts\Enums\ContactType;
 use Bexio\Resources\Contacts\Contacts\Requests\BulkCreateContactsRequest;
 use Bexio\Resources\Contacts\Contacts\Requests\CreateContactRequest;
@@ -22,15 +24,21 @@ class Contact extends Resource
     use HasOfficeLink;
 
     const INDEX_REQUEST = GetContactsRequest::class;
+
     const SHOW_REQUEST = GetContactRequest::class;
+
     const CREATE_REQUEST = CreateContactRequest::class;
+
     const UPDATE_REQUEST = UpdateContactRequest::class;
+
     const DELETE_REQUEST = DeleteContactRequest::class;
+
     const QUERY_BUILDER = ContactQueryBuilder::class;
 
     public const SHOW_URL = '/index.php/kontakt/show/id/{id}';
 
     public ?string $updated_at;
+
     public ?string $profile_image;
 
     /** @deprecated use street_name, house_number, address_addition instead. This property is not included in the create and update requests. */
@@ -63,22 +71,21 @@ class Contact extends Resource
         public ?string $remarks = null,
         public ?int $language_id = null,
 
-
         public ?string $contact_group_ids = null,
         public ?string $contact_branch_ids = null,
         public int $user_id = 1,
         public int $owner_id = 1,
 
-    ) {
-    }
+    ) {}
 
     /**
      * Bulk create contacts
      */
-    public static function bulkCreate(array $contacts, \Bexio\BexioClient $client): array
+    public static function bulkCreate(array $contacts, BexioClient $client): array
     {
         $request = new BulkCreateContactsRequest($contacts);
         $response = $client->send($request);
+
         return $request->createDtoFromResponse($response);
     }
 
@@ -89,6 +96,7 @@ class Contact extends Resource
     {
         $request = new RestoreContactRequest($this->id);
         $response = $this->client()->send($request);
+
         return $request->createDtoFromResponse($response);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Banking\BankAccounts\Requests;
@@ -12,9 +13,7 @@ class GetBankAccountRequest extends Request
 {
     protected Method $method = Method::GET;
 
-    public function __construct(protected readonly string|int $bankAccountId)
-    {
-    }
+    public function __construct(protected readonly string|int $bankAccountId) {}
 
     public function resolveEndpoint(): string
     {
@@ -26,6 +25,3 @@ class GetBankAccountRequest extends Request
         return BankAccount::from($response->json());
     }
 }
-
-
-

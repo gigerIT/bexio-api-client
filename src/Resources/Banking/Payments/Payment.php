@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Banking\Payments;
@@ -17,10 +18,15 @@ use Bexio\Resources\Resource;
 class Payment extends Resource
 {
     public const INDEX_REQUEST = GetPaymentsRequest::class;
+
     public const SHOW_REQUEST = GetPaymentRequest::class;
+
     public const CREATE_REQUEST = CreatePaymentRequest::class;
+
     public const UPDATE_REQUEST = UpdatePaymentRequest::class;
+
     public const DELETE_REQUEST = DeletePaymentRequest::class;
+
     public const QUERY_BUILDER = PaymentQueryBuilder::class;
 
     public function __construct(
@@ -45,12 +51,11 @@ class Payment extends Resource
         public ?bool $is_editing_restricted = null,
         public ?string $message = null,
         public ?string $account_id = null,
-    ) {
-    }
+    ) {}
 
     public function cancel(?string $paymentId = null): Payment
     {
-        $targetId = $paymentId ?? $this->uuid ?? ($this->id !== null ? (string)$this->id : null);
+        $targetId = $paymentId ?? $this->uuid ?? ($this->id !== null ? (string) $this->id : null);
         if ($targetId === null) {
             throw new \RuntimeException('uuid or id is required to cancel a payment.');
         }
@@ -76,5 +81,3 @@ class Payment extends Resource
         );
     }
 }
-
-

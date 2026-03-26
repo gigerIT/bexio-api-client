@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Contacts\AdditionalAddresses\Requests;
 
@@ -14,13 +14,10 @@ class DeleteAdditionalAddressRequest extends Request
     public function __construct(
         protected readonly int $contactId,
         protected readonly int $additionalAddressId
-    )
-    {
-    }
+    ) {}
 
     public function resolveEndpoint(): string
     {
         return "/2.0/contact/{$this->contactId}/additional_address/{$this->additionalAddressId}";
     }
 }
-

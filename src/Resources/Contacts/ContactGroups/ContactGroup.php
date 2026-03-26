@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Contacts\ContactGroups;
@@ -16,17 +17,19 @@ use Bexio\Resources\Resource;
 class ContactGroup extends Resource
 {
     const INDEX_REQUEST = GetContactGroupsRequest::class;
+
     const SHOW_REQUEST = GetContactGroupRequest::class;
+
     const CREATE_REQUEST = CreateContactGroupRequest::class;
+
     const UPDATE_REQUEST = UpdateContactGroupRequest::class;
+
     const DELETE_REQUEST = DeleteContactGroupRequest::class;
+
     const QUERY_BUILDER = ContactGroupQueryBuilder::class;
 
     public function __construct(
         public string $name,
-        public ?int   $id = null,
-    )
-    {
-    }
+        public ?int $id = null,
+    ) {}
 }
-

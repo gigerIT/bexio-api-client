@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Contacts\Contacts\Requests;
 
@@ -17,20 +17,17 @@ class BulkCreateContactsRequest extends Request implements HasBody
 
     protected Method $method = Method::POST;
 
-    public function __construct(readonly protected array $contacts)
-    {
-    }
-
+    public function __construct(protected readonly array $contacts) {}
 
     public function resolveEndpoint(): string
     {
-        return "/2.0/contact/_bulk_create";
+        return '/2.0/contact/_bulk_create';
     }
 
     protected function defaultBody(): array
     {
         return array_map(function (Contact $contact) {
-            return $contact->except("updated_at", "profile_image")->toArray();
+            return $contact->except('updated_at', 'profile_image')->toArray();
         }, $this->contacts);
     }
 
@@ -38,6 +35,4 @@ class BulkCreateContactsRequest extends Request implements HasBody
     {
         return Contact::collect($response->json());
     }
-
 }
-

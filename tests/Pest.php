@@ -8,15 +8,14 @@ use Bexio\Resources\Accounting\Taxes\Tax;
 use Illuminate\Support\Collection;
 use Saloon\Http\Faking\MockClient;
 use Saloon\Http\Faking\MockResponse;
-
+use Tests\TestCase;
 
 uses()
-    ->beforeEach(fn() => MockClient::destroyGlobal())
+    ->beforeEach(fn () => MockClient::destroyGlobal())
     ->in(__DIR__);
 
-
-uses(Tests\TestCase::class)->in('Auth');
-uses(Tests\TestCase::class)->in('Resources');
+uses(TestCase::class)->in('Auth');
+uses(TestCase::class)->in('Resources');
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +41,6 @@ uses(Tests\TestCase::class)->in('Resources');
 |
 */
 
-
 expect()->extend('toBeOne', function () {
     return $this->toBe(1);
 });
@@ -58,7 +56,7 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-//region Clients
+// region Clients
 function testClient(): BexioClient
 {
     return BexioClient::testAccount();
@@ -76,9 +74,9 @@ function testMockClient(string $requestClass, string $fixture): BexioClient
     ]));
 }
 
-//endregion
+// endregion
 
-//region Helpers
+// region Helpers
 
 function testContact()
 {
@@ -90,32 +88,31 @@ function testContactId(): int
     return 1;
 }
 
-
 function testSaleTax(): Tax
 {
     static $tax;
     if ($tax === null) {
-        $request = new GetTaxesRequest();
+        $request = new GetTaxesRequest;
         $response = testClient()->send($request);
         $taxes = $request->createDtoFromResponse($response);
         $tax = $taxes[0];
     }
+
     return $tax;
 }
 
 function testSaleTaxId(): int
 {
-    //in fresh bexio instances tax id 28 is the default sales tax
+    // in fresh bexio instances tax id 28 is the default sales tax
     // return 29;
     return testSaleTax()->id;
 }
-
 
 function testSalesAccount(): Account
 {
     static $account;
     if ($account === null) {
-        $request = new GetAccountsRequest();
+        $request = new GetAccountsRequest;
         $response = testClient()->send($request);
         $accounts = Account::collect($response->json(), Collection::class);
         $account = $accounts->firstWhere('account_no', '=', 3200);

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Accounting\BusinessYears\Requests;
@@ -22,4 +23,3 @@ class GetBusinessYearsRequest extends Request
         return BusinessYear::collect($response->json());
     }
 }
-

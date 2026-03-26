@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Contacts\Salutations\Requests;
 
@@ -17,10 +17,7 @@ class UpdateSalutationRequest extends Request implements HasBody
 
     protected Method $method = Method::POST;
 
-    public function __construct(readonly protected Salutation $salutation)
-    {
-    }
-
+    public function __construct(protected readonly Salutation $salutation) {}
 
     public function resolveEndpoint(): string
     {
@@ -29,13 +26,11 @@ class UpdateSalutationRequest extends Request implements HasBody
 
     protected function defaultBody(): array
     {
-        return $this->salutation->except("id")->toArray();
+        return $this->salutation->except('id')->toArray();
     }
 
     public function createDtoFromResponse(Response $response): Salutation
     {
         return Salutation::from($response->json());
     }
-
 }
-

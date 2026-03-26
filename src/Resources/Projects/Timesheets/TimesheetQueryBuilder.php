@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Projects\Timesheets;
@@ -15,8 +16,8 @@ class TimesheetQueryBuilder extends QueryBuilder
 
     public function where(string $field, SearchCriteria $operator, string $value): static
     {
-        if (!isset($this->searchClauses)) {
-            $this->searchClauses = new Collection();
+        if (! isset($this->searchClauses)) {
+            $this->searchClauses = new Collection;
         }
 
         $this->searchClauses->push(new TimesheetSearchWhereClause($field, $operator, $value));
@@ -29,8 +30,8 @@ class TimesheetQueryBuilder extends QueryBuilder
         $request = new SearchTimesheetsRequest($this->searchClauses->toArray());
         $response = $this->client->send($request);
 
-        if (!$response->successful()) {
-            throw new RuntimeException("Failed to fetch resources: " . $response->json());
+        if (! $response->successful()) {
+            throw new RuntimeException('Failed to fetch resources: '.$response->json());
         }
 
         return $request->createDtoFromResponse($response);
@@ -40,12 +41,12 @@ class TimesheetQueryBuilder extends QueryBuilder
     {
         if (isset($this->searchClauses) && $this->searchClauses->isNotEmpty()) {
             $results = $this->search();
+
             return $results[0] ?? null;
         }
 
         $results = $this->limit(1)->get();
+
         return $results[0] ?? null;
     }
 }
-
-

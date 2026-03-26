@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Projects\Timesheets;
@@ -16,10 +17,15 @@ use Bexio\Resources\Resource;
 class Timesheet extends Resource
 {
     public const INDEX_REQUEST = GetTimesheetsRequest::class;
+
     public const SHOW_REQUEST = GetTimesheetRequest::class;
+
     public const CREATE_REQUEST = CreateTimesheetRequest::class;
+
     public const UPDATE_REQUEST = UpdateTimesheetRequest::class;
+
     public const DELETE_REQUEST = DeleteTimesheetRequest::class;
+
     public const QUERY_BUILDER = TimesheetQueryBuilder::class;
 
     public function __construct(
@@ -43,8 +49,5 @@ class Timesheet extends Resource
         public ?string $duration = null,
         public ?bool $running = null,
         public array $tracking = [],
-    ) {
-    }
+    ) {}
 }
-
-

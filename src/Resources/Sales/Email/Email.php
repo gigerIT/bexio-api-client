@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Sales\Email;
@@ -13,8 +14,6 @@ class Email extends Resource
         public string $subject,
         public string $message,
         public string $mark_as_open,
-        public ?bool  $attach_pdf = true,
-    )
-    {
-    }
+        public ?bool $attach_pdf = true,
+    ) {}
 }

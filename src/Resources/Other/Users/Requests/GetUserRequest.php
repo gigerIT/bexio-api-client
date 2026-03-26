@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Other\Users\Requests;
@@ -12,9 +13,7 @@ class GetUserRequest extends Request
 {
     protected Method $method = Method::GET;
 
-    public function __construct(protected readonly int $id)
-    {
-    }
+    public function __construct(protected readonly int $id) {}
 
     public function resolveEndpoint(): string
     {
@@ -26,4 +25,3 @@ class GetUserRequest extends Request
         return User::from($response->json());
     }
 }
-

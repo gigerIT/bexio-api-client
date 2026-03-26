@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Other\Users;
@@ -11,6 +12,7 @@ use Bexio\Resources\Resource;
 class User extends Resource
 {
     public const INDEX_REQUEST = GetUsersRequest::class;
+
     public const SHOW_REQUEST = GetUserRequest::class;
 
     public function __construct(
@@ -21,8 +23,7 @@ class User extends Resource
         public ?string $email = null,
         public ?bool $is_superadmin = null,
         public ?bool $is_accountant = null,
-    ) {
-    }
+    ) {}
 
     public function me(): static
     {
@@ -32,4 +33,3 @@ class User extends Resource
         return $request->createDtoFromResponse($response)->attachClient($this->client());
     }
 }
-

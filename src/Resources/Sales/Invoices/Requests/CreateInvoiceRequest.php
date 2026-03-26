@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Sales\Invoices\Requests;
 
@@ -17,14 +17,11 @@ class CreateInvoiceRequest extends Request implements HasBody
 
     protected Method $method = Method::POST;
 
-    public function __construct(readonly protected Invoice $invoice)
-    {
-    }
-
+    public function __construct(protected readonly Invoice $invoice) {}
 
     public function resolveEndpoint(): string
     {
-        return "/2.0/kb_invoice";
+        return '/2.0/kb_invoice';
     }
 
     protected function defaultBody(): array
@@ -36,5 +33,4 @@ class CreateInvoiceRequest extends Request implements HasBody
     {
         return Invoice::from($response->json());
     }
-
 }

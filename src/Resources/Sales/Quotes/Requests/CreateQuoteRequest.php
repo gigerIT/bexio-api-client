@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Sales\Quotes\Requests;
 
@@ -17,14 +17,11 @@ class CreateQuoteRequest extends Request implements HasBody
 
     protected Method $method = Method::POST;
 
-    public function __construct(readonly protected Quote $quote)
-    {
-    }
-
+    public function __construct(protected readonly Quote $quote) {}
 
     public function resolveEndpoint(): string
     {
-        return "/2.0/kb_offer";
+        return '/2.0/kb_offer';
     }
 
     protected function defaultBody(): array
@@ -36,5 +33,4 @@ class CreateQuoteRequest extends Request implements HasBody
     {
         return Quote::from($response->json());
     }
-
 }

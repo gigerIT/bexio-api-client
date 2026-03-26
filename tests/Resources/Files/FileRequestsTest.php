@@ -28,7 +28,7 @@ it('can create, update, search, download and delete a File', function () {
         expect($fetched)->toBeInstanceOf(File::class)
             ->and($fetched->uuid)->toBeString();
 
-        $newName = basename($tempFile) . '-renamed';
+        $newName = basename($tempFile).'-renamed';
         $createdFile->name = $newName;
         $createdFile = $createdFile->save();
 
@@ -36,7 +36,7 @@ it('can create, update, search, download and delete a File', function () {
 
         $searchResults = File::useClient(testClient())
             ->query()
-            ->where('id', SearchCriteria::EQUAL, (string)$createdFile->id)
+            ->where('id', SearchCriteria::EQUAL, (string) $createdFile->id)
             ->limit(1)
             ->search();
 
@@ -57,4 +57,3 @@ it('can create, update, search, download and delete a File', function () {
         }
     }
 });
-

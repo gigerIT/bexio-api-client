@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Sales\ItemPositions;
@@ -12,15 +13,10 @@ class ItemPositionSubposition extends ItemPosition
 
     const CAN_BE_ATTACHED = false;
 
-
     public ItemPositionType $type = ItemPositionType::SUBPOSITION;
 
     public function __construct(
         public ?string $text,
-        public bool   $show_pos_nr = true,
-    )
-
-    {
-
-    }
+        public bool $show_pos_nr = true,
+    ) {}
 }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Other\Tasks\Requests;
@@ -22,4 +23,3 @@ class GetTasksRequest extends Request
         return Task::collect($response->json());
     }
 }
-

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Projects\Projects;
@@ -16,5 +17,3 @@ class ProjectSearchWhereClause extends SearchWhereClause
         parent::__construct($field, $criteria, $value);
     }
 }
-
-

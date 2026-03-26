@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Accounting\Accounts;
 
@@ -24,11 +24,18 @@ class Account extends Resource
     const INDEX_REQUEST = GetAccountsRequest::class;
 
     public int $id;
+
     public string $account_no;
+
     public string $name;
+
     public int $account_group_id;
+
     public int $account_type;
+
     public ?int $tax_id;
+
     public bool $is_active;
+
     public bool $is_locked;
 }

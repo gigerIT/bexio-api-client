@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Banking\Payments;
@@ -11,9 +12,5 @@ class PaymentRecipient extends Resource
         public ?string $name = null,
         public ?string $iban = null,
         public ?PaymentRecipientAddress $address = null,
-    ) {
-    }
+    ) {}
 }
-
-
-

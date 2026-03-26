@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Contacts\Contacts\Requests;
 
@@ -17,10 +17,7 @@ class UpdateContactRequest extends Request implements HasBody
 
     protected Method $method = Method::POST;
 
-    public function __construct(readonly protected Contact $contact)
-    {
-    }
-
+    public function __construct(protected readonly Contact $contact) {}
 
     public function resolveEndpoint(): string
     {
@@ -34,7 +31,6 @@ class UpdateContactRequest extends Request implements HasBody
 
     protected function defaultBody(): array
     {
-        return $this->contact->except("updated_at", "profile_image", 'address')->toArray();
+        return $this->contact->except('updated_at', 'profile_image', 'address')->toArray();
     }
-
 }

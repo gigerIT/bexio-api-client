@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Sales\Invoices\Requests;
 
@@ -13,19 +13,15 @@ class GetInvoicesRequest extends Request
 {
     protected Method $method = Method::GET;
 
-    public function __construct()
-    {
-
-    }
+    public function __construct() {}
 
     public function resolveEndpoint(): string
     {
-        return "/2.0/kb_invoice";
+        return '/2.0/kb_invoice';
     }
 
     public function createDtoFromResponse(Response $response): array
     {
         return Invoice::collect($response->json());
     }
-
 }

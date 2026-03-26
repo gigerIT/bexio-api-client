@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Accounting\VatPeriods\Requests;
@@ -12,9 +13,7 @@ class GetVatPeriodRequest extends Request
 {
     protected Method $method = Method::GET;
 
-    public function __construct(protected readonly string $uuid)
-    {
-    }
+    public function __construct(protected readonly string $uuid) {}
 
     public function resolveEndpoint(): string
     {
@@ -26,4 +25,3 @@ class GetVatPeriodRequest extends Request
         return VatPeriod::from($response->json());
     }
 }
-

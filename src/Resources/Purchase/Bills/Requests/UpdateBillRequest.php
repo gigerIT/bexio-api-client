@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Purchase\Bills\Requests;
 
@@ -17,10 +17,7 @@ class UpdateBillRequest extends Request implements HasBody
 
     protected Method $method = Method::PUT;
 
-    public function __construct(readonly protected Bill $bill)
-    {
-
-    }
+    public function __construct(protected readonly Bill $bill) {}
 
     public function resolveEndpoint(): string
     {
@@ -40,5 +37,4 @@ class UpdateBillRequest extends Request implements HasBody
             ->except('purchase_order_id', 'qr_bill_information')
             ->toArray();
     }
-
 }

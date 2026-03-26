@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Accounting\CalendarYears\Requests;
@@ -22,4 +23,3 @@ class GetCalendarYearsRequest extends Request
         return CalendarYear::collect($response->json());
     }
 }
-

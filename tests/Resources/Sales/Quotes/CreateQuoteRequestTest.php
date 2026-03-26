@@ -9,10 +9,9 @@ use Illuminate\Support\Collection;
 
 it('can create a Quote', function () {
 
-    $quote = new Quote(title: 'Test Quote', contact_id: 1, user_id: 1, positions: new Collection());
+    $quote = new Quote(title: 'Test Quote', contact_id: 1, user_id: 1, positions: new Collection);
 
     $salesAccount = testSalesAccount();
-
 
     $quote->positions->add(
         new ItemPositionCustom(
@@ -24,9 +23,7 @@ it('can create a Quote', function () {
         )
     );
 
-
     $quote = $quote->attachClient(testClient())->create();
-
 
     expect($quote)->toBeInstanceOf(Quote::class)
         ->and($quote->title)->toBe('Test Quote')

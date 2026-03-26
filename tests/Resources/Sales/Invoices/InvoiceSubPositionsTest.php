@@ -26,12 +26,10 @@ it('can create an Invoice with a subitem position', function () use (&$testInvoi
     $testInvoice = $testInvoice->attachClient(testClient())->create();
     expect($testInvoice->id)->toBeInt();
 
-
     $subItemPosition = new ItemPositionSubposition(
         text: 'This is a container to group other position types',
     );
     $subItemPosition = $testInvoice->addItemSubPosition($subItemPosition);
-
 
     $subItemPositionChild = new ItemPositionCustom(
         tax_id: $salesAccount->tax_id,

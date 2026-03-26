@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Banking\IbanPayments\Requests;
@@ -15,8 +16,7 @@ class GetIbanPaymentRequest extends Request
     public function __construct(
         protected readonly string|int $bankAccountId,
         protected readonly string|int $paymentId,
-    ) {
-    }
+    ) {}
 
     public function resolveEndpoint(): string
     {
@@ -29,6 +29,3 @@ class GetIbanPaymentRequest extends Request
             ->withBankAccountId($this->bankAccountId);
     }
 }
-
-
-

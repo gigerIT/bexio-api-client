@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Sales\Invoices\Requests;
 
@@ -9,13 +9,9 @@ use Saloon\Http\Request;
 
 class RevertIssueInvoiceRequest extends Request
 {
-
     protected Method $method = Method::POST;
 
-    public function __construct(readonly protected int $id)
-    {
-    }
-
+    public function __construct(protected readonly int $id) {}
 
     public function resolveEndpoint(): string
     {

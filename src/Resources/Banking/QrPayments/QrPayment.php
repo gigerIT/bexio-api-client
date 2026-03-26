@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Banking\QrPayments;
@@ -14,7 +15,9 @@ use RuntimeException;
 class QrPayment extends Resource
 {
     public const CREATE_REQUEST = CreateQrPaymentRequest::class;
+
     public const SHOW_REQUEST = GetQrPaymentRequest::class;
+
     public const UPDATE_REQUEST = UpdateQrPaymentRequest::class;
 
     public function __construct(
@@ -27,12 +30,12 @@ class QrPayment extends Resource
         public ?string $status = null,
         public ?string $created_at = null,
         public int|string|null $bank_account_id = null,
-    ) {
-    }
+    ) {}
 
     public function withBankAccountId(int|string $bankAccountId): static
     {
         $this->bank_account_id = $bankAccountId;
+
         return $this;
     }
 
@@ -66,6 +69,3 @@ class QrPayment extends Resource
         return $this->find($this->id);
     }
 }
-
-
-

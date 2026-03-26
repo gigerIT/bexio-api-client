@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Sales\Comments;
 
@@ -13,20 +13,20 @@ class Comment extends Resource
     public const CREATE_REQUEST = CreateCommentRequest::class;
 
     public int $id;
+
     public string $date;
+
     public ?string $image;
+
     public ?string $image_path;
 
     public function __construct(
-        public string  $text,
-        public int     $user_id = 1,
-        public bool    $is_public = false,
+        public string $text,
+        public int $user_id = 1,
+        public bool $is_public = false,
         public ?string $user_name = null,
         public ?string $user_email = null,
-    )
-    {
-    }
-
+    ) {}
 
     public function createFor(KbDocumentContract $documentResource): static
     {
@@ -36,7 +36,7 @@ class Comment extends Resource
             comment: $this
         );
         $response = $this->client()->send($request);
+
         return $request->createDtoFromResponse($response)->attachClient($this->client());
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Projects\Projects\Requests;
@@ -16,9 +17,7 @@ class CreateProjectRequest extends Request implements HasBody
 
     protected Method $method = Method::POST;
 
-    public function __construct(readonly protected Project $project)
-    {
-    }
+    public function __construct(protected readonly Project $project) {}
 
     public function resolveEndpoint(): string
     {
@@ -35,5 +34,3 @@ class CreateProjectRequest extends Request implements HasBody
         return Project::from($response->json());
     }
 }
-
-

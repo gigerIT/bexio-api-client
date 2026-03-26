@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Other\Tasks;
@@ -10,6 +11,7 @@ use Bexio\Resources\Resource;
 class Task extends Resource
 {
     public const INDEX_REQUEST = GetTasksRequest::class;
+
     public const SHOW_REQUEST = GetTaskRequest::class;
 
     public function __construct(
@@ -30,7 +32,5 @@ class Task extends Resource
         public ?int $remember_type_id = null,
         public ?int $remember_time_id = null,
         public ?int $communication_kind_id = null,
-    ) {
-    }
+    ) {}
 }
-

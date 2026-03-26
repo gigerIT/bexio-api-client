@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Projects\Projects\Requests;
@@ -11,9 +12,7 @@ class ArchiveProjectRequest extends Request
 {
     protected Method $method = Method::POST;
 
-    public function __construct(readonly protected int $id)
-    {
-    }
+    public function __construct(protected readonly int $id) {}
 
     public function resolveEndpoint(): string
     {
@@ -22,8 +21,6 @@ class ArchiveProjectRequest extends Request
 
     public function createDtoFromResponse(Response $response): bool
     {
-        return (bool)($response->json('success') ?? $response->successful());
+        return (bool) ($response->json('success') ?? $response->successful());
     }
 }
-
-

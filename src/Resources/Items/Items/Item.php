@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Items\Items;
@@ -16,17 +17,27 @@ use Bexio\Resources\Resource;
 class Item extends Resource
 {
     public const INDEX_REQUEST = GetItemsRequest::class;
+
     public const SHOW_REQUEST = GetItemRequest::class;
+
     public const CREATE_REQUEST = CreateItemRequest::class;
+
     public const UPDATE_REQUEST = UpdateItemRequest::class;
+
     public const DELETE_REQUEST = DeleteItemRequest::class;
+
     public const QUERY_BUILDER = ItemQueryBuilder::class;
 
     public ?int $stock_reserved_nr = null;
+
     public ?int $stock_available_nr = null;
+
     public ?int $stock_picked_nr = null;
+
     public ?int $stock_disposed_nr = null;
+
     public ?int $stock_ordered_nr = null;
+
     public ?int $tax_id = null;
 
     public function __construct(
@@ -63,8 +74,5 @@ class Item extends Resource
         public ?int $article_group_id = null,
         public ?int $account_id = null,
         public ?int $expense_account_id = null,
-    ) {
-    }
+    ) {}
 }
-
-

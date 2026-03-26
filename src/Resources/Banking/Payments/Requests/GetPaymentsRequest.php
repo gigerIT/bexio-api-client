@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Banking\Payments\Requests;
@@ -20,11 +21,11 @@ class GetPaymentsRequest extends Request
         public int $perPage = 500,
     ) {
         if ($perPage > self::PER_PAGE_MAX) {
-            throw new \InvalidArgumentException("perPage cannot be greater than " . self::PER_PAGE_MAX);
+            throw new \InvalidArgumentException('perPage cannot be greater than '.self::PER_PAGE_MAX);
         }
 
         if ($page < 0) {
-            throw new \InvalidArgumentException("page cannot be less than 0");
+            throw new \InvalidArgumentException('page cannot be less than 0');
         }
     }
 
@@ -39,7 +40,7 @@ class GetPaymentsRequest extends Request
             'filter-by' => $this->filterBy,
             'page' => $this->page,
             'per-page' => $this->perPage,
-        ], static fn($value) => $value !== null);
+        ], static fn ($value) => $value !== null);
     }
 
     public function createDtoFromResponse(Response $response): array
@@ -48,12 +49,10 @@ class GetPaymentsRequest extends Request
 
         $results = $payload['results'] ?? $payload['data']['results'] ?? $payload['data'] ?? $payload;
 
-        if (!is_array($results) || !array_is_list($results)) {
+        if (! is_array($results) || ! array_is_list($results)) {
             return [];
         }
 
         return Payment::collect($results);
     }
 }
-
-

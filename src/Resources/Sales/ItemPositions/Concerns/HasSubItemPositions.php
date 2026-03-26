@@ -8,7 +8,7 @@ trait HasSubItemPositions
 {
     public function addItemSubPosition(ItemPositionSubposition $itemPositionSubposition): ItemPositionSubposition
     {
-        if (!isset($this->id)) {
+        if (! isset($this->id)) {
             throw new \Exception('The resource must be saved before adding a sub item position.');
         }
 
@@ -16,5 +16,4 @@ trait HasSubItemPositions
 
         return $itemPositionSubposition->createFor($this);
     }
-
 }

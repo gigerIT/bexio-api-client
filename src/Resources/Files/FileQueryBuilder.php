@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Files;
@@ -20,6 +21,7 @@ class FileQueryBuilder extends QueryBuilder
     public function archivedState(FileArchivedState $state): static
     {
         $this->setParameter('archivedState', $state);
+
         return $this;
     }
 
@@ -29,7 +31,7 @@ class FileQueryBuilder extends QueryBuilder
     public function where(string $field, SearchCriteria $operator, string $value): static
     {
         if ($this->searchQuery === null) {
-            $this->searchQuery = new Collection();
+            $this->searchQuery = new Collection;
         }
 
         $this->searchQuery->push(new FileSearchWhereClause($field, $operator, $value));
@@ -43,6 +45,7 @@ class FileQueryBuilder extends QueryBuilder
     public function orderBy(string $orderBy): static
     {
         $this->setParameter('orderBy', $orderBy);
+
         return $this;
     }
 
@@ -56,10 +59,10 @@ class FileQueryBuilder extends QueryBuilder
         $searchClauses = array_map(function ($clause) {
             $clauseArray = is_object($clause) && method_exists($clause, 'toArray')
                 ? $clause->toArray()
-                : (array)$clause;
+                : (array) $clause;
 
             if (($clauseArray['field'] ?? null) === 'id' && is_numeric($clauseArray['value'] ?? null)) {
-                $clauseArray['value'] = (int)$clauseArray['value'];
+                $clauseArray['value'] = (int) $clauseArray['value'];
             }
 
             return $clauseArray;
@@ -74,8 +77,8 @@ class FileQueryBuilder extends QueryBuilder
 
         $response = $this->client->send($request);
 
-        if (!$response->successful()) {
-            throw new RuntimeException("Failed to fetch resources: " . $response->json());
+        if (! $response->successful()) {
+            throw new RuntimeException('Failed to fetch resources: '.$response->json());
         }
 
         return $request->createDtoFromResponse($response);
@@ -96,4 +99,3 @@ class FileQueryBuilder extends QueryBuilder
         return $results[0] ?? null;
     }
 }
-

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Banking\Payments;
@@ -11,9 +12,5 @@ class PaymentAccount extends Resource
         public ?int $id = null,
         public ?string $uuid = null,
         public ?string $iban = null,
-    ) {
-    }
+    ) {}
 }
-
-
-

@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Contacts\Contacts\Requests;
 
@@ -11,11 +11,9 @@ use Saloon\Http\Response;
 
 class GetContactsRequest extends Request
 {
-
     const LIMIT_MAX = 2000;
 
     protected Method $method = Method::GET;
-
 
     public function __construct(
         protected int $limit = 500,
@@ -23,16 +21,16 @@ class GetContactsRequest extends Request
         protected bool $showArchived = false,
     ) {
         if ($limit > self::LIMIT_MAX) {
-            throw new \InvalidArgumentException("Limit cannot be greater than " . self::LIMIT_MAX);
+            throw new \InvalidArgumentException('Limit cannot be greater than '.self::LIMIT_MAX);
         }
         if ($offset < 0) {
-            throw new \InvalidArgumentException("Offset cannot be less than 0");
+            throw new \InvalidArgumentException('Offset cannot be less than 0');
         }
     }
 
     public function resolveEndpoint(): string
     {
-        return "/2.0/contact";
+        return '/2.0/contact';
     }
 
     protected function defaultQuery(): array
@@ -43,7 +41,6 @@ class GetContactsRequest extends Request
             'show_archived' => $this->showArchived,
         ];
     }
-
 
     public function createDtoFromResponse(Response $response): array
     {

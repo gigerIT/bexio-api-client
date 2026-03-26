@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Accounting\Reports;
@@ -17,7 +18,5 @@ class JournalEntry extends Resource
         public ?string $description = null,
         public ?float $amount = null,
         public ?string $currency_code = null,
-    ) {
-    }
+    ) {}
 }
-

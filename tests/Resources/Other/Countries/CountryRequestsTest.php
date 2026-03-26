@@ -26,4 +26,3 @@ it('can get first Country using query builder', function () {
     expect($country)->toBeInstanceOf(Country::class)
         ->and($country->id)->toBeInt();
 });
-

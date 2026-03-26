@@ -3,12 +3,13 @@
 namespace Bexio\Resources\Sales\Quotes\Requests;
 
 use Bexio\Resources\Accounting\BusinessYears\BusinessYear;
+use PHPUnit\Framework\Assert;
 
 it('can get Business Years', function () {
     $years = BusinessYear::useClient(testClient())->all();
 
     if (count($years) === 0) {
-        \PHPUnit\Framework\Assert::markTestSkipped('No business years available');
+        Assert::markTestSkipped('No business years available');
     }
 
     expect($years)->toBeArray()
@@ -19,10 +20,10 @@ it('can get Business Years', function () {
 it('can get a Business Year', function () {
     $years = BusinessYear::useClient(testClient())->all();
     if (count($years) === 0) {
-        \PHPUnit\Framework\Assert::markTestSkipped('No business years available');
+        Assert::markTestSkipped('No business years available');
     }
 
-    $id = $years[0]->uuid ?? (string)$years[0]->id;
+    $id = $years[0]->uuid ?? (string) $years[0]->id;
     $year = BusinessYear::useClient(testClient())->find($id);
 
     expect($year)->toBeInstanceOf(BusinessYear::class)
@@ -32,11 +33,10 @@ it('can get a Business Year', function () {
 it('can get first Business Year using query builder', function () {
     $year = BusinessYear::useClient(testClient())->query()->first();
 
-    if (!$year) {
-        \PHPUnit\Framework\Assert::markTestSkipped('No business years available');
+    if (! $year) {
+        Assert::markTestSkipped('No business years available');
     }
 
     expect($year)->toBeInstanceOf(BusinessYear::class)
         ->and($year->id)->toBeInt();
 });
-

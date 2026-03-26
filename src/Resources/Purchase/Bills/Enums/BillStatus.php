@@ -17,5 +17,4 @@ enum BillStatus: string
     case PARTIALLY_FAILED = 'PARTIALLY_FAILED';
     case FAILED = 'FAILED';
 
-
 }

@@ -10,4 +10,3 @@ it('can get Permissions', function () {
     expect($permission)->toBeArray()
         ->and($permission[0])->toBeInstanceOf(Permission::class);
 });
-

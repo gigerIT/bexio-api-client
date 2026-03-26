@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Accounting\AccountGroups\Requests;
@@ -22,4 +23,3 @@ class GetAccountGroupsRequest extends Request
         return AccountGroup::collect($response->json());
     }
 }
-

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Projects\BusinessActivities\Requests;
@@ -16,9 +17,7 @@ class CreateBusinessActivityRequest extends Request implements HasBody
 
     protected Method $method = Method::POST;
 
-    public function __construct(readonly protected BusinessActivity $activity)
-    {
-    }
+    public function __construct(protected readonly BusinessActivity $activity) {}
 
     public function resolveEndpoint(): string
     {
@@ -35,5 +34,3 @@ class CreateBusinessActivityRequest extends Request implements HasBody
         return BusinessActivity::from($response->json());
     }
 }
-
-

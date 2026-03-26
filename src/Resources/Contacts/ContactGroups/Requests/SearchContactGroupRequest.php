@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Contacts\ContactGroups\Requests;
 
@@ -17,13 +17,11 @@ class SearchContactGroupRequest extends Request implements HasBody
 
     protected Method $method = Method::POST;
 
-    public function __construct(protected readonly array $searchClauses = [])
-    {
-    }
+    public function __construct(protected readonly array $searchClauses = []) {}
 
     public function resolveEndpoint(): string
     {
-        return "/2.0/contact_group/search";
+        return '/2.0/contact_group/search';
     }
 
     public function createDtoFromResponse(Response $response): array
@@ -35,6 +33,4 @@ class SearchContactGroupRequest extends Request implements HasBody
     {
         return $this->searchClauses;
     }
-
 }
-

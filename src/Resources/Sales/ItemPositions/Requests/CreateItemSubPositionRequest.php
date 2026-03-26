@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Sales\ItemPositions\Requests;
 
@@ -14,14 +14,11 @@ use Saloon\Traits\Body\HasJsonBody;
 
 class CreateItemSubPositionRequest extends Request implements HasBody
 {
-
     use HasJsonBody;
 
     protected Method $method = Method::POST;
 
-    public function __construct(readonly KbDocumentType $documentType, readonly int $documentId, readonly protected ItemPositionSubposition $itemSubPosition)
-    {
-    }
+    public function __construct(public readonly KbDocumentType $documentType, public readonly int $documentId, protected readonly ItemPositionSubposition $itemSubPosition) {}
 
     public function resolveEndpoint(): string
     {
@@ -29,7 +26,7 @@ class CreateItemSubPositionRequest extends Request implements HasBody
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function defaultBody(): array
     {
@@ -40,6 +37,4 @@ class CreateItemSubPositionRequest extends Request implements HasBody
     {
         return ItemPositionSubposition::from($response->json());
     }
-
-
 }

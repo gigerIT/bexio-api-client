@@ -16,7 +16,6 @@ enum ItemPositionType: string
 
     case SUBPOSITION = 'KbPositionSubposition';
 
-
     public function getUrlResource()
     {
         return match ($this) {
@@ -29,5 +28,4 @@ enum ItemPositionType: string
             ItemPositionType::SUBPOSITION => 'kb_position_subposition',
         };
     }
-
 }

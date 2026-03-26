@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Files;
@@ -21,30 +22,46 @@ use InvalidArgumentException;
 class File extends Resource
 {
     public const INDEX_REQUEST = GetFilesRequest::class;
+
     public const SHOW_REQUEST = GetFileRequest::class;
+
     public const CREATE_REQUEST = CreateFileRequest::class;
+
     public const UPDATE_REQUEST = UpdateFileRequest::class;
+
     public const DELETE_REQUEST = DeleteFileRequest::class;
+
     public const QUERY_BUILDER = FileQueryBuilder::class;
 
     public ?int $id;
+
     public ?string $uuid;
+
     public ?string $name;
+
     public ?int $size_in_bytes;
+
     public ?string $extension;
+
     public ?string $mime_type;
+
     public ?string $uploader_email;
+
     public ?int $user_id;
+
     public ?bool $is_archived;
+
     public ?int $source_id;
+
     public ?FileSourceType $source_type;
+
     public ?bool $is_referenced;
+
     public ?string $created_at;
 
     public function __construct(
         public ?string $path = null,
-    ) {
-    }
+    ) {}
 
     public function toApi(): File
     {
@@ -60,6 +77,7 @@ class File extends Resource
         }
 
         $response = $this->client()->send(new DownloadFileRequest($fileId));
+
         return $response->body();
     }
 
@@ -72,6 +90,7 @@ class File extends Resource
         }
 
         $response = $this->client()->send(new GetFilePreviewRequest($fileId));
+
         return $response->body();
     }
 
@@ -85,7 +104,7 @@ class File extends Resource
 
         $request = new GetFileUsageRequest($fileId);
         $response = $this->client()->send($request);
+
         return $request->createDtoFromResponse($response);
     }
 }
-

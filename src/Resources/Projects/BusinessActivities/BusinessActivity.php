@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Projects\BusinessActivities;
@@ -14,8 +15,11 @@ use Bexio\Resources\Resource;
 class BusinessActivity extends Resource
 {
     public const INDEX_REQUEST = GetBusinessActivitiesRequest::class;
+
     public const SHOW_REQUEST = GetBusinessActivityRequest::class;
+
     public const CREATE_REQUEST = CreateBusinessActivityRequest::class;
+
     public const QUERY_BUILDER = BusinessActivityQueryBuilder::class;
 
     public function __construct(
@@ -24,8 +28,5 @@ class BusinessActivity extends Resource
         public ?bool $default_is_billable = null,
         public ?float $default_price_per_hour = null,
         public ?int $account_id = null,
-    ) {
-    }
+    ) {}
 }
-
-

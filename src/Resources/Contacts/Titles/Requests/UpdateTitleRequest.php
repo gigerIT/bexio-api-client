@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Contacts\Titles\Requests;
 
@@ -17,10 +17,7 @@ class UpdateTitleRequest extends Request implements HasBody
 
     protected Method $method = Method::POST;
 
-    public function __construct(readonly protected Title $title)
-    {
-    }
-
+    public function __construct(protected readonly Title $title) {}
 
     public function resolveEndpoint(): string
     {
@@ -29,13 +26,11 @@ class UpdateTitleRequest extends Request implements HasBody
 
     protected function defaultBody(): array
     {
-        return $this->title->except("id")->toArray();
+        return $this->title->except('id')->toArray();
     }
 
     public function createDtoFromResponse(Response $response): Title
     {
         return Title::from($response->json());
     }
-
 }
-

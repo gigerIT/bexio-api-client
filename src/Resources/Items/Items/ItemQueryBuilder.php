@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Items\Items;
@@ -16,16 +17,18 @@ class ItemQueryBuilder extends QueryBuilder
     public function orderBy(string $field): static
     {
         $this->setParameter('order_by', $field);
+
         return $this;
     }
 
     public function where(string $field, SearchCriteria $operator, string $value): static
     {
-        if (!isset($this->searchQuery)) {
-            $this->searchQuery = new Collection();
+        if (! isset($this->searchQuery)) {
+            $this->searchQuery = new Collection;
         }
 
         $this->searchQuery->put($field, new ItemSearchWhereClause($field, $operator, $value));
+
         return $this;
     }
 
@@ -34,8 +37,8 @@ class ItemQueryBuilder extends QueryBuilder
         $request = new SearchItemsRequest($this->searchQuery->toArray());
         $response = $this->client->send($request);
 
-        if (!$response->successful()) {
-            throw new RuntimeException("Failed to fetch resources: " . $response->json());
+        if (! $response->successful()) {
+            throw new RuntimeException('Failed to fetch resources: '.$response->json());
         }
 
         return $request->createDtoFromResponse($response);
@@ -53,6 +56,3 @@ class ItemQueryBuilder extends QueryBuilder
         return $results[0] ?? null;
     }
 }
-
-
-

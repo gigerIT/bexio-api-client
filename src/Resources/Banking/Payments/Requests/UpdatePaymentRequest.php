@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Banking\Payments\Requests;
@@ -36,9 +37,7 @@ class UpdatePaymentRequest extends Request implements HasBody
     public function createDtoFromResponse(Response $response): Payment
     {
         $data = $response->json('data') ?? $response->json();
+
         return Payment::from($data);
     }
 }
-
-
-

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Sales\DocumentSettings;
@@ -34,7 +35,5 @@ class DocumentSetting extends Resource
         public ?int $default_payment_type_id = null,
         public ?int $kb_terms_of_payment_template_id = null,
         public ?bool $default_show_total = null,
-    ) {
-    }
+    ) {}
 }
-

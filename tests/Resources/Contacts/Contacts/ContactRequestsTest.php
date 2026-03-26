@@ -2,15 +2,13 @@
 
 namespace Bexio\Resources\Contacts\Contacts\Requests;
 
-use Bexio\BexioClient;
 use Bexio\Resources\Contacts\Contacts\Contact;
 use Bexio\Resources\Contacts\Contacts\Enums\ContactType;
 use Bexio\Support\Data\SearchCriteria;
+
 use function Pest\Faker\fake;
 
 $testContact = null;
-
-
 
 it('can create a Contact', function () use (&$testContact) {
     $contact = new Contact(
@@ -32,14 +30,12 @@ it('can create a Contact', function () use (&$testContact) {
         ->and($testContact->id)->toBeInt();
 });
 
-
 it('can get Contacts', function () {
     $contacts = Contact::useClient(testClient())->all();
 
     expect($contacts)->toBeArray()->and($contacts[0])->toBeInstanceOf(Contact::class);
 
 });
-
 
 it('can get Contacts using query builder', function () {
     $contacts = Contact::useClient(testClient())->query()->limit(10)->get();
@@ -48,14 +44,12 @@ it('can get Contacts using query builder', function () {
         ->and(count($contacts))->toBeLessThanOrEqual(10);
 });
 
-
 it('can get Contacts with archived using query builder', function () {
     $contacts = Contact::useClient(testClient())->query()->withArchived()->limit(5)->get();
 
     expect($contacts)->toBeArray()
         ->and(count($contacts))->toBeLessThanOrEqual(5);
 });
-
 
 it('can get first Contact using query builder', function () {
     $contact = Contact::useClient(testClient())->query()->first();
@@ -64,14 +58,12 @@ it('can get first Contact using query builder', function () {
         ->and($contact->id)->toBeInt();
 });
 
-
 it('can get a Contact', function () use (&$testContact) {
     $contact = Contact::useClient(testClient())->find($testContact->id);
 
     expect($contact)->toBeInstanceOf(Contact::class)
         ->and($contact->name_1)->toBeString()->and($contact->id)->toBeInt();
 })->depends('it can create a Contact');
-
 
 it('can search a Contact', function () use (&$testContact) {
     $contacts = Contact::useClient(testClient())
@@ -83,7 +75,6 @@ it('can search a Contact', function () use (&$testContact) {
     expect($contacts)->toBeArray()->and($contacts[0])->toBeInstanceOf(Contact::class);
 })->depends('it can create a Contact');
 
-
 it('can update a Contact', function () use (&$testContact) {
     $testContact->name_1 = fake()->firstName();
     $testContact->name_2 = fake()->lastName();
@@ -92,7 +83,6 @@ it('can update a Contact', function () use (&$testContact) {
 
     expect($testContact->name_1)->toBeString()->and($testContact->name_2)->toBeString();
 })->depends('it can get a Contact');
-
 
 it('can bulk create Contacts', function () {
     $contacts = [
@@ -120,7 +110,6 @@ it('can bulk create Contacts', function () {
     }
 });
 
-
 it('can restore a Contact', function () {
     // Create and delete a contact first
     $contact = new Contact(
@@ -140,8 +129,6 @@ it('can restore a Contact', function () {
     $createdContact->delete();
 });
 
-
 it('can delete a Contact', function () use (&$testContact) {
     expect($testContact->delete())->toBeTrue();
 })->depends('it can create a Contact');
-

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Projects\Timesheets\Requests;
@@ -22,5 +23,3 @@ class GetTimesheetsRequest extends Request
         return Timesheet::collect($response->json());
     }
 }
-
-

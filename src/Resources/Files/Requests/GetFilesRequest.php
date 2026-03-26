@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Files\Requests;
@@ -59,4 +60,3 @@ class GetFilesRequest extends Request
         return File::collect($response->json());
     }
 }
-

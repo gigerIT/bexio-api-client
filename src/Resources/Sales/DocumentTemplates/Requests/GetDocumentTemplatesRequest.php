@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Sales\DocumentTemplates\Requests;
@@ -22,4 +23,3 @@ class GetDocumentTemplatesRequest extends Request
         return DocumentTemplate::collect($response->json());
     }
 }
-

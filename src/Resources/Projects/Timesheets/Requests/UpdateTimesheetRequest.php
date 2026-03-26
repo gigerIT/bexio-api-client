@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Projects\Timesheets\Requests;
@@ -16,9 +17,7 @@ class UpdateTimesheetRequest extends Request implements HasBody
 
     protected Method $method = Method::POST;
 
-    public function __construct(readonly protected Timesheet $timesheet)
-    {
-    }
+    public function __construct(protected readonly Timesheet $timesheet) {}
 
     public function resolveEndpoint(): string
     {
@@ -35,5 +34,3 @@ class UpdateTimesheetRequest extends Request implements HasBody
         return Timesheet::from($response->json());
     }
 }
-
-

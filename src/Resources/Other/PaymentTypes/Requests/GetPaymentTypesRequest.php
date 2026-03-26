@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Other\PaymentTypes\Requests;
@@ -22,4 +23,3 @@ class GetPaymentTypesRequest extends Request
         return PaymentType::collect($response->json());
     }
 }
-

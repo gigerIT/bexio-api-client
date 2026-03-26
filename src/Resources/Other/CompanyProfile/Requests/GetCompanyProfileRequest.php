@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Other\CompanyProfile\Requests;
 
@@ -13,10 +13,7 @@ class GetCompanyProfileRequest extends Request
 {
     protected Method $method = Method::GET;
 
-    public function __construct(public readonly int $id)
-    {
-
-    }
+    public function __construct(public readonly int $id) {}
 
     public function resolveEndpoint(): string
     {
@@ -27,5 +24,4 @@ class GetCompanyProfileRequest extends Request
     {
         return CompanyProfile::from($response->json());
     }
-
 }

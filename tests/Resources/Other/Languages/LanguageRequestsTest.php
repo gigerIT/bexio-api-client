@@ -18,4 +18,3 @@ it('can get first Language using query builder', function () {
     expect($language)->toBeInstanceOf(Language::class)
         ->and($language->id)->toBeInt();
 });
-

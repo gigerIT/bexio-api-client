@@ -1,27 +1,22 @@
 <?php
 
-
 use Spatie\LaravelData\Data;
 
 it('can create a data object from an array with nested enums', function () {
     class DataTest extends Data
     {
         public function __construct(
-            public string         $id,
+            public string $id,
             public NestedDataTest $nestedData
-        )
-        {
-        }
+        ) {}
     }
 
     class NestedDataTest extends Data
     {
         public function __construct(
-            public string         $title,
+            public string $title,
             public NestedEnumTest $nestedEnum = NestedEnumTest::FOO,
-        )
-        {
-        }
+        ) {}
     }
 
     enum NestedEnumTest: string
@@ -30,27 +25,20 @@ it('can create a data object from an array with nested enums', function () {
         case BAR = 'bar';
     }
 
-//    dump(config('data.casts'));
-
+    //    dump(config('data.casts'));
 
     $test = DataTest::from([
         'id' => '123',
         'nestedData' => [
             'title' => 'test',
-            'nestedEnum' => 'bar'
-        ]
+            'nestedEnum' => 'bar',
+        ],
     ]);
 
-//    dump(config('data'));
-//    dump(config('data.date_format'));
+    //    dump(config('data'));
+    //    dump(config('data.date_format'));
 
     expect($test->nestedData)->toBeInstanceOf(NestedDataTest::class);
     expect($test->nestedData->nestedEnum)->toEqual(NestedEnumTest::BAR);
 
 });
-
-
-
-
-
-

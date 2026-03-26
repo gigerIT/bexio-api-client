@@ -3,16 +3,17 @@
 namespace Bexio\Resources\Sales\Quotes\Requests;
 
 use Bexio\Resources\Sales\DocumentTemplates\DocumentTemplate;
+use PHPUnit\Framework\Assert;
 
 it('can get Document Templates', function () {
     $templates = DocumentTemplate::useClient(testClient())->all();
 
     if (count($templates) === 0) {
-        \PHPUnit\Framework\Assert::markTestSkipped('No document templates available');
+        Assert::markTestSkipped('No document templates available');
     }
 
-    if (!$templates[0]?->slug) {
-        \PHPUnit\Framework\Assert::markTestSkipped('No document templates available');
+    if (! $templates[0]?->slug) {
+        Assert::markTestSkipped('No document templates available');
     }
 
     expect($templates)->toBeArray()
@@ -23,15 +24,14 @@ it('can get Document Templates', function () {
 it('can get first Document Template using query builder', function () {
     $template = DocumentTemplate::useClient(testClient())->query()->first();
 
-    if (!$template) {
-        \PHPUnit\Framework\Assert::markTestSkipped('No document templates available');
+    if (! $template) {
+        Assert::markTestSkipped('No document templates available');
     }
 
-    if (!$template->slug) {
-        \PHPUnit\Framework\Assert::markTestSkipped('No document templates available');
+    if (! $template->slug) {
+        Assert::markTestSkipped('No document templates available');
     }
 
     expect($template)->toBeInstanceOf(DocumentTemplate::class)
         ->and($template->slug)->toBeString();
 });
-

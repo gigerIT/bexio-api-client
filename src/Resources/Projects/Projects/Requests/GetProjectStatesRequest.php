@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Projects\Projects\Requests;
@@ -21,5 +22,3 @@ class GetProjectStatesRequest extends Request
         return $response->json();
     }
 }
-
-

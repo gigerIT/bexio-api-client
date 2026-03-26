@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Files\Requests;
@@ -16,9 +17,7 @@ class UpdateFileRequest extends Request implements HasBody
 
     protected Method $method = Method::PATCH;
 
-    public function __construct(protected readonly File $file)
-    {
-    }
+    public function __construct(protected readonly File $file) {}
 
     public function resolveEndpoint(): string
     {
@@ -35,4 +34,3 @@ class UpdateFileRequest extends Request implements HasBody
         return File::from($response->json());
     }
 }
-

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Projects\Projects\Requests;
@@ -10,14 +11,10 @@ class DeleteProjectRequest extends Request
 {
     protected Method $method = Method::DELETE;
 
-    public function __construct(readonly protected int $id)
-    {
-    }
+    public function __construct(protected readonly int $id) {}
 
     public function resolveEndpoint(): string
     {
         return "/2.0/pr_project/{$this->id}";
     }
 }
-
-

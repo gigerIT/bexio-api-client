@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Purchase\Bills\Requests;
 
@@ -13,10 +13,7 @@ class GetBillRequest extends Request
 {
     protected Method $method = Method::GET;
 
-    public function __construct(protected readonly string $id)
-    {
-
-    }
+    public function __construct(protected readonly string $id) {}
 
     public function resolveEndpoint(): string
     {
@@ -27,5 +24,4 @@ class GetBillRequest extends Request
     {
         return Bill::from($response->json());
     }
-
 }

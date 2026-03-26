@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Contacts\Contacts\Requests;
 
@@ -12,9 +12,7 @@ class RestoreContactRequest extends Request
 {
     protected Method $method = Method::PATCH;
 
-    public function __construct(protected readonly int $contactId)
-    {
-    }
+    public function __construct(protected readonly int $contactId) {}
 
     public function resolveEndpoint(): string
     {
@@ -26,4 +24,3 @@ class RestoreContactRequest extends Request
         return $response->json();
     }
 }
-

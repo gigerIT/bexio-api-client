@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Contacts\Titles;
 
@@ -19,11 +19,12 @@ class TitleQueryBuilder extends QueryBuilder
      */
     public function where(string $field, SearchCriteria $operator, string $value): static
     {
-        if (!isset($this->searchQuery)) {
-            $this->searchQuery = new Collection();
+        if (! isset($this->searchQuery)) {
+            $this->searchQuery = new Collection;
         }
 
         $this->searchQuery->put($field, new TitleSearchWhereClause($field, $operator, $value));
+
         return $this;
     }
 
@@ -35,8 +36,8 @@ class TitleQueryBuilder extends QueryBuilder
         $request = new SearchTitleRequest($this->searchQuery->toArray());
         $response = $this->client->send($request);
 
-        if (!$response->successful()) {
-            throw new RuntimeException("Failed to fetch resources: " . $response->json());
+        if (! $response->successful()) {
+            throw new RuntimeException('Failed to fetch resources: '.$response->json());
         }
 
         return $request->createDtoFromResponse($response);
@@ -57,4 +58,3 @@ class TitleQueryBuilder extends QueryBuilder
         return $results[0] ?? null;
     }
 }
-

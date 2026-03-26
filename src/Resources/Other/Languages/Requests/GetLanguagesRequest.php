@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Other\Languages\Requests;
@@ -22,4 +23,3 @@ class GetLanguagesRequest extends Request
         return Language::collect($response->json());
     }
 }
-

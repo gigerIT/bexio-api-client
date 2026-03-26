@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Projects\BusinessActivities\Requests;
@@ -12,9 +13,7 @@ class GetBusinessActivityRequest extends Request
 {
     protected Method $method = Method::GET;
 
-    public function __construct(readonly protected int $id)
-    {
-    }
+    public function __construct(protected readonly int $id) {}
 
     public function resolveEndpoint(): string
     {
@@ -26,5 +25,3 @@ class GetBusinessActivityRequest extends Request
         return BusinessActivity::from($response->json());
     }
 }
-
-

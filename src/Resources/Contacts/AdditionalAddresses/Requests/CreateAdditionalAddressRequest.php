@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Contacts\AdditionalAddresses\Requests;
 
@@ -17,10 +17,7 @@ class CreateAdditionalAddressRequest extends Request implements HasBody
 
     protected Method $method = Method::POST;
 
-    public function __construct(readonly protected AdditionalAddress $additionalAddress)
-    {
-    }
-
+    public function __construct(protected readonly AdditionalAddress $additionalAddress) {}
 
     public function resolveEndpoint(): string
     {
@@ -29,15 +26,14 @@ class CreateAdditionalAddressRequest extends Request implements HasBody
 
     protected function defaultBody(): array
     {
-        return $this->additionalAddress->except("id", "contact_id", 'address')->toArray();
+        return $this->additionalAddress->except('id', 'contact_id', 'address')->toArray();
     }
 
     public function createDtoFromResponse(Response $response): AdditionalAddress
     {
         $data = $response->json();
         $data['contact_id'] = $this->additionalAddress->contact_id;
+
         return AdditionalAddress::from($data);
     }
-
 }
-

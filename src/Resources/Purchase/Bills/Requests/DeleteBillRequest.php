@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Purchase\Bills\Requests;
 
@@ -11,10 +11,7 @@ class DeleteBillRequest extends Request
 {
     protected Method $method = Method::DELETE;
 
-    public function __construct(public readonly string $id)
-    {
-
-    }
+    public function __construct(public readonly string $id) {}
 
     public function resolveEndpoint(): string
     {

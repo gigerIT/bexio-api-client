@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Banking\Shared;
@@ -18,9 +19,5 @@ class BankPayment extends Resource
         public ?string $allowance_type = null,
         public ?string $qr_reference_nr = null,
         public ?string $additional_information = null,
-    ) {
-    }
+    ) {}
 }
-
-
-

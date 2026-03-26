@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Support\Data;
 
@@ -11,7 +11,6 @@ class SearchWhereClause extends Data
     public function __construct(
         public string $field,
         public SearchCriteria $criteria = SearchCriteria::LIKE,
-        public string $value = "",
-    ) {
-    }
+        public string $value = '',
+    ) {}
 }

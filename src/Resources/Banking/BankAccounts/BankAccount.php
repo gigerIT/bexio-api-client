@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Banking\BankAccounts;
@@ -10,6 +11,7 @@ use Bexio\Resources\Resource;
 class BankAccount extends Resource
 {
     public const INDEX_REQUEST = GetBankAccountsRequest::class;
+
     public const SHOW_REQUEST = GetBankAccountRequest::class;
 
     public function __construct(
@@ -32,9 +34,5 @@ class BankAccount extends Resource
         public ?string $invoice_mode = null,
         public ?string $qr_invoice_iban = null,
         public ?string $type = null,
-    ) {
-    }
+    ) {}
 }
-
-
-

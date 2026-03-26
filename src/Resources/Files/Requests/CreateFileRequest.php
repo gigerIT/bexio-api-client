@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Files\Requests;
@@ -24,7 +25,7 @@ class CreateFileRequest extends Request implements HasBody
             throw new InvalidArgumentException('A file path is required to create a file.');
         }
 
-        if (!is_readable($this->file->path)) {
+        if (! is_readable($this->file->path)) {
             throw new InvalidArgumentException("File {$this->file->path} is not readable.");
         }
     }
@@ -62,14 +63,14 @@ class CreateFileRequest extends Request implements HasBody
             }
 
             fwrite($fallbackStream, "%PDF-1.4\n% Bexio API Client Upload\n");
-            fwrite($fallbackStream, $originalContent . "\n%%EOF");
+            fwrite($fallbackStream, $originalContent."\n%%EOF");
             rewind($fallbackStream);
 
             fclose($fileStream);
             $fileStream = $fallbackStream;
 
-            if (!str_ends_with(strtolower($filename), '.pdf')) {
-                $filename = preg_replace('/\\.[^.]+$/', '', $filename) . '.pdf';
+            if (! str_ends_with(strtolower($filename), '.pdf')) {
+                $filename = preg_replace('/\\.[^.]+$/', '', $filename).'.pdf';
             }
 
             $contentType = 'application/pdf';
@@ -93,4 +94,3 @@ class CreateFileRequest extends Request implements HasBody
         return File::from($data);
     }
 }
-

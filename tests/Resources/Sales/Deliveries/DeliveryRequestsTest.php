@@ -3,12 +3,13 @@
 namespace Bexio\Resources\Sales\Quotes\Requests;
 
 use Bexio\Resources\Sales\Deliveries\Delivery;
+use PHPUnit\Framework\Assert;
 
 it('can get Deliveries', function () {
     $deliveries = Delivery::useClient(testClient())->all();
 
     if (count($deliveries) === 0) {
-        \PHPUnit\Framework\Assert::markTestSkipped('No deliveries available');
+        Assert::markTestSkipped('No deliveries available');
     }
 
     expect($deliveries)->toBeArray()
@@ -19,7 +20,7 @@ it('can get Deliveries', function () {
 it('can get a Delivery', function () {
     $deliveries = Delivery::useClient(testClient())->all();
     if (count($deliveries) === 0) {
-        \PHPUnit\Framework\Assert::markTestSkipped('No deliveries available');
+        Assert::markTestSkipped('No deliveries available');
     }
 
     $delivery = Delivery::useClient(testClient())->find($deliveries[0]->id);
@@ -32,11 +33,10 @@ it('can get a Delivery', function () {
 it('can get first Delivery using query builder', function () {
     $delivery = Delivery::useClient(testClient())->query()->first();
 
-    if (!$delivery) {
-        \PHPUnit\Framework\Assert::markTestSkipped('No deliveries available');
+    if (! $delivery) {
+        Assert::markTestSkipped('No deliveries available');
     }
 
     expect($delivery)->toBeInstanceOf(Delivery::class)
         ->and($delivery->id)->toBeInt();
 });
-

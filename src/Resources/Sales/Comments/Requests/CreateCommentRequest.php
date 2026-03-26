@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Sales\Comments\Requests;
 
@@ -18,10 +18,7 @@ class CreateCommentRequest extends Request implements HasBody
 
     protected Method $method = Method::POST;
 
-    public function __construct(readonly KbDocumentType $documentType, readonly int $documentId, readonly protected Comment $comment)
-    {
-    }
-
+    public function __construct(public readonly KbDocumentType $documentType, public readonly int $documentId, protected readonly Comment $comment) {}
 
     public function resolveEndpoint(): string
     {
@@ -37,5 +34,4 @@ class CreateCommentRequest extends Request implements HasBody
     {
         return $this->comment->toArray();
     }
-
 }

@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Contacts\Contacts\Requests;
 
@@ -11,10 +11,7 @@ class DeleteContactRequest extends Request
 {
     protected Method $method = Method::DELETE;
 
-    public function __construct(protected readonly int $id)
-    {
-
-    }
+    public function __construct(protected readonly int $id) {}
 
     public function resolveEndpoint(): string
     {

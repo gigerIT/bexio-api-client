@@ -18,4 +18,3 @@ it('can get first Payment Type using query builder', function () {
     expect($paymentType)->toBeInstanceOf(PaymentType::class)
         ->and($paymentType->id)->toBeInt();
 });
-

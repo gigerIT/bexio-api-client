@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Accounting\Taxes\Requests;
 
@@ -15,7 +15,7 @@ class GetTaxesRequest extends Request
 
     public function resolveEndpoint(): string
     {
-        return "/3.0/taxes";
+        return '/3.0/taxes';
     }
 
     public function createDtoFromResponse(Response $response): array
@@ -26,6 +26,7 @@ class GetTaxesRequest extends Request
     public function withInactive(): self
     {
         $this->query()->add('scope', null);
+
         return $this;
     }
 

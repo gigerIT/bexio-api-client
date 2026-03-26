@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Sales\Orders\Requests;
@@ -16,9 +17,7 @@ class CreateOrderRequest extends Request implements HasBody
 
     protected Method $method = Method::POST;
 
-    public function __construct(readonly protected Order $order)
-    {
-    }
+    public function __construct(protected readonly Order $order) {}
 
     public function resolveEndpoint(): string
     {
@@ -35,4 +34,3 @@ class CreateOrderRequest extends Request implements HasBody
         return Order::from($response->json());
     }
 }
-

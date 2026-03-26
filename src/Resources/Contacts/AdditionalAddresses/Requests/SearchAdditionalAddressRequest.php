@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Contacts\AdditionalAddresses\Requests;
 
@@ -20,9 +20,7 @@ class SearchAdditionalAddressRequest extends Request implements HasBody
     public function __construct(
         protected readonly int $contactId,
         protected readonly array $searchClauses = []
-    )
-    {
-    }
+    ) {}
 
     public function resolveEndpoint(): string
     {
@@ -38,6 +36,4 @@ class SearchAdditionalAddressRequest extends Request implements HasBody
     {
         return $this->searchClauses;
     }
-
 }
-

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Items\StockAreas\Requests;
@@ -21,7 +22,7 @@ class GetStockAreasRequest extends Request
         protected int $offset = 0,
     ) {
         if ($limit > self::LIMIT_MAX) {
-            throw new InvalidArgumentException('Limit cannot be greater than ' . self::LIMIT_MAX);
+            throw new InvalidArgumentException('Limit cannot be greater than '.self::LIMIT_MAX);
         }
 
         if ($offset < 0) {
@@ -48,6 +49,3 @@ class GetStockAreasRequest extends Request
         return StockArea::collect($response->json());
     }
 }
-
-
-

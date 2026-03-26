@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Purchase\Bills\Requests;
 
@@ -17,10 +17,7 @@ class DuplicateBillRequest extends Request implements HasBody
 
     protected Method $method = Method::POST;
 
-    public function __construct(readonly protected string $id)
-    {
-
-    }
+    public function __construct(protected readonly string $id) {}
 
     public function resolveEndpoint(): string
     {
@@ -38,5 +35,4 @@ class DuplicateBillRequest extends Request implements HasBody
             'action' => 'DUPLICATE',
         ];
     }
-
 }

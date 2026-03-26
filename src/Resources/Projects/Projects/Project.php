@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Projects\Projects;
@@ -8,8 +9,8 @@ use Bexio\Resources\Projects\Projects\Requests\ArchiveProjectRequest;
 use Bexio\Resources\Projects\Projects\Requests\CreateProjectRequest;
 use Bexio\Resources\Projects\Projects\Requests\DeleteProjectRequest;
 use Bexio\Resources\Projects\Projects\Requests\GetProjectRequest;
-use Bexio\Resources\Projects\Projects\Requests\GetProjectStatesRequest;
 use Bexio\Resources\Projects\Projects\Requests\GetProjectsRequest;
+use Bexio\Resources\Projects\Projects\Requests\GetProjectStatesRequest;
 use Bexio\Resources\Projects\Projects\Requests\GetProjectTypesRequest;
 use Bexio\Resources\Projects\Projects\Requests\ReactivateProjectRequest;
 use Bexio\Resources\Projects\Projects\Requests\UpdateProjectRequest;
@@ -21,10 +22,15 @@ use Bexio\Resources\Resource;
 class Project extends Resource
 {
     public const INDEX_REQUEST = GetProjectsRequest::class;
+
     public const SHOW_REQUEST = GetProjectRequest::class;
+
     public const CREATE_REQUEST = CreateProjectRequest::class;
+
     public const UPDATE_REQUEST = UpdateProjectRequest::class;
+
     public const DELETE_REQUEST = DeleteProjectRequest::class;
+
     public const QUERY_BUILDER = ProjectQueryBuilder::class;
 
     public function __construct(
@@ -45,8 +51,7 @@ class Project extends Resource
         public ?string $pr_invoice_type_amount = null,
         public ?int $pr_budget_type_id = null,
         public ?string $pr_budget_type_amount = null,
-    ) {
-    }
+    ) {}
 
     /**
      * Archive the project.
@@ -75,7 +80,7 @@ class Project extends Resource
      */
     public static function states(BexioClient $client): array
     {
-        $request = new GetProjectStatesRequest();
+        $request = new GetProjectStatesRequest;
         $response = $client->send($request);
 
         return $request->createDtoFromResponse($response);
@@ -86,11 +91,9 @@ class Project extends Resource
      */
     public static function types(BexioClient $client): array
     {
-        $request = new GetProjectTypesRequest();
+        $request = new GetProjectTypesRequest;
         $response = $client->send($request);
 
         return $request->createDtoFromResponse($response);
     }
 }
-
-

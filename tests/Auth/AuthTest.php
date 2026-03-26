@@ -1,6 +1,5 @@
 <?php
 
-
 use Bexio\BexioAuth;
 use Saloon\Http\Auth\AccessTokenAuthenticator;
 
@@ -9,45 +8,45 @@ it('can generate a oauth2 authorization url', function () {
 
     $url = $auth->getAuthorizationUrl(
         scopes: [
-            "company_profile",
-            "email",
-            "offline_access",
-            "openid",
-            "profile",
-            "accounting",
-            "article_show",
-            "article_edit",
-            "bank_account_show",
-            "bank_payment_show",
-            "bank_payment_edit",
-            "contact_show",
-            "contact_edit",
-            "file",
-            "kb_invoice_show",
-            "kb_invoice_edit",
-            "kb_offer_show",
-            "kb_offer_edit",
-            "kb_order_show",
-            "kb_order_edit",
-            "kb_delivery_show",
-            "kb_delivery_edit",
-            "monitoring_show",
-            "monitoring_edit",
-            "note_show",
-            "note_edit",
-            "kb_article_order_show",
-            "kb_article_order_edit",
-            "project_show",
-            "project_edit",
-            "stock_edit",
-            "task_show",
+            'company_profile',
+            'email',
+            'offline_access',
+            'openid',
+            'profile',
+            'accounting',
+            'article_show',
+            'article_edit',
+            'bank_account_show',
+            'bank_payment_show',
+            'bank_payment_edit',
+            'contact_show',
+            'contact_edit',
+            'file',
+            'kb_invoice_show',
+            'kb_invoice_edit',
+            'kb_offer_show',
+            'kb_offer_edit',
+            'kb_order_show',
+            'kb_order_edit',
+            'kb_delivery_show',
+            'kb_delivery_edit',
+            'monitoring_show',
+            'monitoring_edit',
+            'note_show',
+            'note_edit',
+            'kb_article_order_show',
+            'kb_article_order_edit',
+            'project_show',
+            'project_edit',
+            'stock_edit',
+            'task_show',
         ],
         state: 'random_state',
     );
 
     expect($url)->toBeString();
 
-//    dump($url);
+    //    dump($url);
 });
 
 it('can get an access token', function () {
@@ -60,5 +59,5 @@ it('can get an access token', function () {
         ->and($response->getRefreshToken())->toBeString()
         ->and($response->getExpiresAt())->not()->toBeNull();
 
-//    dump($response);
+    //    dump($response);
 })->skip();

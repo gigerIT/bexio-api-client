@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Contacts\Salutations;
 
@@ -19,11 +19,12 @@ class SalutationQueryBuilder extends QueryBuilder
      */
     public function where(string $field, SearchCriteria $operator, string $value): static
     {
-        if (!isset($this->searchQuery)) {
-            $this->searchQuery = new Collection();
+        if (! isset($this->searchQuery)) {
+            $this->searchQuery = new Collection;
         }
 
         $this->searchQuery->put($field, new SalutationSearchWhereClause($field, $operator, $value));
+
         return $this;
     }
 
@@ -35,8 +36,8 @@ class SalutationQueryBuilder extends QueryBuilder
         $request = new SearchSalutationRequest($this->searchQuery->toArray());
         $response = $this->client->send($request);
 
-        if (!$response->successful()) {
-            throw new RuntimeException("Failed to fetch resources: " . $response->json());
+        if (! $response->successful()) {
+            throw new RuntimeException('Failed to fetch resources: '.$response->json());
         }
 
         return $request->createDtoFromResponse($response);
@@ -57,4 +58,3 @@ class SalutationQueryBuilder extends QueryBuilder
         return $results[0] ?? null;
     }
 }
-

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Banking\Payments\Requests;
@@ -12,9 +13,7 @@ class CancelPaymentRequest extends Request
 {
     protected Method $method = Method::POST;
 
-    public function __construct(protected readonly string $paymentId)
-    {
-    }
+    public function __construct(protected readonly string $paymentId) {}
 
     public function resolveEndpoint(): string
     {
@@ -24,9 +23,7 @@ class CancelPaymentRequest extends Request
     public function createDtoFromResponse(Response $response): Payment
     {
         $data = $response->json('data') ?? $response->json();
+
         return Payment::from($data);
     }
 }
-
-
-

@@ -4,16 +4,17 @@ namespace Bexio\Resources\Sales\Quotes\Requests;
 
 use Bexio\Resources\Projects\CommunicationTypes\CommunicationType;
 use Bexio\Support\Data\SearchCriteria;
+use PHPUnit\Framework\Assert;
 
 it('can get Communication Types', function () {
     try {
         $types = CommunicationType::useClient(testClient())->all();
     } catch (\Throwable $e) {
-        \PHPUnit\Framework\Assert::markTestSkipped('Communication types endpoint unavailable: ' . $e->getMessage());
+        Assert::markTestSkipped('Communication types endpoint unavailable: '.$e->getMessage());
     }
 
     if (count($types) === 0) {
-        \PHPUnit\Framework\Assert::markTestSkipped('No communication types available');
+        Assert::markTestSkipped('No communication types available');
     }
 
     expect($types)->toBeArray()
@@ -25,11 +26,11 @@ it('can get a Communication Type', function () {
     try {
         $types = CommunicationType::useClient(testClient())->all();
     } catch (\Throwable $e) {
-        \PHPUnit\Framework\Assert::markTestSkipped('Communication types endpoint unavailable: ' . $e->getMessage());
+        Assert::markTestSkipped('Communication types endpoint unavailable: '.$e->getMessage());
     }
 
     if (count($types) === 0) {
-        \PHPUnit\Framework\Assert::markTestSkipped('No communication types available');
+        Assert::markTestSkipped('No communication types available');
     }
 
     $type = CommunicationType::useClient(testClient())->find($types[0]->id);
@@ -42,17 +43,17 @@ it('can search Communication Types', function () {
     try {
         $types = CommunicationType::useClient(testClient())->all();
     } catch (\Throwable $e) {
-        \PHPUnit\Framework\Assert::markTestSkipped('Communication types endpoint unavailable: ' . $e->getMessage());
+        Assert::markTestSkipped('Communication types endpoint unavailable: '.$e->getMessage());
     }
 
     if (count($types) === 0) {
-        \PHPUnit\Framework\Assert::markTestSkipped('No communication types available');
+        Assert::markTestSkipped('No communication types available');
     }
 
     $searchable = $types[0];
 
-    if (!$searchable->name) {
-        \PHPUnit\Framework\Assert::markTestSkipped('No searchable communication type available');
+    if (! $searchable->name) {
+        Assert::markTestSkipped('No searchable communication type available');
     }
 
     $results = CommunicationType::useClient(testClient())
@@ -68,15 +69,13 @@ it('can get first Communication Type using query builder', function () {
     try {
         $type = CommunicationType::useClient(testClient())->query()->first();
     } catch (\Throwable $e) {
-        \PHPUnit\Framework\Assert::markTestSkipped('Communication types endpoint unavailable: ' . $e->getMessage());
+        Assert::markTestSkipped('Communication types endpoint unavailable: '.$e->getMessage());
     }
 
-    if (!$type) {
-        \PHPUnit\Framework\Assert::markTestSkipped('No communication types available');
+    if (! $type) {
+        Assert::markTestSkipped('No communication types available');
     }
 
     expect($type)->toBeInstanceOf(CommunicationType::class)
         ->and($type->id)->toBeInt();
 });
-
-

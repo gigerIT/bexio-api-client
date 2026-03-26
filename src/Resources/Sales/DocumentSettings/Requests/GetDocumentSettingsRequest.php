@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Sales\DocumentSettings\Requests;
@@ -22,4 +23,3 @@ class GetDocumentSettingsRequest extends Request
         return DocumentSetting::collect($response->json());
     }
 }
-

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Projects\CommunicationTypes\Requests;
@@ -22,5 +23,3 @@ class GetCommunicationTypesRequest extends Request
         return CommunicationType::collect($response->json());
     }
 }
-
-

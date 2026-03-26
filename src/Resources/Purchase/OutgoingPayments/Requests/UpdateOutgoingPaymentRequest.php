@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Purchase\OutgoingPayments\Requests;
@@ -16,9 +17,7 @@ class UpdateOutgoingPaymentRequest extends Request implements HasBody
 
     protected Method $method = Method::PUT;
 
-    public function __construct(readonly protected OutgoingPayment $payment)
-    {
-    }
+    public function __construct(protected readonly OutgoingPayment $payment) {}
 
     public function resolveEndpoint(): string
     {
@@ -33,7 +32,7 @@ class UpdateOutgoingPaymentRequest extends Request implements HasBody
     public function createDtoFromResponse(Response $response): OutgoingPayment
     {
         $data = $response->json('data') ?? $response->json();
+
         return OutgoingPayment::from($data);
     }
 }
-

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Accounting\Reports\Requests;
@@ -18,8 +19,7 @@ class GetJournalRequest extends Request
         public ?string $account_uuid = null,
         public int $limit = 500,
         public int $offset = 0,
-    ) {
-    }
+    ) {}
 
     public function resolveEndpoint(): string
     {
@@ -34,13 +34,13 @@ class GetJournalRequest extends Request
             'account_uuid' => $this->account_uuid,
             'limit' => $this->limit,
             'offset' => $this->offset,
-        ], static fn($v) => $v !== null);
+        ], static fn ($v) => $v !== null);
     }
 
     public function createDtoFromResponse(Response $response): array
     {
         $data = $response->json('data') ?? $response->json();
+
         return JournalEntry::collect($data);
     }
 }
-

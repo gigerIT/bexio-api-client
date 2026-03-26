@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Contacts\ContactSectors;
@@ -13,13 +14,13 @@ use Bexio\Resources\Resource;
 class ContactSector extends Resource
 {
     const INDEX_REQUEST = GetContactSectorsRequest::class;
+
     const SHOW_REQUEST = GetContactSectorRequest::class;
+
     const QUERY_BUILDER = ContactSectorQueryBuilder::class;
 
     public function __construct(
         public ?int $id = null,
         public ?string $name = null,
-    ) {
-    }
+    ) {}
 }
-

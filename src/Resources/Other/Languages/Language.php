@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Other\Languages;
@@ -18,7 +19,5 @@ class Language extends Resource
         public ?int $date_format_id = null,
         public ?string $date_format = null,
         public ?string $iso_639_1 = null,
-    ) {
-    }
+    ) {}
 }
-

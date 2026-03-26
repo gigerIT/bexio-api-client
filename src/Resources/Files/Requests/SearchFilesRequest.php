@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Files\Requests;
@@ -62,4 +63,3 @@ class SearchFilesRequest extends Request implements HasBody
         return File::collect($response->json());
     }
 }
-

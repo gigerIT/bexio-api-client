@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Sales\ItemPositions;
@@ -31,6 +32,7 @@ class ItemPosition extends Resource
         }
 
         $this->parent_id = $parent->id;
+
         return $this;
     }
 
@@ -43,6 +45,7 @@ class ItemPosition extends Resource
             itemPosition: $this
         );
         $response = $this->client()->send($request);
+
         return self::from($response->json())->attachClient($this->client());
     }
 }

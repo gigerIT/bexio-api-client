@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Contacts\Contacts\Requests;
 
@@ -17,19 +17,16 @@ class CreateContactRequest extends Request implements HasBody
 
     protected Method $method = Method::POST;
 
-    public function __construct(readonly protected Contact $contact)
-    {
-    }
-
+    public function __construct(protected readonly Contact $contact) {}
 
     public function resolveEndpoint(): string
     {
-        return "/2.0/contact";
+        return '/2.0/contact';
     }
 
     protected function defaultBody(): array
     {
-        return $this->contact->except("updated_at", "profile_image", 'address')->toArray();
+        return $this->contact->except('updated_at', 'profile_image', 'address')->toArray();
     }
 
     public function createDtoFromResponse(Response $response): Contact
@@ -37,5 +34,4 @@ class CreateContactRequest extends Request implements HasBody
         //        dump($response->json());
         return Contact::from($response->json());
     }
-
 }

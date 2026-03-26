@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Contacts\AdditionalAddresses;
@@ -16,12 +17,16 @@ use Bexio\Resources\Resource;
 class AdditionalAddress extends Resource
 {
     const INDEX_REQUEST = GetAdditionalAddressesRequest::class;
-    const SHOW_REQUEST = GetAdditionalAddressRequest::class;
-    const CREATE_REQUEST = CreateAdditionalAddressRequest::class;
-    const UPDATE_REQUEST = UpdateAdditionalAddressRequest::class;
-    const DELETE_REQUEST = DeleteAdditionalAddressRequest::class;
-    const QUERY_BUILDER = AdditionalAddressQueryBuilder::class;
 
+    const SHOW_REQUEST = GetAdditionalAddressRequest::class;
+
+    const CREATE_REQUEST = CreateAdditionalAddressRequest::class;
+
+    const UPDATE_REQUEST = UpdateAdditionalAddressRequest::class;
+
+    const DELETE_REQUEST = DeleteAdditionalAddressRequest::class;
+
+    const QUERY_BUILDER = AdditionalAddressQueryBuilder::class;
 
     /** @deprecated use street_name, house_number, address_addition instead. This property is not included in the create and update requests. */
     public ?string $address = null;
@@ -38,16 +43,15 @@ class AdditionalAddress extends Resource
         public ?int $country_id = null,
         public ?string $subject = null,
         public ?string $description = null,
-    ) {
-    }
+    ) {}
 
     /**
      * Override find to include contact_id
      */
     public function find(int|string $id): static
     {
-        if (!$this->contact_id) {
-            throw new \RuntimeException("contact_id is required to find an AdditionalAddress");
+        if (! $this->contact_id) {
+            throw new \RuntimeException('contact_id is required to find an AdditionalAddress');
         }
 
         $request = $this->newRequestInstance(
@@ -56,6 +60,7 @@ class AdditionalAddress extends Resource
             $id
         );
         $response = $this->client()->send($request);
+
         return $request->createDtoFromResponse($response)->attachClient($this->client());
     }
 
@@ -64,8 +69,8 @@ class AdditionalAddress extends Resource
      */
     public function delete(string|int|null $id = null): bool
     {
-        if (!$this->contact_id) {
-            throw new \RuntimeException("contact_id is required to delete an AdditionalAddress");
+        if (! $this->contact_id) {
+            throw new \RuntimeException('contact_id is required to delete an AdditionalAddress');
         }
 
         $request = $this->newRequestInstance(
@@ -74,7 +79,7 @@ class AdditionalAddress extends Resource
             $id ?? $this->id
         );
         $response = $this->client()->send($request);
+
         return $response->successful();
     }
 }
-

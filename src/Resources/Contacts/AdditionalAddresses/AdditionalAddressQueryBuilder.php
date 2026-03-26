@@ -1,9 +1,10 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Contacts\AdditionalAddresses;
 
+use Bexio\BexioClient;
 use Bexio\Resources\Contacts\AdditionalAddresses\Requests\SearchAdditionalAddressRequest;
 use Bexio\Support\Data\SearchCriteria;
 use Bexio\Support\QueryBuilder;
@@ -13,16 +14,17 @@ use RuntimeException;
 class AdditionalAddressQueryBuilder extends QueryBuilder
 {
     private Collection $searchQuery;
+
     private int $contactId;
 
     public function __construct(
         protected string $resourceClass,
-        protected \Bexio\BexioClient $client,
+        protected BexioClient $client,
         int $contactId = 0,
     ) {
         parent::__construct($resourceClass, $client);
         $this->contactId = $contactId;
-        $this->parameters = new Collection();
+        $this->parameters = new Collection;
     }
 
     /**
@@ -31,6 +33,7 @@ class AdditionalAddressQueryBuilder extends QueryBuilder
     public function forContact(int $contactId): static
     {
         $this->contactId = $contactId;
+
         return $this;
     }
 
@@ -39,11 +42,12 @@ class AdditionalAddressQueryBuilder extends QueryBuilder
      */
     public function where(string $field, SearchCriteria $operator, string $value): static
     {
-        if (!isset($this->searchQuery)) {
-            $this->searchQuery = new Collection();
+        if (! isset($this->searchQuery)) {
+            $this->searchQuery = new Collection;
         }
 
         $this->searchQuery->put($field, new AdditionalAddressSearchWhereClause($field, $operator, $value));
+
         return $this;
     }
 
@@ -55,8 +59,8 @@ class AdditionalAddressQueryBuilder extends QueryBuilder
         $request = new SearchAdditionalAddressRequest($this->contactId, $this->searchQuery->toArray());
         $response = $this->client->send($request);
 
-        if (!$response->successful()) {
-            throw new RuntimeException("Failed to fetch resources: " . $response->json());
+        if (! $response->successful()) {
+            throw new RuntimeException('Failed to fetch resources: '.$response->json());
         }
 
         return $request->createDtoFromResponse($response);
@@ -85,8 +89,8 @@ class AdditionalAddressQueryBuilder extends QueryBuilder
         $reflection = new \ReflectionClass($requestClass);
         $constructor = $reflection->getConstructor();
 
-        if (!$constructor) {
-            return new $requestClass();
+        if (! $constructor) {
+            return new $requestClass;
         }
 
         $params = $constructor->getParameters();
@@ -107,4 +111,3 @@ class AdditionalAddressQueryBuilder extends QueryBuilder
         return new $requestClass(...$args);
     }
 }
-

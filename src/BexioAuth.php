@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio;
 
@@ -11,15 +11,14 @@ use Saloon\Traits\Plugins\AcceptsJson;
 
 class BexioAuth extends Connector
 {
-    use AuthorizationCodeGrant;
     use AcceptsJson;
+    use AuthorizationCodeGrant;
 
     public function __construct(
-        private readonly string  $clientId,
-        private readonly string  $clientSecret,
+        private readonly string $clientId,
+        private readonly string $clientSecret,
         private readonly ?string $redirectUri = null,
-    )
-    {
+    ) {
         $this->oauthConfig()->setClientId($clientId);
         $this->oauthConfig()->setClientSecret($clientSecret);
 
@@ -28,12 +27,10 @@ class BexioAuth extends Connector
         }
     }
 
-
     public function resolveBaseUrl(): string
     {
         return 'https://auth.bexio.com/realms/bexio/protocol/openid-connect';
     }
-
 
     protected function defaultOauthConfig(): OAuthConfig
     {

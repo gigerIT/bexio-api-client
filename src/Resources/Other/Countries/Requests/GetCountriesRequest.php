@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Other\Countries\Requests;
@@ -22,4 +23,3 @@ class GetCountriesRequest extends Request
         return Country::collect($response->json());
     }
 }
-

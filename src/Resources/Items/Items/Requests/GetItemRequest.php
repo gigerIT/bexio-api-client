@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Items\Items\Requests;
@@ -12,9 +13,7 @@ class GetItemRequest extends Request
 {
     protected Method $method = Method::GET;
 
-    public function __construct(protected int $articleId)
-    {
-    }
+    public function __construct(protected int $articleId) {}
 
     public function resolveEndpoint(): string
     {
@@ -26,6 +25,3 @@ class GetItemRequest extends Request
         return Item::from($response->json());
     }
 }
-
-
-

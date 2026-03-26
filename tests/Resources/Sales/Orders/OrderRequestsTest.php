@@ -3,12 +3,13 @@
 namespace Bexio\Resources\Sales\Quotes\Requests;
 
 use Bexio\Resources\Sales\Orders\Order;
+use PHPUnit\Framework\Assert;
 
 it('can get Orders', function () {
     $orders = Order::useClient(testClient())->all();
 
     if (count($orders) === 0) {
-        \PHPUnit\Framework\Assert::markTestSkipped('No orders available');
+        Assert::markTestSkipped('No orders available');
     }
 
     expect($orders)->toBeArray()
@@ -19,7 +20,7 @@ it('can get Orders', function () {
 it('can get an Order', function () {
     $orders = Order::useClient(testClient())->all();
     if (count($orders) === 0) {
-        \PHPUnit\Framework\Assert::markTestSkipped('No orders available');
+        Assert::markTestSkipped('No orders available');
     }
 
     $order = Order::useClient(testClient())->find($orders[0]->id);
@@ -32,11 +33,10 @@ it('can get an Order', function () {
 it('can get first Order using query builder', function () {
     $order = Order::useClient(testClient())->query()->first();
 
-    if (!$order) {
-        \PHPUnit\Framework\Assert::markTestSkipped('No orders available');
+    if (! $order) {
+        Assert::markTestSkipped('No orders available');
     }
 
     expect($order)->toBeInstanceOf(Order::class)
         ->and($order->id)->toBeInt();
 });
-

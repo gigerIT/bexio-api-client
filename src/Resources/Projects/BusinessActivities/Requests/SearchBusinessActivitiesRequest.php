@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Projects\BusinessActivities\Requests;
@@ -16,9 +17,7 @@ class SearchBusinessActivitiesRequest extends Request implements HasBody
 
     protected Method $method = Method::POST;
 
-    public function __construct(protected readonly array $searchClauses = [])
-    {
-    }
+    public function __construct(protected readonly array $searchClauses = []) {}
 
     public function resolveEndpoint(): string
     {
@@ -35,5 +34,3 @@ class SearchBusinessActivitiesRequest extends Request implements HasBody
         return BusinessActivity::collect($response->json());
     }
 }
-
-

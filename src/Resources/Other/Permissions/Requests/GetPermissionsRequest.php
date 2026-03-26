@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Other\Permissions\Requests;
@@ -26,4 +27,3 @@ class GetPermissionsRequest extends Request
         return [Permission::from($response->json())];
     }
 }
-

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Sales\ItemPositions;
@@ -9,13 +10,8 @@ class ItemPositionText extends ItemPosition
 {
     public ItemPositionType $type = ItemPositionType::TEXT;
 
-
     public function __construct(
         public ?string $text,
-        public ?bool   $show_pos_nr,
-    )
-
-    {
-
-    }
+        public ?bool $show_pos_nr,
+    ) {}
 }

@@ -137,11 +137,11 @@ it('works with various truthy values', function ($truthyValue) {
 
     expect($callbackExecuted)->toBeTrue();
 })->with([
-            [true],
-            [1],
-            ['non-empty-string'],
-            [[1, 2, 3]],
-        ]);
+    [true],
+    [1],
+    ['non-empty-string'],
+    [[1, 2, 3]],
+]);
 
 it('works with various falsy values', function ($falsyValue) {
     $callbackExecuted = false;
@@ -152,12 +152,12 @@ it('works with various falsy values', function ($falsyValue) {
 
     expect($callbackExecuted)->toBeFalse();
 })->with([
-            [false],
-            [0],
-            [''],
-            [null],
-            [[]],
-        ]);
+    [false],
+    [0],
+    [''],
+    [null],
+    [[]],
+]);
 
 // Test helper class
 class TestResource
@@ -170,7 +170,5 @@ class TestIndexRequest
     public function __construct(
         public ?int $limit = null,
         public ?int $offset = null,
-    ) {
-    }
+    ) {}
 }
-

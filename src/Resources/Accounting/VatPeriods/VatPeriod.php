@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Accounting\VatPeriods;
@@ -10,6 +11,7 @@ use Bexio\Resources\Resource;
 class VatPeriod extends Resource
 {
     public const INDEX_REQUEST = GetVatPeriodsRequest::class;
+
     public const SHOW_REQUEST = GetVatPeriodRequest::class;
 
     public function __construct(
@@ -18,7 +20,5 @@ class VatPeriod extends Resource
         public ?string $date_from = null,
         public ?string $date_to = null,
         public ?string $status = null,
-    ) {
-    }
+    ) {}
 }
-

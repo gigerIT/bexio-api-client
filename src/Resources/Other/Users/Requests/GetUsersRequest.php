@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Other\Users\Requests;
@@ -22,4 +23,3 @@ class GetUsersRequest extends Request
         return User::collect($response->json());
     }
 }
-

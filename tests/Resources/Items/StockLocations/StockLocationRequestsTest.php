@@ -4,16 +4,17 @@ namespace Bexio\Resources\Sales\Quotes\Requests;
 
 use Bexio\Resources\Items\StockLocations\StockLocation;
 use Bexio\Support\Data\SearchCriteria;
+use PHPUnit\Framework\Assert;
 
 it('can get Stock Locations', function () {
     try {
         $locations = StockLocation::useClient(testClient())->all();
     } catch (\Throwable $e) {
-        \PHPUnit\Framework\Assert::markTestSkipped('Stock locations endpoint unavailable: ' . $e->getMessage());
+        Assert::markTestSkipped('Stock locations endpoint unavailable: '.$e->getMessage());
     }
 
     if (count($locations) === 0) {
-        \PHPUnit\Framework\Assert::markTestSkipped('No stock locations available');
+        Assert::markTestSkipped('No stock locations available');
     }
 
     expect($locations)->toBeArray()
@@ -25,17 +26,17 @@ it('can search Stock Locations', function () {
     try {
         $locations = StockLocation::useClient(testClient())->all();
     } catch (\Throwable $e) {
-        \PHPUnit\Framework\Assert::markTestSkipped('Stock locations endpoint unavailable: ' . $e->getMessage());
+        Assert::markTestSkipped('Stock locations endpoint unavailable: '.$e->getMessage());
     }
 
     if (count($locations) === 0) {
-        \PHPUnit\Framework\Assert::markTestSkipped('No stock locations available');
+        Assert::markTestSkipped('No stock locations available');
     }
 
     $searchable = $locations[0];
 
-    if (!$searchable->name) {
-        \PHPUnit\Framework\Assert::markTestSkipped('No searchable stock location available');
+    if (! $searchable->name) {
+        Assert::markTestSkipped('No searchable stock location available');
     }
 
     $results = StockLocation::useClient(testClient())
@@ -51,16 +52,13 @@ it('can get first Stock Location using query builder', function () {
     try {
         $location = StockLocation::useClient(testClient())->query()->first();
     } catch (\Throwable $e) {
-        \PHPUnit\Framework\Assert::markTestSkipped('Stock locations endpoint unavailable: ' . $e->getMessage());
+        Assert::markTestSkipped('Stock locations endpoint unavailable: '.$e->getMessage());
     }
 
-    if (!$location) {
-        \PHPUnit\Framework\Assert::markTestSkipped('No stock locations available');
+    if (! $location) {
+        Assert::markTestSkipped('No stock locations available');
     }
 
     expect($location)->toBeInstanceOf(StockLocation::class)
         ->and($location->id)->toBeInt();
 });
-
-
-

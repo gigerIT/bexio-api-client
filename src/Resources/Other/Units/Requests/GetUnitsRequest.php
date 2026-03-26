@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Other\Units\Requests;
@@ -22,4 +23,3 @@ class GetUnitsRequest extends Request
         return Unit::collect($response->json());
     }
 }
-

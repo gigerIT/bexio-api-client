@@ -18,4 +18,3 @@ it('can get first Document Setting using query builder', function () {
     expect($setting)->toBeInstanceOf(DocumentSetting::class)
         ->and($setting->id)->toBeInt();
 });
-

@@ -4,6 +4,7 @@ namespace Bexio\Resources\Contacts\AdditionalAddresses\Requests;
 
 use Bexio\Resources\Contacts\AdditionalAddresses\AdditionalAddress;
 use Bexio\Support\Data\SearchCriteria;
+
 use function Pest\Faker\fake;
 
 $testAddress = null;
@@ -26,7 +27,6 @@ it('can create an AdditionalAddress', function () use (&$testAddress) {
         ->and($testAddress->id)->toBeInt();
 });
 
-
 it('can get AdditionalAddresses', function () {
     $addresses = AdditionalAddress::useClient(testClient())
         ->query()
@@ -35,7 +35,6 @@ it('can get AdditionalAddresses', function () {
 
     expect($addresses)->toBeArray();
 });
-
 
 it('can get AdditionalAddresses using query builder', function () {
     $addresses = AdditionalAddress::useClient(testClient())
@@ -47,7 +46,6 @@ it('can get AdditionalAddresses using query builder', function () {
     expect($addresses)->toBeArray()
         ->and(count($addresses))->toBeLessThanOrEqual(5);
 });
-
 
 it('can get first AdditionalAddress using query builder', function () use (&$testAddress) {
     $address = AdditionalAddress::useClient(testClient())
@@ -62,7 +60,6 @@ it('can get first AdditionalAddress using query builder', function () use (&$tes
     expect($address)->toBeInstanceOf(AdditionalAddress::class);
 })->depends('it can create an AdditionalAddress');
 
-
 it('can get an AdditionalAddress', function () use (&$testAddress) {
     // Create an instance with contact_id to use find()
     $addressFinder = new AdditionalAddress(
@@ -76,7 +73,6 @@ it('can get an AdditionalAddress', function () use (&$testAddress) {
         ->and($address->id)->toBeInt();
 })->depends('it can create an AdditionalAddress');
 
-
 it('can search AdditionalAddresses', function () use (&$testAddress) {
     $addresses = AdditionalAddress::useClient(testClient())
         ->query()
@@ -87,7 +83,6 @@ it('can search AdditionalAddresses', function () use (&$testAddress) {
     expect($addresses)->toBeArray();
 })->depends('it can create an AdditionalAddress');
 
-
 it('can update an AdditionalAddress', function () use (&$testAddress) {
     $testAddress->name = fake()->word();
 
@@ -96,8 +91,6 @@ it('can update an AdditionalAddress', function () use (&$testAddress) {
     expect($testAddress->name)->toBeString();
 })->depends('it can get an AdditionalAddress');
 
-
 it('can delete an AdditionalAddress', function () use (&$testAddress) {
     expect($testAddress->delete())->toBeTrue();
 })->depends('it can create an AdditionalAddress');
-

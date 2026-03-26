@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Banking\IbanPayments\Requests;
@@ -39,6 +40,3 @@ class CreateIbanPaymentRequest extends Request implements HasBody
             ->withBankAccountId($this->ibanPayment->bank_account_id);
     }
 }
-
-
-

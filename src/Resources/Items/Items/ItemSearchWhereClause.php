@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Items\Items;
@@ -12,8 +13,5 @@ class ItemSearchWhereClause extends Data
         public string $field,
         public SearchCriteria $criteria = SearchCriteria::LIKE,
         public string $value = '',
-    ) {
-    }
+    ) {}
 }
-
-

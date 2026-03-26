@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Sales\Orders\Requests;
@@ -22,4 +23,3 @@ class GetOrdersRequest extends Request
         return Order::collect($response->json());
     }
 }
-

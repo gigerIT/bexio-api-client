@@ -33,4 +33,3 @@ it('can get first User using query builder', function () {
     expect($user)->toBeInstanceOf(User::class)
         ->and($user->id)->toBeInt();
 });
-

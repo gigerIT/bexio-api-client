@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Accounting\Accounts\Requests;
 
@@ -15,12 +15,11 @@ class GetAccountsRequest extends Request
 
     public function resolveEndpoint(): string
     {
-        return "/2.0/accounts";
+        return '/2.0/accounts';
     }
 
     public function createDtoFromResponse(Response $response): array
     {
         return Account::collect($response->json());
     }
-
 }

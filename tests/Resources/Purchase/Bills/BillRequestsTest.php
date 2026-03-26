@@ -28,12 +28,11 @@ it('can create a Bill', closure: function () use (&$testBill) {
                 amount: 100.00,
                 position: 0,
                 title: 'Test Line Item',
-            )
+            ),
         ],
         title: 'Test Bill',
         vendor_ref: 'Test Vendor Ref 123',
     );
-
 
     $testBill = $testBill->attachClient(testClient())->create();
 
@@ -49,7 +48,6 @@ it('can get Bills', function () {
     expect($bills)->toBeArray()->and($bills[0])->toBeInstanceOf(Bill::class);
 })->depends('it can create a Bill');
 
-
 it('can get a Bill', function () use (&$testBill) {
     $bill = Bill::useClient(testClient())->find($testBill->id);
     expect($bill)->toBeInstanceOf(Bill::class)
@@ -58,7 +56,6 @@ it('can get a Bill', function () use (&$testBill) {
         ->and($bill->title)->toBe('Test Bill')
         ->and($bill->vendor_ref)->toBe('Test Vendor Ref 123');
 })->depends('it can create a Bill');
-
 
 it('can update a Bill', function () use (&$testBill) {
     $testBill->title = 'Updated Test Bill';
@@ -73,7 +70,6 @@ it('can update a Bill', function () use (&$testBill) {
         ->and($testBill->vendor_ref)->toBe('Updated Test Vendor Ref 123');
 })->depends('it can create a Bill', 'it can get a Bill');
 
-
 it('can duplicate a Bill', function () use (&$testBill) {
     $duplicate = $testBill->attachClient(testClient())->duplicate();
     expect($duplicate)->toBeInstanceOf(Bill::class)
@@ -85,7 +81,6 @@ it('can duplicate a Bill', function () use (&$testBill) {
     $duplicate->delete();
 
 })->depends('it can create a Bill', 'it can get a Bill', 'it can update a Bill');
-
 
 it('can delete a Bill', function () use (&$testBill) {
     $result = $testBill->attachClient(testClient())->delete();

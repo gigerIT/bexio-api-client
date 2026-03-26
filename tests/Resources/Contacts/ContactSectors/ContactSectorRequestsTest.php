@@ -10,11 +10,10 @@ it('can get ContactSectors', function () {
 
     expect($sectors)->toBeArray();
 
-    if (!empty($sectors)) {
+    if (! empty($sectors)) {
         expect($sectors[0])->toBeInstanceOf(ContactSector::class);
     }
 });
-
 
 it('can get ContactSectors using query builder', function () {
     $sectors = ContactSector::useClient(testClient())->query()->limit(5)->get();
@@ -22,7 +21,6 @@ it('can get ContactSectors using query builder', function () {
     expect($sectors)->toBeArray()
         ->and(count($sectors))->toBeLessThanOrEqual(5);
 });
-
 
 it('can get first ContactSector using query builder', function () {
     $sector = ContactSector::useClient(testClient())->query()->first();
@@ -34,7 +32,6 @@ it('can get first ContactSector using query builder', function () {
     expect($sector)->toBeInstanceOf(ContactSector::class)
         ->and($sector->id)->toBeInt();
 });
-
 
 it('can get a ContactSector', function () {
     $sectors = ContactSector::useClient(testClient())->all();
@@ -48,7 +45,6 @@ it('can get a ContactSector', function () {
     expect($sector)->toBeInstanceOf(ContactSector::class)
         ->and($sector->name)->toBeString()->and($sector->id)->toBeInt();
 });
-
 
 it('can search ContactSectors', function () {
     $sectors = ContactSector::useClient(testClient())->all();
@@ -64,4 +60,3 @@ it('can search ContactSectors', function () {
 
     expect($searchResults)->toBeArray()->and($searchResults[0])->toBeInstanceOf(ContactSector::class);
 });
-

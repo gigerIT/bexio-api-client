@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Contacts\ContactGroups\Requests;
 
@@ -17,10 +17,7 @@ class UpdateContactGroupRequest extends Request implements HasBody
 
     protected Method $method = Method::POST;
 
-    public function __construct(readonly protected ContactGroup $contactGroup)
-    {
-    }
-
+    public function __construct(protected readonly ContactGroup $contactGroup) {}
 
     public function resolveEndpoint(): string
     {
@@ -29,13 +26,11 @@ class UpdateContactGroupRequest extends Request implements HasBody
 
     protected function defaultBody(): array
     {
-        return $this->contactGroup->except("id")->toArray();
+        return $this->contactGroup->except('id')->toArray();
     }
 
     public function createDtoFromResponse(Response $response): ContactGroup
     {
         return ContactGroup::from($response->json());
     }
-
 }
-

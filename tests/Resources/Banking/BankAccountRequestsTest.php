@@ -3,16 +3,17 @@
 namespace Bexio\Resources\Banking;
 
 use Bexio\Resources\Banking\BankAccounts\BankAccount;
+use PHPUnit\Framework\Assert;
 
 it('can get Bank Accounts', function () {
     try {
         $accounts = BankAccount::useClient(testClient())->all();
     } catch (\Throwable $e) {
-        \PHPUnit\Framework\Assert::markTestSkipped('Bank accounts endpoint unavailable: ' . $e->getMessage());
+        Assert::markTestSkipped('Bank accounts endpoint unavailable: '.$e->getMessage());
     }
 
     if (empty($accounts)) {
-        \PHPUnit\Framework\Assert::markTestSkipped('No bank accounts available');
+        Assert::markTestSkipped('No bank accounts available');
     }
 
     expect($accounts)->toBeArray()
@@ -24,11 +25,11 @@ it('can get a Bank Account', function () {
     try {
         $accounts = BankAccount::useClient(testClient())->all();
     } catch (\Throwable $e) {
-        \PHPUnit\Framework\Assert::markTestSkipped('Bank accounts endpoint unavailable: ' . $e->getMessage());
+        Assert::markTestSkipped('Bank accounts endpoint unavailable: '.$e->getMessage());
     }
 
     if (empty($accounts)) {
-        \PHPUnit\Framework\Assert::markTestSkipped('No bank accounts available');
+        Assert::markTestSkipped('No bank accounts available');
     }
 
     $account = BankAccount::useClient(testClient())->find($accounts[0]->id);
@@ -36,6 +37,3 @@ it('can get a Bank Account', function () {
     expect($account)->toBeInstanceOf(BankAccount::class)
         ->and($account->id)->toBeInt();
 });
-
-
-

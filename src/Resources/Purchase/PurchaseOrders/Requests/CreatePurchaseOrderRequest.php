@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Bexio\Resources\Purchase\PurchaseOrders\Requests;
 
@@ -17,14 +17,11 @@ class CreatePurchaseOrderRequest extends Request implements HasBody
 
     protected Method $method = Method::POST;
 
-    public function __construct(readonly protected PurchaseOrder $purchaseOrder)
-    {
-    }
-
+    public function __construct(protected readonly PurchaseOrder $purchaseOrder) {}
 
     public function resolveEndpoint(): string
     {
-        return "/3.0/purchase_orders";
+        return '/3.0/purchase_orders';
     }
 
     public function createDtoFromResponse(Response $response): PurchaseOrder
@@ -36,5 +33,4 @@ class CreatePurchaseOrderRequest extends Request implements HasBody
     {
         return $this->purchaseOrder->toArray();
     }
-
 }

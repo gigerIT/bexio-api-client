@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Projects\BusinessActivities\Requests;
@@ -22,5 +23,3 @@ class GetBusinessActivitiesRequest extends Request
         return BusinessActivity::collect($response->json());
     }
 }
-
-

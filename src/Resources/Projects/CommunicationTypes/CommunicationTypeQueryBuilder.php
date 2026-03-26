@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Projects\CommunicationTypes;
@@ -16,8 +17,8 @@ class CommunicationTypeQueryBuilder extends QueryBuilder
 
     public function where(string $field, SearchCriteria $operator, string $value): static
     {
-        if (!isset($this->searchClauses)) {
-            $this->searchClauses = new Collection();
+        if (! isset($this->searchClauses)) {
+            $this->searchClauses = new Collection;
         }
 
         $this->searchClauses->push(new CommunicationTypeSearchWhereClause($field, $operator, $value));
@@ -27,7 +28,7 @@ class CommunicationTypeQueryBuilder extends QueryBuilder
 
     public function search(): array
     {
-        if (!isset($this->searchClauses) || $this->searchClauses->isEmpty()) {
+        if (! isset($this->searchClauses) || $this->searchClauses->isEmpty()) {
             return [];
         }
 
@@ -36,22 +37,22 @@ class CommunicationTypeQueryBuilder extends QueryBuilder
         $request = new SearchCommunicationTypesRequest($clauses);
         $response = $this->client->send($request);
 
-        if (!$response->successful()) {
-            throw new RuntimeException("Failed to fetch resources: " . $response->json());
+        if (! $response->successful()) {
+            throw new RuntimeException('Failed to fetch resources: '.$response->json());
         }
 
         $results = $request->createDtoFromResponse($response);
 
-        if (!empty($results)) {
+        if (! empty($results)) {
             return $results;
         }
 
         // Fallback: fetch all and filter locally when the API search returns no results.
-        $fallbackRequest = new GetCommunicationTypesRequest();
+        $fallbackRequest = new GetCommunicationTypesRequest;
         $fallbackResponse = $this->client->send($fallbackRequest);
 
-        if (!$fallbackResponse->successful()) {
-            throw new RuntimeException("Failed to fetch resources: " . $fallbackResponse->json());
+        if (! $fallbackResponse->successful()) {
+            throw new RuntimeException('Failed to fetch resources: '.$fallbackResponse->json());
         }
 
         $types = $fallbackRequest->createDtoFromResponse($fallbackResponse);
@@ -60,15 +61,15 @@ class CommunicationTypeQueryBuilder extends QueryBuilder
             foreach ($clauses as $clause) {
                 $field = $clause['field'] ?? null;
 
-                if (!$field || !isset($type->{$field})) {
+                if (! $field || ! isset($type->{$field})) {
                     return false;
                 }
 
                 $criteria = $clause['criteria'] ?? SearchCriteria::LIKE->value;
-                $value = (string)($clause['value'] ?? '');
+                $value = (string) ($clause['value'] ?? '');
 
-                $criteriaValue = $criteria instanceof SearchCriteria ? $criteria->value : (string)$criteria;
-                $fieldValue = (string)$type->{$field};
+                $criteriaValue = $criteria instanceof SearchCriteria ? $criteria->value : (string) $criteria;
+                $fieldValue = (string) $type->{$field};
 
                 $matches = match ($criteriaValue) {
                     SearchCriteria::EQUAL->value => $fieldValue === $value,
@@ -76,7 +77,7 @@ class CommunicationTypeQueryBuilder extends QueryBuilder
                     default => false,
                 };
 
-                if (!$matches) {
+                if (! $matches) {
                     return false;
                 }
             }
@@ -91,11 +92,12 @@ class CommunicationTypeQueryBuilder extends QueryBuilder
     {
         if (isset($this->searchClauses) && $this->searchClauses->isNotEmpty()) {
             $results = $this->search();
+
             return $results[0] ?? null;
         }
 
         $results = $this->limit(1)->get();
+
         return $results[0] ?? null;
     }
 }
-

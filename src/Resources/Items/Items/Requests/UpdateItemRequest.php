@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Items\Items\Requests;
@@ -16,9 +17,7 @@ class UpdateItemRequest extends Request implements HasBody
 
     protected Method $method = Method::POST;
 
-    public function __construct(readonly protected Item $item)
-    {
-    }
+    public function __construct(protected readonly Item $item) {}
 
     public function resolveEndpoint(): string
     {
@@ -42,6 +41,3 @@ class UpdateItemRequest extends Request implements HasBody
         return Item::from($response->json());
     }
 }
-
-
-

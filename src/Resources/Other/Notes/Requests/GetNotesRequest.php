@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Other\Notes\Requests;
@@ -22,4 +23,3 @@ class GetNotesRequest extends Request
         return Note::collect($response->json());
     }
 }
-

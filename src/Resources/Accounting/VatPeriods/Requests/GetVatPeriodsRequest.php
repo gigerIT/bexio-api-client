@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Accounting\VatPeriods\Requests;
@@ -22,4 +23,3 @@ class GetVatPeriodsRequest extends Request
         return VatPeriod::collect($response->json());
     }
 }
-

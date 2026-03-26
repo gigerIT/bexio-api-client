@@ -1,17 +1,18 @@
 <?php
 
 use Bexio\Resources\Sales\Comments\Comment;
-use Bexio\Resources\Sales\Comments\Enums\KbDocumentType;
+use Bexio\Resources\Sales\Invoices\Invoice;
+use Bexio\Resources\Sales\ItemPositions\ItemPositionCustom;
 
 it('can create a Comment for a Invoice', function () {
-    $testInvoice = new \Bexio\Resources\Sales\Invoices\Invoice(
+    $testInvoice = new Invoice(
         title: 'Test Invoice',
         contact_id: 1,
     );
     $salesAccount = testSalesAccount();
 
     $testInvoice->positions->add(
-        new \Bexio\Resources\Sales\ItemPositions\ItemPositionCustom(
+        new ItemPositionCustom(
             tax_id: $salesAccount->tax_id,
             account_id: $salesAccount->id,
             amount: '10',
@@ -21,7 +22,6 @@ it('can create a Comment for a Invoice', function () {
     );
 
     $testInvoice = $testInvoice->attachClient(testClient())->create();
-
 
     $comment = new Comment(
         text: 'This is a comment',

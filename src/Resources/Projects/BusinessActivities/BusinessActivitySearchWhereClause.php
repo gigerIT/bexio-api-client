@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Projects\BusinessActivities;
@@ -16,5 +17,3 @@ class BusinessActivitySearchWhereClause extends SearchWhereClause
         parent::__construct($field, $criteria, $value);
     }
 }
-
-

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bexio\Resources\Banking\Payments\Requests;
@@ -16,9 +17,7 @@ class CreatePaymentRequest extends Request implements HasBody
 
     protected Method $method = Method::POST;
 
-    public function __construct(protected readonly Payment $payment)
-    {
-    }
+    public function __construct(protected readonly Payment $payment) {}
 
     public function resolveEndpoint(): string
     {
@@ -33,9 +32,7 @@ class CreatePaymentRequest extends Request implements HasBody
     public function createDtoFromResponse(Response $response): Payment
     {
         $data = $response->json('data') ?? $response->json();
+
         return Payment::from($data);
     }
 }
-
-
-
