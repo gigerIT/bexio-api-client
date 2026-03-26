@@ -38,10 +38,14 @@ class ItemPositionCast implements Cast, IterableItemCast, Castable
     {
 //        return $item;
         $type = ItemPositionType::from($item['type']);
+
         return match ($type) {
             ItemPositionType::ARTICLE => ItemPositionArticle::from($item),
             ItemPositionType::CUSTOM => ItemPositionCustom::from($item),
+            ItemPositionType::DISCOUNT => ItemPositionDiscount::from($item),
+            ItemPositionType::PAGEBREAK => ItemPositionPagebreak::from($item),
             ItemPositionType::SUBPOSITION => ItemPositionSubposition::from($item),
+            ItemPositionType::SUBTOTAL => ItemPositionSubtotal::from($item),
             ItemPositionType::TEXT => ItemPositionText::from($item),
         };
     }
