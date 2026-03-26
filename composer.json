@@ -22,7 +22,7 @@
   "require": {
     "php": "^8.4",
     "saloonphp/saloon": "^4",
-    "illuminate/container": "^11|^12",
+    "illuminate/container": "^11|^12|^13",
     "spatie/laravel-data": "^4",
     "gigerit/spatie-laravel-data-standalone": "^1.0"
   },
