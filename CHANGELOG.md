@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.3.1](https://github.com/gigerIT/bexio-api-client/compare/v3.3.0...v3.3.1) (2026-03-26)
+
+
+### Bug Fixes
+
+* update illuminate/container version constraint to include ^13 ([a4e4ded](https://github.com/gigerIT/bexio-api-client/commit/a4e4dedbf4c32bc4bd0572e2d4c56e4cc71ded83))
+
 ## [3.3.0](https://github.com/gigerIT/bexio-api-client/compare/v3.2.0...v3.3.0) (2026-03-26)
 
 
