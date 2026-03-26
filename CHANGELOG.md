@@ -1,5 +1,36 @@
 # Changelog
 
+## [4.0.0](https://github.com/gigerIT/bexio-api-client/compare/v3.2.0...v4.0.0) (2026-03-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* v4 as Laravel Package
+* This package now requires Laravel 10+
+
+### Features
+
+* v4 as Laravel Package ([168e121](https://github.com/gigerIT/bexio-api-client/commit/168e12137725007f123030695041bd62e5523128))
+
+
+### Bug Fixes
+
+* expose invoice reporting fields safely ([ed15202](https://github.com/gigerIT/bexio-api-client/commit/ed15202c1371e3e08f6a8d769d69cf7e7c483180))
+* finalize Laravel package release readiness ([5910419](https://github.com/gigerIT/bexio-api-client/commit/5910419abcc627f59a4e7f5f9d1babbb4b9b68eb))
+* hydrate missing sales item position types ([78c0f97](https://github.com/gigerIT/bexio-api-client/commit/78c0f975caad8fe180cd4506b7ac1f1015e6171d))
+
+
+### Miscellaneous Chores
+
+* Specify exact versions for illuminate/container ([613a2b3](https://github.com/gigerIT/bexio-api-client/commit/613a2b3534e43e6d0bcff6c247d25ae7f378895c))
+* Update composer.json to support new versions of dependencies ([132bd28](https://github.com/gigerIT/bexio-api-client/commit/132bd28520d1143b2c8506c998444f229aaef774))
+* Update composer.lock with new dependencies ([6f748d0](https://github.com/gigerIT/bexio-api-client/commit/6f748d0cdaad4f06d5247aaa751e4bc7600ec7e5))
+
+
+### Code Refactoring
+
+* Convert to Laravel package and remove spatie-data-standalone ([8989b01](https://github.com/gigerIT/bexio-api-client/commit/8989b017da2cf9eaac3cf3d69f81967eaf1af568))
+
 ## [3.2.0](https://github.com/gigerIT/bexio-api-client/compare/v3.1.1...v3.2.0) (2025-12-11)
 
 
