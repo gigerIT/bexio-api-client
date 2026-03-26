@@ -41,7 +41,7 @@ it('can search Stock Locations', function () {
     $results = StockLocation::useClient(testClient())
         ->query()
         ->where('name', SearchCriteria::LIKE, $searchable->name)
-        ->search();
+        ->get();
 
     expect($results)->toBeArray()
         ->and($results[0])->toBeInstanceOf(StockLocation::class);

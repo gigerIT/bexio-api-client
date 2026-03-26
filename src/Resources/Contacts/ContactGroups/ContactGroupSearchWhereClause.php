@@ -11,7 +11,7 @@ class ContactGroupSearchWhereClause extends SearchWhereClause
     public function __construct(
         public string $field,
         public \Bexio\Support\Data\SearchCriteria $criteria,
-        public string $value
+        public mixed $value
     )
     {
     }

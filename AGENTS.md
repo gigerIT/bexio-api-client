@@ -85,16 +85,20 @@ All API DTOs extend `src/Resources/Resource.php`, which itself extends `Spatie\L
 
 ### Query Builder Pattern
 
-- Base implementation: `src/Support/QueryBuilder.php`.
-- Shared builder methods:
+- Base implementations live in `src/Support/QueryBuilder.php` and `src/Support/SearchableQueryBuilder.php`.
+- Shared fluent methods now include:
   - `limit()`
   - `offset()`
+  - `forPage()`
+  - `orderBy()`
   - `when()`
   - `get()`
   - `first()`
-- `QueryBuilder::get()` reflects on the index request constructor and maps stored parameters by constructor parameter name. Parameter names in builder code must therefore match request constructor parameter names exactly.
-- Resource-specific builders add methods like `where()`, `search()`, `withArchived()`, `orderBy()`, or `forContact()`.
-- Search builders usually collect typed where-clause DTOs and send a dedicated `Search*Request`.
+- `SearchableQueryBuilder` also provides `where()`, `whereIn()`, `whereNull()`, `whereNotNull()`, and `whereBetween()`.
+- Public collection retrieval is `get()` only. The older `search()` builder API has been removed in the current major-version work.
+- Searchable builders automatically switch from the resource `INDEX_REQUEST` to their dedicated `Search*Request` once any where-clause is present.
+- Resource-specific builders should be thin and only add domain sugar or endpoint-specific context, such as `withArchived()`, `forContact()`, or invoice-specific status/date helpers.
+- `QueryBuilder` still instantiates requests from constructor arguments, but resource-specific builders can override `indexRequestArguments()`, `searchRequestArguments()`, or `searchRequestQueryParameters()` when request constructor names or route context differ from the fluent builder state.
 
 ### Search DTOs
 
@@ -110,8 +114,14 @@ All API DTOs extend `src/Resources/Resource.php`, which itself extends `Spatie\L
 - `src/Resources/Sales/Invoices/Invoice.php` has custom API payload helpers:
   - `createFromApiPayload()` backfills `invoice_date` from `is_valid_from` when needed.
   - `collectFromApiPayload()` maps arrays through that normalization.
-  - `toApi()` strips response-only/reporting fields from outgoing create payloads.
+  - `toApi()` strips response-only/reporting fields from outgoing create payloads, including API-rejected fields like `document_nr` and `mwst_is_net`.
 - Keep these helpers in sync with invoice response payloads and unit tests in `tests/Unit/Resources/Sales/Invoices/InvoiceDataTest.php`.
+
+### Invoice query support
+
+- `src/Resources/Sales/Invoices/InvoiceQueryBuilder.php` is the first resource-specific consumer of `SearchableQueryBuilder`.
+- Invoice filtering uses `POST /2.0/kb_invoice/search` through `src/Resources/Sales/Invoices/Requests/SearchInvoicesRequest.php`.
+- Preferred fluent helpers are `status()`, `statusIn()`, `validFrom()`, `validTo()`, and `validBetween()`.
 
 ### Additional addresses need contact context
 

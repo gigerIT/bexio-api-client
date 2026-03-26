@@ -67,7 +67,7 @@ it('can search a ContactRelation', function () use (&$testRelation) {
     $relations = ContactRelation::useClient(testClient())
         ->query()
         ->where('contact_id', SearchCriteria::EQUAL, (string) $testRelation->contact_id)
-        ->search();
+        ->get();
 
     expect($relations)->toBeArray()->and($relations[0])->toBeInstanceOf(ContactRelation::class);
 })->depends('it can create a ContactRelation');

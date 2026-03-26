@@ -56,7 +56,7 @@ it('can search a ContactGroup', function () use (&$testGroup) {
     $groups = ContactGroup::useClient(testClient())
         ->query()
         ->where('name', SearchCriteria::LIKE, $testGroup->name)
-        ->search();
+        ->get();
 
     expect($groups)->toBeArray()->and($groups[0])->toBeInstanceOf(ContactGroup::class);
 })->depends('it can create a ContactGroup');

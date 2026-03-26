@@ -22,6 +22,9 @@ use Bexio\Support\Concerns\HasOfficeLink;
 use Saloon\Http\Response;
 use Spatie\LaravelData\Attributes\WithCast;
 
+/**
+ * @method InvoiceQueryBuilder query()
+ */
 class Invoice extends Resource implements KbDocumentContract
 {
     use HasComments;
@@ -31,6 +34,7 @@ class Invoice extends Resource implements KbDocumentContract
     const DOCUMENT_TYPE = KbDocumentType::INVOICE;
 
     public const INDEX_REQUEST = GetInvoicesRequest::class;
+    public const QUERY_BUILDER = InvoiceQueryBuilder::class;
 
     public const SHOW_REQUEST = GetInvoiceRequest::class;
     public const CREATE_REQUEST = CreateInvoiceRequest::class;
@@ -131,6 +135,7 @@ class Invoice extends Resource implements KbDocumentContract
     {
         return $this->except(
             'id',
+            'document_nr',
             'total_gross',
             'total_net',
             'total_taxes',
@@ -141,6 +146,7 @@ class Invoice extends Resource implements KbDocumentContract
             'updated_at',
             'taxs',
             'network_link',
+            'mwst_is_net',
             'total_received_payments',
             'total_credit_vouchers',
             'total_remaining_payments',

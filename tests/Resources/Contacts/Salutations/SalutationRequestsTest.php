@@ -56,7 +56,7 @@ it('can search a Salutation', function () use (&$testSalutation) {
     $salutations = Salutation::useClient(testClient())
         ->query()
         ->where('name', SearchCriteria::LIKE, $testSalutation->name)
-        ->search();
+        ->get();
 
     expect($salutations)->toBeArray()->and($salutations[0])->toBeInstanceOf(Salutation::class);
 })->depends('it can create a Salutation');

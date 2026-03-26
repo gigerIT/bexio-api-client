@@ -137,7 +137,13 @@ class Resource extends Data
             return false;
         }
 
-        return $reflectionClass->getProperty('id')->getValue($this) !== null;
+        $property = $reflectionClass->getProperty('id');
+
+        if (! $property->isInitialized($this)) {
+            return false;
+        }
+
+        return $property->getValue($this) !== null;
     }
 
     protected function resolveResourceId(): int|string
@@ -148,7 +154,13 @@ class Resource extends Data
             throw new LogicException(static::class . ' does not define an id property.');
         }
 
-        $id = $reflectionClass->getProperty('id')->getValue($this);
+        $property = $reflectionClass->getProperty('id');
+
+        if (! $property->isInitialized($this)) {
+            throw new LogicException(static::class . ' does not have a persisted id.');
+        }
+
+        $id = $property->getValue($this);
 
         if (! is_int($id) && ! is_string($id)) {
             throw new LogicException(static::class . ' does not have a persisted id.');

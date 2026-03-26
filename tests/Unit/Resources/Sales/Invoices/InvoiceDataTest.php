@@ -120,10 +120,10 @@ it('keeps response-only invoice fields out of create payloads', function () {
     $payload = $invoice->toApi()->toArray();
 
     expect($payload)
-        ->toHaveKey('document_nr')
         ->toHaveKey('logopaper_id')
-        ->toHaveKey('mwst_is_net')
         ->toHaveKey('contact_address_manual')
+        ->not->toHaveKey('document_nr')
+        ->not->toHaveKey('mwst_is_net')
         ->not->toHaveKey('invoice_date')
         ->not->toHaveKey('currency_code')
         ->not->toHaveKey('exchange_rate')
@@ -131,8 +131,6 @@ it('keeps response-only invoice fields out of create payloads', function () {
         ->not->toHaveKey('base_currency_code')
         ->not->toHaveKey('total')
         ->not->toHaveKey('project_id')
-        ->and($payload['document_nr'])->toBe('RE-00999')
         ->and($payload['logopaper_id'])->toBe(3)
-        ->and($payload['mwst_is_net'])->toBeTrue()
         ->and($payload['contact_address_manual'])->toBe("ACME GmbH\nMain Street 1\n8000 Zurich");
 });

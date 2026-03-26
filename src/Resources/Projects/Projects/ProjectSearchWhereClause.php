@@ -11,7 +11,7 @@ class ProjectSearchWhereClause extends SearchWhereClause
     public function __construct(
         public string $field,
         public SearchCriteria $criteria = SearchCriteria::LIKE,
-        public string $value = '',
+        public mixed $value = '',
     ) {
         parent::__construct($field, $criteria, $value);
     }

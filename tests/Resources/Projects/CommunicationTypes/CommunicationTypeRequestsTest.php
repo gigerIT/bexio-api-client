@@ -58,7 +58,7 @@ it('can search Communication Types', function () {
     $results = CommunicationType::useClient(testClient())
         ->query()
         ->where('name', SearchCriteria::LIKE, $searchable->name)
-        ->search();
+        ->get();
 
     expect($results)->toBeArray()
         ->and($results[0])->toBeInstanceOf(CommunicationType::class);

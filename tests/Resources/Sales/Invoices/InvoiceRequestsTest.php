@@ -2,6 +2,7 @@
 
 use Bexio\Resources\Sales\Comments\Comment;
 use Bexio\Resources\Sales\Invoices\Invoice;
+use Bexio\Resources\Sales\Invoices\Enums\InvoiceStatus;
 use Bexio\Resources\Sales\ItemPositions\ItemPositionCustom;
 
 $testInvoice = null;
@@ -10,6 +11,8 @@ it('can create an Invoice', function () use (&$testInvoice) {
     $testInvoice = new Invoice(
         title: 'Test Invoice',
         contact_id: 1,
+        is_valid_from: date('Y-m-d'),
+        is_valid_to: date('Y-m-d', strtotime('+14 days')),
     );
 
     $salesAccount = testSalesAccount();
@@ -36,6 +39,17 @@ it('can get Invoices', function () {
 it('can get an Invoice', function () use (&$testInvoice) {
     $invoice = Invoice::useClient(testClient())->find($testInvoice->id);
     expect($invoice)->toBeInstanceOf(Invoice::class)->and($invoice->id)->toBeInt();
+})->depends('it can create an Invoice');
+
+it('can filter Invoices with the query builder', function () use (&$testInvoice) {
+    $invoices = Invoice::useClient(testClient())
+        ->query()
+        ->status(InvoiceStatus::DRAFT)
+        ->validBetween($testInvoice->is_valid_from, $testInvoice->is_valid_to)
+        ->forPage(1, 10)
+        ->get();
+
+    expect($invoices)->toBeArray();
 })->depends('it can create an Invoice');
 
 

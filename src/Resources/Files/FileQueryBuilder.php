@@ -5,95 +5,48 @@ namespace Bexio\Resources\Files;
 
 use Bexio\Resources\Files\Enums\FileArchivedState;
 use Bexio\Resources\Files\Requests\SearchFilesRequest;
-use Bexio\Support\Data\SearchCriteria;
-use Bexio\Support\QueryBuilder;
-use Illuminate\Support\Collection;
-use RuntimeException;
+use Bexio\Support\SearchableQueryBuilder;
 
-class FileQueryBuilder extends QueryBuilder
+class FileQueryBuilder extends SearchableQueryBuilder
 {
-    private ?Collection $searchQuery = null;
+    protected const SEARCH_REQUEST = SearchFilesRequest::class;
 
     /**
      * Filter by archived state.
      */
     public function archivedState(FileArchivedState $state): static
     {
-        $this->setParameter('archivedState', $state);
-        return $this;
-    }
-
-    /**
-     * Add a where clause to the search query.
-     */
-    public function where(string $field, SearchCriteria $operator, string $value): static
-    {
-        if ($this->searchQuery === null) {
-            $this->searchQuery = new Collection();
-        }
-
-        $this->searchQuery->push(new FileSearchWhereClause($field, $operator, $value));
+        $this->setParameter('archived_state', $state);
 
         return $this;
     }
 
-    /**
-     * Define result ordering.
-     */
-    public function orderBy(string $orderBy): static
+    protected function indexRequestArguments(): array
     {
-        $this->setParameter('orderBy', $orderBy);
-        return $this;
+        return [
+            'archivedState' => $this->getParameter('archived_state'),
+            'limit' => $this->getParameter('limit'),
+            'offset' => $this->getParameter('offset', 0),
+            'orderBy' => $this->getParameter('order_by'),
+        ];
     }
 
-    /**
-     * Execute a search query with the built where clauses.
-     */
-    public function search(): array
+    protected function searchRequestQueryParameters(): array
     {
-        $searchClauses = $this->searchQuery?->toArray() ?? [];
+        return array_filter([
+            'archived_state' => $this->getParameter('archived_state')?->value,
+            ...parent::searchRequestQueryParameters(),
+        ], static fn (mixed $value): bool => $value !== null);
+    }
 
-        $searchClauses = array_map(function ($clause) {
-            $clauseArray = is_object($clause) && method_exists($clause, 'toArray')
-                ? $clause->toArray()
-                : (array)$clause;
-
-            if (($clauseArray['field'] ?? null) === 'id' && is_numeric($clauseArray['value'] ?? null)) {
-                $clauseArray['value'] = (int)$clauseArray['value'];
+    protected function normalizeSearchClausePayload(array $clauses): array
+    {
+        return array_map(static function (array $clause): array {
+            if (($clause['field'] ?? null) === 'id' && is_numeric($clause['value'] ?? null)) {
+                $clause['value'] = (int) $clause['value'];
             }
 
-            return $clauseArray;
-        }, $searchClauses);
-
-        $request = new SearchFilesRequest(
-            searchClauses: $searchClauses,
-            archivedState: $this->parameters->get('archivedState'),
-            limit: $this->parameters->get('limit') ?? 500,
-            offset: $this->parameters->get('offset') ?? 0,
-        );
-
-        $response = $this->client->send($request);
-
-        if (!$response->successful()) {
-            throw new RuntimeException("Failed to fetch resources: " . $response->json());
-        }
-
-        return $request->createDtoFromResponse($response);
-    }
-
-    /**
-     * Get the first result - uses search if where clauses are set, otherwise uses index with limit.
-     */
-    public function first(): mixed
-    {
-        if (isset($this->searchQuery) && $this->searchQuery->isNotEmpty()) {
-            $results = $this->search();
-        } else {
-            $this->limit(1);
-            $results = $this->get();
-        }
-
-        return $results[0] ?? null;
+            return $clause;
+        }, $clauses);
     }
 }
-

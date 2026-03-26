@@ -11,7 +11,7 @@ class SearchWhereClause extends Data
     public function __construct(
         public string $field,
         public SearchCriteria $criteria = SearchCriteria::LIKE,
-        public string $value = "",
+        public mixed $value = '',
     ) {
     }
 }

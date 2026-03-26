@@ -60,7 +60,7 @@ it('can search Items', function () {
     $results = Item::useClient(testClient())
         ->query()
         ->where($field, SearchCriteria::LIKE, $searchValue)
-        ->search();
+        ->get();
 
     expect($results)->toBeArray()
         ->and($results[0])->toBeInstanceOf(Item::class);

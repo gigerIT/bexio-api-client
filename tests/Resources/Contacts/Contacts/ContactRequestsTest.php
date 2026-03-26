@@ -78,7 +78,7 @@ it('can search a Contact', function () use (&$testContact) {
         ->query()
         ->where('name_1', SearchCriteria::LIKE, $testContact->name_1)
         ->where('name_2', SearchCriteria::LIKE, $testContact->name_2)
-        ->search();
+        ->get();
 
     expect($contacts)->toBeArray()->and($contacts[0])->toBeInstanceOf(Contact::class);
 })->depends('it can create a Contact');

@@ -38,7 +38,7 @@ it('can create, update, search, download and delete a File', function () {
             ->query()
             ->where('id', SearchCriteria::EQUAL, (string)$createdFile->id)
             ->limit(1)
-            ->search();
+            ->get();
 
         expect($searchResults)->toBeArray()
             ->and($searchResults[0])->toBeInstanceOf(File::class)

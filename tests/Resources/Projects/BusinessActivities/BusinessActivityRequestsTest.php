@@ -58,7 +58,7 @@ it('can search Business Activities', function () {
     $results = BusinessActivity::useClient(testClient())
         ->query()
         ->where('name', SearchCriteria::LIKE, $searchable->name)
-        ->search();
+        ->get();
 
     expect($results)->toBeArray()
         ->and($results[0])->toBeInstanceOf(BusinessActivity::class);

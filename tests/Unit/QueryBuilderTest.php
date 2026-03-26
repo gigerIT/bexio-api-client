@@ -2,6 +2,15 @@
 
 use Bexio\BexioClient;
 use Bexio\Support\QueryBuilder;
+use Bexio\Support\SearchableQueryBuilder;
+use Bexio\Support\Data\SearchCriteria;
+use Saloon\Contracts\Body\HasBody;
+use Saloon\Enums\Method;
+use Saloon\Http\Faking\MockClient;
+use Saloon\Http\Faking\MockResponse;
+use Saloon\Http\Request as SaloonRequest;
+use Saloon\Http\Response;
+use Saloon\Traits\Body\HasJsonBody;
 
 beforeEach(function () {
     // Use a simple mock client for unit tests - no real API token needed
@@ -129,6 +138,84 @@ it('can modify query builder parameters in callback', function () {
     expect($parameters->get('offset'))->toBe(5);
 });
 
+it('calculates limit and offset with forPage', function () {
+    $this->queryBuilder->forPage(3, 25);
+
+    $reflection = new ReflectionClass($this->queryBuilder);
+    $parametersProperty = $reflection->getProperty('parameters');
+    $parametersProperty->setAccessible(true);
+    $parameters = $parametersProperty->getValue($this->queryBuilder);
+
+    expect($parameters->get('limit'))->toBe(25)
+        ->and($parameters->get('offset'))->toBe(50);
+});
+
+it('formats order by clauses', function () {
+    $this->queryBuilder->orderBy('updated_at', 'desc');
+
+    $reflection = new ReflectionClass($this->queryBuilder);
+    $parametersProperty = $reflection->getProperty('parameters');
+    $parametersProperty->setAccessible(true);
+    $parameters = $parametersProperty->getValue($this->queryBuilder);
+
+    expect($parameters->get('order_by'))->toBe('updated_at_desc');
+});
+
+it('uses the search request when filters are present', function () {
+    $mockClient = new MockClient([
+        TestSearchRequest::class => MockResponse::make([
+            ['id' => 1],
+        ]),
+    ]);
+
+    $client = (new BexioClient('mock-token'))->withMockClient($mockClient);
+    $queryBuilder = new TestSearchQueryBuilder(TestSearchableResource::class, $client);
+
+    $results = $queryBuilder
+        ->where('status', SearchCriteria::EQUAL, 'paid')
+        ->forPage(2, 5)
+        ->orderBy('updated_at', 'desc')
+        ->get();
+
+    expect($results)->toBeArray()->and($results[0]['id'])->toBe(1);
+
+    $mockClient->assertSent(function (SaloonRequest $request): bool {
+        return $request instanceof TestSearchRequest
+            && $request->query()->all() === [
+                'order_by' => 'updated_at_desc',
+                'limit' => 5,
+                'offset' => 5,
+            ]
+            && $request->body()->all() === [[
+                'field' => 'status',
+                'criteria' => '=',
+                'value' => 'paid',
+            ]];
+    });
+});
+
+it('limits searchable first queries to one record', function () {
+    $mockClient = new MockClient([
+        TestSearchRequest::class => MockResponse::make([
+            ['id' => 1],
+        ]),
+    ]);
+
+    $client = (new BexioClient('mock-token'))->withMockClient($mockClient);
+    $queryBuilder = new TestSearchQueryBuilder(TestSearchableResource::class, $client);
+
+    $result = $queryBuilder
+        ->where('status', SearchCriteria::EQUAL, 'paid')
+        ->first();
+
+    expect($result)->toBe(['id' => 1]);
+
+    $mockClient->assertSent(function (SaloonRequest $request): bool {
+        return $request instanceof TestSearchRequest
+            && $request->query()->get('limit') === 1;
+    });
+});
+
 it('works with various truthy values', function ($truthyValue) {
     $callbackExecuted = false;
 
@@ -166,11 +253,74 @@ class TestResource
     public const INDEX_REQUEST = TestIndexRequest::class;
 }
 
-class TestIndexRequest
+class TestSearchableResource
 {
+    public const INDEX_REQUEST = TestSearchIndexRequest::class;
+}
+
+class TestSearchQueryBuilder extends SearchableQueryBuilder
+{
+    protected const SEARCH_REQUEST = TestSearchRequest::class;
+}
+
+class TestIndexRequest extends SaloonRequest
+{
+    protected Method $method = Method::GET;
+
     public function __construct(
         public ?int $limit = null,
         public ?int $offset = null,
     ) {
+    }
+
+    public function resolveEndpoint(): string
+    {
+        return '/test';
+    }
+
+    public function createDtoFromResponse(Response $response): array
+    {
+        return $response->json();
+    }
+}
+
+class TestSearchIndexRequest extends SaloonRequest
+{
+    protected Method $method = Method::GET;
+
+    public function resolveEndpoint(): string
+    {
+        return '/search-test';
+    }
+
+    public function createDtoFromResponse(Response $response): array
+    {
+        return $response->json();
+    }
+}
+
+class TestSearchRequest extends SaloonRequest implements HasBody
+{
+    use HasJsonBody;
+
+    protected Method $method = Method::POST;
+
+    public function __construct(public array $searchClauses = [])
+    {
+    }
+
+    public function resolveEndpoint(): string
+    {
+        return '/search-test/search';
+    }
+
+    protected function defaultBody(): array
+    {
+        return $this->searchClauses;
+    }
+
+    public function createDtoFromResponse(Response $response): array
+    {
+        return $response->json();
     }
 }

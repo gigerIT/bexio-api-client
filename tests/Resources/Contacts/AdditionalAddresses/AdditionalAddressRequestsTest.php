@@ -82,7 +82,7 @@ it('can search AdditionalAddresses', function () use (&$testAddress) {
         ->query()
         ->forContact(testContactId())
         ->where('name', SearchCriteria::LIKE, $testAddress->name)
-        ->search();
+        ->get();
 
     expect($addresses)->toBeArray();
 })->depends('it can create an AdditionalAddress');

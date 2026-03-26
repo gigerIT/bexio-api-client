@@ -6,96 +6,57 @@ namespace Bexio\Resources\Projects\CommunicationTypes;
 use Bexio\Resources\Projects\CommunicationTypes\Requests\GetCommunicationTypesRequest;
 use Bexio\Resources\Projects\CommunicationTypes\Requests\SearchCommunicationTypesRequest;
 use Bexio\Support\Data\SearchCriteria;
-use Bexio\Support\QueryBuilder;
-use Illuminate\Support\Collection;
-use RuntimeException;
+use Bexio\Support\SearchableQueryBuilder;
 
-class CommunicationTypeQueryBuilder extends QueryBuilder
+class CommunicationTypeQueryBuilder extends SearchableQueryBuilder
 {
-    private Collection $searchClauses;
+    protected const SEARCH_REQUEST = SearchCommunicationTypesRequest::class;
 
-    public function where(string $field, SearchCriteria $operator, string $value): static
+    protected function executeSearch(): array
     {
-        if (!isset($this->searchClauses)) {
-            $this->searchClauses = new Collection();
-        }
+        $results = parent::executeSearch();
 
-        $this->searchClauses->push(new CommunicationTypeSearchWhereClause($field, $operator, $value));
-
-        return $this;
-    }
-
-    public function search(): array
-    {
-        if (!isset($this->searchClauses) || $this->searchClauses->isEmpty()) {
-            return [];
-        }
-
-        $clauses = $this->searchClauses->toArray();
-
-        $request = new SearchCommunicationTypesRequest($clauses);
-        $response = $this->client->send($request);
-
-        if (!$response->successful()) {
-            throw new RuntimeException("Failed to fetch resources: " . $response->json());
-        }
-
-        $results = $request->createDtoFromResponse($response);
-
-        if (!empty($results)) {
+        if (! empty($results)) {
             return $results;
         }
 
-        // Fallback: fetch all and filter locally when the API search returns no results.
-        $fallbackRequest = new GetCommunicationTypesRequest();
-        $fallbackResponse = $this->client->send($fallbackRequest);
+        $types = $this->executeRequest(new GetCommunicationTypesRequest());
 
-        if (!$fallbackResponse->successful()) {
-            throw new RuntimeException("Failed to fetch resources: " . $fallbackResponse->json());
-        }
+        $filtered = array_values(array_filter($types, fn (CommunicationType $type): bool => $this->matchesAllClauses($type)));
 
-        $types = $fallbackRequest->createDtoFromResponse($fallbackResponse);
+        $offset = $this->getParameter('offset', 0);
+        $limit = $this->getParameter('limit');
 
-        $filtered = array_filter($types, function ($type) use ($clauses) {
-            foreach ($clauses as $clause) {
-                $field = $clause['field'] ?? null;
+        return $limit === null
+            ? array_slice($filtered, $offset)
+            : array_slice($filtered, $offset, $limit);
+    }
 
-                if (!$field || !isset($type->{$field})) {
-                    return false;
-                }
+    private function matchesAllClauses(CommunicationType $type): bool
+    {
+        foreach ($this->searchClausePayload() as $clause) {
+            $field = $clause['field'] ?? null;
 
-                $criteria = $clause['criteria'] ?? SearchCriteria::LIKE->value;
-                $value = (string)($clause['value'] ?? '');
-
-                $criteriaValue = $criteria instanceof SearchCriteria ? $criteria->value : (string)$criteria;
-                $fieldValue = (string)$type->{$field};
-
-                $matches = match ($criteriaValue) {
-                    SearchCriteria::EQUAL->value => $fieldValue === $value,
-                    SearchCriteria::LIKE->value => stripos($fieldValue, $value) !== false,
-                    default => false,
-                };
-
-                if (!$matches) {
-                    return false;
-                }
+            if (! is_string($field) || ! isset($type->{$field})) {
+                return false;
             }
 
-            return true;
-        });
+            $criteria = $clause['criteria'] ?? SearchCriteria::LIKE;
+            $criteria = $criteria instanceof SearchCriteria ? $criteria : SearchCriteria::from($criteria);
+            $expected = (string) ($clause['value'] ?? '');
+            $actual = (string) $type->{$field};
 
-        return array_values($filtered);
-    }
+            $matches = match ($criteria) {
+                SearchCriteria::EQUAL => $actual === $expected,
+                SearchCriteria::LIKE => stripos($actual, $expected) !== false,
+                default => false,
+            };
 
-    public function first(): mixed
-    {
-        if (isset($this->searchClauses) && $this->searchClauses->isNotEmpty()) {
-            $results = $this->search();
-            return $results[0] ?? null;
+            if (! $matches) {
+                return false;
+            }
         }
 
-        $results = $this->limit(1)->get();
-        return $results[0] ?? null;
+        return true;
     }
 }
-

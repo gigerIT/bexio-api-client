@@ -56,7 +56,7 @@ it('can search a Title', function () use (&$testTitle) {
     $titles = Title::useClient(testClient())
         ->query()
         ->where('name', SearchCriteria::LIKE, $testTitle->name)
-        ->search();
+        ->get();
 
     expect($titles)->toBeArray()->and($titles[0])->toBeInstanceOf(Title::class);
 })->depends('it can create a Title');

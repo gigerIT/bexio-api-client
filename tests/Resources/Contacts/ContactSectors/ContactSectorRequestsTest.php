@@ -60,7 +60,7 @@ it('can search ContactSectors', function () {
     $searchResults = ContactSector::useClient(testClient())
         ->query()
         ->where('name', SearchCriteria::LIKE, $sectors[0]->name)
-        ->search();
+        ->get();
 
     expect($searchResults)->toBeArray()->and($searchResults[0])->toBeInstanceOf(ContactSector::class);
 });
