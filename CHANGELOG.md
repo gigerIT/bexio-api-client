@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.1.0](https://github.com/gigerIT/bexio-api-client/compare/v4.0.0...v4.1.0) (2026-03-27)
+
+
+### Features
+
+* Add label and color methods to InvoiceStatus enum ([1c0b6e3](https://github.com/gigerIT/bexio-api-client/commit/1c0b6e3517fe1ac3a6a8910f6601de4757454e20))
+
 ## [4.0.0](https://github.com/gigerIT/bexio-api-client/compare/v3.2.0...v4.0.0) (2026-03-26)
 
 
