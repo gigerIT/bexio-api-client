@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Support\Enums;
+namespace Bexio\Support\Enums;
 
 enum ApiScope: string
 {
