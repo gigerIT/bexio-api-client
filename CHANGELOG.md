@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.2.1](https://github.com/gigerIT/bexio-api-client/compare/v4.2.0...v4.2.1) (2026-03-31)
+
+
+### Bug Fixes
+
+* Update namespace typo for ApiScope enum ([3270ee8](https://github.com/gigerIT/bexio-api-client/commit/3270ee891627d3f081ea39dbd700da1b061fb587))
+
 ## [4.2.0](https://github.com/gigerIT/bexio-api-client/compare/v4.1.0...v4.2.0) (2026-03-31)
 
 
