@@ -1,5 +1,19 @@
 # Changelog
 
+## [4.2.0](https://github.com/gigerIT/bexio-api-client/compare/v4.1.0...v4.2.0) (2026-03-31)
+
+
+### Features
+
+* Introduce ApiScope helper enum for managing API access scopes ([532324e](https://github.com/gigerIT/bexio-api-client/commit/532324e46d8565c8288ce39f62b90ff94c8c5164))
+
+
+### Miscellaneous Chores
+
+* bump deps ([8e0fe5e](https://github.com/gigerIT/bexio-api-client/commit/8e0fe5e9d7a74998cafe5e283b357b8e52a73f11))
+* **deps:** bump ramsey/composer-install from 3 to 4 ([596bc44](https://github.com/gigerIT/bexio-api-client/commit/596bc444472d24c4e7fb01b6ff00118afafafc44))
+* **deps:** bump ramsey/composer-install from 3 to 4 ([6bd3dfb](https://github.com/gigerIT/bexio-api-client/commit/6bd3dfb5225f487ba21b3c42944470d44f7ec691))
+
 ## [4.1.0](https://github.com/gigerIT/bexio-api-client/compare/v4.0.0...v4.1.0) (2026-03-27)
 
 
