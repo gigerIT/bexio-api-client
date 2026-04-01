@@ -176,7 +176,7 @@ All API DTOs extend `src/Resources/Resource.php`, which itself extends `Spatie\L
 
 ### Endpoint versions are mixed
 
-- The codebase uses both `/2.0/...` and `/3.0/...` endpoints depending on the resource.
+- The codebase uses both `/2.0/...`, `/3.0/...` and `/4.0/...` endpoints depending on the resource.
 - Do not assume one version applies package-wide; check neighboring request classes before adding or editing endpoints.
 
 ## Authentication and Config
