@@ -8,6 +8,8 @@ use Bexio\Resources\Accounting\Accounts\Requests\GetAccountsRequest;
 use Bexio\Resources\Resource;
 
 /**
+ * @method AccountQueryBuilder query()
+ *
  * {
  * "id": 1,
  * "account_no": "3201",
@@ -22,6 +24,7 @@ use Bexio\Resources\Resource;
 class Account extends Resource
 {
     const INDEX_REQUEST = GetAccountsRequest::class;
+    const QUERY_BUILDER = AccountQueryBuilder::class;
 
     public int $id;
     public string $account_no;

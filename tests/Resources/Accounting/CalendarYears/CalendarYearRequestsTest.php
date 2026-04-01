@@ -3,6 +3,8 @@
 namespace Bexio\Resources\Sales\Quotes\Requests;
 
 use Bexio\Resources\Accounting\CalendarYears\CalendarYear;
+use Bexio\Resources\Accounting\CalendarYears\Requests\GetCalendarYearsRequest;
+use Bexio\Support\Data\SearchCriteria;
 
 it('can get Calendar Years', function () {
     $years = CalendarYear::useClient(testClient())->all();
@@ -27,6 +29,29 @@ it('can get a Calendar Year', function () {
 
     expect($year)->toBeInstanceOf(CalendarYear::class)
         ->and($year->id)->toBeInt();
+});
+
+it('can search Calendar Years', function () {
+    $years = CalendarYear::useClient(testClient())->all();
+
+    if (count($years) === 0) {
+        \PHPUnit\Framework\Assert::markTestSkipped('No calendar years available');
+    }
+
+    $payload = testClient()->send(new GetCalendarYearsRequest())->json();
+    $start = $payload[0]['start'] ?? null;
+
+    if (! $start) {
+        \PHPUnit\Framework\Assert::markTestSkipped('No searchable calendar year available');
+    }
+
+    $results = CalendarYear::useClient(testClient())
+        ->query()
+        ->where('start', SearchCriteria::EQUAL, $start)
+        ->get();
+
+    expect($results)->toBeArray()
+        ->and($results[0])->toBeInstanceOf(CalendarYear::class);
 });
 
 it('can get first Calendar Year using query builder', function () {

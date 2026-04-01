@@ -132,10 +132,17 @@ All API DTOs extend `src/Resources/Resource.php`, which itself extends `Spatie\L
 
 ### Order query support
 
+- Unfiltered order queries use `GET /2.0/kb_order` and support `order_by`, `limit`, and `offset` through `src/Resources/Sales/Orders/Requests/GetOrdersRequest.php`.
 - Order filtering uses `POST /2.0/kb_order/search` through `src/Resources/Sales/Orders/Requests/SearchOrdersRequest.php`.
 - `src/Resources/Sales/Orders/OrderQueryBuilder.php` mirrors the invoice builder with `status()`, `statusIn()`, `validFrom()`, `validTo()`, and `validBetween()` helpers.
 - Keep `Order::$kb_item_status_id` as an `int` for now. `OrderStatus` maps the documented order states: pending `5`, done `6`, partial `15`, and canceled `21`.
 - `src/Resources/Sales/Orders/Order.php::toApi()` strips response-only and API-rejected create fields such as `taxs`, `mwst_is_net`, `is_valid_to`, `project_id`, and `reference` before `CreateOrderRequest` sends JSON.
+
+### Accounting search support
+
+- Account filtering uses `POST /2.0/accounts/search`. The API docs and live payloads use `fibu_account_group_id` as the account-group field name in search responses.
+- Calendar year filtering uses `POST /3.0/accounting/calendar_years/search`. Search clauses use the API field names `start` and `end`, even though the current `CalendarYear` DTO keeps `date_start` and `date_end` properties.
+- The calendar year docs note that end-date equality searches may require the full timestamp form; prefer `like` when filtering by end date unless you already have the API's exact datetime string.
 
 ### Additional addresses need contact context
 
