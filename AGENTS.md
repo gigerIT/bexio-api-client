@@ -19,7 +19,8 @@ Laravel package for the Bexio API. The package uses `saloonphp/saloon` for HTTP 
 - `src/Resources/`: API resources grouped by domain (`Accounting`, `Banking`, `Contacts`, `Files`, `Items`, `Other`, `Projects`, `Purchase`, `Sales`)
 - `config/bexio.php`: published package config
 - `tests/`: Pest + Orchestra Testbench suite
-- `docs/CONTACTS.md`: only detailed resource-specific guide currently in the repo
+- `docs/resources/`: segmented public usage guides grouped by domain and resource
+- `docs/CONTACTS.md`: legacy landing page that points to the segmented contacts guides
 - `docs/bexio API docs.md` and `docs/bexio API documentation.html`: bundled reference material from Bexio
 - `README.md`: installation, auth, examples, and resource coverage matrix
 
@@ -240,7 +241,8 @@ Apply this decision rule before writing anything:
 
 1. Global, reusable, or task-agnostic guidance → `AGENTS.md`
 2. File-, function-, or implementation-scoped insight → code comment at the relevant location
-3. If both apply → global rule in `AGENTS.md`, local detail in code comment
+3. Public package usage examples and resource-specific integration notes → `docs/resources/<domain>/<resource>.md`
+4. If both apply → global rule in `AGENTS.md`, local detail in code comment
 
 Default to the narrowest correct target.
 

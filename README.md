@@ -81,109 +81,14 @@ $client = app('bexio');
 $contacts = Contact::useClient($client)->all();
 ```
 
-### Basic Contact Operations
+### Resource Guides
 
-Get a Contact by ID:
+Detailed resource usage is documented in segmented guides under `docs/resources/` so this README stays high-level.
 
-```php
-use Bexio\BexioClient;
-use Bexio\Resources\Contacts\Contacts\Contact;
-
-$client = app(BexioClient::class);
-
-// Get the Contact with ID 1
-$contact = Contact::useClient($client)->find(1);
-
-// Access the Contact properties
-echo $contact->id;
-echo $contact->name_1;
-echo $contact->mail;
-```
-
-Get all Contacts:
-
-```php
-use Bexio\BexioClient;
-use Bexio\Resources\Contacts\Contacts\Contact;
-
-$client = app(BexioClient::class);
-
-// Get all Contacts
-$contacts = Contact::useClient($client)->all();
-
-// Access the Contacts
-foreach ($contacts as $contact) {
-    echo $contact->id;
-    echo $contact->name_1;
-    echo $contact->mail;
-}
-```
-
-Create a Contact:
-
-```php
-use Bexio\BexioClient;
-use Bexio\Resources\Contacts\Contacts\Contact;
-use Bexio\Resources\Contacts\Contacts\Enums\ContactType;
-
-$client = app(BexioClient::class);
-
-// Create a new Person Contact
-$contact = new Contact(
-    contact_type_id: ContactType::PERSON,
-    name_1: 'Doe',              // Last name
-    name_2: 'John',             // First name
-    street_name: 'Main Street',
-    house_number: '123',
-    postcode: '8000',
-    city: 'Zurich',
-    country_id: 1,
-    mail: 'john.doe@example.com',
-    user_id: 1,
-    owner_id: 1,
-);
-
-// Save the Contact
-$contact->attachClient($client)->save();
-```
-
-Note: if you need to assign a contact title, use the `titel_id` field name. That matches the payload shape used by this package even though some Bexio docs refer to `title_id`.
-
-Update a Contact:
-
-```php
-use Bexio\BexioClient;
-use Bexio\Resources\Contacts\Contacts\Contact;
-
-$client = app(BexioClient::class);
-
-// Get the Contact with ID 1
-$contact = Contact::useClient($client)->find(1);
-
-// Update the Contact properties
-$contact->name_2 = 'Jane';
-$contact->mail = 'jane.doe@example.com';
-
-// Send the changes back to bexio
-$contact->save();
-```
-
-Search Contacts:
-
-```php
-use Bexio\BexioClient;
-use Bexio\Resources\Contacts\Contacts\Contact;
-use Bexio\Support\Data\SearchCriteria;
-
-$client = app(BexioClient::class);
-
-// Search contacts with criteria
-$contacts = Contact::useClient($client)
-    ->query()
-    ->where('name_1', SearchCriteria::LIKE, 'John')
-    ->where('city', SearchCriteria::EQUAL, 'Zurich')
-    ->get();
-```
+- [Resource guides index](docs/resources/README.md)
+- [Contacts guides](docs/resources/contacts/README.md)
+- [Contacts resource](docs/resources/contacts/contacts.md)
+- [Orders resource](docs/resources/sales/orders.md)
 
 ## OAuth2 Authentication
 
@@ -299,7 +204,10 @@ For detailed documentation and advanced usage examples, see:
 
 ### Resource Guides
 
-- **[Contacts Documentation](docs/CONTACTS.md)** - Comprehensive guide for Contacts, Contact Relations, Contact Groups, Contact Sectors, Additional Addresses, Salutations, and Titles
+- **[Resource Guides Index](docs/resources/README.md)** - Entry point for segmented per-resource documentation
+- **[Contacts Guides](docs/resources/contacts/README.md)** - Contacts, Contact Relations, Contact Groups, Contact Sectors, Additional Addresses, Salutations, and Titles
+- **[Orders Guide](docs/resources/sales/orders.md)** - Order CRUD, search endpoint usage, and status helpers
+- **[Legacy Contacts Redirect](docs/CONTACTS.md)** - Compatibility landing page pointing to the segmented contacts guides
 
 ### Additional Resources
 
