@@ -1,5 +1,18 @@
 # Changelog
 
+## [4.4.0](https://github.com/gigerIT/bexio-api-client/compare/v4.3.0...v4.4.0) (2026-04-01)
+
+
+### Features
+
+* add accounting search query support ([c5bc3e4](https://github.com/gigerIT/bexio-api-client/commit/c5bc3e49daf40561df517c37377745312a6b7e88))
+* add search support for lookup resources ([3807877](https://github.com/gigerIT/bexio-api-client/commit/38078772e2f8f2fcf3bc5ac5fe020e1f763773cd))
+
+
+### Bug Fixes
+
+* wire order index pagination and sorting ([0ace8c8](https://github.com/gigerIT/bexio-api-client/commit/0ace8c8665b09c3de66a6975cfe97a8ddcecf23a))
+
 ## [4.3.0](https://github.com/gigerIT/bexio-api-client/compare/v4.2.1...v4.3.0) (2026-04-01)
 
 
