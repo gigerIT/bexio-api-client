@@ -7,9 +7,13 @@ use Bexio\Resources\Other\Notes\Requests\GetNoteRequest;
 use Bexio\Resources\Other\Notes\Requests\GetNotesRequest;
 use Bexio\Resources\Resource;
 
+/**
+ * @method NoteQueryBuilder query()
+ */
 class Note extends Resource
 {
     public const INDEX_REQUEST = GetNotesRequest::class;
+    public const QUERY_BUILDER = NoteQueryBuilder::class;
     public const SHOW_REQUEST = GetNoteRequest::class;
 
     public function __construct(

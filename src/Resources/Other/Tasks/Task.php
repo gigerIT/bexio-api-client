@@ -7,9 +7,13 @@ use Bexio\Resources\Other\Tasks\Requests\GetTaskRequest;
 use Bexio\Resources\Other\Tasks\Requests\GetTasksRequest;
 use Bexio\Resources\Resource;
 
+/**
+ * @method TaskQueryBuilder query()
+ */
 class Task extends Resource
 {
     public const INDEX_REQUEST = GetTasksRequest::class;
+    public const QUERY_BUILDER = TaskQueryBuilder::class;
     public const SHOW_REQUEST = GetTaskRequest::class;
 
     public function __construct(

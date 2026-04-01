@@ -3,6 +3,7 @@
 namespace Bexio\Resources\Sales\Quotes\Requests;
 
 use Bexio\Resources\Other\Notes\Note;
+use Bexio\Support\Data\SearchCriteria;
 
 it('can get Notes', function () {
     $notes = Note::useClient(testClient())->all();
@@ -27,6 +28,28 @@ it('can get a Note', function () {
     expect($note)->toBeInstanceOf(Note::class)
         ->and($note->id)->toBeInt()
         ->and($note->subject)->toBeString();
+});
+
+it('can search Notes', function () {
+    $notes = Note::useClient(testClient())->all();
+
+    if (count($notes) === 0) {
+        \PHPUnit\Framework\Assert::markTestSkipped('No notes available');
+    }
+
+    $searchable = collect($notes)->first(fn (Note $note): bool => filled($note->subject));
+
+    if (! $searchable) {
+        \PHPUnit\Framework\Assert::markTestSkipped('No searchable note available');
+    }
+
+    $results = Note::useClient(testClient())
+        ->query()
+        ->where('subject', SearchCriteria::LIKE, $searchable->subject)
+        ->get();
+
+    expect($results)->toBeArray()
+        ->and($results[0])->toBeInstanceOf(Note::class);
 });
 
 it('can get first Note using query builder', function () {
