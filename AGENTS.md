@@ -21,13 +21,13 @@ Laravel package for the Bexio API. The package uses `saloonphp/saloon` for HTTP 
 - `tests/`: Pest + Orchestra Testbench suite
 - `docs/resources/`: segmented public usage guides grouped by domain and resource
 - `docs/CONTACTS.md`: legacy landing page that points to the segmented contacts guides
-- `docs/bexio API docs.md` and `docs/bexio API documentation.html`: bundled reference material from Bexio
+- `docs/bexio API docs.md`: bundled reference material from Bexio
 - `README.md`: installation, auth, examples, and resource coverage matrix
 
 ## API Docs
 
 - mcp: context7 `bexio api`
-- Local: `docs/bexio API docs.md` and `docs/bexio API documentation.html`: bundled reference material from Bexio
+- Local: `docs/bexio API docs.md`
 
 ## Core Architecture
 
