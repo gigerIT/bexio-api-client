@@ -151,6 +151,12 @@ All API DTOs extend `src/Resources/Resource.php`, which itself extends `Spatie\L
 - Calendar year filtering uses `POST /3.0/accounting/calendar_years/search`. Search clauses use the API field names `start` and `end`, even though the current `CalendarYear` DTO keeps `date_start` and `date_end` properties.
 - The calendar year docs note that end-date equality searches may require the full timestamp form; prefer `like` when filtering by end date unless you already have the API's exact datetime string.
 
+### Invoice reminders need invoice context
+
+- `src/Resources/Sales/Invoices/InvoiceReminders/InvoiceReminder.php` overrides `find()` and `delete()` because the endpoint requires both `kb_invoice_id` and reminder id.
+- `src/Resources/Sales/Invoices/InvoiceReminders/InvoiceReminderQueryBuilder.php` adds `forInvoice(int $invoiceId)` and custom request instantiation for the same reason.
+- Invoice reminder listing, creation, and search all live under `/2.0/kb_invoice/{invoice_id}/kb_reminder`.
+
 ### Additional addresses need contact context
 
 - `src/Resources/Contacts/AdditionalAddresses/AdditionalAddress.php` overrides `find()` and `delete()` because the endpoint requires both `contact_id` and address id.
