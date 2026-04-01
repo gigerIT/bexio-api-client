@@ -56,6 +56,8 @@ return [
     'scopes' => [
         ApiScope::OPENID->value,
         ApiScope::PROFILE->value,
+        ApiScope::EMAIL->value,
+        ApiScope::COMPANY_PROFILE->value,
         ApiScope::OFFLINE_ACCESS->value,
         ApiScope::CONTACT_SHOW->value,
     ],
