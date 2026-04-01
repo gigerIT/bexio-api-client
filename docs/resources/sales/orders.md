@@ -1,6 +1,6 @@
 # Orders
 
-`Order` covers sales orders and exposes both the standard resource operations and an order-specific query builder backed by `POST /2.0/kb_order/search`.
+`Order` covers sales orders and exposes both the standard resource operations and an order-specific query builder. Unfiltered queries use `GET /2.0/kb_order`, and filtered queries switch to `POST /2.0/kb_order/search`.
 
 ## Setup
 
@@ -88,6 +88,7 @@ $order->delete();
 
 ## Notes
 
+- Unfiltered order queries use `GET /2.0/kb_order` and support `orderBy()`, `limit()`, `offset()`, `forPage()`, and `first()`.
 - The order query builder switches to `POST /2.0/kb_order/search` as soon as a search clause is added.
 - Supported order helpers are `status()`, `statusIn()`, `validFrom()`, `validTo()`, and `validBetween()`.
 - Outgoing create payloads automatically strip response-only and API-rejected fields before the request is sent.

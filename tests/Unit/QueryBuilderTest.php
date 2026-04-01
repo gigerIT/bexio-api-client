@@ -1,6 +1,8 @@
 <?php
 
 use Bexio\BexioClient;
+use Bexio\Resources\Sales\Orders\Order;
+use Bexio\Resources\Sales\Orders\Requests\GetOrdersRequest;
 use Bexio\Support\QueryBuilder;
 use Bexio\Support\SearchableQueryBuilder;
 use Bexio\Support\Data\SearchCriteria;
@@ -191,6 +193,31 @@ it('uses the search request when filters are present', function () {
                 'criteria' => '=',
                 'value' => 'paid',
             ]];
+    });
+});
+
+it('passes pagination and sorting to the unfiltered orders index request', function () {
+    $mockClient = new MockClient([
+        GetOrdersRequest::class => MockResponse::make([]),
+    ]);
+
+    $client = (new BexioClient('mock-token'))->withMockClient($mockClient);
+
+    $results = Order::useClient($client)
+        ->query()
+        ->forPage(2, 5)
+        ->orderBy('updated_at', 'desc')
+        ->get();
+
+    expect($results)->toBeArray()->toBe([]);
+
+    $mockClient->assertSent(function (SaloonRequest $request): bool {
+        return $request instanceof GetOrdersRequest
+            && $request->query()->all() === [
+                'order_by' => 'updated_at_desc',
+                'limit' => 5,
+                'offset' => 5,
+            ];
     });
 });
 

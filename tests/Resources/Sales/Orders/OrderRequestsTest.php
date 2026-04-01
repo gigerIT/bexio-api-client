@@ -43,6 +43,18 @@ it('can get Orders', function () use (&$testOrder) {
         ->and(array_map(static fn (Order $order): ?int => $order->id, $orders))->toContain($testOrder->id);
 })->depends('it can create an Order');
 
+it('can paginate and sort Orders via the index endpoint', function () use (&$testOrder) {
+    $orders = Order::useClient(testClient())
+        ->query()
+        ->forPage(1, 1)
+        ->orderBy('id', 'desc')
+        ->get();
+
+    expect($orders)->toHaveCount(1)
+        ->and($orders[0])->toBeInstanceOf(Order::class)
+        ->and($orders[0]->id)->toBe($testOrder->id);
+})->depends('it can create an Order');
+
 it('can get an Order', function () use (&$testOrder) {
     $order = Order::useClient(testClient())->find($testOrder->id);
 
