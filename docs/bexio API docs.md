@@ -1,412 +1,412 @@
 Title: bexio API documentation
 
-*   Overview
-*   First steps
-*   Reporting a problem
-*   Changelog
-*   Authentication
-*   OpenID Connect
-*   Migration from idp.bexio.com to auth.bexio.com
-*   API Scopes
-*   OpenID Connect Scopes
-*   Authorization Code Flow
-*   Refresh Token Flow
-*   Redirect URL(s)
-*   Personal Access Tokens (PAT)
-*   API basics
-*   API routes
-*   HTTP Verbs
-*   HTTP Headers
-*   Errors
-*   Search
-*   Rate Limiting
-*   FAQ
-*   Contacts
-*   Contacts
-*   getFetch a list of contacts
-*   postCreate contact
-*   postSearch contacts
-*   getFetch a contact
-*   postEdit a contact
-*   delDelete a contact
-*   postBulk create contacts
-*   patchRestore a contact
-*   Contact Relations
-*   getFetch a list of contact relations
-*   postCreate contact relation
-*   postSearch contact relations
-*   getFetch a contact relation
-*   postEdit a contact relation
-*   delDelete a contact relation
-*   Contact Groups
-*   getFetch a list of contact groups
-*   postCreate contact group
-*   postSearch contact groups
-*   getFetch a contact group
-*   postEdit a contact group
-*   delDelete a contact group
-*   Contact Sectors
-*   getFetch a list of contact sectors
-*   postSearch contact sectors
-*   Additional Addresses
-*   getFetch a list of additional addresses
-*   postCreate additional address
-*   postSearch additional addresses
-*   getFetch an additional address
-*   postEdit an additional address
-*   delDelete an additional address
-*   Salutations
-*   getFetch a list of salutations
-*   postCreate salutation
-*   postSearch salutations
-*   getFetch a salutation
-*   postEdit a salutation
-*   delDelete a salutation
-*   Titles
-*   getFetch a list of titles
-*   postCreate title
-*   postSearch titles
-*   getFetch a title
-*   postEdit a title
-*   delDelete a title
-*   Sales Order Management
-*   Quotes
-*   getFetch a list of quotes
-*   postCreate quote
-*   postSearch quotes
-*   getFetch a quote
-*   postEdit a quote
-*   delDelete a quote
-*   postIssue a quote
-*   postRevert issue a quote
-*   postAccept a quote
-*   postDecline a quote
-*   postReissue a quote
-*   postMark quote as sent
-*   getShow PDF
-*   postSend a quote
-*   postCopy a quote
-*   postCreate order from quote
-*   postCreate invoice from quote
-*   Orders
-*   getFetch a list of orders
-*   postCreate order
-*   postSearch orders
-*   getFetch an order
-*   postEdit an order
-*   delDelete an order
-*   postCreate delivery from order
-*   postCreate invoice from order
-*   getShow PDF
-*   getShow repetition
-*   postEdit a repetition
-*   delDelete a repetition
-*   Deliveries
-*   getFetch a list of deliveries
-*   getFetch a delivery
-*   postIssue a delivery
-*   Invoices
-*   getFetch a list of invoices
-*   postCreate invoice
-*   postSearch invoices
-*   getFetch an invoice
-*   postEdit an invoice
-*   delDelete an invoice
-*   getShow PDF
-*   postCopy a invoice
-*   postIssue an invoice
-*   postSets issued invoice to draft
-*   postCancel an invoice
-*   postMark invoice as sent
-*   postSend an invoice
-*   getFetch a list of payments
-*   postCreate payment
-*   getFetch a payment
-*   delDelete a payment
-*   getFetch a list of reminders
-*   postCreate reminder
-*   postSearch invoice reminders
-*   getFetch a reminder
-*   delDelete a reminder
-*   postMark reminder as sent
-*   postMark reminder as unsent
-*   postSend a reminder
-*   getShow reminder PDF
-*   Document Settings
-*   getFetch a list of document settings
-*   Comments
-*   getFetch a list of comments
-*   postCreate a comment
-*   getFetch a comment
-*   Default positions
-*   getFetch a list of default positions
-*   postCreate a default position
-*   getFetch a default position
-*   postEdit a default position
-*   delDelete a default position
-*   Item positions
-*   getFetch a list of item positions
-*   postCreate an item position
-*   getFetch an item position
-*   postEdit an item position
-*   delDelete a item position
-*   Text positions
-*   getFetch a list of text positions
-*   postCreate a text position
-*   getFetch a text position
-*   postEdit a text position
-*   delDelete a text position
-*   Subtotal positions
-*   getFetch a list of subtotal positions
-*   postCreate a subtotal position
-*   getFetch a subtotal position
-*   postEdit a subtotal position
-*   delDelete a subtotal position
-*   Discount positions
-*   getFetch a list of discount positions
-*   postCreate a discount position
-*   getFetch a discount position
-*   postEdit a discount position
-*   delDelete a discount position
-*   Pagebreak positions
-*   getFetch a list of pagebreak positions
-*   postCreate a pagebreak position
-*   getFetch a pagebreak position
-*   postEdit a pagebreak position
-*   delDelete a pagebreak position
-*   Sub positions
-*   getFetch a list of sub positions
-*   postCreate a sub position
-*   getFetch a sub position
-*   postEdit a sub position
-*   delDelete a sub position
-*   Document templates
-*   getList document templates
-*   Purchase
-*   Bills
-*   getGet Bills
-*   postCreate new Bill
-*   getGet Bill
-*   putUpdate Bill
-*   delDelete Bill
-*   putUpdate Bill status
-*   postExecute Bill action
-*   getValidate whether document number is available or not
-*   Expenses
-*   getGet Expenses
-*   postCreate new Expense
-*   getGet Expense
-*   putUpdate Expense
-*   delDelete Expense
-*   putUpdate Expense status
-*   postExecute Expense action
-*   getValidate whether document number is available or not
-*   Purchase Orders
-*   getFetch a list of purchase orders
-*   postCreate a purchase order
-*   getFetch a single purchase order
-*   putUpdate a single purchase order
-*   delDelete a purchase order
-*   Outgoing Payment
-*   getRetrieve Outgoing Payments
-*   putEdit Outgoing Payment
-*   postCreate new Outgoing Payment
-*   getGet Outgoing Payment
-*   delDelete Outgoing Payment
-*   Accounting
-*   Accounts
-*   getFetch a list of accounts
-*   postSearch Accounts
-*   Account Groups
-*   getFetch a list of account groups
-*   Calendar Years
-*   getFetch a list of calendar years
-*   postCreate calendar year.
-*   postSearch calendar years
-*   getFetch a calendar year
-*   Business Years
-*   getFetch a list of business years
-*   getFetch a business year
-*   Currencies
-*   getFetch a list of currencies
-*   postCreate a currency
-*   getFetch a currency
-*   delDelete a currency
-*   patchUpdate a currency
-*   getFetch exchange rates for currencies
-*   getFetch all possible currency codes
-*   Manual Entries
-*   getFetch a list of manual entries
-*   postCreate manual entry
-*   putUpdate manual entry
-*   delDelete manual entry
-*   getGet next reference number
-*   getFetch files of manual entry line
-*   postAdd file to manual entry line
-*   getFetch file of manual entry line
-*   delDelete connection between file and manual entry line
-*   getFetch files of manual compound entry
-*   postAdd file to manual compound entry
-*   getFetch file of manual compound entry
-*   delDelete connection between file and manual compound entry
-*   Reports
-*   getJournal
-*   Taxes
-*   getFetch a list of taxes
-*   getFetch a tax
-*   delDelete a tax
-*   Vat Periods
-*   getFetch a list of vat periods
-*   getFetch a vat period
-*   Banking
-*   Bank Accounts
-*   getFetch a list of bank accounts
-*   getFetch a single bank account
-*   IBAN Payments
-*   postCreate IBAN payment
-*   getGet IBAN payment
-*   patchUpdate IBAN payment
-*   QR Payments
-*   postCreate QR payment
-*   getGet QR payment
-*   patchUpdate QR payment
-*   Payments
-*   getFetch a list of payments
-*   postCancel a payment
-*   delDelete a payment
-*   getFetch a list of all payments
-*   postCreate a payment
-*   getGet a payment
-*   putUpdate a payment
-*   delDelete a payment
-*   postCancel a payment
-*   Items & Products
-*   Items
-*   getFetch a list of items
-*   postCreate item
-*   postSearch items
-*   getFetch an item
-*   postEdit an item
-*   delDelete an item
-*   Stock locations
-*   getFetch a list of stock locations
-*   postSearch stock locations
-*   Stock Areas
-*   getFetch a list of stock areas
-*   postSearch stock areas
-*   Projects & Time Tracking
-*   Projects
-*   getFetch a list of projects
-*   postCreate project
-*   postSearch projects
-*   getFetch a project
-*   postEdit a project
-*   delDelete a project
-*   postArchive a project
-*   postUnarchive a project
-*   getProject status
-*   getProject types
-*   getFetch a list of milestones
-*   postCreate milestone
-*   getFetch a milestone
-*   postEdit a milestone
-*   delDelete a milestone
-*   getFetch a list of work packages
-*   postCreate work package
-*   getFetch a work package
-*   delDelete a work package
-*   patchEdit a work package
-*   Timesheets
-*   getFetch a list of timesheets
-*   postCreate timesheet
-*   postSearch timesheets
-*   getFetch a timesheet
-*   postEdit a timesheet
-*   delDelete a timesheet
-*   getTimesheet status
-*   Business Activities
-*   getFetch a list of business activities
-*   postCreate business activity
-*   postSearch business activities
-*   Communication Types
-*   getFetch a list of communication types
-*   postSearch communication types
-*   Files
-*   Files
-*   getFetch a list of files
-*   postCreate new file
-*   postSearch files
-*   getGet single file
-*   delDelete a existing file
-*   patchUpdate existing file
-*   getDownload file
-*   getGet file preview
-*   getShow file usage
-*   Payroll
-*   Employees
-*   getRetrieves all active employees
-*   postCreate employee
-*   getRetrieve a single employee on a specific date
-*   patchUpdate employee
-*   Absences
-*   getRetrieving absences of employee for given year
-*   postCreate absence for employee
-*   getRetrieving absence for employee with given absence id
-*   putUpdating existing absence
-*   delDeleting employee absence with given id
-*   Documents
-*   getRetrieving pdf for employee for given month
-*   Other endpoints
-*   Company Profile
-*   getFetch a list of company profiles
-*   getShow company profile
-*   Countries
-*   getFetch a list of countries
-*   postCreate country
-*   postSearch countries
-*   getFetch a country
-*   postEdit a country
-*   delDelete a country
-*   Languages
-*   getFetch a list of languages
-*   postSearch languages
-*   Notes
-*   getFetch a list of notes
-*   postCreate note
-*   postSearch notes
-*   getFetch a note
-*   postEdit a note
-*   delDelete a note
-*   Payment Types
-*   getFetch a list of payment types
-*   postSearch payment types
-*   Permissions
-*   getGet access information of logged in user
-*   Tasks
-*   getFetch a list of tasks
-*   postCreate task
-*   postSearch tasks
-*   getFetch a task
-*   postEdit a task
-*   delDelete a task
-*   getTask priorities
-*   getTask status
-*   Units
-*   getFetch a list of units
-*   postCreate unit
-*   postSearch units
-*   getFetch a unit
-*   postEdit a unit
-*   delDelete a unit
-*   User Management
-*   getFetch a list of users
-*   getFetch a user
-*   getFetch the authenticated user
-*   getFetch a list of fictional users
-*   postCreate a fictional user
-*   getFetch a fictional User
-*   delDelete a fictional user
-*   patchUpdate a fictional User
+* Overview
+* First steps
+* Reporting a problem
+* Changelog
+* Authentication
+* OpenID Connect
+* Migration from idp.bexio.com to auth.bexio.com
+* API Scopes
+* OpenID Connect Scopes
+* Authorization Code Flow
+* Refresh Token Flow
+* Redirect URL(s)
+* Personal Access Tokens (PAT)
+* API basics
+* API routes
+* HTTP Verbs
+* HTTP Headers
+* Errors
+* Search
+* Rate Limiting
+* FAQ
+* Contacts
+* Contacts
+* getFetch a list of contacts
+* postCreate contact
+* postSearch contacts
+* getFetch a contact
+* postEdit a contact
+* delDelete a contact
+* postBulk create contacts
+* patchRestore a contact
+* Contact Relations
+* getFetch a list of contact relations
+* postCreate contact relation
+* postSearch contact relations
+* getFetch a contact relation
+* postEdit a contact relation
+* delDelete a contact relation
+* Contact Groups
+* getFetch a list of contact groups
+* postCreate contact group
+* postSearch contact groups
+* getFetch a contact group
+* postEdit a contact group
+* delDelete a contact group
+* Contact Sectors
+* getFetch a list of contact sectors
+* postSearch contact sectors
+* Additional Addresses
+* getFetch a list of additional addresses
+* postCreate additional address
+* postSearch additional addresses
+* getFetch an additional address
+* postEdit an additional address
+* delDelete an additional address
+* Salutations
+* getFetch a list of salutations
+* postCreate salutation
+* postSearch salutations
+* getFetch a salutation
+* postEdit a salutation
+* delDelete a salutation
+* Titles
+* getFetch a list of titles
+* postCreate title
+* postSearch titles
+* getFetch a title
+* postEdit a title
+* delDelete a title
+* Sales Order Management
+* Quotes
+* getFetch a list of quotes
+* postCreate quote
+* postSearch quotes
+* getFetch a quote
+* postEdit a quote
+* delDelete a quote
+* postIssue a quote
+* postRevert issue a quote
+* postAccept a quote
+* postDecline a quote
+* postReissue a quote
+* postMark quote as sent
+* getShow PDF
+* postSend a quote
+* postCopy a quote
+* postCreate order from quote
+* postCreate invoice from quote
+* Orders
+* getFetch a list of orders
+* postCreate order
+* postSearch orders
+* getFetch an order
+* postEdit an order
+* delDelete an order
+* postCreate delivery from order
+* postCreate invoice from order
+* getShow PDF
+* getShow repetition
+* postEdit a repetition
+* delDelete a repetition
+* Deliveries
+* getFetch a list of deliveries
+* getFetch a delivery
+* postIssue a delivery
+* Invoices
+* getFetch a list of invoices
+* postCreate invoice
+* postSearch invoices
+* getFetch an invoice
+* postEdit an invoice
+* delDelete an invoice
+* getShow PDF
+* postCopy a invoice
+* postIssue an invoice
+* postSets issued invoice to draft
+* postCancel an invoice
+* postMark invoice as sent
+* postSend an invoice
+* getFetch a list of payments
+* postCreate payment
+* getFetch a payment
+* delDelete a payment
+* getFetch a list of reminders
+* postCreate reminder
+* postSearch invoice reminders
+* getFetch a reminder
+* delDelete a reminder
+* postMark reminder as sent
+* postMark reminder as unsent
+* postSend a reminder
+* getShow reminder PDF
+* Document Settings
+* getFetch a list of document settings
+* Comments
+* getFetch a list of comments
+* postCreate a comment
+* getFetch a comment
+* Default positions
+* getFetch a list of default positions
+* postCreate a default position
+* getFetch a default position
+* postEdit a default position
+* delDelete a default position
+* Item positions
+* getFetch a list of item positions
+* postCreate an item position
+* getFetch an item position
+* postEdit an item position
+* delDelete a item position
+* Text positions
+* getFetch a list of text positions
+* postCreate a text position
+* getFetch a text position
+* postEdit a text position
+* delDelete a text position
+* Subtotal positions
+* getFetch a list of subtotal positions
+* postCreate a subtotal position
+* getFetch a subtotal position
+* postEdit a subtotal position
+* delDelete a subtotal position
+* Discount positions
+* getFetch a list of discount positions
+* postCreate a discount position
+* getFetch a discount position
+* postEdit a discount position
+* delDelete a discount position
+* Pagebreak positions
+* getFetch a list of pagebreak positions
+* postCreate a pagebreak position
+* getFetch a pagebreak position
+* postEdit a pagebreak position
+* delDelete a pagebreak position
+* Sub positions
+* getFetch a list of sub positions
+* postCreate a sub position
+* getFetch a sub position
+* postEdit a sub position
+* delDelete a sub position
+* Document templates
+* getList document templates
+* Purchase
+* Bills
+* getGet Bills
+* postCreate new Bill
+* getGet Bill
+* putUpdate Bill
+* delDelete Bill
+* putUpdate Bill status
+* postExecute Bill action
+* getValidate whether document number is available or not
+* Expenses
+* getGet Expenses
+* postCreate new Expense
+* getGet Expense
+* putUpdate Expense
+* delDelete Expense
+* putUpdate Expense status
+* postExecute Expense action
+* getValidate whether document number is available or not
+* Purchase Orders
+* getFetch a list of purchase orders
+* postCreate a purchase order
+* getFetch a single purchase order
+* putUpdate a single purchase order
+* delDelete a purchase order
+* Outgoing Payment
+* getRetrieve Outgoing Payments
+* putEdit Outgoing Payment
+* postCreate new Outgoing Payment
+* getGet Outgoing Payment
+* delDelete Outgoing Payment
+* Accounting
+* Accounts
+* getFetch a list of accounts
+* postSearch Accounts
+* Account Groups
+* getFetch a list of account groups
+* Calendar Years
+* getFetch a list of calendar years
+* postCreate calendar year.
+* postSearch calendar years
+* getFetch a calendar year
+* Business Years
+* getFetch a list of business years
+* getFetch a business year
+* Currencies
+* getFetch a list of currencies
+* postCreate a currency
+* getFetch a currency
+* delDelete a currency
+* patchUpdate a currency
+* getFetch exchange rates for currencies
+* getFetch all possible currency codes
+* Manual Entries
+* getFetch a list of manual entries
+* postCreate manual entry
+* putUpdate manual entry
+* delDelete manual entry
+* getGet next reference number
+* getFetch files of manual entry line
+* postAdd file to manual entry line
+* getFetch file of manual entry line
+* delDelete connection between file and manual entry line
+* getFetch files of manual compound entry
+* postAdd file to manual compound entry
+* getFetch file of manual compound entry
+* delDelete connection between file and manual compound entry
+* Reports
+* getJournal
+* Taxes
+* getFetch a list of taxes
+* getFetch a tax
+* delDelete a tax
+* Vat Periods
+* getFetch a list of vat periods
+* getFetch a vat period
+* Banking
+* Bank Accounts
+* getFetch a list of bank accounts
+* getFetch a single bank account
+* IBAN Payments
+* postCreate IBAN payment
+* getGet IBAN payment
+* patchUpdate IBAN payment
+* QR Payments
+* postCreate QR payment
+* getGet QR payment
+* patchUpdate QR payment
+* Payments
+* getFetch a list of payments
+* postCancel a payment
+* delDelete a payment
+* getFetch a list of all payments
+* postCreate a payment
+* getGet a payment
+* putUpdate a payment
+* delDelete a payment
+* postCancel a payment
+* Items & Products
+* Items
+* getFetch a list of items
+* postCreate item
+* postSearch items
+* getFetch an item
+* postEdit an item
+* delDelete an item
+* Stock locations
+* getFetch a list of stock locations
+* postSearch stock locations
+* Stock Areas
+* getFetch a list of stock areas
+* postSearch stock areas
+* Projects & Time Tracking
+* Projects
+* getFetch a list of projects
+* postCreate project
+* postSearch projects
+* getFetch a project
+* postEdit a project
+* delDelete a project
+* postArchive a project
+* postUnarchive a project
+* getProject status
+* getProject types
+* getFetch a list of milestones
+* postCreate milestone
+* getFetch a milestone
+* postEdit a milestone
+* delDelete a milestone
+* getFetch a list of work packages
+* postCreate work package
+* getFetch a work package
+* delDelete a work package
+* patchEdit a work package
+* Timesheets
+* getFetch a list of timesheets
+* postCreate timesheet
+* postSearch timesheets
+* getFetch a timesheet
+* postEdit a timesheet
+* delDelete a timesheet
+* getTimesheet status
+* Business Activities
+* getFetch a list of business activities
+* postCreate business activity
+* postSearch business activities
+* Communication Types
+* getFetch a list of communication types
+* postSearch communication types
+* Files
+* Files
+* getFetch a list of files
+* postCreate new file
+* postSearch files
+* getGet single file
+* delDelete a existing file
+* patchUpdate existing file
+* getDownload file
+* getGet file preview
+* getShow file usage
+* Payroll
+* Employees
+* getRetrieves all active employees
+* postCreate employee
+* getRetrieve a single employee on a specific date
+* patchUpdate employee
+* Absences
+* getRetrieving absences of employee for given year
+* postCreate absence for employee
+* getRetrieving absence for employee with given absence id
+* putUpdating existing absence
+* delDeleting employee absence with given id
+* Documents
+* getRetrieving pdf for employee for given month
+* Other endpoints
+* Company Profile
+* getFetch a list of company profiles
+* getShow company profile
+* Countries
+* getFetch a list of countries
+* postCreate country
+* postSearch countries
+* getFetch a country
+* postEdit a country
+* delDelete a country
+* Languages
+* getFetch a list of languages
+* postSearch languages
+* Notes
+* getFetch a list of notes
+* postCreate note
+* postSearch notes
+* getFetch a note
+* postEdit a note
+* delDelete a note
+* Payment Types
+* getFetch a list of payment types
+* postSearch payment types
+* Permissions
+* getGet access information of logged in user
+* Tasks
+* getFetch a list of tasks
+* postCreate task
+* postSearch tasks
+* getFetch a task
+* postEdit a task
+* delDelete a task
+* getTask priorities
+* getTask status
+* Units
+* getFetch a list of units
+* postCreate unit
+* postSearch units
+* getFetch a unit
+* postEdit a unit
+* delDelete a unit
+* User Management
+* getFetch a list of users
+* getFetch a user
+* getFetch the authenticated user
+* getFetch a list of fictional users
+* postCreate a fictional user
+* getFetch a fictional User
+* delDelete a fictional user
+* patchUpdate a fictional User
 
 API docs by Redocly
 
@@ -427,13 +427,13 @@ First steps
 
 In order to use the bexio API, you need to follow the following steps in order:
 
-1.  Create a bexio account by signing up for a trial account at https://www.bexio.com and complete the onboarding process. If you already have a bexio account, you can skip this step.
-2.  Go to the developer portal at https://developer.bexio.com and log in using your bexio credentials.
-3.  Read and accept the terms and conditions
-4.  Create a new app and make sure that you define a valid site for the "Allowed redirect URL" field(s)
-5.  By clicking on the section "App Details" you can reveal the Client ID and Client Secret
-6.  Initiate the Authorization Code Flow to obtain an access token.
-7.  Use the access token to create a request to the bexio API. The example below fetches a list of contacts (make sure to request the scope `contact_show` in the authorization code flow)
+1. Create a bexio account by signing up for a trial account at <https://www.bexio.com> and complete the onboarding process. If you already have a bexio account, you can skip this step.
+2. Go to the developer portal at <https://developer.bexio.com> and log in using your bexio credentials.
+3. Read and accept the terms and conditions
+4. Create a new app and make sure that you define a valid site for the "Allowed redirect URL" field(s)
+5. By clicking on the section "App Details" you can reveal the Client ID and Client Secret
+6. Initiate the Authorization Code Flow to obtain an access token.
+7. Use the access token to create a request to the bexio API. The example below fetches a list of contacts (make sure to request the scope `contact_show` in the authorization code flow)
 
 ```
 curl -X GET \
@@ -441,403 +441,6 @@ https://api.bexio.com/2.0/contact \
 -H 'Accept: application/json' \
 -H 'Authorization: Bearer {access-token}'
 ```
-
-> Make sure to replace `{access-token}` with the token you received in Step 6.
-
-Reporting a problem
--------------------
-
-If you've encountered a bug, we're here to help. Before you begin, ensure you can reproduce the issue using a tool for testing APIs, such as Postman. To report the problem, please use the form provided below. Be sure to include detailed steps allowing us to reproduce the issue. However, do not include any credentials in your report.
-
-Report a problem
-
-Please do note that the API is provided as is based on this very documentation, there is no guided implementation or code support available.
-
-Changelog
----------
-
-We will list any changes to the current version of the API here.
-
-| Date | Details of changes |
-| --- | --- |
-| 2025-09-19 | 
-*   Added documentation for the new payment (4.0) endpoints.
-*   Marked old payment (3.0) endpoints for deprecation.
-
-|
-| 2025-08-14 | 
-
-*   Added documentation for bill outgoing payment edit endpoint.
-
-|
-| 2025-08-04 | 
-
-*   Added the field `annual` to the response body **type** of the following endpoints:
-*   Fetch a list of vat periods
-*   Fetch a vat period
-
-|
-| 2025-08-04 | 
-
-*   Added the field `is_annual_reporting` to the **request payload** of the following endpoints:
-*   Create Calendar Year
-*   Added the same fields to the **response body** of the following endpoints:
-*   Create Calendar Year
-*   Search Calendar Years
-*   List Calendar Years
-*   Show Calendar Year
-
-|
-| 2025-07-08 | 
-
-*   Added the fields `street_name`, `house_number` to the **request payload** of the following endpoints:
-*   Create Employee
-*   Update Employee
-*   Added the same fields to the **response body** of the following endpoints:
-*   Create Employee
-*   Update Employee
-*   Retrieves all active employees
-*   Retrieve a single employee on a specific date
-*   Deprecated the field `street` in the **request payloads** of affected endpoints; it is still present in responses for backward compatibility.
-
-|
-| 2025-06-06 | 
-
-*   Added the fields `owner_house_number` and `owner_country_code` to the **response body** of the following endpoints:
-*   Fetch List of Bank Accounts
-*   Fetch Single Bank Account
-
-|
-| 2025-06-04 | 
-
-*   Added the fields `street_name`, `house_number`, and `address_addition` to the **request payload** of the following endpoints:
-*   Create Contact
-*   Edit Contact
-*   Create Additional Address
-*   Edit Additional Address
-*   Bulk Create Contacts
-*   Added the same fields to the **response body** of the following endpoints:
-*   Create Contact
-*   Edit Contact
-*   Fetch a List of Contacts
-*   Fetch a Contact
-*   Search Contacts
-*   Create Additional Address
-*   Edit Additional Address
-*   Fetch a List of Additional Addresses
-*   Fetch an Additional Address
-*   Search Additional Addresses
-*   Bulk Create Contacts
-*   Deprecated the field `address` in the **request payloads** of affected endpoints; it is still present in responses for backward compatibility.
-
-|
-| 2025-06-02 | 
-
-*   Added the field `name_addition` to the **request payload** of the following endpoints:
-*   Create additional address
-*   Search additional addresses
-*   Edit an additional address
-*   Added the same field to the **response body** of the following endpoints:
-*   Fetch a list of additional addresses
-*   Create additional address
-*   Search additional addresses
-*   Fetch an additional address
-*   Edit an additional address
-
-|
-| 2025-04-14 | 
-
-*   Payroll scopes have been added to the API Scopes section
-*   Required scopes have been added for all relevant payroll endpoints (there is no change in the required scopes - only the documentation is updated with missing information).
-
-|
-| 2024-12-17 | 
-
-*   Added Payroll API.
-
-|
-| 2024-11-15 | 
-
-*   Added the field `user_id` to the project endpoints response.
-*   Added the field `user_id` to the project endpoints response.
-*   Added the field `user_id` to the project endpoints response.
-*   Added the field `user_id` to the project endpoints response.
-*   Added the field `user_id` to the project endpoints response.
-
-|
-| 2024-10-22 | 
-
-*   Replaced "API Tokens" section with Personal Access Tokens (PAT).
-
-|
-| 2024-10-01 | 
-
-*   Changed IdP URL from https://idp.bexio.com to https://auth.bexio.com/realms/bexio
-*   Added new company\_profile scope.
-
-|
-| 2024-08-06 | 
-
-*   Added the field `base_currency_id` to the journal endpoint. This field is read only and can not be changed through the API.
-*   Added the field `currency_factor` to the journal endpoint. This field is read only and can not be changed through the API.
-*   Added the field `base_currency_amount` to the journal endpoint. This field is read only and can not be changed through the API.
-
-|
-| 2024-07-15 | 
-
-*   Added Update manual entry endpoint.
-*   Added Delete manual entry endpoint.
-*   Added Fetch files of manual compound entry endpoint.
-*   Added Add file to manual compound entry endpoint.
-*   Added Fetch file of manual compound entry endpoint.
-*   Added Delete connection between file and manual compound entry endpoint.
-
-|
-| 2024-07-15 | 
-
-*   Updated description of Add file to accounting entry line endpoint to reference only manual\_single\_entry and manual\_group\_entry entries .
-*   Updated description of Fetch file of accounting entry line endpoint to reference only manual\_single\_entry and manual\_group\_entry entries .
-*   Updated description of Delete file of accounting entry line endpoint to reference only manual\_single\_entry and manual\_group\_entry entries .
-
-|
-| 2024-06-14 | 
-
-*   Added date and embed query parameter and response fields to the Fetch a list of currencies endpoint.
-
-|
-| 2024-05-29 | 
-
-*   Added date query parameter and response fields to the Fetch exchange rates for currencies endpoint.
-
-|
-| 2024-02-14 | 
-
-*   Removed legacy API documentation.
-
-|
-| 2023-12-11 | 
-
-*   receiver\_house\_no marked as required for IBAN and QR payments on purchase outgoing payment endpoint.
-
-|
-| 2023-10-25 | 
-
-*   New optional payment street and payment house number fields added to purchase bill endpoints to allow storing of structured payment address.
-
-|
-| 2023-10-09 | 
-
-*   Change in create Purchase Order endpoint - contact\_id has to be an integer.
-
-|
-| 2023-08-28 | 
-
-*   Added new tax types to list of taxes and fetch a tax.
-
-|
-| 2023-08-02 | 
-
-*   Purchase scopes have been added to the API Scopes section
-*   Required scopes have been updated for all relevant purchase endpoints (there is no change in the required scopes - only the documentation is updated with missing information).
-
-|
-| 2023-05-16 | 
-
-*   Updated guide to migrate clients away from the legacy API to cover all possible scenarios.
-*   Announce 30.11.2023 as the shutdown date of the legacy API.
-
-|
-| 2023-04-25 | 
-
-*   Added rate limiting section that explains RateLimit HTTP headers.
-
-|
-| 2023-04-13 | 
-
-*   `bill_id` has been removed from the documentation for creating and updating QR and IBAN payments as it is unused
-
-|
-| 2023-01-31 | 
-
-*   Draft QR payments can be added to purchase bills in EUR currency
-*   Outgoing QR payments can be created for purchase bills in EUR currency
-
-|
-| 2022-10-10 | 
-
-*   Changed Edit a work package method from POST to PATCH.
-*   Deprecated html\_text attribute in article endpoints parameters and responses.
-*   Added maximum limit value 500 in Bills.
-*   Changed Update a single purchase order method from POST to PUT.
-*   Line-items now start at position 0 in bill endpoints.
-
-|
-| 2022-09-21 | 
-
-*   Bill status update endpoint - validation rules for booking account updated.
-*   Expense status update endpoint - validation rules for booking account updated.
-
-|
-| 2022-08-26 | 
-
-*   IS payment endpoints have been removed as only QR payments are valid after 30.09.2022
-*   ISR payment endpoints have been removed as only QR payments are valid after 30.09.2022
-*   ISR fields in bank account endpoints have been deprecated as only QR payments are valid after 30.09.2022
-*   IS/ISR payment types have been removed from bill and outgoing payments endpoints as only QR payments are valid after 30.09.2022
-
-|
-| 2022-04-19 | 
-
-*   Fixed the language of the recipient’s country field in the sales documents.
-
-|
-| 2022-03-22 | 
-
-*   Added optional parameter to attach the invoice PDF directly to the sending email endpoint.
-*   Added optional parameter to attach the quote PDF directly to the sending email endpoint.
-
-|
-| 2022-03-08 | 
-
-*   Added new restore endpoint which allows to restore archived contacts.
-*   Added new query parameter to show archived contacts for contact search, list and fetch.
-
-|
-| 2021-12-02 | 
-
-*   Added new support form.
-*   Implemented delete a contact group endpoint.
-
-|
-| 2021-10-18 | 
-
-*   Corrected the limit for all API endpoints (max limit is enforced to 2000).
-*   Changed the default limit of GET requests to 500 (instead of 1000).
-
-|
-| 2021-07-23 | 
-
-*   Added the field `ref_uuid` to the report endpoint. This field is read only and can not be changed through the API.
-
-|
-| 2021-01-08 | 
-
-*   Added the field `uuid` to the project endpoints. This field is read only and can not be changed through the API.
-
-|
-| 2020-12-16 | 
-
-*   Adjusted the timesheet endpoints so that it includes the stopwatch information in the attribute `tracking`
-
-|
-| 2020-12-08 | 
-
-*   Added the section purchase that contains bills, expenses and purchase orders. Please note that Purchase APIs for Bills, Expenses and Outgoing Payments are available only for users already using the new purchase module https://www.bexio.com/en-CH/purchase.
-*   Updated the files endpoints to include all attributes in the response
-*   Added all search parameters to the Search files endpoint
-*   Significantly improved the response time of all API endpoints. For some endpoints the average response time is reduced by up to 40%.
-
-|
-| 2020-11-02 | 
-
-*   The documentation for creating a purchase order was updated because the sample payload and response of the request were wrong
-
-|
-| 2020-09-24 | 
-
-*   Added new endpoints to retrieve and edit purchase orders
-
-|
-| 2020-09-21 | 
-
-*   Added new endpoint List document templates to retrieve the list of document templates
-*   Added the field `template_slug` to the Quotes, Orders and Invoices endpoints
-*   The field `logopaper_id` used in above mentioned endpoints has been deprecated in favor of the new field `template_slug`
-
-|
-| 2020-09-09 | 
-
-*   Added the field `source_type` to the File Response and Create new file endpoints
-*   The field `source_id` used in file endpoints has been deprecated in favor of the new field `source_type`.
-
-|
-| 2020-07-07 | 
-
-*   Added new inbox/file endpoints that can be used to retrieve and upload files
-
-|
-| 2020-07-07 | 
-
-*   Added field `qr_invoice_id` to the Fetch an invoice endpoint
-*   Added field `additional_information` to the QR payment endpoints
-
-|
-| 2020-06-30 | 
-
-*   Added new endpoints to retrieve and create QR invoice payments
-
-|
-| 2020-06-25 | 
-
-*   Added new endpoints to retrieve and edit project milestones
-*   Added new endpoints to retrieve and edit project work packages
-
-|
-| 2020-06-10 | 
-
-*   Added new endpoint to retrieve permissions of a signed in user
-*   Added new endpoints to create and retrieve fictional users
-
-|
-| 2020-06-04 | 
-
-*   Added a new section Refresh Token Flow that details the refresh token flow.
-*   Added a new FAQ entry for the purchase API
-*   Added a new section Support
-
-|
-| 2020-05-28 | 
-
-*   Added new endpoint to cancel invoices
-*   Added new endpoint to change issued invoices to draft
-*   Added new endpoint to search for accounts
-*   Added search parameter `intern_code` to the Search Items endpoint
-*   Added search parameter `api_reference` to the Search Invoices endpoint
-*   Added search parameter `iso_639_1` to the Search Languages endpoint
-
-|
-| 2020-04-20 | 
-
-*   Added 201 response for the endpoint Create IS payment to the documentation.
-*   Changed the name of the parameter `unique_id` to `instruction_id` in the documentation for all IS payment endpoints (was always returned as `instruction_id` through the API).
-
-|
-| 2020-04-16 | 
-
-*   Added the section API Tokens that details how server-to-server connections without the consent flow can be established.
-
-|
-| 2020-03-31 | 
-
-*   A more detailed description explaining how to retrieve all valid sales taxes from the API has been added to the `tax_id` parameter for line items on quotes, orders and invoices.
-
-|
-| 2020-02-20 | 
-
-*   Fixed 404 access errors for the Accounts and Account Groups endpoints
-*   Fixed 404 access errors on a handful of `POST` requests (e.g. edit contact, edit invoice, edit project, etc.)
-*   Fixed issue within the creation of projects when the value of the field `pr_budget_type_amount` was not saved when the field `pr_budget_type_id` was set to the value of `1`
-
-|
-| 2020-02-05 | 
-
-*   Fixed access issues to PDF endpoints for quotes, orders and invoices
-*   Added the info that the field `bill_id` can not be used for all create payment endpoints
-
-|
-| 2019-12-16 | First version published |
-
-Non-breaking changes may be introduced without changing the API version. These may include additional fields to JSON data structures, optional parameters to API calls, new features that can be exposed through existing API calls, or new API calls.
 
 Authentication
 --------------
@@ -849,14 +452,14 @@ OpenID Connect 1.0 is a simple identity layer on top of the OAuth 2.0 protocol. 
 
 | Key | Value |
 | --- | --- |
-| Issuer | https://auth.bexio.com/realms/bexio |
-| OpenID Configuration URL | https://auth.bexio.com/realms/bexio/.well-known/openid-configuration |
-| Authorization endpoint | https://auth.bexio.com/realms/bexio/protocol/openid-connect/auth |
-| Token endpoint | https://auth.bexio.com/realms/bexio/protocol/openid-connect/token |
-| Userinfo endpoint | https://auth.bexio.com/realms/bexio/protocol/openid-connect/userinfo |
-| JWK endpoint | https://auth.bexio.com/realms/bexio/protocol/openid-connect/certs |
+| Issuer | <https://auth.bexio.com/realms/bexio> |
+| OpenID Configuration URL | <https://auth.bexio.com/realms/bexio/.well-known/openid-configuration> |
+| Authorization endpoint | <https://auth.bexio.com/realms/bexio/protocol/openid-connect/auth> |
+| Token endpoint | <https://auth.bexio.com/realms/bexio/protocol/openid-connect/token> |
+| Userinfo endpoint | <https://auth.bexio.com/realms/bexio/protocol/openid-connect/userinfo> |
+| JWK endpoint | <https://auth.bexio.com/realms/bexio/protocol/openid-connect/certs> |
 
-If you're using the IdP https://idp.bexio.com for obtaining tokens, please make sure to migrate to https://auth.bexio.com/realms/bexio until 2025-03-31. Afterwards, https://idp.bexio.com will no longer be available. Refresh tokens issued from https://idp.bexio.com will be valid on https://auth.bexio.com/realms/bexio but must be exchanged for new refresh tokens until 2025-03-31.
+If you're using the IdP <https://idp.bexio.com> for obtaining tokens, please make sure to migrate to <https://auth.bexio.com/realms/bexio> until 2025-03-31. Afterwards, <https://idp.bexio.com> will no longer be available. Refresh tokens issued from <https://idp.bexio.com> will be valid on <https://auth.bexio.com/realms/bexio> but must be exchanged for new refresh tokens until 2025-03-31.
 
 Migration from idp.bexio.com to auth.bexio.com
 ----------------------------------------------
@@ -873,12 +476,12 @@ Most client applications can migrate to the new IdP by just reconfiguring the UR
 
 | Endpoint | Old URL | New URL |
 | --- | --- | --- |
-| Issuer | https://idp.bexio.com | https://auth.bexio.com/realms/bexio |
-| OpenID Configuration URL | https://idp.bexio.com/.well-known/openid-configuration | https://auth.bexio.com/realms/bexio/.well-known/openid-configuration |
-| Authorization endpoint | https://idp.bexio.com/authorize | https://auth.bexio.com/realms/bexio/protocol/openid-connect/auth |
-| Token endpoint | https://idp.bexio.com/token | https://auth.bexio.com/realms/bexio/protocol/openid-connect/token |
-| Userinfo endpoint | https://idp.bexio.com/userinfo | https://auth.bexio.com/realms/bexio/protocol/openid-connect/userinfo |
-| JWK endpoint | https://idp.bexio.com/jwk | https://auth.bexio.com/realms/bexio/protocol/openid-connect/certs |
+| Issuer | <https://idp.bexio.com> | <https://auth.bexio.com/realms/bexio> |
+| OpenID Configuration URL | <https://idp.bexio.com/.well-known/openid-configuration> | <https://auth.bexio.com/realms/bexio/.well-known/openid-configuration> |
+| Authorization endpoint | <https://idp.bexio.com/authorize> | <https://auth.bexio.com/realms/bexio/protocol/openid-connect/auth> |
+| Token endpoint | <https://idp.bexio.com/token> | <https://auth.bexio.com/realms/bexio/protocol/openid-connect/token> |
+| Userinfo endpoint | <https://idp.bexio.com/userinfo> | <https://auth.bexio.com/realms/bexio/protocol/openid-connect/userinfo> |
+| JWK endpoint | <https://idp.bexio.com/jwk> | <https://auth.bexio.com/realms/bexio/protocol/openid-connect/certs> |
 
 Other configuration options like `client_id`, `client_secret` or `scope` do not need to be changed.
 
@@ -886,35 +489,35 @@ Other configuration options like `client_id`, `client_secret` or `scope` do not 
 
 From a client perspective, there are some minor improvements that simplify the correct use of id and access tokens:
 
-*   Claims in id tokens are aligned with the `/userinfo` endpoint. Id tokens will contain the following claims if the according scope is requested:
-*   scope: `profile`, claims: `given_name`, `family_name`, `gender`, `locale`
-*   scope: `email`, claims: `email`, `email_verified`
-*   In addition, the following scope has been added to request access to company information in id tokens and the `/userinfo` endpoint:
-*   scope: `company_profile`, claims: `company_id`, `company_name`, `company_user_id`
+* Claims in id tokens are aligned with the `/userinfo` endpoint. Id tokens will contain the following claims if the according scope is requested:
+* scope: `profile`, claims: `given_name`, `family_name`, `gender`, `locale`
+* scope: `email`, claims: `email`, `email_verified`
+* In addition, the following scope has been added to request access to company information in id tokens and the `/userinfo` endpoint:
+* scope: `company_profile`, claims: `company_id`, `company_name`, `company_user_id`
 
 ### Are there breaking changes?
 
 The new IdP differs in some of the claims provided by the access and id tokens returned by the `/token` endpoint and in some of the properties provided by the `/userinfo` endpoint. The breaking changes affect the following claims:
 
-*   `iss` - This claim identifies the issuer of the token and is currently `"https://idp.bexio.com"`. With the switch to the new IdP the value will change to `"https://auth.bexio.com/realms/bexio"`.
-*   `sub` - This claim identifies the user who granted the creation of the token. Currently, the claim equals to the user’s email address. The new IdP will instead return a UUID identifying the user within bexio equal to the `login_id` claim.
-*   If you’re using the `sub` claim to identify the user, consider switching to the `login_id` claim before migrating to `auth.bexio.com`. `login_id` will be identical on both the old and the new IdP for a given user.
-*   If you’re using the `sub` claim to get access to the user’s email address, consider to use the `email` claim instead. Please note that the claim is only available if the `email` scope has been granted to your client. Alternatively, you can use the `/3.0/users/me endpoint` (docs).
-*   `locale` - Contains the user’s default locale if the user grants access to the `openid profile` scope and is provided by the `/userinfo` endpoint. `idp.bexio.com` currently uses the non-compliant underscore to separate language code from country code (as in `de_CH`). `auth.bexio.com` will provide the locale in the OIDC compliant format using a hyphen (e.g. `de-CH`).
-*   `shard_id` - This claim will no longer be available.
+* `iss` - This claim identifies the issuer of the token and is currently `"https://idp.bexio.com"`. With the switch to the new IdP the value will change to `"https://auth.bexio.com/realms/bexio"`.
+* `sub` - This claim identifies the user who granted the creation of the token. Currently, the claim equals to the user’s email address. The new IdP will instead return a UUID identifying the user within bexio equal to the `login_id` claim.
+* If you’re using the `sub` claim to identify the user, consider switching to the `login_id` claim before migrating to `auth.bexio.com`. `login_id` will be identical on both the old and the new IdP for a given user.
+* If you’re using the `sub` claim to get access to the user’s email address, consider to use the `email` claim instead. Please note that the claim is only available if the `email` scope has been granted to your client. Alternatively, you can use the `/3.0/users/me endpoint` (docs).
+* `locale` - Contains the user’s default locale if the user grants access to the `openid profile` scope and is provided by the `/userinfo` endpoint. `idp.bexio.com` currently uses the non-compliant underscore to separate language code from country code (as in `de_CH`). `auth.bexio.com` will provide the locale in the OIDC compliant format using a hyphen (e.g. `de-CH`).
+* `shard_id` - This claim will no longer be available.
 
 Additionally, the following will change with the switch to the new IdP:
 
-*   Offline sessions will have an idle timeout of 1 year. An offline session is created if tokens are requested with the `offline_access` scope. The returned refresh token will be valid indefinitely but the associated offline session will be closed if not renewed within 1 year. This effectively means that tokens must be refreshed within 1 year.
-*   idp.bexio.com supports accepting some parameters to the `/token` endpoint as query parameters in the URL. This behavior is no longer supported in the new IdP and all parameters must be passed in the request body.
-*   In some cases, you may run into more strict CORS policies after switching to the new IdP. These issues can be mitigated by adding your web origin as a valid redirect URL for your app on https://developer.bexio.com. Redirect URLs will be accepted as valid web origins for requests from the according client.
+* Offline sessions will have an idle timeout of 1 year. An offline session is created if tokens are requested with the `offline_access` scope. The returned refresh token will be valid indefinitely but the associated offline session will be closed if not renewed within 1 year. This effectively means that tokens must be refreshed within 1 year.
+* idp.bexio.com supports accepting some parameters to the `/token` endpoint as query parameters in the URL. This behavior is no longer supported in the new IdP and all parameters must be passed in the request body.
+* In some cases, you may run into more strict CORS policies after switching to the new IdP. These issues can be mitigated by adding your web origin as a valid redirect URL for your app on <https://developer.bexio.com>. Redirect URLs will be accepted as valid web origins for requests from the according client.
 
 ### Do users have to re-authorize my application after the switch?
 
 To answer this question we have to distinguish between two cases:
 
-*   Applications using refresh tokens can migrate refresh tokens issued by `idp.bexio.com` to the new IdP by passing the tokens to the refresh token grant type on https://auth.bexio.com/realms/bexio. When the new IdP receives a refresh token issued by `idp.bexio.com`, the according user consent will be imported. This means that users wont be required to re-authorize your application in this case. Keep in mind though that this requires that applications replace refresh tokens with the new refresh tokens provided during the token refresh instead of reusing the refresh token received with the initial call to the token endpoint. Also, tokens have to be refreshed at least once before `idp.bexio.com` is decommissioned on 31.03.2025.
-*   If refresh tokens are not used, users will be required to give consent to the scope requested by your application again after switching to the new IdP.
+* Applications using refresh tokens can migrate refresh tokens issued by `idp.bexio.com` to the new IdP by passing the tokens to the refresh token grant type on <https://auth.bexio.com/realms/bexio>. When the new IdP receives a refresh token issued by `idp.bexio.com`, the according user consent will be imported. This means that users wont be required to re-authorize your application in this case. Keep in mind though that this requires that applications replace refresh tokens with the new refresh tokens provided during the token refresh instead of reusing the refresh token received with the initial call to the token endpoint. Also, tokens have to be refreshed at least once before `idp.bexio.com` is decommissioned on 31.03.2025.
+* If refresh tokens are not used, users will be required to give consent to the scope requested by your application again after switching to the new IdP.
 
 API Scopes
 ----------
@@ -992,16 +595,16 @@ Meaning that a user which doesn’t have access to the contact will not have acc
 
 ### How it works
 
-1.  The user clicks Login within the regular web application.
-2.  The web application redirects the user to the `/authorize` endpoint of the bexio OpenID Connect service.
-3.  The bexio OpenID Connect Service displays the login page.
-4.  The user authenticates and sees a consent page listing the permissions bexio will give to the web application.
-5.  The user is redirected back to the web application with an Authorization Code.
-6.  The web application sends this code to the bexio OpenID Connect service (`/token` endpoint) along with the application's Client ID and Client Secret.
-7.  bexio verifies the code, Client ID, and Client Secret.
-8.  An ID Token and Access Token (and optionally, a Refresh Token) is returned to the web application.
-9.  The web application uses the Access Token to call the bexio API.
-10.  The bexio API responds with requested data.
+1. The user clicks Login within the regular web application.
+2. The web application redirects the user to the `/authorize` endpoint of the bexio OpenID Connect service.
+3. The bexio OpenID Connect Service displays the login page.
+4. The user authenticates and sees a consent page listing the permissions bexio will give to the web application.
+5. The user is redirected back to the web application with an Authorization Code.
+6. The web application sends this code to the bexio OpenID Connect service (`/token` endpoint) along with the application's Client ID and Client Secret.
+7. bexio verifies the code, Client ID, and Client Secret.
+8. An ID Token and Access Token (and optionally, a Refresh Token) is returned to the web application.
+9. The web application uses the Access Token to call the bexio API.
+10. The bexio API responds with requested data.
 
 ### Code example (PHP)
 
@@ -1027,19 +630,19 @@ Refresh Token Flow
 
 The scope `offline_access` is required to obtain a refresh token to keep the api connection alive.
 
-1.  POST a request to the endpoint “/token”. Make sure you use the grant type “refresh\_token”. This is implemented according to the standards of OAuth 2.0 RFC 6749
-2.  The response contains a new access token. Please note that the requested scopes do not change when refreshing a token. Acquiring new scopes is only possible by going through the initial authorization process again.
-3.  The new access token can be used to authorize requests and execute API requests
-4.  The bexio API responds with the requested data.
+1. POST a request to the endpoint “/token”. Make sure you use the grant type “refresh\_token”. This is implemented according to the standards of OAuth 2.0 RFC 6749
+2. The response contains a new access token. Please note that the requested scopes do not change when refreshing a token. Acquiring new scopes is only possible by going through the initial authorization process again.
+3. The new access token can be used to authorize requests and execute API requests
+4. The bexio API responds with the requested data.
 
 Redirect URL(s)
 ---------------
 
 > Redirect URLs are a critical part of the OAuth flow. After a user successfully authorizes an application, the authorization server will redirect the user back to the application with either an authorization code or access token in the URL. Because the redirect URL will contain sensitive information, it is critical that the service doesn’t redirect the user to arbitrary locations.
-> 
+>
 > The best way to ensure the user will only be directed to appropriate locations is to require the developer to register one or more redirect URLs when they create the application.
-> 
-> Source https://www.oauth.com/oauth2-servers/redirect-uris/
+>
+> Source <https://www.oauth.com/oauth2-servers/redirect-uris/>
 
 The new bexio API platform requires to define redirect URLs during the app registration in the developer portal. Unknown URLs will not be accepted during the Authorization and the user will receive an error message.
 
@@ -1050,11 +653,11 @@ Please make sure to always use a separate set of Client ID and Client Secret for
 Personal Access Tokens (PAT)
 ----------------------------
 
-Personal Access Tokens (PAT) can be managed on https://developer.bexio.com/pat and are convenient way to issue API access tokens for _personal use_:
+Personal Access Tokens (PAT) can be managed on <https://developer.bexio.com/pat> and are convenient way to issue API access tokens for _personal use_:
 
-*   A PAT has all default scopes granted and therefore has full access to your company's data.
-*   A PAT is valid for six months after creation.
-*   A PAT can be revoked by deleting it on developer.bexio.com. After deletion, a PAT can no longer be used to access the API. In the worst case, it might take up to 1 hour until the revocation takes full effect. Subsystems might still be accessible by the token during this period.
+* A PAT has all default scopes granted and therefore has full access to your company's data.
+* A PAT is valid for six months after creation.
+* A PAT can be revoked by deleting it on developer.bexio.com. After deletion, a PAT can no longer be used to access the API. In the worst case, it might take up to 1 hour until the revocation takes full effect. Subsystems might still be accessible by the token during this period.
 
 If you have other requirements, like restricting the scope granted to a token, please use the Authorization Code Flow instead.
 
@@ -1100,8 +703,8 @@ HTTP headers let the client and the server pass additional information with an H
 
 The following headers must be used for every request:
 
-*   `Accept: application/json`
-*   `Authorization: Bearer <token>`
+* `Accept: application/json`
+* `Authorization: Bearer <token>`
 
 Additionally, the header `Content-Length: <length>` must be specified for requests with a payload.
 
@@ -1261,7 +864,7 @@ Fetch a list of contacts
 
 This action fetches a list of all contacts
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -1287,25 +890,25 @@ get/2.0/contact
 
 Live Server
 
-https://api.bexio.com/2.0/contact
+<https://api.bexio.com/2.0/contact>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/contact \\
+<https://api.bexio.com/2.0/contact> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -1394,7 +997,7 @@ Create contact
 
 This action creates a new contact
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -1436,15 +1039,15 @@ post/2.0/contact
 
 Live Server
 
-https://api.bexio.com/2.0/contact
+<https://api.bexio.com/2.0/contact>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -1516,8 +1119,8 @@ Copy
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -1603,25 +1206,25 @@ Search contacts
 Search contacts via query. Please refer to the Search section for detailed instructions.  
 The following search fields are supported:
 
-*   `id`
-*   `name_1`
-*   `name_2`
-*   `nr`
-*   `address`
-*   `mail`
-*   `mail_second`
-*   `postcode`
-*   `city`
-*   `country_id`
-*   `contact_group_ids`
-*   `contact_type_id`
-*   `updated_at`
-*   `user_id`
-*   `phone_fixed`
-*   `phone_mobile`
-*   `fax`
+* `id`
+* `name_1`
+* `name_2`
+* `nr`
+* `address`
+* `mail`
+* `mail_second`
+* `postcode`
+* `city`
+* `country_id`
+* `contact_group_ids`
+* `contact_type_id`
+* `updated_at`
+* `user_id`
+* `phone_fixed`
+* `phone_mobile`
+* `fax`
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -1661,15 +1264,15 @@ post/2.0/contact/search
 
 Live Server
 
-https://api.bexio.com/2.0/contact/search
+<https://api.bexio.com/2.0/contact/search>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -1697,8 +1300,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -1787,7 +1390,7 @@ Fetch a contact
 
 This action fetches a single contact
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -1815,25 +1418,25 @@ get/2.0/contact/{contact\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/contact/{contact\_id}
+<https://api.bexio.com/2.0/contact/{contact\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/contact/{contact\_id} \\
+<https://api.bexio.com/2.0/contact/{contact\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -1918,7 +1521,7 @@ Edit a contact
 
 This action edits a single contact
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -1963,15 +1566,15 @@ post/2.0/contact/{contact\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/contact/{contact\_id}
+<https://api.bexio.com/2.0/contact/{contact\_id}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -2043,8 +1646,8 @@ Copy
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -2129,7 +1732,7 @@ Delete a contact
 
 This action deletes a contact. Please note that a contact is marked as deleted and can still be accessed by using the "show deleted contacts" filter.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -2152,25 +1755,25 @@ delete/2.0/contact/{contact\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/contact/{contact\_id}
+<https://api.bexio.com/2.0/contact/{contact\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/2.0/contact/{contact\_id} \\
+<https://api.bexio.com/2.0/contact/{contact\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -2191,7 +1794,7 @@ Bulk create contacts
 
 This action creates multiple contacts in one request
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -2233,15 +1836,15 @@ post/2.0/contact/\_bulk\_create
 
 Live Server
 
-https://api.bexio.com/2.0/contact/\_bulk\_create
+<https://api.bexio.com/2.0/contact/\_bulk\_create>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -2319,8 +1922,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -2409,7 +2012,7 @@ Restore a contact
 
 This action restores an archived contact.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -2432,25 +2035,25 @@ patch/2.0/contact/{contact\_id}/restore
 
 Live Server
 
-https://api.bexio.com/2.0/contact/{contact\_id}/restore
+<https://api.bexio.com/2.0/contact/{contact\_id}/restore>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X PATCH \\
-https://api.bexio.com/2.0/contact/{contact\_id}/restore \\
+<https://api.bexio.com/2.0/contact/{contact\_id}/restore> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -2474,7 +2077,7 @@ Fetch a list of contact relations
 
 This action fetches a list of all contact relations
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -2499,25 +2102,25 @@ get/2.0/contact\_relation
 
 Live Server
 
-https://api.bexio.com/2.0/contact\_relation
+<https://api.bexio.com/2.0/contact\_relation>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/contact\_relation \\
+<https://api.bexio.com/2.0/contact\_relation> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -2552,7 +2155,7 @@ Create contact relation
 
 This action creates a new contact relation
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -2582,15 +2185,15 @@ post/2.0/contact\_relation
 
 Live Server
 
-https://api.bexio.com/2.0/contact\_relation
+<https://api.bexio.com/2.0/contact\_relation>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -2612,8 +2215,8 @@ Copy
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -2699,11 +2302,11 @@ Search contact relations
 Search contact relations via query. Please refer to the Search section for detailed instructions.  
 The following search fields are supported:
 
-*   `contact_id`
-*   `contact_sub_id`
-*   `updated_at`
+* `contact_id`
+* `contact_sub_id`
+* `updated_at`
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -2742,15 +2345,15 @@ post/2.0/contact\_relation/search
 
 Live Server
 
-https://api.bexio.com/2.0/contact\_relation/search
+<https://api.bexio.com/2.0/contact\_relation/search>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -2778,8 +2381,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -2814,7 +2417,7 @@ Fetch a contact relation
 
 This action fetches a single contact relation
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -2837,25 +2440,25 @@ get/2.0/contact\_relation/{contact\_relation\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/contact\_relation/{contact\_relation\_id}
+<https://api.bexio.com/2.0/contact\_relation/{contact\_relation\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/contact\_relation/{contact\_relation\_id} \\
+<https://api.bexio.com/2.0/contact\_relation/{contact\_relation\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -2884,7 +2487,7 @@ Edit a contact relation
 
 This action edits a single contact relation
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -2917,15 +2520,15 @@ post/2.0/contact\_relation/{contact\_relation\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/contact\_relation/{contact\_relation\_id}
+<https://api.bexio.com/2.0/contact\_relation/{contact\_relation\_id}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -2947,8 +2550,8 @@ Copy
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -2977,7 +2580,7 @@ Delete a contact relation
 
 This action permanently deletes a contact relation. It cannot be undone.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -3000,25 +2603,25 @@ delete/2.0/contact\_relation/{contact\_relation\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/contact\_relation/{contact\_relation\_id}
+<https://api.bexio.com/2.0/contact\_relation/{contact\_relation\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/2.0/contact\_relation/{contact\_relation\_id} \\
+<https://api.bexio.com/2.0/contact\_relation/{contact\_relation\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -3042,7 +2645,7 @@ Fetch a list of contact groups
 
 This action fetches a list of all contact groups
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -3067,25 +2670,25 @@ get/2.0/contact\_group
 
 Live Server
 
-https://api.bexio.com/2.0/contact\_group
+<https://api.bexio.com/2.0/contact\_group>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/contact\_group \\
+<https://api.bexio.com/2.0/contact\_group> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -3114,7 +2717,7 @@ Create contact group
 
 This action creates a new contact group
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -3142,15 +2745,15 @@ post/2.0/contact\_group
 
 Live Server
 
-https://api.bexio.com/2.0/contact\_group
+<https://api.bexio.com/2.0/contact\_group>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -3168,8 +2771,8 @@ Copy
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -3193,9 +2796,9 @@ Search contact groups
 Search contact groups via query. Please refer to the Search section for detailed instructions.  
 The following search fields are supported:
 
-*   `name`
+* `name`
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -3234,15 +2837,15 @@ post/2.0/contact\_group/search
 
 Live Server
 
-https://api.bexio.com/2.0/contact\_group/search
+<https://api.bexio.com/2.0/contact\_group/search>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -3270,8 +2873,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -3300,7 +2903,7 @@ Fetch a contact group
 
 This action fetches a single contact group
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -3323,25 +2926,25 @@ get/2.0/contact\_group/{contact\_group\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/contact\_group/{contact\_group\_id}
+<https://api.bexio.com/2.0/contact\_group/{contact\_group\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/contact\_group/{contact\_group\_id} \\
+<https://api.bexio.com/2.0/contact\_group/{contact\_group\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -3364,7 +2967,7 @@ Edit a contact group
 
 This action edits a single contact group
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -3395,15 +2998,15 @@ post/2.0/contact\_group/{contact\_group\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/contact\_group/{contact\_group\_id}
+<https://api.bexio.com/2.0/contact\_group/{contact\_group\_id}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -3421,8 +3024,8 @@ Copy
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -3445,7 +3048,7 @@ Delete a contact group
 
 This action permanently deletes a contact group. It cannot be undone.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -3468,25 +3071,25 @@ delete/2.0/contact\_group/{contact\_group\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/contact\_group/{contact\_group\_id}
+<https://api.bexio.com/2.0/contact\_group/{contact\_group\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/2.0/contact\_group/{contact\_group\_id} \\
+<https://api.bexio.com/2.0/contact\_group/{contact\_group\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -3510,7 +3113,7 @@ Fetch a list of contact sectors
 
 This action fetches a list of all contact sectors
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -3535,25 +3138,25 @@ get/2.0/contact\_branch
 
 Live Server
 
-https://api.bexio.com/2.0/contact\_branch
+<https://api.bexio.com/2.0/contact\_branch>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/contact\_branch \\
+<https://api.bexio.com/2.0/contact\_branch> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -3583,9 +3186,9 @@ Search contact sectors
 Search contact sectors via query. Please refer to the Search section for detailed instructions.  
 The following search fields are supported:
 
-*   `name`
+* `name`
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -3624,15 +3227,15 @@ post/2.0/contact\_branch/search
 
 Live Server
 
-https://api.bexio.com/2.0/contact\_branch/search
+<https://api.bexio.com/2.0/contact\_branch/search>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -3660,8 +3263,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -3693,7 +3296,7 @@ Fetch a list of additional addresses
 
 This action fetches a list of all additional addresses for a given contact
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -3723,25 +3326,25 @@ get/2.0/contact/{contact\_id}/additional\_address
 
 Live Server
 
-https://api.bexio.com/2.0/contact/{contact\_id}/additional\_address
+<https://api.bexio.com/2.0/contact/{contact\_id}/additional\_address>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/contact/{contact\_id}/additional\_address \\
+<https://api.bexio.com/2.0/contact/{contact\_id}/additional\_address> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -3790,7 +3393,7 @@ Create additional address
 
 This action creates a new additional address
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -3827,15 +3430,15 @@ post/2.0/contact/{contact\_id}/additional\_address
 
 Live Server
 
-https://api.bexio.com/2.0/contact/{contact\_id}/additional\_address
+<https://api.bexio.com/2.0/contact/{contact\_id}/additional\_address>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -3871,8 +3474,8 @@ Copy
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -3916,15 +3519,15 @@ Search additional addresses
 Search additional addresses via query. Please refer to the Search section for detailed instructions.  
 The following search fields are supported:
 
-*   `name`
-*   `address`
-*   `postcode`
-*   `city`
-*   `country_id`
-*   `subject`
-*   `email`
+* `name`
+* `address`
+* `postcode`
+* `city`
+* `country_id`
+* `subject`
+* `email`
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -3968,15 +3571,15 @@ post/2.0/contact/{contact\_id}/additional\_address/search
 
 Live Server
 
-https://api.bexio.com/2.0/contact/{contact\_id}/additional\_address/search
+<https://api.bexio.com/2.0/contact/{contact\_id}/additional\_address/search>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -4004,8 +3607,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -4054,7 +3657,7 @@ Fetch an additional address
 
 This action fetches an additional address for a given contact
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -4078,25 +3681,25 @@ get/2.0/contact/{contact\_id}/additional\_address/{additional\_address\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/contact/{contact\_id}/additional\_address/{additional\_address\_id}
+<https://api.bexio.com/2.0/contact/{contact\_id}/additional\_address/{additional\_address\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/contact/{contact\_id}/additional\_address/{additional\_address\_id} \\
+<https://api.bexio.com/2.0/contact/{contact\_id}/additional\_address/{additional\_address\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -4139,7 +3742,7 @@ Edit an additional address
 
 This action edits an additional address
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -4175,15 +3778,15 @@ post/2.0/contact/{contact\_id}/additional\_address/{additional\_address\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/contact/{contact\_id}/additional\_address/{additional\_address\_id}
+<https://api.bexio.com/2.0/contact/{contact\_id}/additional\_address/{additional\_address\_id}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -4219,8 +3822,8 @@ Copy
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -4263,7 +3866,7 @@ Delete an additional address
 
 This action permanently deletes an additional address. It cannot be undone.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -4287,25 +3890,25 @@ delete/2.0/contact/{contact\_id}/additional\_address/{additional\_address\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/contact/{contact\_id}/additional\_address/{additional\_address\_id}
+<https://api.bexio.com/2.0/contact/{contact\_id}/additional\_address/{additional\_address\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/2.0/contact/{contact\_id}/additional\_address/{additional\_address\_id} \\
+<https://api.bexio.com/2.0/contact/{contact\_id}/additional\_address/{additional\_address\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -4329,7 +3932,7 @@ Fetch a list of salutations
 
 This action fetches a list of all salutations
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -4353,25 +3956,25 @@ get/2.0/salutation
 
 Live Server
 
-https://api.bexio.com/2.0/salutation
+<https://api.bexio.com/2.0/salutation>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/salutation \\
+<https://api.bexio.com/2.0/salutation> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -4400,7 +4003,7 @@ Create salutation
 
 This action creates a new salutation
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -4428,15 +4031,15 @@ post/2.0/salutation
 
 Live Server
 
-https://api.bexio.com/2.0/salutation
+<https://api.bexio.com/2.0/salutation>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -4454,8 +4057,8 @@ Copy
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -4479,9 +4082,9 @@ Search salutations
 Search salutations via query. Please refer to the Search section for detailed instructions.  
 The following search fields are supported:
 
-*   `name`
+* `name`
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -4519,15 +4122,15 @@ post/2.0/salutation/search
 
 Live Server
 
-https://api.bexio.com/2.0/salutation/search
+<https://api.bexio.com/2.0/salutation/search>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -4555,8 +4158,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -4585,7 +4188,7 @@ Fetch a salutation
 
 This action fetches a single salutation
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -4608,25 +4211,25 @@ get/2.0/salutation/{salutation\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/salutation/{salutation\_id}
+<https://api.bexio.com/2.0/salutation/{salutation\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/salutation/{salutation\_id} \\
+<https://api.bexio.com/2.0/salutation/{salutation\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -4649,7 +4252,7 @@ Edit a salutation
 
 This action edits a single salutation
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -4680,15 +4283,15 @@ post/2.0/salutation/{salutation\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/salutation/{salutation\_id}
+<https://api.bexio.com/2.0/salutation/{salutation\_id}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -4706,8 +4309,8 @@ Copy
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -4730,7 +4333,7 @@ Delete a salutation
 
 This action permanently deletes a salutation. It cannot be undone.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -4753,25 +4356,25 @@ delete/2.0/salutation/{salutation\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/salutation/{salutation\_id}
+<https://api.bexio.com/2.0/salutation/{salutation\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/2.0/salutation/{salutation\_id} \\
+<https://api.bexio.com/2.0/salutation/{salutation\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -4795,7 +4398,7 @@ Fetch a list of titles
 
 This action fetches a list of all titles
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -4820,25 +4423,25 @@ get/2.0/title
 
 Live Server
 
-https://api.bexio.com/2.0/title
+<https://api.bexio.com/2.0/title>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/title \\
+<https://api.bexio.com/2.0/title> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -4867,7 +4470,7 @@ Create title
 
 This action creates a new title
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -4895,15 +4498,15 @@ post/2.0/title
 
 Live Server
 
-https://api.bexio.com/2.0/title
+<https://api.bexio.com/2.0/title>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -4921,8 +4524,8 @@ Copy
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -4946,9 +4549,9 @@ Search titles
 Search titles via query. Please refer to the Search section for detailed instructions.  
 The following search fields are supported:
 
-*   `name`
+* `name`
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -4987,15 +4590,15 @@ post/2.0/title/search
 
 Live Server
 
-https://api.bexio.com/2.0/title/search
+<https://api.bexio.com/2.0/title/search>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -5023,8 +4626,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -5053,7 +4656,7 @@ Fetch a title
 
 This action fetches a single title
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -5076,25 +4679,25 @@ get/2.0/title/{title\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/title/{title\_id}
+<https://api.bexio.com/2.0/title/{title\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/title/{title\_id} \\
+<https://api.bexio.com/2.0/title/{title\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -5117,7 +4720,7 @@ Edit a title
 
 This action edits a single title
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -5148,15 +4751,15 @@ post/2.0/title/{title\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/title/{title\_id}
+<https://api.bexio.com/2.0/title/{title\_id}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -5174,8 +4777,8 @@ Copy
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -5198,7 +4801,7 @@ Delete a title
 
 This action permanently deletes a title. It cannot be undone.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -5221,25 +4824,25 @@ delete/2.0/title/{title\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/title/{title\_id}
+<https://api.bexio.com/2.0/title/{title\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/2.0/title/{title\_id} \\
+<https://api.bexio.com/2.0/title/{title\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -5263,7 +4866,7 @@ Fetch a list of quotes
 
 This action fetches a list of all quotes
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -5288,25 +4891,25 @@ get/2.0/kb\_offer
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_offer
+<https://api.bexio.com/2.0/kb\_offer>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/kb\_offer \\
+<https://api.bexio.com/2.0/kb\_offer> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -5413,7 +5016,7 @@ Create quote
 
 This action creates a new quote
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -5496,15 +5099,15 @@ post/2.0/kb\_offer
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_offer
+<https://api.bexio.com/2.0/kb\_offer>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -5606,8 +5209,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -5757,23 +5360,23 @@ Search quotes
 Search quotes via query. Please refer to the Search section for detailed instructions.  
 The following search fields are supported:
 
-*   `id`
-*   `kb_item_status_id`
-*   `document_nr`
-*   `title`
-*   `contact_id`
-*   `contact_sub_id`
-*   `user_id`
-*   `currency_id`
-*   `total_gross`
-*   `total_net`
-*   `total`
-*   `is_valid_from`
-*   `is_valid_to`
-*   `is_valid_until`
-*   `updated_at`
+* `id`
+* `kb_item_status_id`
+* `document_nr`
+* `title`
+* `contact_id`
+* `contact_sub_id`
+* `user_id`
+* `currency_id`
+* `total_gross`
+* `total_net`
+* `total`
+* `is_valid_from`
+* `is_valid_to`
+* `is_valid_until`
+* `updated_at`
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -5812,15 +5415,15 @@ post/2.0/kb\_offer/search
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_offer/search
+<https://api.bexio.com/2.0/kb\_offer/search>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -5848,8 +5451,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -5956,7 +5559,7 @@ Fetch a quote
 
 This action fetches a single quote
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -5979,25 +5582,25 @@ get/2.0/kb\_offer/{quote\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_offer/{quote\_id}
+<https://api.bexio.com/2.0/kb\_offer/{quote\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/kb\_offer/{quote\_id} \\
+<https://api.bexio.com/2.0/kb\_offer/{quote\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -6146,7 +5749,7 @@ Edit a quote
 
 This action edits a single quote
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -6229,15 +5832,15 @@ post/2.0/kb\_offer/{quote\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_offer/{quote\_id}
+<https://api.bexio.com/2.0/kb\_offer/{quote\_id}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -6303,8 +5906,8 @@ Copy
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -6453,7 +6056,7 @@ Delete a quote
 
 This action permanently deletes a quote. It cannot be undone.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -6476,25 +6079,25 @@ delete/2.0/kb\_offer/{quote\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_offer/{quote\_id}
+<https://api.bexio.com/2.0/kb\_offer/{quote\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/2.0/kb\_offer/{quote\_id} \\
+<https://api.bexio.com/2.0/kb\_offer/{quote\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -6515,7 +6118,7 @@ Issue a quote
 
 This action issues a quote. The quote must be in the draft status.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -6538,25 +6141,25 @@ post/2.0/kb\_offer/{quote\_id}/issue
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_offer/{quote\_id}/issue
+<https://api.bexio.com/2.0/kb\_offer/{quote\_id}/issue>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X POST \\
-https://api.bexio.com/2.0/kb\_offer/{quote\_id}/issue \\
+<https://api.bexio.com/2.0/kb\_offer/{quote\_id}/issue> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -6577,7 +6180,7 @@ Revert issue a quote
 
 This action reverts a quote to the draft status
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -6600,25 +6203,25 @@ post/2.0/kb\_offer/{quote\_id}/revertIssue
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_offer/{quote\_id}/revertIssue
+<https://api.bexio.com/2.0/kb\_offer/{quote\_id}/revertIssue>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X POST \\
-https://api.bexio.com/2.0/kb\_offer/{quote\_id}/revertIssue \\
+<https://api.bexio.com/2.0/kb\_offer/{quote\_id}/revertIssue> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -6639,7 +6242,7 @@ Accept a quote
 
 This action accepts a quote. The value `kb_item_status_id` must be `2` in this case.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -6662,25 +6265,25 @@ post/2.0/kb\_offer/{quote\_id}/accept
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_offer/{quote\_id}/accept
+<https://api.bexio.com/2.0/kb\_offer/{quote\_id}/accept>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X POST \\
-https://api.bexio.com/2.0/kb\_offer/{quote\_id}/accept \\
+<https://api.bexio.com/2.0/kb\_offer/{quote\_id}/accept> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -6701,7 +6304,7 @@ Decline a quote
 
 This action declines a quote. The value `kb_item_status_id` must be `2` in this case.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -6724,25 +6327,25 @@ post/2.0/kb\_offer/{quote\_id}/reject
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_offer/{quote\_id}/reject
+<https://api.bexio.com/2.0/kb\_offer/{quote\_id}/reject>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X POST \\
-https://api.bexio.com/2.0/kb\_offer/{quote\_id}/reject \\
+<https://api.bexio.com/2.0/kb\_offer/{quote\_id}/reject> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -6763,7 +6366,7 @@ Reissue a quote
 
 This action re-issues a quote. Meaning the status is changed to pending from either accepted or declined.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -6786,25 +6389,25 @@ post/2.0/kb\_offer/{quote\_id}/reissue
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_offer/{quote\_id}/reissue
+<https://api.bexio.com/2.0/kb\_offer/{quote\_id}/reissue>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X POST \\
-https://api.bexio.com/2.0/kb\_offer/{quote\_id}/reissue \\
+<https://api.bexio.com/2.0/kb\_offer/{quote\_id}/reissue> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -6825,7 +6428,7 @@ Mark quote as sent
 
 This action marks a quote as sent
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -6848,25 +6451,25 @@ post/2.0/kb\_offer/{quote\_id}/mark\_as\_sent
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_offer/{quote\_id}/mark\_as\_sent
+<https://api.bexio.com/2.0/kb\_offer/{quote\_id}/mark\_as\_sent>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X POST \\
-https://api.bexio.com/2.0/kb\_offer/{quote\_id}/mark\_as\_sent \\
+<https://api.bexio.com/2.0/kb\_offer/{quote\_id}/mark\_as\_sent> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -6887,7 +6490,7 @@ Show PDF
 
 This action returns a pdf document of the quote.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -6911,25 +6514,25 @@ get/2.0/kb\_offer/{quote\_id}/pdf
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_offer/{quote\_id}/pdf
+<https://api.bexio.com/2.0/kb\_offer/{quote\_id}/pdf>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/kb\_offer/{quote\_id}/pdf \\
+<https://api.bexio.com/2.0/kb\_offer/{quote\_id}/pdf> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -6956,7 +6559,7 @@ Send a quote
 
 This action sends a quote by email.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -6990,15 +6593,15 @@ post/2.0/kb\_offer/{quote\_id}/send
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_offer/{quote\_id}/send
+<https://api.bexio.com/2.0/kb\_offer/{quote\_id}/send>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -7024,8 +6627,8 @@ Copy
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -7046,7 +6649,7 @@ Copy a quote
 
 This action copies a quote.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -7080,15 +6683,15 @@ post/2.0/kb\_offer/{quote\_id}/copy
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_offer/{quote\_id}/copy
+<https://api.bexio.com/2.0/kb\_offer/{quote\_id}/copy>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -7114,8 +6717,8 @@ Copy
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -7264,7 +6867,7 @@ Create order from quote
 
 This action creates an order from a quote.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -7296,15 +6899,15 @@ post/2.0/kb\_offer/{quote\_id}/order
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_offer/{quote\_id}/order
+<https://api.bexio.com/2.0/kb\_offer/{quote\_id}/order>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -7336,8 +6939,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -7482,7 +7085,7 @@ Create invoice from quote
 
 This action creates an invoice from a quote.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -7514,15 +7117,15 @@ post/2.0/kb\_offer/{quote\_id}/invoice
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_offer/{quote\_id}/invoice
+<https://api.bexio.com/2.0/kb\_offer/{quote\_id}/invoice>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -7554,8 +7157,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -7711,7 +7314,7 @@ Fetch a list of orders
 
 This action fetches a list of all orders
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -7736,25 +7339,25 @@ get/2.0/kb\_order
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_order
+<https://api.bexio.com/2.0/kb\_order>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/kb\_order \\
+<https://api.bexio.com/2.0/kb\_order> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -7857,7 +7460,7 @@ Create order
 
 This action creates a new order
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -7940,15 +7543,15 @@ post/2.0/kb\_order
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_order
+<https://api.bexio.com/2.0/kb\_order>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -8044,8 +7647,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -8191,22 +7794,22 @@ Search orders
 Search orders via query. Please refer to the Search section for detailed instructions.  
 The following search fields are supported:
 
-*   `id`
-*   `kb_item_status_id`
-*   `document_nr`
-*   `title`
-*   `contact_id`
-*   `contact_sub_id`
-*   `user_id`
-*   `currency_id`
-*   `total_gross`
-*   `total_net`
-*   `total`
-*   `is_valid_from`
-*   `is_valid_to`
-*   `updated_at`
+* `id`
+* `kb_item_status_id`
+* `document_nr`
+* `title`
+* `contact_id`
+* `contact_sub_id`
+* `user_id`
+* `currency_id`
+* `total_gross`
+* `total_net`
+* `total`
+* `is_valid_from`
+* `is_valid_to`
+* `updated_at`
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -8245,15 +7848,15 @@ post/2.0/kb\_order/search
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_order/search
+<https://api.bexio.com/2.0/kb\_order/search>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -8281,8 +7884,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -8385,7 +7988,7 @@ Fetch an order
 
 This action fetches a single order
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -8408,25 +8011,25 @@ get/2.0/kb\_order/{order\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_order/{order\_id}
+<https://api.bexio.com/2.0/kb\_order/{order\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/kb\_order/{order\_id} \\
+<https://api.bexio.com/2.0/kb\_order/{order\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -8571,7 +8174,7 @@ Edit an order
 
 This action edits a single order
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -8654,15 +8257,15 @@ post/2.0/kb\_order/{order\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_order/{order\_id}
+<https://api.bexio.com/2.0/kb\_order/{order\_id}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -8722,8 +8325,8 @@ Copy
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -8868,7 +8471,7 @@ Delete an order
 
 This action permanently deletes an order. It cannot be undone.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -8891,25 +8494,25 @@ delete/2.0/kb\_order/{order\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_order/{order\_id}
+<https://api.bexio.com/2.0/kb\_order/{order\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/2.0/kb\_order/{order\_id} \\
+<https://api.bexio.com/2.0/kb\_order/{order\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -8930,7 +8533,7 @@ Create delivery from order
 
 This action creates a delivery from an order.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -8962,15 +8565,15 @@ post/2.0/kb\_order/{order\_id}/delivery
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_order/{order\_id}/delivery
+<https://api.bexio.com/2.0/kb\_order/{order\_id}/delivery>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -9002,8 +8605,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -9136,7 +8739,7 @@ Create invoice from order
 
 This action creates an invoice from an order.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -9168,15 +8771,15 @@ post/2.0/kb\_order/{order\_id}/invoice
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_order/{order\_id}/invoice
+<https://api.bexio.com/2.0/kb\_order/{order\_id}/invoice>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -9208,8 +8811,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -9362,7 +8965,7 @@ Show PDF
 
 This action returns a pdf document of the order.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -9386,25 +8989,25 @@ get/2.0/kb\_order/{order\_id}/pdf
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_order/{order\_id}/pdf
+<https://api.bexio.com/2.0/kb\_order/{order\_id}/pdf>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/kb\_order/{order\_id}/pdf \\
+<https://api.bexio.com/2.0/kb\_order/{order\_id}/pdf> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -9431,7 +9034,7 @@ Show repetition
 
 This action fetches an order repetition
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -9454,25 +9057,25 @@ get/2.0/kb\_order/{order\_id}/repetition
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_order/{order\_id}/repetition
+<https://api.bexio.com/2.0/kb\_order/{order\_id}/repetition>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/kb\_order/{order\_id}/repetition \\
+<https://api.bexio.com/2.0/kb\_order/{order\_id}/repetition> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -9505,7 +9108,7 @@ Edit a repetition
 
 This action edits an order repetition
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -9538,15 +9141,15 @@ post/2.0/kb\_order/{order\_id}/repetition
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_order/{order\_id}/repetition
+<https://api.bexio.com/2.0/kb\_order/{order\_id}/repetition>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -9576,8 +9179,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -9610,7 +9213,7 @@ Delete a repetition
 
 This action permanently deletes an order repetition. It cannot be undone.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -9633,25 +9236,25 @@ delete/2.0/kb\_order/{order\_id}/repetition
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_order/{order\_id}/repetition
+<https://api.bexio.com/2.0/kb\_order/{order\_id}/repetition>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/2.0/kb\_order/{order\_id}/repetition \\
+<https://api.bexio.com/2.0/kb\_order/{order\_id}/repetition> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -9675,7 +9278,7 @@ Fetch a list of deliveries
 
 This action fetches a list of all deliveries
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -9700,25 +9303,25 @@ get/2.0/kb\_delivery
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_delivery
+<https://api.bexio.com/2.0/kb\_delivery>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/kb\_delivery \\
+<https://api.bexio.com/2.0/kb\_delivery> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -9809,7 +9412,7 @@ Fetch a delivery
 
 This action fetches a single delivery
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -9832,25 +9435,25 @@ get/2.0/kb\_delivery/{delivery\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_delivery/{delivery\_id}
+<https://api.bexio.com/2.0/kb\_delivery/{delivery\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/kb\_delivery/{delivery\_id} \\
+<https://api.bexio.com/2.0/kb\_delivery/{delivery\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -9983,7 +9586,7 @@ Issue a delivery
 
 This action issues a delivery. The delivery must be in the draft status.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -10006,25 +9609,25 @@ post/2.0/kb\_delivery/{delivery\_id}/issue
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_delivery/{delivery\_id}/issue
+<https://api.bexio.com/2.0/kb\_delivery/{delivery\_id}/issue>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X POST \\
-https://api.bexio.com/2.0/kb\_delivery/{delivery\_id}/issue \\
+<https://api.bexio.com/2.0/kb\_delivery/{delivery\_id}/issue> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -10048,7 +9651,7 @@ Fetch a list of invoices
 
 This action fetches a list of all invoices
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -10073,25 +9676,25 @@ get/2.0/kb\_invoice
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_invoice
+<https://api.bexio.com/2.0/kb\_invoice>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/kb\_invoice \\
+<https://api.bexio.com/2.0/kb\_invoice> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -10202,7 +9805,7 @@ Create invoice
 
 This action creates a new invoice
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -10268,15 +9871,15 @@ post/2.0/kb\_invoice
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_invoice
+<https://api.bexio.com/2.0/kb\_invoice>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -10370,8 +9973,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -10525,23 +10128,23 @@ Search invoices
 Search invoices via query. Please refer to the Search section for detailed instructions.  
 The following search fields are supported:
 
-*   `id`
-*   `kb_item_status_id`
-*   `document_nr`
-*   `title`
-*   `api_reference`
-*   `contact_id`
-*   `contact_sub_id`
-*   `user_id`
-*   `currency_id`
-*   `total_gross`
-*   `total_net`
-*   `total`
-*   `is_valid_from`
-*   `is_valid_to`
-*   `updated_at`
+* `id`
+* `kb_item_status_id`
+* `document_nr`
+* `title`
+* `api_reference`
+* `contact_id`
+* `contact_sub_id`
+* `user_id`
+* `currency_id`
+* `total_gross`
+* `total_net`
+* `total`
+* `is_valid_from`
+* `is_valid_to`
+* `updated_at`
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -10580,15 +10183,15 @@ post/2.0/kb\_invoice/search
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_invoice/search
+<https://api.bexio.com/2.0/kb\_invoice/search>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -10616,8 +10219,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -10728,7 +10331,7 @@ Fetch an invoice
 
 This action fetches a single invoice
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -10751,25 +10354,25 @@ get/2.0/kb\_invoice/{invoice\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id} \\
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -10922,7 +10525,7 @@ Edit an invoice
 
 This action edits a single invoice
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -10988,15 +10591,15 @@ post/2.0/kb\_invoice/{invoice\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -11056,8 +10659,8 @@ Copy
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -11210,7 +10813,7 @@ Delete an invoice
 
 This action permanently deletes an invoice. It cannot be undone.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -11233,25 +10836,25 @@ delete/2.0/kb\_invoice/{invoice\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id} \\
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -11272,7 +10875,7 @@ Show PDF
 
 This action returns a pdf document of the invoice.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -11296,25 +10899,25 @@ get/2.0/kb\_invoice/{invoice\_id}/pdf
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/pdf
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/pdf>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/pdf \\
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/pdf> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -11341,7 +10944,7 @@ Copy a invoice
 
 This action copies a invoice.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -11374,15 +10977,15 @@ post/2.0/kb\_invoice/{invoice\_id}/copy
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/copy
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/copy>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -11406,8 +11009,8 @@ Copy
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -11560,7 +11163,7 @@ Issue an invoice
 
 This action issues an invoice. The invoice must be in the draft status.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -11583,25 +11186,25 @@ post/2.0/kb\_invoice/{invoice\_id}/issue
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/issue
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/issue>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X POST \\
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/issue \\
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/issue> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -11622,7 +11225,7 @@ Sets issued invoice to draft
 
 This action set an already issued invoice to state draft.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -11645,25 +11248,25 @@ post/2.0/kb\_invoice/{invoice\_id}/revert\_issue
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/revert\_issue
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/revert\_issue>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X POST \\
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/revert\_issue \\
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/revert\_issue> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -11684,7 +11287,7 @@ Cancel an invoice
 
 This action cancels an already issued invoice.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -11707,25 +11310,25 @@ post/2.0/kb\_invoice/{invoice\_id}/cancel
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/cancel
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/cancel>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X POST \\
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/cancel \\
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/cancel> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -11746,7 +11349,7 @@ Mark invoice as sent
 
 This action marks an invoice as sent
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -11769,25 +11372,25 @@ post/2.0/kb\_invoice/{invoice\_id}/mark\_as\_sent
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/mark\_as\_sent
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/mark\_as\_sent>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X POST \\
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/mark\_as\_sent \\
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/mark\_as\_sent> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -11808,7 +11411,7 @@ Send an invoice
 
 This action sends an invoice by email.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -11842,15 +11445,15 @@ post/2.0/kb\_invoice/{invoice\_id}/send
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/send
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/send>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -11876,8 +11479,8 @@ Copy
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -11898,7 +11501,7 @@ Fetch a list of payments
 
 This action fetches a list of all payments for the invoice
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -11927,25 +11530,25 @@ get/2.0/kb\_invoice/{invoice\_id}/payment
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/payment
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/payment>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/payment \\
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/payment> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -11994,7 +11597,7 @@ Create payment
 
 This action creates a new payment for an invoice
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -12044,15 +11647,15 @@ post/2.0/kb\_invoice/{invoice\_id}/payment
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/payment
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/payment>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -12076,8 +11679,8 @@ Copy
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -12120,7 +11723,7 @@ Fetch a payment
 
 This action fetches a payment
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -12144,25 +11747,25 @@ get/2.0/kb\_invoice/{invoice\_id}/payment/{payment\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/payment/{payment\_id}
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/payment/{payment\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/payment/{payment\_id} \\
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/payment/{payment\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -12205,7 +11808,7 @@ Delete a payment
 
 This action permanently deletes a payment. It cannot be undone.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -12229,25 +11832,25 @@ delete/2.0/kb\_invoice/{invoice\_id}/payment/{payment\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/payment/{payment\_id}
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/payment/{payment\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/payment/{payment\_id} \\
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/payment/{payment\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -12268,7 +11871,7 @@ Fetch a list of reminders
 
 This action fetches a list of all reminders for the invoice
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -12291,25 +11894,25 @@ get/2.0/kb\_invoice/{invoice\_id}/kb\_reminder
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/kb\_reminder
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/kb\_reminder>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/kb\_reminder \\
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/kb\_reminder> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -12360,7 +11963,7 @@ Create reminder
 
 This action creates a new reminder for an invoice
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -12387,26 +11990,26 @@ post/2.0/kb\_invoice/{invoice\_id}/kb\_reminder
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/kb\_reminder
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/kb\_reminder>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X POST \\
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/kb\_reminder \\
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/kb\_reminder> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   201
-*   400
+* 201
+* 400
 
 Content type
 
@@ -12452,13 +12055,13 @@ Search invoice reminders
 Search invoice reminders via query. Please refer to the Search section for detailed instructions.  
 The following search fields are supported:
 
-*   `title`
-*   `reminder_level`
-*   `is_sent`
-*   `is_valid_from`
-*   `is_valid_to`
+* `title`
+* `reminder_level`
+* `is_sent`
+* `is_valid_from`
+* `is_valid_to`
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -12495,15 +12098,15 @@ post/2.0/kb\_invoice/{invoice\_id}/kb\_reminder/search
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/kb\_reminder/search
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/kb\_reminder/search>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -12531,8 +12134,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -12583,7 +12186,7 @@ Fetch a reminder
 
 This action deletes the most recent reminder
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -12607,25 +12210,25 @@ get/2.0/kb\_invoice/{invoice\_id}/kb\_reminder/{reminder\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/kb\_reminder/{reminder\_id}
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/kb\_reminder/{reminder\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/kb\_reminder/{reminder\_id} \\
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/kb\_reminder/{reminder\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -12670,7 +12273,7 @@ Delete a reminder
 
 This action permanently deletes the most recent reminder. It cannot be undone.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -12694,25 +12297,25 @@ delete/2.0/kb\_invoice/{invoice\_id}/kb\_reminder/{reminder\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/kb\_reminder/{reminder\_id}
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/kb\_reminder/{reminder\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/kb\_reminder/{reminder\_id} \\
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/kb\_reminder/{reminder\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -12733,7 +12336,7 @@ Mark reminder as sent
 
 This action marks an invoice reminder as sent
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -12757,25 +12360,25 @@ post/2.0/kb\_invoice/{invoice\_id}/kb\_reminder/{reminder\_id}/mark\_as\_sent
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/kb\_reminder/{reminder\_id}/mark\_as\_sent
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/kb\_reminder/{reminder\_id}/mark\_as\_sent>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X POST \\
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/kb\_reminder/{reminder\_id}/mark\_as\_sent \\
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/kb\_reminder/{reminder\_id}/mark\_as\_sent> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -12796,7 +12399,7 @@ Mark reminder as unsent
 
 This action marks an invoice reminder as unsent
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -12820,25 +12423,25 @@ post/2.0/kb\_invoice/{invoice\_id}/kb\_reminder/{reminder\_id}/mark\_as\_unsent
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/kb\_reminder/{reminder\_id}/mark\_as\_unsent
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/kb\_reminder/{reminder\_id}/mark\_as\_unsent>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X POST \\
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/kb\_reminder/{reminder\_id}/mark\_as\_unsent \\
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/kb\_reminder/{reminder\_id}/mark\_as\_unsent> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -12859,7 +12462,7 @@ Send a reminder
 
 This action sends an invoice reminder by email.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -12893,15 +12496,15 @@ post/2.0/kb\_invoice/{invoice\_id}/kb\_reminder/{reminder\_id}/send
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/kb\_reminder/{reminder\_id}/send
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/kb\_reminder/{reminder\_id}/send>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -12923,8 +12526,8 @@ Copy
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -12945,7 +12548,7 @@ Show reminder PDF
 
 This action returns a pdf document of the invoice reminder.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -12970,25 +12573,25 @@ get/2.0/kb\_invoice/{invoice\_id}/kb\_reminder/{reminder\_id}/pdf
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/kb\_reminder/{reminder\_id}/pdf
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/kb\_reminder/{reminder\_id}/pdf>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/kb\_reminder/{reminder\_id}/pdf \\
+<https://api.bexio.com/2.0/kb\_invoice/{invoice\_id}/kb\_reminder/{reminder\_id}/pdf> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -13018,7 +12621,7 @@ Fetch a list of document settings
 
 This action fetches a list of all document settings
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -13041,25 +12644,25 @@ get/2.0/kb\_item\_setting
 
 Live Server
 
-https://api.bexio.com/2.0/kb\_item\_setting
+<https://api.bexio.com/2.0/kb\_item\_setting>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/kb\_item\_setting \\
+<https://api.bexio.com/2.0/kb\_item\_setting> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -13135,7 +12738,7 @@ This action fetches a list of all comments for a document.
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -13165,25 +12768,25 @@ get/2.0/{kb\_document\_type}/{document\_id}/comment
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/comment
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/comment>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/comment \\
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/comment> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -13228,7 +12831,7 @@ This action creates a new comment for a document
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -13263,15 +12866,15 @@ post/2.0/{kb\_document\_type}/{document\_id}/comment
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/comment
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/comment>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -13297,8 +12900,8 @@ Copy
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -13337,7 +12940,7 @@ This action fetches a single comment for a document.
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -13362,25 +12965,25 @@ get/2.0/{kb\_document\_type}/{document\_id}/comment/{comment\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/comment/{comment\_id}
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/comment/{comment\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/comment/{comment\_id} \\
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/comment/{comment\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -13422,7 +13025,7 @@ This action fetches a list of all default positions for a document.
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -13452,25 +13055,25 @@ get/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_custom
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_custom
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_custom>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_custom \\
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_custom> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -13535,7 +13138,7 @@ This action creates a new default position for a document
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -13578,15 +13181,15 @@ post/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_custom
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_custom
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_custom>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -13624,8 +13227,8 @@ Copy
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -13684,7 +13287,7 @@ This action fetches a single default position for a document.
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -13709,25 +13312,25 @@ get/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_custom/{position\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_custom/{position\_id}
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_custom/{position\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_custom/{position\_id} \\
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_custom/{position\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -13786,7 +13389,7 @@ This action edits a single default position for a document
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -13828,15 +13431,15 @@ post/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_custom/{position\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_custom/{position\_id}
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_custom/{position\_id}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -13874,8 +13477,8 @@ Copy
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -13934,7 +13537,7 @@ This action permanently deletes a default position for a document. It cannot be 
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -13959,25 +13562,25 @@ delete/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_custom/{position\_i
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_custom/{position\_id}
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_custom/{position\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_custom/{position\_id} \\
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_custom/{position\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -14003,7 +13606,7 @@ This action fetches a list of all item positions for a document.
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -14033,25 +13636,25 @@ get/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_article
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_article
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_article>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_article \\
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_article> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -14118,7 +13721,7 @@ This action creates a new item position for a document
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -14162,15 +13765,15 @@ post/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_article
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_article
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_article>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -14210,8 +13813,8 @@ Copy
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -14272,7 +13875,7 @@ This action fetches a single item position for a document.
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -14297,25 +13900,25 @@ get/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_article/{position\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_article/{position\_id}
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_article/{position\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_article/{position\_id} \\
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_article/{position\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -14376,7 +13979,7 @@ This action edits a single item position for a document
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -14419,15 +14022,15 @@ post/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_article/{position\_id
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_article/{position\_id}
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_article/{position\_id}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -14467,8 +14070,8 @@ Copy
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -14529,7 +14132,7 @@ This action permanently deletes an item position for a document. It cannot be un
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -14554,25 +14157,25 @@ delete/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_article/{position\_
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_article/{position\_id}
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_article/{position\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_article/{position\_id} \\
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_article/{position\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -14598,7 +14201,7 @@ This action fetches a list of all text positions for a document.
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -14628,25 +14231,25 @@ get/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_text
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_text
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_text>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_text \\
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_text> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -14689,7 +14292,7 @@ This action creates a new text position for a document
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -14723,15 +14326,15 @@ post/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_text
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_text
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_text>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -14751,8 +14354,8 @@ Copy
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -14789,7 +14392,7 @@ This action fetches a single text position for a document.
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -14814,25 +14417,25 @@ get/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_text/{position\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_text/{position\_id}
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_text/{position\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_text/{position\_id} \\
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_text/{position\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -14869,7 +14472,7 @@ This action edits a single text position for a document
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -14902,15 +14505,15 @@ post/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_text/{position\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_text/{position\_id}
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_text/{position\_id}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -14930,8 +14533,8 @@ Copy
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -14968,7 +14571,7 @@ This action permanently deletes a text position for a document. It cannot be und
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -14993,25 +14596,25 @@ delete/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_text/{position\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_text/{position\_id}
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_text/{position\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_text/{position\_id} \\
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_text/{position\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -15037,7 +14640,7 @@ This action fetches a list of all subtotal positions for a document.
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -15067,25 +14670,25 @@ get/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subtotal
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subtotal
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subtotal>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subtotal \\
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subtotal> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -15126,7 +14729,7 @@ This action creates a new subtotal position for a document
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -15160,15 +14763,15 @@ post/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subtotal
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subtotal
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subtotal>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -15186,8 +14789,8 @@ Copy
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -15222,7 +14825,7 @@ This action fetches a single subtotal position for a document.
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -15247,25 +14850,25 @@ get/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subtotal/{position\_id
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subtotal/{position\_id}
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subtotal/{position\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subtotal/{position\_id} \\
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subtotal/{position\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -15300,7 +14903,7 @@ This action edits a single subtotal position for a document
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -15333,15 +14936,15 @@ post/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subtotal/{position\_i
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subtotal/{position\_id}
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subtotal/{position\_id}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -15359,8 +14962,8 @@ Copy
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -15395,7 +14998,7 @@ This action permanently deletes a subtotal position for a document. It cannot be
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -15420,25 +15023,25 @@ delete/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subtotal/{position\
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subtotal/{position\_id}
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subtotal/{position\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subtotal/{position\_id} \\
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subtotal/{position\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -15464,7 +15067,7 @@ This action fetches a list of all discount positions for a document.
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -15494,25 +15097,25 @@ get/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_discount
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_discount
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_discount>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_discount \\
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_discount> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -15551,7 +15154,7 @@ This action creates a new discount position for a document
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -15585,15 +15188,15 @@ post/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_discount
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_discount
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_discount>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -15615,8 +15218,8 @@ Copy
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -15649,7 +15252,7 @@ This action fetches a single discount position for a document.
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -15674,25 +15277,25 @@ get/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_discount/{position\_id
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_discount/{position\_id}
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_discount/{position\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_discount/{position\_id} \\
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_discount/{position\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -15725,7 +15328,7 @@ This action edits a single discount position for a document
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -15758,15 +15361,15 @@ post/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_discount/{position\_i
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_discount/{position\_id}
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_discount/{position\_id}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -15788,8 +15391,8 @@ Copy
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -15822,7 +15425,7 @@ This action permanently deletes a discount position for a document. It cannot be
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -15847,25 +15450,25 @@ delete/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_discount/{position\
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_discount/{position\_id}
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_discount/{position\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_discount/{position\_id} \\
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_discount/{position\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -15891,7 +15494,7 @@ This action fetches a list of all pagebreak positions for a document.
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -15921,25 +15524,25 @@ get/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_pagebreak
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_pagebreak
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_pagebreak>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_pagebreak \\
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_pagebreak> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -15976,7 +15579,7 @@ This action creates a new pagebreak position for a document
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -16010,15 +15613,15 @@ post/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_pagebreak
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_pagebreak
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_pagebreak>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -16036,8 +15639,8 @@ Copy
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -16068,7 +15671,7 @@ This action fetches a single pagebreak position for a document.
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -16093,25 +15696,25 @@ get/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_pagebreak/{position\_i
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_pagebreak/{position\_id}
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_pagebreak/{position\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_pagebreak/{position\_id} \\
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_pagebreak/{position\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -16142,7 +15745,7 @@ This action edits a single pagebreak position for a document
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -16175,15 +15778,15 @@ post/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_pagebreak/{position\_
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_pagebreak/{position\_id}
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_pagebreak/{position\_id}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -16201,8 +15804,8 @@ Copy
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -16233,7 +15836,7 @@ This action permanently deletes a pagebreak position for a document. It cannot b
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -16258,25 +15861,25 @@ delete/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_pagebreak/{position
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_pagebreak/{position\_id}
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_pagebreak/{position\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_pagebreak/{position\_id} \\
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_pagebreak/{position\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -16302,7 +15905,7 @@ This action fetches a list of all sub positions for a document.
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -16332,25 +15935,25 @@ get/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subposition
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subposition
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subposition>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subposition \\
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subposition> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -16397,7 +16000,7 @@ This action creates a new sub position for a document
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -16431,15 +16034,15 @@ post/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subposition
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subposition
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subposition>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -16459,8 +16062,8 @@ Copy
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -16501,7 +16104,7 @@ This action fetches a single sub position for a document.
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -16526,25 +16129,25 @@ get/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subposition/{position\
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subposition/{position\_id}
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subposition/{position\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subposition/{position\_id} \\
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subposition/{position\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -16585,7 +16188,7 @@ This action edits a single sub position for a document
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -16618,15 +16221,15 @@ post/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subposition/{position
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subposition/{position\_id}
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subposition/{position\_id}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -16646,8 +16249,8 @@ Copy
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -16688,7 +16291,7 @@ This action permanently deletes a sub position for a document. It cannot be undo
 
 If you have an invoice with ID 4 you should replace the path parameter `kb_document_type` with kb\_invoice and replace the path parameter `document_id` with `4`.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -16713,25 +16316,25 @@ delete/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subposition/{positi
 
 Live Server
 
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subposition/{position\_id}
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subposition/{position\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subposition/{position\_id} \\
+<https://api.bexio.com/2.0/{kb\_document\_type}/{document\_id}/kb\_position\_subposition/{position\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -16755,7 +16358,7 @@ List document templates
 
 This action fetches a list of document templates
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -16773,25 +16376,25 @@ get/3.0/document\_templates
 
 Live Server
 
-https://api.bexio.com/3.0/document\_templates
+<https://api.bexio.com/3.0/document\_templates>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/document\_templates \\
+<https://api.bexio.com/3.0/document\_templates> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -16843,7 +16446,7 @@ Get Bills
 
 Endpoint for retrieving Bills
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -16897,28 +16500,28 @@ get/4.0/purchase/bills
 
 Live Server
 
-https://api.bexio.com/4.0/purchase/bills
+<https://api.bexio.com/4.0/purchase/bills>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/4.0/purchase/bills \\
+<https://api.bexio.com/4.0/purchase/bills> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
-*   400
-*   401
-*   403
+* 200
+* 400
+* 401
+* 403
 
 Content type
 
@@ -17063,7 +16666,7 @@ Create new Bill
 
 Endpoint for creating Bill
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -17102,15 +16705,15 @@ post/4.0/purchase/bills
 
 Live Server
 
-https://api.bexio.com/4.0/purchase/bills
+<https://api.bexio.com/4.0/purchase/bills>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -17278,10 +16881,10 @@ Expand all Collapse all
 
 ### Response samples
 
-*   201
-*   400
-*   401
-*   403
+* 201
+* 400
+* 401
+* 403
 
 Content type
 
@@ -17482,7 +17085,7 @@ Get Bill
 
 Endpoint for retrieving Bill by id
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -17513,28 +17116,28 @@ get/4.0/purchase/bills/{id}
 
 Live Server
 
-https://api.bexio.com/4.0/purchase/bills/{id}
+<https://api.bexio.com/4.0/purchase/bills/{id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/4.0/purchase/bills/{id} \\
+<https://api.bexio.com/4.0/purchase/bills/{id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
-*   401
-*   403
-*   404
+* 200
+* 401
+* 403
+* 404
 
 Content type
 
@@ -17735,7 +17338,7 @@ Update Bill
 
 Endpoint for updating Bill
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -17785,15 +17388,15 @@ put/4.0/purchase/bills/{id}
 
 Live Server
 
-https://api.bexio.com/4.0/purchase/bills/{id}
+<https://api.bexio.com/4.0/purchase/bills/{id}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -17969,11 +17572,11 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   400
-*   401
-*   403
-*   404
+* 200
+* 400
+* 401
+* 403
+* 404
 
 Content type
 
@@ -18174,7 +17777,7 @@ Delete Bill
 
 Endpoint for deleting Bill by id. Bill can be removed when it is in status DRAFT only.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -18205,27 +17808,27 @@ delete/4.0/purchase/bills/{id}
 
 Live Server
 
-https://api.bexio.com/4.0/purchase/bills/{id}
+<https://api.bexio.com/4.0/purchase/bills/{id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/4.0/purchase/bills/{id} \\
+<https://api.bexio.com/4.0/purchase/bills/{id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   401
-*   403
-*   404
+* 401
+* 403
+* 404
 
 Content type
 
@@ -18251,62 +17854,72 @@ Changing status to BOOKED
 
 When changing status to BOOKED there are specific validations triggered:
 
-1.  Bill must be in status DRAFT.
-2.  'amount\_man' is required and must be greater than 0 when 'manual\_amount' is true.
-3.  'amount\_calc' is required and must be greater than 0 when 'manual\_amount' is false.
-4.  'exchange\_rate' is required and must be greater than 0 when 'curency\_code' does not equal 'base\_currency\_code'.
-5.  'base\_currency\_amount' is required and must be greater than 0 when 'curency\_code' does not equal 'base\_currency\_code'.
-6.  'bill\_date' must be in existing Business Year that is not Closed and not Locked.
-7.  'due\_date' must be after or equal to 'bill\_date'.
-8.  'document\_no' cannot be blank and must be unique across all existing Bills in status other than DRAFT.
-9.  'item\_net' cannot be set to 'true' when any of 'line\_items' 'tax\_id' is one of tax types that is ignorig vat:
-*   pre\_regards\_tax\_material
-*   pre\_regards\_tax\_investment
-*   pre\_customs\_tax\_material
-*   pre\_customs\_tax\_investment
-10.  'line\_tems' total amount must be greater than 0.
-11.  'booking\_account\_id' is required for each 'line\_item'. And this Booking Account:
-*   Cannot be a system asset account (account type ID 3, is\_locked true)
-*   Cannot be a system liability account (account type ID 4, is\_locked true) with the exception of account 2201
-*   Cannot be a system complete account (account type ID 5, is\_locked true)
-12.  'line\_item' amount cannot be less or equal to 0 when 'tax\_id' is one of types:
-*   pre\_customs\_tax\_investment
-*   pre\_customs\_tax\_material
-*   pre\_regards\_tax\_investment
-*   pre\_regards\_tax\_material
-13.  'line\_item' 'tax\_id' validation:
-*   when Bill is not subject to Vat then 'tax\_id' must be null
-*   Tax cannot have 'digit' set to one of:
-*   415
-*   420
-*   when Bill's Calendar Year has Effective Vat accounting method then Tax type must be one of:
-*   pre\_tax\_material
-*   pre\_tax\_investment
-*   pre\_customs\_tax\_investment
-*   pre\_customs\_tax\_material
-*   pre\_regards\_tax\_material
-*   pre\_regards\_tax\_investment
-*   when Bill's Calendar Year does not have Effective Vat accounting method then 'tax\_id' is not required
-*   when Bill's Calendar Year does not have Effective Vat accounting method then Tax type must be one of:
-*   pre\_regards\_tax\_material
-*   pre\_regards\_tax\_investment
-14.  'discounts' total amount must be less than 'line\_items' total amount.
-15.  Each 'discount' amount must be greater than 0.
-16.  'discounts' must be empty when there is 'line\_item' with amount less or equal to 0.
-17.  'discounts' must be empty when there is 'line\_item' with 'tax\_id' being one of types rejecting discounts:
-*   pre\_customs\_tax\_material
-*   pre\_customs\_tax\_investment
-18.  'address.lastname\_company' cannot be null or empty
+1. Bill must be in status DRAFT.
+2. 'amount\_man' is required and must be greater than 0 when 'manual\_amount' is true.
+3. 'amount\_calc' is required and must be greater than 0 when 'manual\_amount' is false.
+4. 'exchange\_rate' is required and must be greater than 0 when 'curency\_code' does not equal 'base\_currency\_code'.
+5. 'base\_currency\_amount' is required and must be greater than 0 when 'curency\_code' does not equal 'base\_currency\_code'.
+6. 'bill\_date' must be in existing Business Year that is not Closed and not Locked.
+7. 'due\_date' must be after or equal to 'bill\_date'.
+8. 'document\_no' cannot be blank and must be unique across all existing Bills in status other than DRAFT.
+9. 'item\_net' cannot be set to 'true' when any of 'line\_items' 'tax\_id' is one of tax types that is ignorig vat:
+
+* pre\_regards\_tax\_material
+* pre\_regards\_tax\_investment
+* pre\_customs\_tax\_material
+* pre\_customs\_tax\_investment
+
+10. 'line\_tems' total amount must be greater than 0.
+2. 'booking\_account\_id' is required for each 'line\_item'. And this Booking Account:
+
+* Cannot be a system asset account (account type ID 3, is\_locked true)
+* Cannot be a system liability account (account type ID 4, is\_locked true) with the exception of account 2201
+* Cannot be a system complete account (account type ID 5, is\_locked true)
+
+12. 'line\_item' amount cannot be less or equal to 0 when 'tax\_id' is one of types:
+
+* pre\_customs\_tax\_investment
+* pre\_customs\_tax\_material
+* pre\_regards\_tax\_investment
+* pre\_regards\_tax\_material
+
+13. 'line\_item' 'tax\_id' validation:
+
+* when Bill is not subject to Vat then 'tax\_id' must be null
+* Tax cannot have 'digit' set to one of:
+* 415
+* 420
+* when Bill's Calendar Year has Effective Vat accounting method then Tax type must be one of:
+* pre\_tax\_material
+* pre\_tax\_investment
+* pre\_customs\_tax\_investment
+* pre\_customs\_tax\_material
+* pre\_regards\_tax\_material
+* pre\_regards\_tax\_investment
+* when Bill's Calendar Year does not have Effective Vat accounting method then 'tax\_id' is not required
+* when Bill's Calendar Year does not have Effective Vat accounting method then Tax type must be one of:
+* pre\_regards\_tax\_material
+* pre\_regards\_tax\_investment
+
+14. 'discounts' total amount must be less than 'line\_items' total amount.
+2. Each 'discount' amount must be greater than 0.
+3. 'discounts' must be empty when there is 'line\_item' with amount less or equal to 0.
+4. 'discounts' must be empty when there is 'line\_item' with 'tax\_id' being one of types rejecting discounts:
+
+* pre\_customs\_tax\_material
+* pre\_customs\_tax\_investment
+
+18. 'address.lastname\_company' cannot be null or empty
 
 Changing status to DRAFT
 ========================
 
 When changing status to DRAFT there are specific validations triggered:
 
-1.  Bill must be in status BOOKED.
-2.  'bill\_date' must be in existing Business Year that is not Closed and not Locked.
+1. Bill must be in status BOOKED.
+2. 'bill\_date' must be in existing Business Year that is not Closed and not Locked.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -18342,29 +17955,29 @@ put/4.0/purchase/bills/{id}/bookings/{status}
 
 Live Server
 
-https://api.bexio.com/4.0/purchase/bills/{id}/bookings/{status}
+<https://api.bexio.com/4.0/purchase/bills/{id}/bookings/{status}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X PUT \\
-https://api.bexio.com/4.0/purchase/bills/{id}/bookings/{status} \\
+<https://api.bexio.com/4.0/purchase/bills/{id}/bookings/{status}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
-*   400
-*   401
-*   403
-*   404
+* 200
+* 400
+* 401
+* 403
+* 404
 
 Content type
 
@@ -18565,7 +18178,7 @@ Execute Bill action
 
 Endpoint for executing actions for Bill
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -18604,15 +18217,15 @@ post/4.0/purchase/bills/{id}/actions
 
 Live Server
 
-https://api.bexio.com/4.0/purchase/bills/{id}/actions
+<https://api.bexio.com/4.0/purchase/bills/{id}/actions>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -18630,11 +18243,11 @@ Copy
 
 ### Response samples
 
-*   200
-*   400
-*   401
-*   403
-*   404
+* 200
+* 400
+* 401
+* 403
+* 404
 
 Content type
 
@@ -18835,7 +18448,7 @@ Validate whether document number is available or not
 
 Endpoint for retrieving validation for document number
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -18866,28 +18479,28 @@ get/4.0/purchase/documentnumbers/bills
 
 Live Server
 
-https://api.bexio.com/4.0/purchase/documentnumbers/bills
+<https://api.bexio.com/4.0/purchase/documentnumbers/bills>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/4.0/purchase/documentnumbers/bills \\
+<https://api.bexio.com/4.0/purchase/documentnumbers/bills> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
-*   400
-*   401
-*   403
+* 200
+* 400
+* 401
+* 403
 
 Content type
 
@@ -18913,7 +18526,7 @@ Get Expenses
 
 Endpoint for retrieving Expenses
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -18961,28 +18574,28 @@ get/4.0/expenses
 
 Live Server
 
-https://api.bexio.com/4.0/expenses
+<https://api.bexio.com/4.0/expenses>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/4.0/expenses \\
+<https://api.bexio.com/4.0/expenses> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
-*   400
-*   401
-*   403
+* 200
+* 400
+* 401
+* 403
 
 Content type
 
@@ -19113,7 +18726,7 @@ Create new Expense
 
 Endpoint for creating Expense
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -19150,15 +18763,15 @@ post/4.0/expenses
 
 Live Server
 
-https://api.bexio.com/4.0/expenses
+<https://api.bexio.com/4.0/expenses>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -19230,10 +18843,10 @@ Expand all Collapse all
 
 ### Response samples
 
-*   201
-*   400
-*   401
-*   403
+* 201
+* 400
+* 401
+* 403
 
 Content type
 
@@ -19332,7 +18945,7 @@ Get Expense
 
 Endpoint for retrieving Expense by id
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -19363,28 +18976,28 @@ get/4.0/expenses/{id}
 
 Live Server
 
-https://api.bexio.com/4.0/expenses/{id}
+<https://api.bexio.com/4.0/expenses/{id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/4.0/expenses/{id} \\
+<https://api.bexio.com/4.0/expenses/{id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
-*   401
-*   403
-*   404
+* 200
+* 401
+* 403
+* 404
 
 Content type
 
@@ -19483,7 +19096,7 @@ Update Expense
 
 Endpoint for updating Expense
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -19529,15 +19142,15 @@ put/4.0/expenses/{id}
 
 Live Server
 
-https://api.bexio.com/4.0/expenses/{id}
+<https://api.bexio.com/4.0/expenses/{id}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -19611,11 +19224,11 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   400
-*   401
-*   403
-*   404
+* 200
+* 400
+* 401
+* 403
+* 404
 
 Content type
 
@@ -19714,7 +19327,7 @@ Delete Expense
 
 Endpoint for deleting Expense by id. Expense cannot be removed when it is DONE.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -19745,27 +19358,27 @@ delete/4.0/expenses/{id}
 
 Live Server
 
-https://api.bexio.com/4.0/expenses/{id}
+<https://api.bexio.com/4.0/expenses/{id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/4.0/expenses/{id} \\
+<https://api.bexio.com/4.0/expenses/{id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   401
-*   403
-*   404
+* 401
+* 403
+* 404
 
 Content type
 
@@ -19791,46 +19404,50 @@ Changing status from DRAFT to DONE
 
 When changing status to DONE there are specific validations triggered:
 
-1.  'bank\_account\_id' is required.
-2.  'base\_currency\_amount' is required when 'curency\_code' does not equal 'base\_currency\_code' and must be greater than 0.
-3.  'booking\_account\_id' is required. And this Booking Account:
-*   Cannot be a system asset account (account type ID 3, is\_locked true)
-*   Cannot be a system liability account (account type ID 4, is\_locked true)
-*   Cannot be a system complete account (account type ID 5, is\_locked true)
-4.  'document\_no' cannot be blank and must be unique across all existing Expenses in DONE status.
-5.  'exchange\_rate' is required when 'curency\_code' does not equal 'base\_currency\_code' and must be greater than 0.
-6.  'amount' must be greater than 0.
-7.  'tax\_id' validation:
-*   when Expense is not subject to Vat then 'tax\_id' must be null
-*   Tax cannot have 'digit' set to one of:
-*   415
-*   420
-*   when Expense's Calendar Year has Effective Vat accounting method then Tax type must be one of:
-*   pre\_tax\_material
-*   pre\_tax\_investment
-*   pre\_customs\_tax\_investment
-*   pre\_customs\_tax\_material
-*   pre\_regards\_tax\_material
-*   pre\_regards\_tax\_investment
-*   when Expense's Calendar Year does not have Effective Vat accounting method then 'tax\_id' is not required
-*   when Expense's Calendar Year does not have Effective Vat accounting method then Tax type must be one of:
-*   pre\_regards\_tax\_material
-*   pre\_regards\_tax\_investment
-8.  'paid\_on' must be in existing Business Year that is not Closed and not Locked.
-9.  If 'supplier\_id' is set then 'address' cannot be null.
-10.  If 'aupplier\_id' is not set then 'address' must be null.
-11.  If 'address' is set then 'address.lastname\_company' cannot be null or empty
+1. 'bank\_account\_id' is required.
+2. 'base\_currency\_amount' is required when 'curency\_code' does not equal 'base\_currency\_code' and must be greater than 0.
+3. 'booking\_account\_id' is required. And this Booking Account:
+
+* Cannot be a system asset account (account type ID 3, is\_locked true)
+* Cannot be a system liability account (account type ID 4, is\_locked true)
+* Cannot be a system complete account (account type ID 5, is\_locked true)
+
+4. 'document\_no' cannot be blank and must be unique across all existing Expenses in DONE status.
+2. 'exchange\_rate' is required when 'curency\_code' does not equal 'base\_currency\_code' and must be greater than 0.
+3. 'amount' must be greater than 0.
+4. 'tax\_id' validation:
+
+* when Expense is not subject to Vat then 'tax\_id' must be null
+* Tax cannot have 'digit' set to one of:
+* 415
+* 420
+* when Expense's Calendar Year has Effective Vat accounting method then Tax type must be one of:
+* pre\_tax\_material
+* pre\_tax\_investment
+* pre\_customs\_tax\_investment
+* pre\_customs\_tax\_material
+* pre\_regards\_tax\_material
+* pre\_regards\_tax\_investment
+* when Expense's Calendar Year does not have Effective Vat accounting method then 'tax\_id' is not required
+* when Expense's Calendar Year does not have Effective Vat accounting method then Tax type must be one of:
+* pre\_regards\_tax\_material
+* pre\_regards\_tax\_investment
+
+8. 'paid\_on' must be in existing Business Year that is not Closed and not Locked.
+2. If 'supplier\_id' is set then 'address' cannot be null.
+3. If 'aupplier\_id' is not set then 'address' must be null.
+4. If 'address' is set then 'address.lastname\_company' cannot be null or empty
 
 Changing status from DONE to DRAFT
 ==================================
 
 When changing status to DRAFT there are specific validations triggered:
 
-1.  'paid\_on' date must be in existing Business Year that is not Closed and not Locked.
-2.  Expense cannot be linked to an Invoice ('invoice\_id' must be null).
-3.  Expense cannot be reconciled with any Transaction ('transaction\_id' must be null).
+1. 'paid\_on' date must be in existing Business Year that is not Closed and not Locked.
+2. Expense cannot be linked to an Invoice ('invoice\_id' must be null).
+3. Expense cannot be reconciled with any Transaction ('transaction\_id' must be null).
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -19866,29 +19483,29 @@ put/4.0/expenses/{id}/bookings/{status}
 
 Live Server
 
-https://api.bexio.com/4.0/expenses/{id}/bookings/{status}
+<https://api.bexio.com/4.0/expenses/{id}/bookings/{status}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X PUT \\
-https://api.bexio.com/4.0/expenses/{id}/bookings/{status} \\
+<https://api.bexio.com/4.0/expenses/{id}/bookings/{status}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
-*   400
-*   401
-*   403
-*   404
+* 200
+* 400
+* 401
+* 403
+* 404
 
 Content type
 
@@ -19987,7 +19604,7 @@ Execute Expense action
 
 Endpoint for executing actions for Expense
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -20026,15 +19643,15 @@ post/4.0/expenses/{id}/actions
 
 Live Server
 
-https://api.bexio.com/4.0/expenses/{id}/actions
+<https://api.bexio.com/4.0/expenses/{id}/actions>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -20052,11 +19669,11 @@ Copy
 
 ### Response samples
 
-*   200
-*   400
-*   401
-*   403
-*   404
+* 200
+* 400
+* 401
+* 403
+* 404
 
 Content type
 
@@ -20155,7 +19772,7 @@ Validate whether document number is available or not
 
 Endpoint for retrieving validation for document number
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -20186,28 +19803,28 @@ get/4.0/expenses/documentnumbers
 
 Live Server
 
-https://api.bexio.com/4.0/expenses/documentnumbers
+<https://api.bexio.com/4.0/expenses/documentnumbers>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/4.0/expenses/documentnumbers \\
+<https://api.bexio.com/4.0/expenses/documentnumbers> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
-*   400
-*   401
-*   403
+* 200
+* 400
+* 401
+* 403
 
 Content type
 
@@ -20233,7 +19850,7 @@ Fetch a list of purchase orders
 
 This action fetches a list of article orders
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -20258,25 +19875,25 @@ get/3.0/purchase\_orders
 
 Live Server
 
-https://api.bexio.com/3.0/purchase\_orders
+<https://api.bexio.com/3.0/purchase\_orders>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/purchase\_orders \\
+<https://api.bexio.com/3.0/purchase\_orders> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -20407,7 +20024,7 @@ Create a purchase order
 
 This action creates a new purchase order
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -20465,15 +20082,15 @@ post/3.0/purchase\_orders
 
 Live Server
 
-https://api.bexio.com/3.0/purchase\_orders
+<https://api.bexio.com/3.0/purchase\_orders>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -20659,8 +20276,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -20855,7 +20472,7 @@ Fetch a single purchase order
 
 This action fetches a single purchase order
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -20878,25 +20495,25 @@ get/3.0/purchase\_orders/{purchase\_order\_id}
 
 Live Server
 
-https://api.bexio.com/3.0/purchase\_orders/{purchase\_order\_id}
+<https://api.bexio.com/3.0/purchase\_orders/{purchase\_order\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/purchase\_orders/{purchase\_order\_id} \\
+<https://api.bexio.com/3.0/purchase\_orders/{purchase\_order\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -21023,7 +20640,7 @@ Update a single purchase order
 
 This action updates a purchase order.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -21083,15 +20700,15 @@ put/3.0/purchase\_orders/{purchase\_order\_id}
 
 Live Server
 
-https://api.bexio.com/3.0/purchase\_orders/{purchase\_order\_id}
+<https://api.bexio.com/3.0/purchase\_orders/{purchase\_order\_id}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -21209,8 +20826,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -21405,7 +21022,7 @@ Delete a purchase order
 
 This action permanently deletes a purchase order. It cannot be undone.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -21428,25 +21045,25 @@ delete/3.0/purchase\_orders/{purchase\_order\_id}
 
 Live Server
 
-https://api.bexio.com/3.0/purchase\_orders/{purchase\_order\_id}
+<https://api.bexio.com/3.0/purchase\_orders/{purchase\_order\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/3.0/purchase\_orders/{purchase\_order\_id} \\
+<https://api.bexio.com/3.0/purchase\_orders/{purchase\_order\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -21468,7 +21085,7 @@ Outgoing Payment
 Retrieve Outgoing Payments
 --------------------------
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -21503,28 +21120,28 @@ get/4.0/purchase/outgoing-payments
 
 Live Server
 
-https://api.bexio.com/4.0/purchase/outgoing-payments
+<https://api.bexio.com/4.0/purchase/outgoing-payments>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/4.0/purchase/outgoing\-payments \\
+<https://api.bexio.com/4.0/purchase/outgoing\-payments> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
-*   400
-*   401
-*   403
+* 200
+* 400
+* 401
+* 403
 
 Content type
 
@@ -21613,7 +21230,7 @@ Edit Outgoing Payment
 
 Endpoint for editing Outgoing Payment
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -21661,15 +21278,15 @@ put/4.0/purchase/outgoing-payments
 
 Live Server
 
-https://api.bexio.com/4.0/purchase/outgoing-payments
+<https://api.bexio.com/4.0/purchase/outgoing-payments>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -21713,11 +21330,11 @@ Copy
 
 ### Response samples
 
-*   200
-*   400
-*   401
-*   403
-*   404
+* 200
+* 400
+* 401
+* 403
+* 404
 
 Content type
 
@@ -21814,7 +21431,7 @@ Create new Outgoing Payment
 
 Endpoint for creating Outgoing Payment
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -21880,15 +21497,15 @@ post/4.0/purchase/outgoing-payments
 
 Live Server
 
-https://api.bexio.com/4.0/purchase/outgoing-payments
+<https://api.bexio.com/4.0/purchase/outgoing-payments>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -21948,10 +21565,10 @@ Copy
 
 ### Response samples
 
-*   201
-*   400
-*   401
-*   403
+* 201
+* 400
+* 401
+* 403
 
 Content type
 
@@ -22048,7 +21665,7 @@ Get Outgoing Payment
 
 Endpoint for retrieving Outgoing Payment by id
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -22079,28 +21696,28 @@ get/4.0/purchase/outgoing-payments/{id}
 
 Live Server
 
-https://api.bexio.com/4.0/purchase/outgoing-payments/{id}
+<https://api.bexio.com/4.0/purchase/outgoing-payments/{id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/4.0/purchase/outgoing\-payments/{id} \\
+<https://api.bexio.com/4.0/purchase/outgoing\-payments/{id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
-*   401
-*   403
-*   404
+* 200
+* 401
+* 403
+* 404
 
 Content type
 
@@ -22197,7 +21814,7 @@ Delete Outgoing Payment
 
 Payment cannot be removed when it is RECONCILED (transaction\_id is not null). Payment cannot be removed when it's Business Year is Closed or Locked.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -22232,28 +21849,28 @@ delete/4.0/purchase/outgoing-payments/{id}
 
 Live Server
 
-https://api.bexio.com/4.0/purchase/outgoing-payments/{id}
+<https://api.bexio.com/4.0/purchase/outgoing-payments/{id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/4.0/purchase/outgoing\-payments/{id} \\
+<https://api.bexio.com/4.0/purchase/outgoing\-payments/{id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   400
-*   401
-*   403
-*   404
+* 400
+* 401
+* 403
+* 404
 
 Content type
 
@@ -22279,7 +21896,7 @@ Fetch a list of accounts
 
 This action fetches a list of all accounts
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -22307,26 +21924,26 @@ get/2.0/accounts
 
 Live Server
 
-https://api.bexio.com/2.0/accounts
+<https://api.bexio.com/2.0/accounts>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/accounts \\
+<https://api.bexio.com/2.0/accounts> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -22370,12 +21987,12 @@ Search Accounts
 Search accounts via query. Please refer to the Search section for detailed instructions.  
 The following search fields are supported:
 
-*   `account_no`
-*   `fibu_account_group_id`
-*   `name`
-*   `account_type`
+* `account_no`
+* `fibu_account_group_id`
+* `name`
+* `account_type`
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -22413,15 +22030,15 @@ post/2.0/accounts/search
 
 Live Server
 
-https://api.bexio.com/2.0/accounts/search
+<https://api.bexio.com/2.0/accounts/search>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -22449,8 +22066,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -22496,7 +22113,7 @@ Fetch a list of account groups
 
 This action fetches a list of all account groups
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -22520,25 +22137,25 @@ get/2.0/account\_groups
 
 Live Server
 
-https://api.bexio.com/2.0/account\_groups
+<https://api.bexio.com/2.0/account\_groups>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/account\_groups \\
+<https://api.bexio.com/2.0/account\_groups> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -22580,7 +22197,7 @@ Fetch a list of calendar years
 
 This action fetches a list of all calendar years
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -22604,25 +22221,25 @@ get/3.0/accounting/calendar\_years
 
 Live Server
 
-https://api.bexio.com/3.0/accounting/calendar\_years
+<https://api.bexio.com/3.0/accounting/calendar\_years>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/accounting/calendar\_years \\
+<https://api.bexio.com/3.0/accounting/calendar\_years> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -22660,12 +22277,12 @@ Expand all Collapse all
 ]
 ```
 
-Create calendar year.
+Create calendar year
 ---------------------
 
 This action creates a calendar year. If only year parameter is passed to request the next year is created with the same settings as the year before other way all parameters must be pass to request.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -22700,15 +22317,15 @@ post/3.0/accounting/calendar\_years
 
 Live Server
 
-https://api.bexio.com/3.0/accounting/calendar\_years
+<https://api.bexio.com/3.0/accounting/calendar\_years>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -22738,8 +22355,8 @@ Copy
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -22782,7 +22399,7 @@ Search calendar years
 
 This action fetches a list of all calendar years which matches the search criteria. If you want to search for end date use "like" instead of "=" cause if you search for equality, you will have to provide the date in the following format: "2018-12-31 23:59:59"
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -22820,15 +22437,15 @@ post/3.0/accounting/calendar\_years/search
 
 Live Server
 
-https://api.bexio.com/3.0/accounting/calendar\_years/search
+<https://api.bexio.com/3.0/accounting/calendar\_years/search>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -22856,8 +22473,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -22900,7 +22517,7 @@ Fetch a calendar year
 
 This action fetches a single calendar year
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -22923,25 +22540,25 @@ get/3.0/accounting/calendar\_years/{calendar\_year\_id}
 
 Live Server
 
-https://api.bexio.com/3.0/accounting/calendar\_years/{calendar\_year\_id}
+<https://api.bexio.com/3.0/accounting/calendar\_years/{calendar\_year\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/accounting/calendar\_years/{calendar\_year\_id} \\
+<https://api.bexio.com/3.0/accounting/calendar\_years/{calendar\_year\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -22981,7 +22598,7 @@ Fetch a list of business years
 
 This action fetches a list of all business years
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -23005,25 +22622,25 @@ get/3.0/accounting/business\_years
 
 Live Server
 
-https://api.bexio.com/3.0/accounting/business\_years
+<https://api.bexio.com/3.0/accounting/business\_years>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/accounting/business\_years \\
+<https://api.bexio.com/3.0/accounting/business\_years> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -23058,7 +22675,7 @@ Fetch a business year
 
 This action fetches a single business year
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -23081,25 +22698,25 @@ get/3.0/accounting/business\_years/{business\_year\_id}
 
 Live Server
 
-https://api.bexio.com/3.0/accounting/business\_years/{business\_year\_id}
+<https://api.bexio.com/3.0/accounting/business\_years/{business\_year\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/accounting/business\_years/{business\_year\_id} \\
+<https://api.bexio.com/3.0/accounting/business\_years/{business\_year\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -23131,7 +22748,7 @@ Fetch a list of currencies
 
 This action fetches a list of all currencies
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -23157,25 +22774,25 @@ get/3.0/currencies
 
 Live Server
 
-https://api.bexio.com/3.0/currencies
+<https://api.bexio.com/3.0/currencies>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/currencies \\
+<https://api.bexio.com/3.0/currencies> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -23220,7 +22837,7 @@ Create a currency
 
 This action creates a new currency
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -23250,15 +22867,15 @@ post/3.0/currencies
 
 Live Server
 
-https://api.bexio.com/3.0/currencies
+<https://api.bexio.com/3.0/currencies>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -23278,8 +22895,8 @@ Copy
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -23304,7 +22921,7 @@ Fetch a currency
 
 This action fetches a single currency
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -23327,25 +22944,25 @@ get/3.0/currencies/{currency\_id}
 
 Live Server
 
-https://api.bexio.com/3.0/currencies/{currency\_id}
+<https://api.bexio.com/3.0/currencies/{currency\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/currencies/{currency\_id} \\
+<https://api.bexio.com/3.0/currencies/{currency\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -23370,7 +22987,7 @@ Delete a currency
 
 This action permanently deletes a currency. It cannot be undone.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -23397,26 +23014,26 @@ delete/3.0/currencies/{currency\_id}
 
 Live Server
 
-https://api.bexio.com/3.0/currencies/{currency\_id}
+<https://api.bexio.com/3.0/currencies/{currency\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/3.0/currencies/{currency\_id} \\
+<https://api.bexio.com/3.0/currencies/{currency\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -23437,7 +23054,7 @@ Update a currency
 
 This action updates an existing currency
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -23475,15 +23092,15 @@ patch/3.0/currencies/{currency\_id}
 
 Live Server
 
-https://api.bexio.com/3.0/currencies/{currency\_id}
+<https://api.bexio.com/3.0/currencies/{currency\_id}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -23501,8 +23118,8 @@ Copy
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -23527,7 +23144,7 @@ Fetch exchange rates for currencies
 
 This action fetches all configured exchange rates for a given currency
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -23555,25 +23172,25 @@ get/3.0/currencies/{currency\_id}/exchange\_rates
 
 Live Server
 
-https://api.bexio.com/3.0/currencies/{currency\_id}/exchange\_rates
+<https://api.bexio.com/3.0/currencies/{currency\_id}/exchange\_rates>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/currencies/{currency\_id}/exchange\_rates \\
+<https://api.bexio.com/3.0/currencies/{currency\_id}/exchange\_rates> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -23620,7 +23237,7 @@ Fetch all possible currency codes
 
 This endpoint can be used to retrieve all available currency codes (in the format CHF, EUR, etc.)
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -23638,25 +23255,25 @@ get/3.0/currencies/codes
 
 Live Server
 
-https://api.bexio.com/3.0/currencies/codes
+<https://api.bexio.com/3.0/currencies/codes>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/currencies/codes \\
+<https://api.bexio.com/3.0/currencies/codes> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -23690,7 +23307,7 @@ Fetch a list of manual entries
 
 This action fetches a list of all manual entries which have been added in the accounting module
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -23714,25 +23331,25 @@ get/3.0/accounting/manual\_entries
 
 Live Server
 
-https://api.bexio.com/3.0/accounting/manual\_entries
+<https://api.bexio.com/3.0/accounting/manual\_entries>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/accounting/manual\_entries \\
+<https://api.bexio.com/3.0/accounting/manual\_entries> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -23809,7 +23426,7 @@ Create manual entry
 
 This action creates a new manual entry for the account ledger
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -23910,15 +23527,15 @@ post/3.0/accounting/manual\_entries
 
 Live Server
 
-https://api.bexio.com/3.0/accounting/manual\_entries
+<https://api.bexio.com/3.0/accounting/manual\_entries>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -23966,8 +23583,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -24040,7 +23657,7 @@ Update manual entry
 
 This action updates a manual entry
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -24142,15 +23759,15 @@ put/3.0/accounting/manual\_entries/{manual\_entry\_id}
 
 Live Server
 
-https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}
+<https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -24202,8 +23819,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -24276,7 +23893,7 @@ Delete manual entry
 
 This action permanently deletes a manual entry. It cannot be undone. It also deletes the connection between the specific manual entry and any linked files.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -24299,26 +23916,26 @@ delete/3.0/accounting/manual\_entries/{manual\_entry\_id}
 
 Live Server
 
-https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}
+<https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id} \\
+<https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -24339,7 +23956,7 @@ Get next reference number
 
 This action can be used to get the next reference number for a manual entry
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -24361,26 +23978,26 @@ get/3.0/accounting/manual\_entries/next\_ref\_nr
 
 Live Server
 
-https://api.bexio.com/3.0/accounting/manual\_entries/next\_ref\_nr
+<https://api.bexio.com/3.0/accounting/manual\_entries/next\_ref\_nr>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/accounting/manual\_entries/next\_ref\_nr \\
+<https://api.bexio.com/3.0/accounting/manual\_entries/next\_ref\_nr> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -24401,7 +24018,7 @@ Fetch files of manual entry line
 
 This action fetches a list of all files associated to a specific manual entry line
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -24431,25 +24048,25 @@ get/3.0/accounting/manual\_entries/{manual\_entry\_id}/entries/{entry\_id}/files
 
 Live Server
 
-https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}/entries/{entry\_id}/files
+<https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}/entries/{entry\_id}/files>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}/entries/{entry\_id}/files \\
+<https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}/entries/{entry\_id}/files> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -24502,7 +24119,7 @@ This action uploads one or multiple files and attaches the files to an existing 
 
 Please note that you must set the content-type to `multipart/form-data`. You can upload multiple files with one request by providing different identifiers (e.g. `fileName1` and `fileName2`). Max. file size is 12MB and supported file formats are PNG, JPG, JPEG, GIF, DOC, DOCX, XLS, XLSX, PPT, PPTX, PDF.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -24537,26 +24154,26 @@ post/3.0/accounting/manual\_entries/{manual\_entry\_id}/entries/{entry\_id}/file
 
 Live Server
 
-https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}/entries/{entry\_id}/files
+<https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}/entries/{entry\_id}/files>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X POST \\
-https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}/entries/{entry\_id}/files \\
+<https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}/entries/{entry\_id}/files> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -24607,7 +24224,7 @@ Fetch file of manual entry line
 
 This action fetches a file associated to a specific manual entry line (only for entry types manual\_single\_entry and manual\_group\_entry)
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -24632,25 +24249,25 @@ get/3.0/accounting/manual\_entries/{manual\_entry\_id}/entries/{entry\_id}/files
 
 Live Server
 
-https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}/entries/{entry\_id}/files/{file\_id}
+<https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}/entries/{entry\_id}/files/{file\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}/entries/{entry\_id}/files/{file\_id} \\
+<https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}/entries/{entry\_id}/files/{file\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -24697,7 +24314,7 @@ Delete connection between file and manual entry line
 
 This action deletes the connection between the file and the specific manual entry line (only for entry types manual\_single\_entry and manual\_group\_entry).
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -24718,25 +24335,25 @@ delete/3.0/accounting/manual\_entries/{manual\_entry\_id}/entries/{entry\_id}/fi
 
 Live Server
 
-https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}/entries/{entry\_id}/files/{file\_id}
+<https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}/entries/{entry\_id}/files/{file\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}/entries/{entry\_id}/files/{file\_id} \\
+<https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}/entries/{entry\_id}/files/{file\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -24757,7 +24374,7 @@ Fetch files of manual compound entry
 
 This action fetches a list of all files associated with a specific manual compound entry
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -24786,25 +24403,25 @@ get/3.0/accounting/manual\_entries/{manual\_entry\_id}/files
 
 Live Server
 
-https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}/files
+<https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}/files>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}/files \\
+<https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}/files> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -24857,7 +24474,7 @@ This action uploads one or multiple files and attaches the files to an existing 
 
 Please note that you must set the content-type to `multipart/form-data`. You can upload multiple files with one request by providing different identifiers (e.g. `fileName1` and `fileName2`). Max. file size is 12MB and supported file formats are PNG, JPG, JPEG, GIF, DOC, DOCX, XLS, XLSX, PPT, PPTX, PDF.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -24891,26 +24508,26 @@ post/3.0/accounting/manual\_entries/{manual\_entry\_id}/files
 
 Live Server
 
-https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}/files
+<https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}/files>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X POST \\
-https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}/files \\
+<https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}/files> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -24961,7 +24578,7 @@ Fetch file of manual compound entry
 
 This action fetches a file associated with a specific compound entry
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -24985,25 +24602,25 @@ get/3.0/accounting/manual\_entries/{manual\_entry\_id}/files/{file\_id}
 
 Live Server
 
-https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}/files/{file\_id}
+<https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}/files/{file\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}/files/{file\_id} \\
+<https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}/files/{file\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -25050,7 +24667,7 @@ Delete connection between file and manual compound entry
 
 This action deletes the connection between the file and the specific manual compound entry
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -25070,25 +24687,25 @@ delete/3.0/accounting/manual\_entries/{manual\_entry\_id}/files/{file\_id}
 
 Live Server
 
-https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}/files/{file\_id}
+<https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}/files/{file\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}/files/{file\_id} \\
+<https://api.bexio.com/3.0/accounting/manual\_entries/{manual\_entry\_id}/files/{file\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -25112,7 +24729,7 @@ Journal
 
 This action fetches a list of all accounting journal bookings
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -25139,25 +24756,25 @@ get/3.0/accounting/journal
 
 Live Server
 
-https://api.bexio.com/3.0/accounting/journal
+<https://api.bexio.com/3.0/accounting/journal>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/accounting/journal \\
+<https://api.bexio.com/3.0/accounting/journal> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -25211,7 +24828,7 @@ Fetch a list of taxes
 
 This action fetches a list of all taxes
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -25242,26 +24859,26 @@ get/3.0/taxes
 
 Live Server
 
-https://api.bexio.com/3.0/taxes
+<https://api.bexio.com/3.0/taxes>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/taxes \\
+<https://api.bexio.com/3.0/taxes> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -25318,7 +24935,7 @@ Fetch a tax
 
 This action fetches a single tax
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -25341,25 +24958,25 @@ get/3.0/taxes/{tax\_id}
 
 Live Server
 
-https://api.bexio.com/3.0/taxes/{tax\_id}
+<https://api.bexio.com/3.0/taxes/{tax\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/taxes/{tax\_id} \\
+<https://api.bexio.com/3.0/taxes/{tax\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -25410,7 +25027,7 @@ Delete a tax
 
 This action permanently deletes a tax. It cannot be undone. Please note that taxes which are used and/or referenced within bexio, and taxes assigned to the digit 000 can not be deleted. In that case, the API will throw a 409 error.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -25437,26 +25054,26 @@ delete/3.0/taxes/{tax\_id}
 
 Live Server
 
-https://api.bexio.com/3.0/taxes/{tax\_id}
+<https://api.bexio.com/3.0/taxes/{tax\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/3.0/taxes/{tax\_id} \\
+<https://api.bexio.com/3.0/taxes/{tax\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
-*   409
+* 200
+* 409
 
 Content type
 
@@ -25480,7 +25097,7 @@ Fetch a list of vat periods
 
 This action fetches a list of all vat periods
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -25504,25 +25121,25 @@ get/3.0/accounting/vat\_periods
 
 Live Server
 
-https://api.bexio.com/3.0/accounting/vat\_periods
+<https://api.bexio.com/3.0/accounting/vat\_periods>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/accounting/vat\_periods \\
+<https://api.bexio.com/3.0/accounting/vat\_periods> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -25559,7 +25176,7 @@ Fetch a vat period
 
 This action fetches a single vat period
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -25582,25 +25199,25 @@ get/3.0/accounting/vat\_periods/{vat\_period\_id}
 
 Live Server
 
-https://api.bexio.com/3.0/accounting/vat\_periods/{vat\_period\_id}
+<https://api.bexio.com/3.0/accounting/vat\_periods/{vat\_period\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/accounting/vat\_periods/{vat\_period\_id} \\
+<https://api.bexio.com/3.0/accounting/vat\_periods/{vat\_period\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -25634,7 +25251,7 @@ Fetch a list of bank accounts
 
 This action fetches a list of all bank accounts which are shown on the banking component page
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -25658,25 +25275,25 @@ get/3.0/banking/accounts
 
 Live Server
 
-https://api.bexio.com/3.0/banking/accounts
+<https://api.bexio.com/3.0/banking/accounts>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/banking/accounts \\
+<https://api.bexio.com/3.0/banking/accounts> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -25739,7 +25356,7 @@ Fetch a single bank account
 
 This action fetches a single bank account which is shown on the banking component page
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -25762,25 +25379,25 @@ get/3.0/banking/accounts/{bank\_account\_id}
 
 Live Server
 
-https://api.bexio.com/3.0/banking/accounts/{bank\_account\_id}
+<https://api.bexio.com/3.0/banking/accounts/{bank\_account\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/banking/accounts/{bank\_account\_id} \\
+<https://api.bexio.com/3.0/banking/accounts/{bank\_account\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -25840,7 +25457,7 @@ Create IBAN payment Deprecated
 
 This action creates a new payment for the selected bank account
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -25886,15 +25503,15 @@ post/3.0/banking/bank\_accounts/{bank\_account\_id}/iban\_payments
 
 Live Server
 
-https://api.bexio.com/3.0/banking/bank\_accounts/{bank\_account\_id}/iban\_payments
+<https://api.bexio.com/3.0/banking/bank\_accounts/{bank\_account\_id}/iban\_payments>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -25948,8 +25565,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -26030,7 +25647,7 @@ Get IBAN payment Deprecated
 
 This action fetches an IBAN payment which is associated to the specified bank account
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -26054,25 +25671,25 @@ get/3.0/banking/bank\_accounts/{bank\_account\_id}/iban\_payments/{payment\_id}
 
 Live Server
 
-https://api.bexio.com/3.0/banking/bank\_accounts/{bank\_account\_id}/iban\_payments/{payment\_id}
+<https://api.bexio.com/3.0/banking/bank\_accounts/{bank\_account\_id}/iban\_payments/{payment\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/banking/bank\_accounts/{bank\_account\_id}/iban\_payments/{payment\_id} \\
+<https://api.bexio.com/3.0/banking/bank\_accounts/{bank\_account\_id}/iban\_payments/{payment\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -26155,7 +25772,7 @@ This action updates an existing payment for the selected bank account. Please no
 
 Please note that you do not have to provide all fields to update a payment.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -26207,15 +25824,15 @@ patch/3.0/banking/bank\_accounts/{bank\_account\_id}/iban\_payments/{payment\_id
 
 Live Server
 
-https://api.bexio.com/3.0/banking/bank\_accounts/{bank\_account\_id}/iban\_payments/{payment\_id}
+<https://api.bexio.com/3.0/banking/bank\_accounts/{bank\_account\_id}/iban\_payments/{payment\_id}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -26269,8 +25886,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -26354,7 +25971,7 @@ Create QR payment Deprecated
 
 This action creates a new payment for the selected bank account
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -26394,15 +26011,15 @@ post/3.0/banking/bank\_accounts/{bank\_account\_id}/qr\_payments
 
 Live Server
 
-https://api.bexio.com/3.0/banking/bank\_accounts/{bank\_account\_id}/qr\_payments
+<https://api.bexio.com/3.0/banking/bank\_accounts/{bank\_account\_id}/qr\_payments>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -26454,8 +26071,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -26534,7 +26151,7 @@ Get QR payment Deprecated
 
 This action fetches an IBAN payment which is associated to the specified bank account
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -26558,25 +26175,25 @@ get/3.0/banking/bank\_accounts/{bank\_account\_id}/qr\_payments/{payment\_id}
 
 Live Server
 
-https://api.bexio.com/3.0/banking/bank\_accounts/{bank\_account\_id}/qr\_payments/{payment\_id}
+<https://api.bexio.com/3.0/banking/bank\_accounts/{bank\_account\_id}/qr\_payments/{payment\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/banking/bank\_accounts/{bank\_account\_id}/qr\_payments/{payment\_id} \\
+<https://api.bexio.com/3.0/banking/bank\_accounts/{bank\_account\_id}/qr\_payments/{payment\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -26657,7 +26274,7 @@ This action updates an existing payment for the selected bank account. Please no
 
 Please note that you do not have to provide all fields to update a payment.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -26703,15 +26320,15 @@ patch/3.0/banking/bank\_accounts/{bank\_account\_id}/qr\_payments/{payment\_id}
 
 Live Server
 
-https://api.bexio.com/3.0/banking/bank\_accounts/{bank\_account\_id}/qr\_payments/{payment\_id}
+<https://api.bexio.com/3.0/banking/bank\_accounts/{bank\_account\_id}/qr\_payments/{payment\_id}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -26763,8 +26380,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -26846,7 +26463,7 @@ Fetch a list of payments Deprecated
 
 This action fetches all payments
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -26873,25 +26490,25 @@ get/3.0/banking/payments
 
 Live Server
 
-https://api.bexio.com/3.0/banking/payments
+<https://api.bexio.com/3.0/banking/payments>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/banking/payments \\
+<https://api.bexio.com/3.0/banking/payments> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -26972,7 +26589,7 @@ Cancel a payment Deprecated
 
 This action cancels an existing payment. Please note that a payment can only be cancelled when the status is "downloaded", "transferred" or "error".
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -26995,25 +26612,25 @@ post/3.0/banking/payments/{payment\_id}/cancel
 
 Live Server
 
-https://api.bexio.com/3.0/banking/payments/{payment\_id}/cancel
+<https://api.bexio.com/3.0/banking/payments/{payment\_id}/cancel>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X POST \\
-https://api.bexio.com/3.0/banking/payments/{payment\_id}/cancel \\
+<https://api.bexio.com/3.0/banking/payments/{payment\_id}/cancel> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -27094,7 +26711,7 @@ Delete a payment Deprecated
 
 This action permanently deletes an existing payment. It cannot be undone. Please note that a payment can only be deleted when the status is "open".
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -27117,25 +26734,25 @@ delete/3.0/banking/payments/{payment\_id}
 
 Live Server
 
-https://api.bexio.com/3.0/banking/payments/{payment\_id}
+<https://api.bexio.com/3.0/banking/payments/{payment\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/3.0/banking/payments/{payment\_id} \\
+<https://api.bexio.com/3.0/banking/payments/{payment\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -27156,7 +26773,7 @@ Fetch a list of all payments
 
 This action returns list of all payments
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -27181,25 +26798,25 @@ get/4.0/banking/payments
 
 Live Server
 
-https://api.bexio.com/4.0/banking/payments
+<https://api.bexio.com/4.0/banking/payments>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/4.0/banking/payments \\
+<https://api.bexio.com/4.0/banking/payments> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -27292,7 +26909,7 @@ Create a payment
 
 This action creates a new payment
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -27326,15 +26943,15 @@ post/4.0/banking/payments
 
 Live Server
 
-https://api.bexio.com/4.0/banking/payments
+<https://api.bexio.com/4.0/banking/payments>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -27392,8 +27009,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -27486,7 +27103,7 @@ Get a payment
 
 This action returns single payment
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -27509,25 +27126,25 @@ get/4.0/banking/payments/{payment\_id}
 
 Live Server
 
-https://api.bexio.com/4.0/banking/payments/{payment\_id}
+<https://api.bexio.com/4.0/banking/payments/{payment\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/4.0/banking/payments/{payment\_id} \\
+<https://api.bexio.com/4.0/banking/payments/{payment\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -27620,7 +27237,7 @@ Update a payment
 
 This action updates a payment
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -27664,15 +27281,15 @@ put/4.0/banking/payments/{payment\_id}
 
 Live Server
 
-https://api.bexio.com/4.0/banking/payments/{payment\_id}
+<https://api.bexio.com/4.0/banking/payments/{payment\_id}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -27726,8 +27343,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -27820,7 +27437,7 @@ Delete a payment
 
 This action permanently deletes an existing payment. It cannot be undone.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -27843,25 +27460,25 @@ delete/4.0/banking/payments/{payment\_id}
 
 Live Server
 
-https://api.bexio.com/4.0/banking/payments/{payment\_id}
+<https://api.bexio.com/4.0/banking/payments/{payment\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/4.0/banking/payments/{payment\_id} \\
+<https://api.bexio.com/4.0/banking/payments/{payment\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -27882,7 +27499,7 @@ Cancel a payment
 
 This action cancels an existing payment. Please note that a payment can only be cancelled when the status is "downloaded", "transferred" or "error".
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -27905,25 +27522,25 @@ post/4.0/banking/payments/{payment\_id}/cancel
 
 Live Server
 
-https://api.bexio.com/4.0/banking/payments/{payment\_id}/cancel
+<https://api.bexio.com/4.0/banking/payments/{payment\_id}/cancel>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X POST \\
-https://api.bexio.com/4.0/banking/payments/{payment\_id}/cancel \\
+<https://api.bexio.com/4.0/banking/payments/{payment\_id}/cancel> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -28019,7 +27636,7 @@ Fetch a list of items
 
 This action fetches a list of all items / products
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -28044,25 +27661,25 @@ get/2.0/article
 
 Live Server
 
-https://api.bexio.com/2.0/article
+<https://api.bexio.com/2.0/article>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/article \\
+<https://api.bexio.com/2.0/article> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -28165,7 +27782,7 @@ Create item
 
 This action creates a new item
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -28206,15 +27823,15 @@ post/2.0/article
 
 Live Server
 
-https://api.bexio.com/2.0/article
+<https://api.bexio.com/2.0/article>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -28294,8 +27911,8 @@ Copy
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -28393,10 +28010,10 @@ Search items
 Search items via query. Please refer to the Search section for detailed instructions.  
 The following search fields are supported:
 
-*   `intern_name`
-*   `intern_code`
+* `intern_name`
+* `intern_code`
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -28435,15 +28052,15 @@ post/2.0/article/search
 
 Live Server
 
-https://api.bexio.com/2.0/article/search
+<https://api.bexio.com/2.0/article/search>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -28471,8 +28088,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -28575,7 +28192,7 @@ Fetch an item
 
 This action fetches a single item
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -28598,25 +28215,25 @@ get/2.0/article/{article\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/article/{article\_id}
+<https://api.bexio.com/2.0/article/{article\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/article/{article\_id} \\
+<https://api.bexio.com/2.0/article/{article\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -28713,7 +28330,7 @@ Edit an item
 
 This action edits a single item
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -28752,15 +28369,15 @@ post/2.0/article/{article\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/article/{article\_id}
+<https://api.bexio.com/2.0/article/{article\_id}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -28838,8 +28455,8 @@ Copy
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -28936,7 +28553,7 @@ Delete an item
 
 This action permanently deletes an item. It cannot be undone.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -28955,25 +28572,25 @@ delete/2.0/article/{article\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/article/{article\_id}
+<https://api.bexio.com/2.0/article/{article\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/2.0/article/{article\_id} \\
+<https://api.bexio.com/2.0/article/{article\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -28997,7 +28614,7 @@ Fetch a list of stock locations
 
 This action fetches a list of all stock locations
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -29022,25 +28639,25 @@ get/2.0/stock
 
 Live Server
 
-https://api.bexio.com/2.0/stock
+<https://api.bexio.com/2.0/stock>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/stock \\
+<https://api.bexio.com/2.0/stock> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -29070,9 +28687,9 @@ Search stock locations
 Search stock locations via query. Please refer to the Search section for detailed instructions.  
 The following search fields are supported:
 
-*   `name`
+* `name`
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -29111,15 +28728,15 @@ post/2.0/stock/search
 
 Live Server
 
-https://api.bexio.com/2.0/stock/search
+<https://api.bexio.com/2.0/stock/search>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -29147,8 +28764,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -29180,7 +28797,7 @@ Fetch a list of stock areas
 
 This action fetches a list of all stock areas
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -29205,25 +28822,25 @@ get/2.0/stock\_place
 
 Live Server
 
-https://api.bexio.com/2.0/stock\_place
+<https://api.bexio.com/2.0/stock\_place>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/stock\_place \\
+<https://api.bexio.com/2.0/stock\_place> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -29253,10 +28870,10 @@ Search stock areas
 Search stock areas via query. Please refer to the Search section for detailed instructions.  
 The following search fields are supported:
 
-*   `name`
-*   `stock_id`
+* `name`
+* `stock_id`
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -29295,15 +28912,15 @@ post/2.0/stock\_place/search
 
 Live Server
 
-https://api.bexio.com/2.0/stock\_place/search
+<https://api.bexio.com/2.0/stock\_place/search>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -29331,8 +28948,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -29364,7 +28981,7 @@ Fetch a list of projects
 
 This action fetches a list of all projects
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -29389,25 +29006,25 @@ get/2.0/pr\_project
 
 Live Server
 
-https://api.bexio.com/2.0/pr\_project
+<https://api.bexio.com/2.0/pr\_project>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/pr\_project \\
+<https://api.bexio.com/2.0/pr\_project> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -29464,7 +29081,7 @@ Create project
 
 This action creates a new project
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -29560,15 +29177,15 @@ post/2.0/pr\_project
 
 Live Server
 
-https://api.bexio.com/2.0/pr\_project
+<https://api.bexio.com/2.0/pr\_project>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -29612,8 +29229,8 @@ Copy
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -29665,11 +29282,11 @@ Search projects
 Search projects via query. Please refer to the Search section for detailed instructions.  
 The following search fields are supported:
 
-*   `name`
-*   `contact_id`
-*   `pr_state_id`
+* `name`
+* `contact_id`
+* `pr_state_id`
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -29708,15 +29325,15 @@ post/2.0/pr\_project/search
 
 Live Server
 
-https://api.bexio.com/2.0/pr\_project/search
+<https://api.bexio.com/2.0/pr\_project/search>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -29744,8 +29361,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -29802,7 +29419,7 @@ Fetch a project
 
 This action fetches a single project
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -29825,25 +29442,25 @@ get/2.0/pr\_project/{project\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/pr\_project/{project\_id}
+<https://api.bexio.com/2.0/pr\_project/{project\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/pr\_project/{project\_id} \\
+<https://api.bexio.com/2.0/pr\_project/{project\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -29894,7 +29511,7 @@ Edit a project
 
 This action edits a single project
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -29993,15 +29610,15 @@ post/2.0/pr\_project/{project\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/pr\_project/{project\_id}
+<https://api.bexio.com/2.0/pr\_project/{project\_id}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -30045,8 +29662,8 @@ Copy
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -30097,7 +29714,7 @@ Delete a project
 
 This action permanently deletes a project. It cannot be undone.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -30120,25 +29737,25 @@ delete/2.0/pr\_project/{project\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/pr\_project/{project\_id}
+<https://api.bexio.com/2.0/pr\_project/{project\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/2.0/pr\_project/{project\_id} \\
+<https://api.bexio.com/2.0/pr\_project/{project\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -30159,7 +29776,7 @@ Archive a project
 
 This action archives a project
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -30182,25 +29799,25 @@ post/2.0/pr\_project/{project\_id}/archive
 
 Live Server
 
-https://api.bexio.com/2.0/pr\_project/{project\_id}/archive
+<https://api.bexio.com/2.0/pr\_project/{project\_id}/archive>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X POST \\
-https://api.bexio.com/2.0/pr\_project/{project\_id}/archive \\
+<https://api.bexio.com/2.0/pr\_project/{project\_id}/archive> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -30221,7 +29838,7 @@ Unarchive a project
 
 This action unarchives an archived project
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -30244,25 +29861,25 @@ post/2.0/pr\_project/{project\_id}/reactivate
 
 Live Server
 
-https://api.bexio.com/2.0/pr\_project/{project\_id}/reactivate
+<https://api.bexio.com/2.0/pr\_project/{project\_id}/reactivate>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X POST \\
-https://api.bexio.com/2.0/pr\_project/{project\_id}/reactivate \\
+<https://api.bexio.com/2.0/pr\_project/{project\_id}/reactivate> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -30283,7 +29900,7 @@ Project status
 
 This action fetches a list of project status
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -30301,25 +29918,25 @@ get/2.0/pr\_project\_state
 
 Live Server
 
-https://api.bexio.com/2.0/pr\_project\_state
+<https://api.bexio.com/2.0/pr\_project\_state>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/pr\_project\_state \\
+<https://api.bexio.com/2.0/pr\_project\_state> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -30348,7 +29965,7 @@ Project types
 
 This action fetches a list of project types
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -30371,25 +29988,25 @@ get/2.0/pr\_project\_type
 
 Live Server
 
-https://api.bexio.com/2.0/pr\_project\_type
+<https://api.bexio.com/2.0/pr\_project\_type>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/pr\_project\_type \\
+<https://api.bexio.com/2.0/pr\_project\_type> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -30418,7 +30035,7 @@ Fetch a list of milestones
 
 This action fetches a list of all milestones for a given project
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -30451,26 +30068,26 @@ get/3.0/projects/{project\_id}/milestones
 
 Live Server
 
-https://api.bexio.com/3.0/projects/{project\_id}/milestones
+<https://api.bexio.com/3.0/projects/{project\_id}/milestones>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/projects/{project\_id}/milestones \\
+<https://api.bexio.com/3.0/projects/{project\_id}/milestones> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -30505,7 +30122,7 @@ Create milestone
 
 This action creates a new milestone
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -30542,15 +30159,15 @@ post/3.0/projects/{project\_id}/milestones
 
 Live Server
 
-https://api.bexio.com/3.0/projects/{project\_id}/milestones
+<https://api.bexio.com/3.0/projects/{project\_id}/milestones>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -30574,8 +30191,8 @@ Copy
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -30604,7 +30221,7 @@ Fetch a milestone
 
 This action fetches a single milestone
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -30628,25 +30245,25 @@ get/3.0/projects/{project\_id}/milestones/{milestone\_id}
 
 Live Server
 
-https://api.bexio.com/3.0/projects/{project\_id}/milestones/{milestone\_id}
+<https://api.bexio.com/3.0/projects/{project\_id}/milestones/{milestone\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/projects/{project\_id}/milestones/{milestone\_id} \\
+<https://api.bexio.com/3.0/projects/{project\_id}/milestones/{milestone\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -30675,7 +30292,7 @@ Edit a milestone
 
 This action edits a single milestone
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -30711,15 +30328,15 @@ post/3.0/projects/{project\_id}/milestones/{milestone\_id}
 
 Live Server
 
-https://api.bexio.com/3.0/projects/{project\_id}/milestones/{milestone\_id}
+<https://api.bexio.com/3.0/projects/{project\_id}/milestones/{milestone\_id}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -30743,8 +30360,8 @@ Copy
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -30773,7 +30390,7 @@ Delete a milestone
 
 This action permanently deletes a milestone. It cannot be undone.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -30797,25 +30414,25 @@ delete/3.0/projects/{project\_id}/milestones/{milestone\_id}
 
 Live Server
 
-https://api.bexio.com/3.0/projects/{project\_id}/milestones/{milestone\_id}
+<https://api.bexio.com/3.0/projects/{project\_id}/milestones/{milestone\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/3.0/projects/{project\_id}/milestones/{milestone\_id} \\
+<https://api.bexio.com/3.0/projects/{project\_id}/milestones/{milestone\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -30836,7 +30453,7 @@ Fetch a list of work packages
 
 This action fetches a list of all work packages for a given project
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -30869,26 +30486,26 @@ get/3.0/projects/{project\_id}/packages
 
 Live Server
 
-https://api.bexio.com/3.0/projects/{project\_id}/packages
+<https://api.bexio.com/3.0/projects/{project\_id}/packages>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/projects/{project\_id}/packages \\
+<https://api.bexio.com/3.0/projects/{project\_id}/packages> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -30925,7 +30542,7 @@ Create work package
 
 This action creates a new work package
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -30963,15 +30580,15 @@ post/3.0/projects/{project\_id}/packages
 
 Live Server
 
-https://api.bexio.com/3.0/projects/{project\_id}/packages
+<https://api.bexio.com/3.0/projects/{project\_id}/packages>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -30997,8 +30614,8 @@ Copy
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -31029,7 +30646,7 @@ Fetch a work package
 
 This action fetches a single work package
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -31053,25 +30670,25 @@ get/3.0/projects/{project\_id}/packages/{package\_id}
 
 Live Server
 
-https://api.bexio.com/3.0/projects/{project\_id}/packages/{package\_id}
+<https://api.bexio.com/3.0/projects/{project\_id}/packages/{package\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/projects/{project\_id}/packages/{package\_id} \\
+<https://api.bexio.com/3.0/projects/{project\_id}/packages/{package\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -31102,7 +30719,7 @@ Delete a work package
 
 This action permanently deletes a work package. It cannot be undone.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -31126,25 +30743,25 @@ delete/3.0/projects/{project\_id}/packages/{package\_id}
 
 Live Server
 
-https://api.bexio.com/3.0/projects/{project\_id}/packages/{package\_id}
+<https://api.bexio.com/3.0/projects/{project\_id}/packages/{package\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/3.0/projects/{project\_id}/packages/{package\_id} \\
+<https://api.bexio.com/3.0/projects/{project\_id}/packages/{package\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -31165,7 +30782,7 @@ Edit a work package
 
 This action edits a single work package
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -31202,15 +30819,15 @@ patch/3.0/projects/{project\_id}/packages/{package\_id}
 
 Live Server
 
-https://api.bexio.com/3.0/projects/{project\_id}/packages/{package\_id}
+<https://api.bexio.com/3.0/projects/{project\_id}/packages/{package\_id}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -31236,8 +30853,8 @@ Copy
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -31271,7 +30888,7 @@ Fetch a list of timesheets
 
 This action fetches a list of all timesheets
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -31296,25 +30913,25 @@ get/2.0/timesheet
 
 Live Server
 
-https://api.bexio.com/2.0/timesheet
+<https://api.bexio.com/2.0/timesheet>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/timesheet \\
+<https://api.bexio.com/2.0/timesheet> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -31387,7 +31004,7 @@ Create timesheet
 
 This action creates a new timesheet
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -31422,15 +31039,15 @@ post/2.0/timesheet
 
 Live Server
 
-https://api.bexio.com/2.0/timesheet
+<https://api.bexio.com/2.0/timesheet>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -31482,8 +31099,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -31553,14 +31170,14 @@ Search timesheets
 Search timesheets via query. Please refer to the Search section for detailed instructions.  
 The following search fields are supported:
 
-*   `id`
-*   `client_service_id`
-*   `contact_id`
-*   `user_id`
-*   `pr_project_id`
-*   `status_id`
+* `id`
+* `client_service_id`
+* `contact_id`
+* `user_id`
+* `pr_project_id`
+* `status_id`
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -31599,15 +31216,15 @@ post/2.0/timesheet/search
 
 Live Server
 
-https://api.bexio.com/2.0/timesheet/search
+<https://api.bexio.com/2.0/timesheet/search>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -31635,8 +31252,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -31709,7 +31326,7 @@ Fetch a timesheet
 
 This action fetches a single timesheet
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -31732,25 +31349,25 @@ get/2.0/timesheet/{timesheet\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/timesheet/{timesheet\_id}
+<https://api.bexio.com/2.0/timesheet/{timesheet\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/timesheet/{timesheet\_id} \\
+<https://api.bexio.com/2.0/timesheet/{timesheet\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -31819,7 +31436,7 @@ Edit a timesheet
 
 This action edits a single timesheet
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -31857,15 +31474,15 @@ post/2.0/timesheet/{timesheet\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/timesheet/{timesheet\_id}
+<https://api.bexio.com/2.0/timesheet/{timesheet\_id}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -31917,8 +31534,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -31987,7 +31604,7 @@ Delete a timesheet
 
 This action permanently deletes a timesheet. It cannot be undone.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -32010,25 +31627,25 @@ delete/2.0/timesheet/{timesheet\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/timesheet/{timesheet\_id}
+<https://api.bexio.com/2.0/timesheet/{timesheet\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/2.0/timesheet/{timesheet\_id} \\
+<https://api.bexio.com/2.0/timesheet/{timesheet\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -32049,7 +31666,7 @@ Timesheet status
 
 This action fetches a list of all timesheet Status
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -32074,25 +31691,25 @@ get/2.0/timesheet\_status
 
 Live Server
 
-https://api.bexio.com/2.0/timesheet\_status
+<https://api.bexio.com/2.0/timesheet\_status>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/timesheet\_status \\
+<https://api.bexio.com/2.0/timesheet\_status> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -32124,7 +31741,7 @@ Fetch a list of business activities
 
 This action fetches a list of all business activities
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -32149,25 +31766,25 @@ get/2.0/client\_service
 
 Live Server
 
-https://api.bexio.com/2.0/client\_service
+<https://api.bexio.com/2.0/client\_service>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/client\_service \\
+<https://api.bexio.com/2.0/client\_service> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -32202,7 +31819,7 @@ Create business activity
 
 This action creates a new business activity
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -32231,15 +31848,15 @@ post/2.0/client\_service
 
 Live Server
 
-https://api.bexio.com/2.0/client\_service
+<https://api.bexio.com/2.0/client\_service>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -32263,8 +31880,8 @@ Copy
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -32294,9 +31911,9 @@ Search business activities
 Search business activities via query. Please refer to the Search section for detailed instructions.  
 The following search fields are supported:
 
-*   `name`
+* `name`
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -32335,15 +31952,15 @@ post/2.0/client\_service/search
 
 Live Server
 
-https://api.bexio.com/2.0/client\_service/search
+<https://api.bexio.com/2.0/client\_service/search>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -32371,8 +31988,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -32410,7 +32027,7 @@ Fetch a list of communication types
 
 This action fetches a list of all communication types
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -32435,25 +32052,25 @@ get/2.0/communication\_kind
 
 Live Server
 
-https://api.bexio.com/2.0/communication\_kind
+<https://api.bexio.com/2.0/communication\_kind>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/communication\_kind \\
+<https://api.bexio.com/2.0/communication\_kind> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -32483,9 +32100,9 @@ Search communication types
 Search communication types via query. Please refer to the Search section for detailed instructions.  
 The following search fields are supported:
 
-*   `name`
+* `name`
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -32524,15 +32141,15 @@ post/2.0/communication\_kind/search
 
 Live Server
 
-https://api.bexio.com/2.0/communication\_kind/search
+<https://api.bexio.com/2.0/communication\_kind/search>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -32560,8 +32177,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -32593,7 +32210,7 @@ Fetch a list of files
 
 This action provides a list of files which are uploaded to a certain company
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -32618,25 +32235,25 @@ get/3.0/files
 
 Live Server
 
-https://api.bexio.com/3.0/files
+<https://api.bexio.com/3.0/files>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/files \\
+<https://api.bexio.com/3.0/files> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -32687,7 +32304,7 @@ Create new file
 
 Creates a new file from payload
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -32718,15 +32335,15 @@ post/3.0/files
 
 Live Server
 
-https://api.bexio.com/3.0/files
+<https://api.bexio.com/3.0/files>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -32741,8 +32358,8 @@ Copy
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -32794,18 +32411,18 @@ Search files
 Search files via query. Please refer to the Search section for detailed instructions.  
 The following search fields are supported:
 
-*   `id`
-*   `uuid`
-*   `created_at`
-*   `name`
-*   `extension`
-*   `size_in_bytes`
-*   `mime_type`
-*   `user_id`
-*   `is_archived`
-*   `source_id`
+* `id`
+* `uuid`
+* `created_at`
+* `name`
+* `extension`
+* `size_in_bytes`
+* `mime_type`
+* `user_id`
+* `is_archived`
+* `source_id`
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -32844,15 +32461,15 @@ post/3.0/files/search
 
 Live Server
 
-https://api.bexio.com/3.0/files/search
+<https://api.bexio.com/3.0/files/search>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -32878,8 +32495,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -32930,7 +32547,7 @@ Get single file
 
 Tries to query the requested file from the backend
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -32953,25 +32570,25 @@ get/3.0/files/{file\_id}
 
 Live Server
 
-https://api.bexio.com/3.0/files/{file\_id}
+<https://api.bexio.com/3.0/files/{file\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/files/{file\_id} \\
+<https://api.bexio.com/3.0/files/{file\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -33016,7 +32633,7 @@ Delete a existing file
 
 Sets state of a file to deleted. It cannot be undone.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -33043,26 +32660,26 @@ delete/3.0/files/{file\_id}
 
 Live Server
 
-https://api.bexio.com/3.0/files/{file\_id}
+<https://api.bexio.com/3.0/files/{file\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/3.0/files/{file\_id} \\
+<https://api.bexio.com/3.0/files/{file\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -33083,7 +32700,7 @@ Update existing file
 
 Updates a existing file with provided properties
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -33121,15 +32738,15 @@ patch/3.0/files/{file\_id}
 
 Live Server
 
-https://api.bexio.com/3.0/files/{file\_id}
+<https://api.bexio.com/3.0/files/{file\_id}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -33151,8 +32768,8 @@ Copy
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -33197,7 +32814,7 @@ Download file
 
 Provides requested file from backend as stream
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -33220,25 +32837,25 @@ get/3.0/files/{file\_id}/download
 
 Live Server
 
-https://api.bexio.com/3.0/files/{file\_id}/download
+<https://api.bexio.com/3.0/files/{file\_id}/download>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/files/{file\_id}/download \\
+<https://api.bexio.com/3.0/files/{file\_id}/download> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -33253,7 +32870,7 @@ Get file preview
 
 Provides requested preview for file from backend as stream
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -33276,25 +32893,25 @@ get/3.0/files/{file\_id}/preview
 
 Live Server
 
-https://api.bexio.com/3.0/files/{file\_id}/preview
+<https://api.bexio.com/3.0/files/{file\_id}/preview>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/files/{file\_id}/preview \\
+<https://api.bexio.com/3.0/files/{file\_id}/preview> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -33309,7 +32926,7 @@ Show file usage
 
 Tries to query the requested file from the backend
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -33332,25 +32949,25 @@ get/3.0/files/{file\_id}/usage
 
 Live Server
 
-https://api.bexio.com/3.0/files/{file\_id}/usage
+<https://api.bexio.com/3.0/files/{file\_id}/usage>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/files/{file\_id}/usage \\
+<https://api.bexio.com/3.0/files/{file\_id}/usage> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -33378,7 +32995,7 @@ Employees
 Retrieves all active employees
 ------------------------------
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -33392,25 +33009,25 @@ get/4.0/payroll/employees
 
 Live Server
 
-https://api.bexio.com/4.0/payroll/employees
+<https://api.bexio.com/4.0/payroll/employees>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/4.0/payroll/employees \\
+<https://api.bexio.com/4.0/payroll/employees> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -33497,7 +33114,7 @@ Expand all Collapse all
 Create employee
 ---------------
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -33522,15 +33139,15 @@ post/4.0/payroll/employees
 
 Live Server
 
-https://api.bexio.com/4.0/payroll/employees
+<https://api.bexio.com/4.0/payroll/employees>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -33600,8 +33217,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   201
-*   400
+* 201
+* 400
 
 Content type
 
@@ -33686,7 +33303,7 @@ Expand all Collapse all
 Retrieve a single employee on a specific date
 ---------------------------------------------
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -33722,28 +33339,28 @@ get/4.0/payroll/employees/{employeeId}
 
 Live Server
 
-https://api.bexio.com/4.0/payroll/employees/{employeeId}
+<https://api.bexio.com/4.0/payroll/employees/{employeeId}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/4.0/payroll/employees/{employeeId} \\
+<https://api.bexio.com/4.0/payroll/employees/{employeeId}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
-*   400
-*   404
-*   410
+* 200
+* 400
+* 404
+* 410
 
 Content type
 
@@ -33828,7 +33445,7 @@ Expand all Collapse all
 Update employee
 ---------------
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -33866,15 +33483,15 @@ patch/4.0/payroll/employees/{employeeId}
 
 Live Server
 
-https://api.bexio.com/4.0/payroll/employees/{employeeId}
+<https://api.bexio.com/4.0/payroll/employees/{employeeId}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -33944,9 +33561,9 @@ Expand all Collapse all
 
 ### Response samples
 
-*   400
-*   404
-*   410
+* 400
+* 404
+* 410
 
 Content type
 
@@ -33970,7 +33587,7 @@ Absences
 Retrieving absences of employee for given year
 ----------------------------------------------
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -34006,28 +33623,28 @@ get/4.0/payroll/employees/{employeeId}/absences
 
 Live Server
 
-https://api.bexio.com/4.0/payroll/employees/{employeeId}/absences
+<https://api.bexio.com/4.0/payroll/employees/{employeeId}/absences>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/4.0/payroll/employees/{employeeId}/absences \\
+<https://api.bexio.com/4.0/payroll/employees/{employeeId}/absences> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
-*   400
-*   404
-*   410
+* 200
+* 400
+* 404
+* 410
 
 Content type
 
@@ -34070,7 +33687,7 @@ Expand all Collapse all
 Create absence for employee
 ---------------------------
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -34108,15 +33725,15 @@ post/4.0/payroll/employees/{employeeId}/absences
 
 Live Server
 
-https://api.bexio.com/4.0/payroll/employees/{employeeId}/absences
+<https://api.bexio.com/4.0/payroll/employees/{employeeId}/absences>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -34146,10 +33763,10 @@ Copy
 
 ### Response samples
 
-*   201
-*   400
-*   404
-*   410
+* 201
+* 400
+* 404
+* 410
 
 Content type
 
@@ -34182,7 +33799,7 @@ Copy
 Retrieving absence for employee with given absence id
 -----------------------------------------------------
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -34214,28 +33831,28 @@ get/4.0/payroll/employees/{employeeId}/absences/{absenceId}
 
 Live Server
 
-https://api.bexio.com/4.0/payroll/employees/{employeeId}/absences/{absenceId}
+<https://api.bexio.com/4.0/payroll/employees/{employeeId}/absences/{absenceId}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/4.0/payroll/employees/{employeeId}/absences/{absenceId} \\
+<https://api.bexio.com/4.0/payroll/employees/{employeeId}/absences/{absenceId}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
-*   400
-*   404
-*   410
+* 200
+* 400
+* 404
+* 410
 
 Content type
 
@@ -34268,7 +33885,7 @@ Copy
 Updating existing absence
 -------------------------
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -34307,15 +33924,15 @@ put/4.0/payroll/employees/{employeeId}/absences/{absenceId}
 
 Live Server
 
-https://api.bexio.com/4.0/payroll/employees/{employeeId}/absences/{absenceId}
+<https://api.bexio.com/4.0/payroll/employees/{employeeId}/absences/{absenceId}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -34345,9 +33962,9 @@ Copy
 
 ### Response samples
 
-*   400
-*   404
-*   410
+* 400
+* 404
+* 410
 
 Content type
 
@@ -34368,7 +33985,7 @@ Copy
 Deleting employee absence with given id
 ---------------------------------------
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -34400,27 +34017,27 @@ delete/4.0/payroll/employees/{employeeId}/absences/{absenceId}
 
 Live Server
 
-https://api.bexio.com/4.0/payroll/employees/{employeeId}/absences/{absenceId}
+<https://api.bexio.com/4.0/payroll/employees/{employeeId}/absences/{absenceId}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/4.0/payroll/employees/{employeeId}/absences/{absenceId} \\
+<https://api.bexio.com/4.0/payroll/employees/{employeeId}/absences/{absenceId}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   400
-*   404
-*   410
+* 400
+* 404
+* 410
 
 Content type
 
@@ -34444,7 +34061,7 @@ Documents
 Retrieving pdf for employee for given month
 -------------------------------------------
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -34477,28 +34094,28 @@ get/4.0/payroll/employees/{employeeId}/paystub-pdf/{year}/{month}
 
 Live Server
 
-https://api.bexio.com/4.0/payroll/employees/{employeeId}/paystub-pdf/{year}/{month}
+<https://api.bexio.com/4.0/payroll/employees/{employeeId}/paystub-pdf/{year}/{month}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/4.0/payroll/employees/{employeeId}/paystub\-pdf/{year}/{month} \\
+<https://api.bexio.com/4.0/payroll/employees/{employeeId}/paystub\-pdf/{year}/{month}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
-*   400
-*   404
-*   410
+* 200
+* 400
+* 404
+* 410
 
 Content type
 
@@ -34522,7 +34139,7 @@ Fetch a list of company profiles
 
 Please note that each account currently has only one company profile.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -34540,25 +34157,25 @@ get/2.0/company\_profile
 
 Live Server
 
-https://api.bexio.com/2.0/company\_profile
+<https://api.bexio.com/2.0/company\_profile>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/company\_profile \\
+<https://api.bexio.com/2.0/company\_profile> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -34647,7 +34264,7 @@ Show company profile
 
 This action fetches a single company profile
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -34670,25 +34287,25 @@ get/2.0/company\_profile/{profile\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/company\_profile/{profile\_id}
+<https://api.bexio.com/2.0/company\_profile/{profile\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/company\_profile/{profile\_id} \\
+<https://api.bexio.com/2.0/company\_profile/{profile\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -34774,7 +34391,7 @@ Fetch a list of countries
 
 This action fetches a list of all countries
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -34799,25 +34416,25 @@ get/2.0/country
 
 Live Server
 
-https://api.bexio.com/2.0/country
+<https://api.bexio.com/2.0/country>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/country \\
+<https://api.bexio.com/2.0/country> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -34850,7 +34467,7 @@ Create country
 
 This action creates a new country
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -34878,15 +34495,15 @@ post/2.0/country
 
 Live Server
 
-https://api.bexio.com/2.0/country
+<https://api.bexio.com/2.0/country>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -34908,8 +34525,8 @@ Copy
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -34937,10 +34554,10 @@ Search countries
 Search countries via query. Please refer to the Search section for detailed instructions.  
 The following search fields are supported:
 
-*   `name`
-*   `name_short`
+* `name`
+* `name_short`
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -34979,15 +34596,15 @@ post/2.0/country/search
 
 Live Server
 
-https://api.bexio.com/2.0/country/search
+<https://api.bexio.com/2.0/country/search>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -35015,8 +34632,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -35049,7 +34666,7 @@ Fetch a country
 
 This action fetches a single country
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -35072,25 +34689,25 @@ get/2.0/country/{country\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/country/{country\_id}
+<https://api.bexio.com/2.0/country/{country\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/country/{country\_id} \\
+<https://api.bexio.com/2.0/country/{country\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -35117,7 +34734,7 @@ Edit a country
 
 This action edits a single country
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -35148,15 +34765,15 @@ post/2.0/country/{country\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/country/{country\_id}
+<https://api.bexio.com/2.0/country/{country\_id}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -35178,8 +34795,8 @@ Copy
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -35206,7 +34823,7 @@ Delete a country
 
 This action permanently deletes a country. It cannot be undone.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -35229,25 +34846,25 @@ delete/2.0/country/{country\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/country/{country\_id}
+<https://api.bexio.com/2.0/country/{country\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/2.0/country/{country\_id} \\
+<https://api.bexio.com/2.0/country/{country\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -35271,7 +34888,7 @@ Fetch a list of languages
 
 This action fetches a list of all languages
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -35296,25 +34913,25 @@ get/2.0/language
 
 Live Server
 
-https://api.bexio.com/2.0/language
+<https://api.bexio.com/2.0/language>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/language \\
+<https://api.bexio.com/2.0/language> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -35354,10 +34971,10 @@ Search languages
 Search languages via query. Please refer to the Search section for detailed instructions.  
 The following search fields are supported:
 
-*   `name`
-*   `iso_639_1`
+* `name`
+* `iso_639_1`
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -35396,15 +35013,15 @@ post/2.0/language/search
 
 Live Server
 
-https://api.bexio.com/2.0/language/search
+<https://api.bexio.com/2.0/language/search>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -35432,8 +35049,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -35475,7 +35092,7 @@ Fetch a list of notes
 
 This action fetches a list of all notes
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -35499,25 +35116,25 @@ get/2.0/note
 
 Live Server
 
-https://api.bexio.com/2.0/note
+<https://api.bexio.com/2.0/note>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/note \\
+<https://api.bexio.com/2.0/note> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -35560,7 +35177,7 @@ Create note
 
 This action creates a new note
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -35591,15 +35208,15 @@ post/2.0/note
 
 Live Server
 
-https://api.bexio.com/2.0/note
+<https://api.bexio.com/2.0/note>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -35631,8 +35248,8 @@ Copy
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -35670,14 +35287,14 @@ Search notes
 Search notes via query. Please refer to the Search section for detailed instructions.  
 The following search fields are supported:
 
-*   `event_start`
-*   `contact_id`
-*   `user_id`
-*   `subject`
-*   `module_id`
-*   `entry_id`
+* `event_start`
+* `contact_id`
+* `user_id`
+* `subject`
+* `module_id`
+* `entry_id`
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -35715,15 +35332,15 @@ post/2.0/note/search
 
 Live Server
 
-https://api.bexio.com/2.0/note/search
+<https://api.bexio.com/2.0/note/search>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -35751,8 +35368,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -35795,7 +35412,7 @@ Fetch a note
 
 This action fetches a single note
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -35818,25 +35435,25 @@ get/2.0/note/{note\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/note/{note\_id}
+<https://api.bexio.com/2.0/note/{note\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/note/{note\_id} \\
+<https://api.bexio.com/2.0/note/{note\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -35873,7 +35490,7 @@ Edit a note
 
 This action edits a single note
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -35907,15 +35524,15 @@ post/2.0/note/{note\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/note/{note\_id}
+<https://api.bexio.com/2.0/note/{note\_id}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -35947,8 +35564,8 @@ Copy
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -35985,7 +35602,7 @@ Delete a note
 
 This action permanently deletes a note. It cannot be undone.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -36008,25 +35625,25 @@ delete/2.0/note/{note\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/note/{note\_id}
+<https://api.bexio.com/2.0/note/{note\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/2.0/note/{note\_id} \\
+<https://api.bexio.com/2.0/note/{note\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -36050,7 +35667,7 @@ Fetch a list of payment types
 
 This action fetches a list of all payment types
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -36075,25 +35692,25 @@ get/2.0/payment\_type
 
 Live Server
 
-https://api.bexio.com/2.0/payment\_type
+<https://api.bexio.com/2.0/payment\_type>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/payment\_type \\
+<https://api.bexio.com/2.0/payment\_type> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -36123,9 +35740,9 @@ Search payment types
 Search payment types via query. Please refer to the Search section for detailed instructions.  
 The following search fields are supported:
 
-*   `name`
+* `name`
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -36164,15 +35781,15 @@ post/2.0/payment\_type/search
 
 Live Server
 
-https://api.bexio.com/2.0/payment\_type/search
+<https://api.bexio.com/2.0/payment\_type/search>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -36200,8 +35817,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -36233,7 +35850,7 @@ Get access information of logged in user
 
 Get components and user permissions of logged in user
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -36251,25 +35868,25 @@ get/3.0/permissions
 
 Live Server
 
-https://api.bexio.com/3.0/permissions
+<https://api.bexio.com/3.0/permissions>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/permissions \\
+<https://api.bexio.com/3.0/permissions> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -36315,7 +35932,7 @@ Fetch a list of tasks
 
 This action fetches a list of all tasks
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -36340,25 +35957,25 @@ get/2.0/task
 
 Live Server
 
-https://api.bexio.com/2.0/task
+<https://api.bexio.com/2.0/task>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/task \\
+<https://api.bexio.com/2.0/task> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -36417,7 +36034,7 @@ Create task
 
 This action creates a new task
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -36451,15 +36068,15 @@ post/2.0/task
 
 Live Server
 
-https://api.bexio.com/2.0/task
+<https://api.bexio.com/2.0/task>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -36505,8 +36122,8 @@ Copy
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -36560,15 +36177,15 @@ Search tasks
 Search tasks via query. Please refer to the Search section for detailed instructions.  
 The following search fields are supported:
 
-*   `subject`
-*   `updated_at`
-*   `user_id`
-*   `contact_id`
-*   `todo_status_id`
-*   `module_id`
-*   `entry_id`
+* `subject`
+* `updated_at`
+* `user_id`
+* `contact_id`
+* `todo_status_id`
+* `module_id`
+* `entry_id`
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -36607,15 +36224,15 @@ post/2.0/task/search
 
 Live Server
 
-https://api.bexio.com/2.0/task/search
+<https://api.bexio.com/2.0/task/search>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -36643,8 +36260,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -36703,7 +36320,7 @@ Fetch a task
 
 This action fetches a single task
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -36726,25 +36343,25 @@ get/2.0/task/{task\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/task/{task\_id}
+<https://api.bexio.com/2.0/task/{task\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/task/{task\_id} \\
+<https://api.bexio.com/2.0/task/{task\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -36797,7 +36414,7 @@ Edit a task
 
 This action edits a single task
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -36834,15 +36451,15 @@ post/2.0/task/{task\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/task/{task\_id}
+<https://api.bexio.com/2.0/task/{task\_id}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -36888,8 +36505,8 @@ Copy
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -36942,7 +36559,7 @@ Delete a task
 
 This action permanently deletes a task. It cannot be undone.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -36965,25 +36582,25 @@ delete/2.0/task/{task\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/task/{task\_id}
+<https://api.bexio.com/2.0/task/{task\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/2.0/task/{task\_id} \\
+<https://api.bexio.com/2.0/task/{task\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -37004,7 +36621,7 @@ Task priorities
 
 This action fetches a list of all task priorities
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -37029,25 +36646,25 @@ get/2.0/todo\_priority
 
 Live Server
 
-https://api.bexio.com/2.0/todo\_priority
+<https://api.bexio.com/2.0/todo\_priority>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/todo\_priority \\
+<https://api.bexio.com/2.0/todo\_priority> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -37076,7 +36693,7 @@ Task status
 
 This action fetches a list of all task status
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -37101,25 +36718,25 @@ get/2.0/todo\_status
 
 Live Server
 
-https://api.bexio.com/2.0/todo\_status
+<https://api.bexio.com/2.0/todo\_status>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/todo\_status \\
+<https://api.bexio.com/2.0/todo\_status> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -37151,7 +36768,7 @@ Fetch a list of units
 
 This action fetches a list of all units
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -37175,25 +36792,25 @@ get/2.0/unit
 
 Live Server
 
-https://api.bexio.com/2.0/unit
+<https://api.bexio.com/2.0/unit>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/unit \\
+<https://api.bexio.com/2.0/unit> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -37222,7 +36839,7 @@ Create unit
 
 This action creates a new unit
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -37250,15 +36867,15 @@ post/2.0/unit
 
 Live Server
 
-https://api.bexio.com/2.0/unit
+<https://api.bexio.com/2.0/unit>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -37276,8 +36893,8 @@ Copy
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -37301,9 +36918,9 @@ Search units
 Search units via query. Please refer to the Search section for detailed instructions.  
 The following search fields are supported:
 
-*   `name`
+* `name`
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -37341,15 +36958,15 @@ post/2.0/unit/search
 
 Live Server
 
-https://api.bexio.com/2.0/unit/search
+<https://api.bexio.com/2.0/unit/search>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -37377,8 +36994,8 @@ Expand all Collapse all
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -37407,7 +37024,7 @@ Fetch a unit
 
 This action fetches a single unit
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -37430,25 +37047,25 @@ get/2.0/unit/{unit\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/unit/{unit\_id}
+<https://api.bexio.com/2.0/unit/{unit\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/2.0/unit/{unit\_id} \\
+<https://api.bexio.com/2.0/unit/{unit\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -37471,7 +37088,7 @@ Edit a unit
 
 This action edits a single unit
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -37502,15 +37119,15 @@ post/2.0/unit/{unit\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/unit/{unit\_id}
+<https://api.bexio.com/2.0/unit/{unit\_id}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -37528,8 +37145,8 @@ Copy
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
@@ -37552,7 +37169,7 @@ Delete a unit
 
 This action permanently deletes a unit. It cannot be undone.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -37575,25 +37192,25 @@ delete/2.0/unit/{unit\_id}
 
 Live Server
 
-https://api.bexio.com/2.0/unit/{unit\_id}
+<https://api.bexio.com/2.0/unit/{unit\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/2.0/unit/{unit\_id} \\
+<https://api.bexio.com/2.0/unit/{unit\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -37617,7 +37234,7 @@ Fetch a list of users
 
 This action fetches a list of all users
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -37641,25 +37258,25 @@ get/3.0/users
 
 Live Server
 
-https://api.bexio.com/3.0/users
+<https://api.bexio.com/3.0/users>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/users \\
+<https://api.bexio.com/3.0/users> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -37698,7 +37315,7 @@ Fetch a user
 
 This action fetches a single user
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -37721,25 +37338,25 @@ get/3.0/users/{user\_id}
 
 Live Server
 
-https://api.bexio.com/3.0/users/{user\_id}
+<https://api.bexio.com/3.0/users/{user\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/users/{user\_id} \\
+<https://api.bexio.com/3.0/users/{user\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -37772,7 +37389,7 @@ Fetch the authenticated user
 
 This action fetches the user authenticated by the bearer token.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -37790,25 +37407,25 @@ get/3.0/users/me
 
 Live Server
 
-https://api.bexio.com/3.0/users/me
+<https://api.bexio.com/3.0/users/me>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/users/me \\
+<https://api.bexio.com/3.0/users/me> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -37841,7 +37458,7 @@ Fetch a list of fictional users
 
 This action fetches a list of all fictional users. These fictional users can be used in dropdowns but can not log in to the application
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -37865,25 +37482,25 @@ get/3.0/fictional\_users
 
 Live Server
 
-https://api.bexio.com/3.0/fictional\_users
+<https://api.bexio.com/3.0/fictional\_users>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/fictional\_users \\
+<https://api.bexio.com/3.0/fictional\_users> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -37920,7 +37537,7 @@ Create a fictional user
 
 This action creates a new fictional user
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -37952,15 +37569,15 @@ post/3.0/fictional\_users
 
 Live Server
 
-https://api.bexio.com/3.0/fictional\_users
+<https://api.bexio.com/3.0/fictional\_users>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -37986,8 +37603,8 @@ Copy
 
 ### Response samples
 
-*   201
-*   422
+* 201
+* 422
 
 Content type
 
@@ -38018,7 +37635,7 @@ Fetch a fictional User
 
 This action fetches a single fictional user
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -38041,25 +37658,25 @@ get/3.0/fictional\_users/{fictional\_user\_id}
 
 Live Server
 
-https://api.bexio.com/3.0/fictional\_users/{fictional\_user\_id}
+<https://api.bexio.com/3.0/fictional\_users/{fictional\_user\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X GET \\
-https://api.bexio.com/3.0/fictional\_users/{fictional\_user\_id} \\
+<https://api.bexio.com/3.0/fictional\_users/{fictional\_user\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -38090,7 +37707,7 @@ Delete a fictional user
 
 This action permanently deletes a fictional user. It cannot be undone.
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -38113,25 +37730,25 @@ delete/3.0/fictional\_users/{fictional\_user\_id}
 
 Live Server
 
-https://api.bexio.com/3.0/fictional\_users/{fictional\_user\_id}
+<https://api.bexio.com/3.0/fictional\_users/{fictional\_user\_id}>
 
 ### Request samples
 
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Copy
 
 curl \-X DELETE \\
-https://api.bexio.com/3.0/fictional\_users/{fictional\_user\_id} \\
+<https://api.bexio.com/3.0/fictional\_users/{fictional\_user\_id}> \\
 \-H 'Accept: application/json' \\
 \-H 'Authorization: Bearer {access-token}'
 
 ### Response samples
 
-*   200
+* 200
 
 Content type
 
@@ -38152,7 +37769,7 @@ Update a fictional User
 
 This action updates an existing fictional user
 
-##### Authorizations:
+##### Authorizations
 
 _bearerAuth_
 
@@ -38189,15 +37806,15 @@ patch/3.0/fictional\_users/{fictional\_user\_id}
 
 Live Server
 
-https://api.bexio.com/3.0/fictional\_users/{fictional\_user\_id}
+<https://api.bexio.com/3.0/fictional\_users/{fictional\_user\_id}>
 
 ### Request samples
 
-*   Payload
-*   cURL
-*   Python
-*   PHP
-*   Node.JS
+* Payload
+* cURL
+* Python
+* PHP
+* Node.JS
 
 Content type
 
@@ -38223,8 +37840,8 @@ Copy
 
 ### Response samples
 
-*   200
-*   422
+* 200
+* 422
 
 Content type
 
