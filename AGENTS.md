@@ -138,6 +138,13 @@ All API DTOs extend `src/Resources/Resource.php`, which itself extends `Spatie\L
 - Keep `Order::$kb_item_status_id` as an `int` for now. `OrderStatus` maps the documented order states: pending `5`, done `6`, partial `15`, and canceled `21`.
 - `src/Resources/Sales/Orders/Order.php::toApi()` strips response-only and API-rejected create fields such as `taxs`, `mwst_is_net`, `is_valid_to`, `project_id`, and `reference` before `CreateOrderRequest` sends JSON.
 
+### Quote query support
+
+- Unfiltered quote queries use `GET /2.0/kb_offer` and support `order_by`, `limit`, and `offset` through `src/Resources/Sales/Quotes/Requests/GetQuotesRequest.php`.
+- Quote filtering uses `POST /2.0/kb_offer/search` through `src/Resources/Sales/Quotes/Requests/SearchQuotesRequest.php`.
+- `src/Resources/Sales/Quotes/QuoteQueryBuilder.php` mirrors the order builder with `status()`, `statusIn()`, `validFrom()`, `validTo()`, and `validBetween()` helpers.
+- Live API verification shows `/2.0/kb_offer/search` matches quote validity on `is_valid_until`; do not use `is_valid_to` in quote search helpers.
+
 ### Accounting search support
 
 - Account filtering uses `POST /2.0/accounts/search`. The API docs and live payloads use `fibu_account_group_id` as the account-group field name in search responses.

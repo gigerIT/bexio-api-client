@@ -11,16 +11,26 @@ use Bexio\Resources\Sales\KbDocumentContract;
 use Bexio\Resources\Sales\MwstType;
 use Bexio\Resources\Sales\Quotes\Enums\QuoteStatus;
 use Bexio\Resources\Sales\Quotes\Requests\CreateQuoteRequest;
+use Bexio\Resources\Sales\Quotes\Requests\DeleteQuoteRequest;
+use Bexio\Resources\Sales\Quotes\Requests\GetQuoteRequest;
+use Bexio\Resources\Sales\Quotes\Requests\GetQuotesRequest;
 use Bexio\Resources\Sales\SalesTax;
 use Illuminate\Support\Collection;
 
+/**
+ * @method QuoteQueryBuilder query()
+ */
 class Quote extends Resource implements KbDocumentContract
 {
     use HasComments;
 
     const DOCUMENT_TYPE = KbDocumentType::OFFER;
 
+    const INDEX_REQUEST = GetQuotesRequest::class;
+    const QUERY_BUILDER = QuoteQueryBuilder::class;
+    const SHOW_REQUEST = GetQuoteRequest::class;
     const CREATE_REQUEST = CreateQuoteRequest::class;
+    const DELETE_REQUEST = DeleteQuoteRequest::class;
 
     public string $document_nr;
 
