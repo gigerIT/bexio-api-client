@@ -1,5 +1,14 @@
 # Changelog
 
+## [4.5.0](https://github.com/gigerIT/bexio-api-client/compare/v4.4.0...v4.5.0) (2026-04-01)
+
+
+### Features
+
+* add invoice reminder search support ([fd81850](https://github.com/gigerIT/bexio-api-client/commit/fd8185093f62a1eb72de3323fe6e0bc55aea65d1))
+* add note and task search support ([57a5bab](https://github.com/gigerIT/bexio-api-client/commit/57a5bab60539eaf046e0028e3f7ae51a2635c3c1))
+* add quote search query support ([4fd1eee](https://github.com/gigerIT/bexio-api-client/commit/4fd1eeece9c192ba88f3ea599c7803ef64d28cea))
+
 ## [4.4.0](https://github.com/gigerIT/bexio-api-client/compare/v4.3.0...v4.4.0) (2026-04-01)
 
 
