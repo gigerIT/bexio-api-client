@@ -23,6 +23,11 @@ Laravel package for the Bexio API. The package uses `saloonphp/saloon` for HTTP 
 - `docs/bexio API docs.md` and `docs/bexio API documentation.html`: bundled reference material from Bexio
 - `README.md`: installation, auth, examples, and resource coverage matrix
 
+## API Docs
+
+- mcp: context7 `bexio api`
+- Local: `docs/bexio API docs.md` and `docs/bexio API documentation.html`: bundled reference material from Bexio
+
 ## Core Architecture
 
 ### `BexioClient`
@@ -119,10 +124,17 @@ All API DTOs extend `src/Resources/Resource.php`, which itself extends `Spatie\L
 
 ### Invoice query support
 
-- `src/Resources/Sales/Invoices/InvoiceQueryBuilder.php` is the first resource-specific consumer of `SearchableQueryBuilder`.
+- `src/Resources/Sales/Invoices/InvoiceQueryBuilder.php` and `src/Resources/Sales/Orders/OrderQueryBuilder.php` are the sales-document-specific consumers of `SearchableQueryBuilder`.
 - Invoice filtering uses `POST /2.0/kb_invoice/search` through `src/Resources/Sales/Invoices/Requests/SearchInvoicesRequest.php`.
 - Live API verification shows `/2.0/kb_invoice/search` rejects a literal `invoice_date` search field; use `validFrom()`, `validTo()`, or `validBetween()` against the invoice's normalized `invoice_date`/validity dates instead.
 - Preferred fluent helpers are `status()`, `statusIn()`, `validFrom()`, `validTo()`, and `validBetween()`.
+
+### Order query support
+
+- Order filtering uses `POST /2.0/kb_order/search` through `src/Resources/Sales/Orders/Requests/SearchOrdersRequest.php`.
+- `src/Resources/Sales/Orders/OrderQueryBuilder.php` mirrors the invoice builder with `status()`, `statusIn()`, `validFrom()`, `validTo()`, and `validBetween()` helpers.
+- Keep `Order::$kb_item_status_id` as an `int` for now. `OrderStatus` maps the documented order states: pending `5`, done `6`, partial `15`, and canceled `21`.
+- `src/Resources/Sales/Orders/Order.php::toApi()` strips response-only and API-rejected create fields such as `taxs`, `mwst_is_net`, `is_valid_to`, `project_id`, and `reference` before `CreateOrderRequest` sends JSON.
 
 ### Additional addresses need contact context
 
@@ -157,6 +169,7 @@ All API DTOs extend `src/Resources/Resource.php`, which itself extends `Spatie\L
 
 ## Testing Workflow
 
+- A working BEXIO_ACCESS_TOKEN will always be provided via .env in local development and in CI.
 - Test stack: Pest v3 + Orchestra Testbench.
 - Main files:
   - `tests/Pest.php`
@@ -217,12 +230,22 @@ All API DTOs extend `src/Resources/Resource.php`, which itself extends `Spatie\L
 - If you add response-only fields, keep outgoing payload filtering up to date.
 - If you add a new pattern or project caveat, update this file in the same task.
 
-## AGENTS.md Maintenance
+## Documentation Placement and Maintenance
 
-- Update `AGENTS.md` immediately whenever codebase or project-context changes affect documented components, workflows, architecture, behavior, or any other guidance captured here.
-- If you discover missing, unclear, or undocumented context that would have been useful upfront, add it to `AGENTS.md` during the same task so the guide keeps improving for future agents.
-- Base `AGENTS.md` updates only on verified changes or context from the current task; do not guess or add unverified guidance.
-- Keep the file optimized for signal over volume: summarize, deduplicate, and prune stale or obvious guidance so it stays focused on real project caveats and does not waste tokens over time.
-- Apply required documentation updates as part of the same task whenever those conditions are met.
-- Treat the task as incomplete until the needed `AGENTS.md` updates are made, or you have verified that no `AGENTS.md` update is needed.
-- Before finalizing, verify that any `AGENTS.md` changes are consistent with the completed codebase or project-context changes.
+**When to document**
+Update or add documentation whenever a task introduces verified changes, reveals missing context, or uncovers gaps that would have been useful upfront. Only document based on verified facts from the current task — no speculation.
+
+**Where to document**
+Apply this decision rule before writing anything:
+
+1. Global, reusable, or task-agnostic guidance → `AGENTS.md`
+2. File-, function-, or implementation-scoped insight → code comment at the relevant location
+3. If both apply → global rule in `AGENTS.md`, local detail in code comment
+
+Default to the narrowest correct target.
+
+**Quality standard**
+Keep `AGENTS.md` high-signal and durable. Summarize, deduplicate, and prune stale or overly narrow entries so it stays useful without wasting tokens.
+
+**Completion check**
+Before finalizing any task: confirm that all needed `AGENTS.md` updates and relevant code comments have been made, or explicitly verify that none are needed. The task is incomplete until this check passes.
