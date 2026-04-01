@@ -19,6 +19,9 @@ use Bexio\Resources\Sales\Orders\Requests\GetOrdersRequest;
 use Bexio\Support\Concerns\HasOfficeLink;
 use Spatie\LaravelData\Attributes\WithCast;
 
+/**
+ * @method OrderQueryBuilder query()
+ */
 class Order extends Resource implements KbDocumentContract
 {
     use HasComments;
@@ -28,6 +31,7 @@ class Order extends Resource implements KbDocumentContract
     public const DOCUMENT_TYPE = KbDocumentType::ORDER;
 
     public const INDEX_REQUEST = GetOrdersRequest::class;
+    public const QUERY_BUILDER = OrderQueryBuilder::class;
     public const SHOW_REQUEST = GetOrderRequest::class;
     public const CREATE_REQUEST = CreateOrderRequest::class;
     public const DELETE_REQUEST = DeleteOrderRequest::class;
@@ -79,6 +83,31 @@ class Order extends Resource implements KbDocumentContract
         public ?ItemPositionCollection $positions = null,
     ) {
         $this->positions = $positions ?? new ItemPositionCollection([]);
+    }
+
+    public function toApi(): Order
+    {
+        return $this->except(
+            'id',
+            'total_gross',
+            'total_net',
+            'total_taxes',
+            'total',
+            'total_rounding_difference',
+            'contact_address',
+            'delivery_address',
+            'kb_item_status_id',
+            'updated_at',
+            'taxs',
+            'network_link',
+            'mwst_is_net',
+            'esr_id',
+            'qr_invoice_id',
+            'viewed_by_client_at',
+            'project_id',
+            'is_valid_to',
+            'reference',
+        );
     }
 }
 

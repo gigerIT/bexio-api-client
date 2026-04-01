@@ -10,29 +10,28 @@ use Saloon\Http\Request;
 use Saloon\Http\Response;
 use Saloon\Traits\Body\HasJsonBody;
 
-class CreateOrderRequest extends Request implements HasBody
+class SearchOrdersRequest extends Request implements HasBody
 {
     use HasJsonBody;
 
     protected Method $method = Method::POST;
 
-    public function __construct(readonly protected Order $order)
+    public function __construct(protected readonly array $searchClauses = [])
     {
     }
 
     public function resolveEndpoint(): string
     {
-        return '/2.0/kb_order';
+        return '/2.0/kb_order/search';
     }
 
     protected function defaultBody(): array
     {
-        return $this->order->toApi()->toArray();
+        return $this->searchClauses;
     }
 
-    public function createDtoFromResponse(Response $response): Order
+    public function createDtoFromResponse(Response $response): array
     {
-        return Order::from($response->json());
+        return Order::collect($response->json());
     }
 }
-
