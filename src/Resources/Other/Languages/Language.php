@@ -6,9 +6,13 @@ namespace Bexio\Resources\Other\Languages;
 use Bexio\Resources\Other\Languages\Requests\GetLanguagesRequest;
 use Bexio\Resources\Resource;
 
+/**
+ * @method LanguageQueryBuilder query()
+ */
 class Language extends Resource
 {
     public const INDEX_REQUEST = GetLanguagesRequest::class;
+    public const QUERY_BUILDER = LanguageQueryBuilder::class;
 
     public function __construct(
         public ?int $id = null,

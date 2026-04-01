@@ -7,9 +7,13 @@ use Bexio\Resources\Other\Countries\Requests\GetCountriesRequest;
 use Bexio\Resources\Other\Countries\Requests\GetCountryRequest;
 use Bexio\Resources\Resource;
 
+/**
+ * @method CountryQueryBuilder query()
+ */
 class Country extends Resource
 {
     public const INDEX_REQUEST = GetCountriesRequest::class;
+    public const QUERY_BUILDER = CountryQueryBuilder::class;
     public const SHOW_REQUEST = GetCountryRequest::class;
 
     public function __construct(
