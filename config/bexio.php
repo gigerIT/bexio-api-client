@@ -1,5 +1,7 @@
 <?php
 
+use Bexio\Support\Enums\ApiScope;
+
 return [
 
     /*
@@ -47,27 +49,15 @@ return [
     | Available scopes include: openid, profile, email, offline_access,
     | contact_show, contact_edit, article_show, article_edit, etc.
     |
-    | See Bexio API documentation for the full list of available scopes.
+    | See ApiScope enum for the full list of available scopes.
     |
     */
 
     'scopes' => [
-        'openid',
-        'profile',
-        'offline_access',
-        'contact_show',
-        'contact_edit',
-        'article_show',
-        'article_edit',
-        'kb_invoice_show',
-        'kb_invoice_edit',
-        'kb_offer_show',
-        'kb_offer_edit',
-        'kb_order_show',
-        'kb_order_edit',
-        'accounting',
-        'bank_account_show',
-        'bank_payment_show',
+        ApiScope::OPENID->value,
+        ApiScope::PROFILE->value,
+        ApiScope::OFFLINE_ACCESS->value,
+        ApiScope::CONTACT_SHOW->value,
     ],
 
 ];
