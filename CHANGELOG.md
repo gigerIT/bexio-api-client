@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.3.0](https://github.com/gigerIT/bexio-api-client/compare/v4.2.1...v4.3.0) (2026-04-01)
+
+
+### Features
+
+* add order search query support ([2734b75](https://github.com/gigerIT/bexio-api-client/commit/2734b7549beced3dce33cd309539056aaa0b3519))
+
 ## [4.2.1](https://github.com/gigerIT/bexio-api-client/compare/v4.2.0...v4.2.1) (2026-03-31)
 
 
