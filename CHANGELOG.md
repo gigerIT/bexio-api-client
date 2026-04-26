@@ -1,6 +1,12 @@
 # Changelog
 
-## [4.5.2](https://github.com/gigerIT/bexio-api-client/compare/v4.5.1...v4.5.2) (2026-04-26)
+## [4.6.0](https://github.com/gigerIT/bexio-api-client/compare/v4.5.1...v4.6.0) (2026-04-26)
+
+
+### Features
+
+* **sales/orders:** enhance order management with repetition and PDF functionalities ([467cc2f](https://github.com/gigerIT/bexio-api-client/commit/467cc2fa2b66d0cbfc17923e3a5e4c7e31d5a521))
+* **sales/orders:** implement document conversion for quotes and orders ([a77b19a](https://github.com/gigerIT/bexio-api-client/commit/a77b19a50a5403f5e67483ae56f1843db182640e))
 
 
 ### Bug Fixes
