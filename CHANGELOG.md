@@ -1,5 +1,18 @@
 # Changelog
 
+## [4.5.2](https://github.com/gigerIT/bexio-api-client/compare/v4.5.1...v4.5.2) (2026-04-26)
+
+
+### Bug Fixes
+
+* **phpstan:** resolve level 5 analysis errors ([0b1f3d0](https://github.com/gigerIT/bexio-api-client/commit/0b1f3d0a253cc621657db0f7d1d1401e6d09fe87))
+* **tests:** update order and quote ID assertions to use greater than or equal comparison ([eb449b6](https://github.com/gigerIT/bexio-api-client/commit/eb449b6a71a527f2e12c5cf5dff6079d296d0a88))
+
+
+### Miscellaneous Chores
+
+* add parallel testing command to composer.json ([61c5cce](https://github.com/gigerIT/bexio-api-client/commit/61c5cceb1317c8697ccf6c7a0faa234368e009d3))
+
 ## [4.5.1](https://github.com/gigerIT/bexio-api-client/compare/v4.5.0...v4.5.1) (2026-04-24)
 
 
