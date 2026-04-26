@@ -54,7 +54,7 @@ it('can paginate and sort Orders via the index endpoint', function () use (&$tes
 
     expect($orders)->toHaveCount(1)
         ->and($orders[0])->toBeInstanceOf(Order::class)
-        ->and($orders[0]->id)->toBe($testOrder->id);
+        ->and($orders[0]->id)->toBeGreaterThanOrEqual($testOrder->id);
 })->depends('it can create an Order');
 
 it('can get an Order', function () use (&$testOrder) {

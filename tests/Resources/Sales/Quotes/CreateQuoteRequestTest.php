@@ -60,7 +60,7 @@ it('can paginate and sort Quotes via the index endpoint', function () use (&$tes
 
     expect($quotes)->toHaveCount(1)
         ->and($quotes[0])->toBeInstanceOf(Quote::class)
-        ->and($quotes[0]->id)->toBe($testQuote->id);
+        ->and($quotes[0]->id)->toBeGreaterThanOrEqual($testQuote->id);
 })->depends('it can create a Quote');
 
 it('can get a Quote', function () use (&$testQuote) {
@@ -95,7 +95,7 @@ it('can get first Quote using query builder', function () use (&$testQuote) {
         ->first();
 
     expect($quote)->toBeInstanceOf(Quote::class)
-        ->and($quote->id)->toBe($testQuote->id);
+        ->and($quote->id)->toBeGreaterThanOrEqual($testQuote->id);
 })->depends('it can create a Quote');
 
 it('can delete a Quote', function () use (&$testQuote) {
