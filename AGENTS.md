@@ -90,6 +90,7 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 - Public collection retrieval is `get()` only. Older `search()` builder API removed in current major-version work.
 - Searchable builders auto-switch from resource `INDEX_REQUEST` to dedicated `Search*Request` after any where-clause.
 - Resource-specific builders stay thin: domain sugar or endpoint context only, e.g. `withArchived()`, `forContact()`, invoice status/date helpers.
+- Sales document builders for invoices, orders, and quotes share `src/Resources/Sales/Concerns/BuildsSalesDocumentQueries.php`; keep concrete typed public helpers and override only endpoint-specific field names such as quote `is_valid_until`.
 - `QueryBuilder` still instantiates requests from constructor args. Resource-specific builders may override `indexRequestArguments()`, `searchRequestArguments()`, or `searchRequestQueryParameters()` when request constructor names or route context differ from fluent state.
 
 ### Search DTOs

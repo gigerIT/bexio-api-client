@@ -5,52 +5,43 @@ namespace Bexio\Resources\Sales\Quotes;
 
 use Bexio\Resources\Sales\Quotes\Enums\QuoteStatus;
 use Bexio\Resources\Sales\Quotes\Requests\SearchQuotesRequest;
-use Bexio\Support\Data\SearchCriteria;
+use Bexio\Resources\Sales\Concerns\BuildsSalesDocumentQueries;
 use Bexio\Support\SearchableQueryBuilder;
 use DateTimeInterface;
 
 class QuoteQueryBuilder extends SearchableQueryBuilder
 {
+    use BuildsSalesDocumentQueries;
+
     protected const SEARCH_REQUEST = SearchQuotesRequest::class;
 
     public function status(QuoteStatus|int $status): static
     {
-        $status = $status instanceof QuoteStatus ? $status->value : $status;
-
-        return $this->where('kb_item_status_id', SearchCriteria::EQUAL, $status);
+        return $this->whereSalesDocumentStatus($status);
     }
 
     public function statusIn(array $statuses): static
     {
-        $values = array_map(
-            static fn (QuoteStatus|int $status): int => $status instanceof QuoteStatus ? $status->value : $status,
-            $statuses,
-        );
-
-        return $this->whereIn('kb_item_status_id', $values);
+        return $this->whereSalesDocumentStatusIn($statuses);
     }
 
     public function validFrom(string|DateTimeInterface $date): static
     {
-        return $this->where('is_valid_from', SearchCriteria::GREATER_EQUAL, $this->formatDate($date));
+        return $this->whereSalesDocumentValidFrom($date);
     }
 
     public function validTo(string|DateTimeInterface $date): static
     {
-        return $this->where('is_valid_until', SearchCriteria::LESS_EQUAL, $this->formatDate($date));
+        return $this->whereSalesDocumentValidTo($date);
     }
 
     public function validBetween(string|DateTimeInterface $from, string|DateTimeInterface $to): static
     {
-        return $this
-            ->validFrom($from)
-            ->validTo($to);
+        return $this->whereSalesDocumentValidBetween($from, $to);
     }
 
-    protected function formatDate(string|DateTimeInterface $date): string
+    protected function salesDocumentValidToField(): string
     {
-        return $date instanceof DateTimeInterface
-            ? $date->format('Y-m-d')
-            : $date;
+        return 'is_valid_until';
     }
 }
