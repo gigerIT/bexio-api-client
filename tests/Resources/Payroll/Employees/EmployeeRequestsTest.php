@@ -162,12 +162,8 @@ it('preserves payroll paystub download locations', function () {
         ->and($paystub->location)->toBe('https://example.test/paystub.pdf');
 });
 
-it('attempts live payroll employee reads without failing when payroll is unavailable', function () {
-    try {
-        $employees = Employee::useClient(testClient())->all();
-    } catch (\Throwable $e) {
-        \PHPUnit\Framework\Assert::markTestSkipped('Payroll employees endpoint unavailable: ' . $e->getMessage());
-    }
+it('reads live payroll employees', function () {
+    $employees = Employee::useClient(testClient())->all();
 
     if (count($employees) === 0) {
         \PHPUnit\Framework\Assert::markTestSkipped('No payroll employees available');

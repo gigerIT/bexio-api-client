@@ -212,7 +212,7 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 - `tests/TestCase.php` loads `LaravelDataServiceProvider` and `BexioServiceProvider`.
 - Test env loads package-root `.env` only when neither `BEXIO_ACCESS_TOKEN` nor `TEST_API_KEY` exists in process env, then sets `config('bexio.access_token')` from those vars.
 - Missing credentials are not normal locally/CI. If test cannot run, first assume missing remote fixtures/data, not missing auth.
-- Payroll live endpoints may return authorization/company-context errors even with a working token; keep payroll construction tests strict, but live payroll calls may skip on remote API errors.
+- Payroll live endpoint availability is expected in local/CI. Do not skip authorization or endpoint errors; read-only payroll tests may skip only when the remote account has no compatible payroll data.
 - `tests/ArchitectureTest.php` bans debug helpers: `dd`, `dump`, `ray`, `sleep`.
 
 ## CI and Release

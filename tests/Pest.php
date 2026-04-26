@@ -21,7 +21,7 @@ use Saloon\Http\Faking\MockResponse;
 */
 
 uses(Tests\TestCase::class)
-    ->beforeEach(fn () => MockClient::destroyGlobal())
+    ->beforeEach(fn() => MockClient::destroyGlobal())
     ->in(__DIR__);
 
 /*
@@ -105,8 +105,6 @@ function testSaleTax(): Tax
 
 function testSaleTaxId(): int
 {
-    //in fresh bexio instances tax id 28 is the default sales tax
-    // return 29;
     return testSaleTax()->id;
 }
 
