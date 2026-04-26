@@ -6,8 +6,10 @@ namespace Bexio\Resources\Sales\Quotes;
 use Bexio\Resources\Resource;
 use Bexio\Resources\Sales\Comments\Enums\KbDocumentType;
 use Bexio\Resources\Sales\Comments\Traits\HasComments;
+use Bexio\Resources\Sales\Concerns\ResolvesKbDocumentId;
 use Bexio\Resources\Sales\DocumentConversionPayload;
 use Bexio\Resources\Sales\Invoices\Invoice;
+use Bexio\Resources\Sales\ItemPositions\Concerns\HasPositions;
 use Bexio\Resources\Sales\ItemPositions\ItemPosition;
 use Bexio\Resources\Sales\KbDocumentContract;
 use Bexio\Resources\Sales\MwstType;
@@ -28,6 +30,8 @@ use Illuminate\Support\Collection;
 class Quote extends Resource implements KbDocumentContract
 {
     use HasComments;
+    use HasPositions;
+    use ResolvesKbDocumentId;
 
     const DOCUMENT_TYPE = KbDocumentType::OFFER;
 

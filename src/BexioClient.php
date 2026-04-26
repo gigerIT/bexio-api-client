@@ -47,7 +47,7 @@ class BexioClient extends Connector
      *
      * @throws \RuntimeException When no test token is configured
      */
-    public static function testAccount(): static
+    public static function testAccount(): self
     {
         $token = getenv('BEXIO_ACCESS_TOKEN')
             ?: getenv('TEST_API_KEY')

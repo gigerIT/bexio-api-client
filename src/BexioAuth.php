@@ -15,15 +15,15 @@ class BexioAuth extends Connector
     use AcceptsJson;
 
     public function __construct(
-        private readonly string  $clientId,
-        private readonly string  $clientSecret,
-        private readonly ?string $redirectUri = null,
+        string  $clientId,
+        string  $clientSecret,
+        ?string $redirectUri = null,
     )
     {
         $this->oauthConfig()->setClientId($clientId);
         $this->oauthConfig()->setClientSecret($clientSecret);
 
-        if ($this->redirectUri) {
+        if ($redirectUri) {
             $this->oauthConfig()->setRedirectUri($redirectUri);
         }
     }

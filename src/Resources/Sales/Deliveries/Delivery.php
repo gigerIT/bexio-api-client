@@ -6,7 +6,9 @@ namespace Bexio\Resources\Sales\Deliveries;
 use Bexio\Resources\Resource;
 use Bexio\Resources\Sales\Comments\Enums\KbDocumentType;
 use Bexio\Resources\Sales\Comments\Traits\HasComments;
+use Bexio\Resources\Sales\Concerns\ResolvesKbDocumentId;
 use Bexio\Resources\Sales\ItemPositions\Collections\ItemPositionCollection;
+use Bexio\Resources\Sales\ItemPositions\Concerns\HasPositions;
 use Bexio\Resources\Sales\ItemPositions\Concerns\HasSubItemPositions;
 use Bexio\Resources\Sales\ItemPositions\ItemPosition;
 use Bexio\Resources\Sales\ItemPositions\ItemPositionCast;
@@ -20,8 +22,10 @@ use Spatie\LaravelData\Attributes\WithCast;
 class Delivery extends Resource implements KbDocumentContract
 {
     use HasComments;
+    use HasPositions;
     use HasSubItemPositions;
     use HasOfficeLink;
+    use ResolvesKbDocumentId;
 
     public const DOCUMENT_TYPE = KbDocumentType::ORDER;
 

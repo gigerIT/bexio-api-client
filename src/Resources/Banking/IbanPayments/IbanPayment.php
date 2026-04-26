@@ -51,8 +51,7 @@ class IbanPayment extends Resource
         $request = new GetIbanPaymentRequest($bankAccountId, $id);
         $response = $this->client()->send($request);
 
-        return $request
-            ->createDtoFromResponse($response)
+        return static::from($response->json())
             ->withBankAccountId($bankAccountId)
             ->attachClient($this->client());
     }

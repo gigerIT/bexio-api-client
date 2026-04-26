@@ -166,7 +166,11 @@ class QueryBuilder
 
         if (! $response->successful()) {
             $body = $response->json();
-            $message = is_string($body) ? $body : json_encode($body);
+            $message = json_encode($body);
+
+            if ($message === false) {
+                $message = 'unknown error';
+            }
 
             throw new RuntimeException('Failed to fetch resources: ' . $message);
         }

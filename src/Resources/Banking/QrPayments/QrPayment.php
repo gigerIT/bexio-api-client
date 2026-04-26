@@ -51,8 +51,7 @@ class QrPayment extends Resource
         $request = new GetQrPaymentRequest($bankAccountId, $id);
         $response = $this->client()->send($request);
 
-        return $request
-            ->createDtoFromResponse($response)
+        return static::from($response->json())
             ->withBankAccountId($bankAccountId)
             ->attachClient($this->client());
     }

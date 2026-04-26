@@ -32,11 +32,11 @@ class Comment extends Resource
     {
         $request = new CreateCommentRequest(
             documentType: $documentResource::DOCUMENT_TYPE,
-            documentId: $documentResource->id,
+            documentId: $documentResource->resolveKbDocumentId(),
             comment: $this
         );
         $response = $this->client()->send($request);
-        return $request->createDtoFromResponse($response)->attachClient($this->client());
+        return static::from($response->json())->attachClient($this->client());
     }
 
 }

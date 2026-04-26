@@ -33,7 +33,7 @@ class CreateItemSubPositionRequest extends Request implements HasBody
      */
     protected function defaultBody(): array
     {
-        return $this->itemSubPosition->toArray();
+        return $this->itemSubPosition->except('type')->toArray();
     }
 
     public function createDtoFromResponse(Response $response): ItemPositionSubposition

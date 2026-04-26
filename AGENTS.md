@@ -160,6 +160,7 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 
 - `src/Resources/Sales/ItemPositions/ItemPositionCast.php` maps item-position payloads by `type` to concrete DTO classes.
 - Supported types asserted in `tests/Unit/ItemPositionCastTest.php`.
+- Item position create requests strip DTO-only `type` from outgoing payloads; keep `CreateItemPositionRequest` and `CreateItemSubPositionRequest` aligned.
 - If Bexio adds item position type, update enum, cast, and test together.
 
 ### Endpoint versions are mixed

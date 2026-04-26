@@ -88,7 +88,7 @@ class CreateFileRequest extends Request implements HasBody
     public function createDtoFromResponse(Response $response): File
     {
         $payload = $response->json();
-        $data = (is_array($payload) && array_is_list($payload)) ? ($payload[0] ?? []) : $payload;
+        $data = array_is_list($payload) ? ($payload[0] ?? []) : $payload;
 
         return File::from($data);
     }

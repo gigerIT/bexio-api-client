@@ -26,7 +26,7 @@ class ItemPosition extends Resource
 
     public function attachTo($parent): static
     {
-        if (self::CAN_BE_ATTACHED === false) {
+        if (static::CAN_BE_ATTACHED === false) {
             throw new \Exception('This item position type cannot be attached to another item position');
         }
 
@@ -36,13 +36,13 @@ class ItemPosition extends Resource
 
     public function createFor(KbDocumentContract $documentResource): static
     {
-        $createRequestClass = self::CREATE_REQUEST;
+        $createRequestClass = static::CREATE_REQUEST;
         $request = new $createRequestClass(
-            documentType: $documentResource::DOCUMENT_TYPE,
-            documentId: $documentResource->id,
-            itemPosition: $this
+            $documentResource::DOCUMENT_TYPE,
+            $documentResource->resolveKbDocumentId(),
+            $this
         );
         $response = $this->client()->send($request);
-        return self::from($response->json())->attachClient($this->client());
+        return static::from($response->json())->attachClient($this->client());
     }
 }
