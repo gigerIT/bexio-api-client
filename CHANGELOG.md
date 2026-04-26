@@ -1,5 +1,24 @@
 # Changelog
 
+## [4.6.0](https://github.com/gigerIT/bexio-api-client/compare/v4.5.1...v4.6.0) (2026-04-26)
+
+
+### Features
+
+* **sales/orders:** enhance order management with repetition and PDF functionalities ([467cc2f](https://github.com/gigerIT/bexio-api-client/commit/467cc2fa2b66d0cbfc17923e3a5e4c7e31d5a521))
+* **sales/orders:** implement document conversion for quotes and orders ([a77b19a](https://github.com/gigerIT/bexio-api-client/commit/a77b19a50a5403f5e67483ae56f1843db182640e))
+
+
+### Bug Fixes
+
+* **phpstan:** resolve level 5 analysis errors ([0b1f3d0](https://github.com/gigerIT/bexio-api-client/commit/0b1f3d0a253cc621657db0f7d1d1401e6d09fe87))
+* **tests:** update order and quote ID assertions to use greater than or equal comparison ([eb449b6](https://github.com/gigerIT/bexio-api-client/commit/eb449b6a71a527f2e12c5cf5dff6079d296d0a88))
+
+
+### Miscellaneous Chores
+
+* add parallel testing command to composer.json ([61c5cce](https://github.com/gigerIT/bexio-api-client/commit/61c5cceb1317c8697ccf6c7a0faa234368e009d3))
+
 ## [4.5.1](https://github.com/gigerIT/bexio-api-client/compare/v4.5.0...v4.5.1) (2026-04-24)
 
 
