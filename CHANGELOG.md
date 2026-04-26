@@ -1,5 +1,13 @@
 # Changelog
 
+## [4.7.0](https://github.com/gigerIT/bexio-api-client/compare/v4.6.0...v4.7.0) (2026-04-26)
+
+
+### Features
+
+* complete remaining API endpoints ([3adf38a](https://github.com/gigerIT/bexio-api-client/commit/3adf38aa1c12fc0c318fb6d1bb4b200c4a59a076))
+* complete remaining API endpoints ([5c14d47](https://github.com/gigerIT/bexio-api-client/commit/5c14d47ab03971a27beb394b637e41d4edbbe8f4))
+
 ## [4.6.0](https://github.com/gigerIT/bexio-api-client/compare/v4.5.1...v4.6.0) (2026-04-26)
 
 
