@@ -62,9 +62,27 @@ $created = $quote->attachClient($client)->create();
 $created->delete();
 ```
 
+## Convert Quotes
+
+Quote conversion endpoints require the quote to be accepted in Bexio before conversion.
+
+```php
+$quote = Quote::useClient($client)->find(1);
+
+$order = $quote->createOrder();
+$invoice = $quote->createInvoice();
+```
+
+You can also call conversions from a client-bound shell when you only have the quote id:
+
+```php
+$order = Quote::useClient($client)->createOrder(1);
+```
+
 ## Notes
 
 - Unfiltered quote queries use `GET /2.0/kb_offer` and support `orderBy()`, `limit()`, `offset()`, `forPage()`, and `first()`.
 - The quote query builder switches to `POST /2.0/kb_offer/search` as soon as a search clause is added.
 - Supported quote helpers are `status()`, `statusIn()`, `validFrom()`, `validTo()`, and `validBetween()`.
 - `validTo()` and `validBetween()` filter on `is_valid_until`, which matches the live quote search endpoint.
+- `createOrder()` and `createInvoice()` call the Bexio conversion endpoints and automatically send source-position references when no explicit conversion positions are provided.

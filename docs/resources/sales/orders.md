@@ -86,9 +86,25 @@ $order->save();
 $order->delete();
 ```
 
+## Convert Orders
+
+```php
+$order = Order::useClient($client)->find(1);
+
+$delivery = $order->createDelivery();
+$invoice = $order->createInvoice();
+```
+
+You can also call conversions from a client-bound shell when you only have the order id:
+
+```php
+$invoice = Order::useClient($client)->createInvoice(1);
+```
+
 ## Notes
 
 - Unfiltered order queries use `GET /2.0/kb_order` and support `orderBy()`, `limit()`, `offset()`, `forPage()`, and `first()`.
 - The order query builder switches to `POST /2.0/kb_order/search` as soon as a search clause is added.
 - Supported order helpers are `status()`, `statusIn()`, `validFrom()`, `validTo()`, and `validBetween()`.
 - Outgoing create payloads automatically strip response-only and API-rejected fields before the request is sent.
+- `createDelivery()` and `createInvoice()` call the Bexio conversion endpoints and automatically send source-position references when no explicit conversion positions are provided.

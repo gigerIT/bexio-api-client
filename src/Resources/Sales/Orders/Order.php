@@ -6,12 +6,17 @@ namespace Bexio\Resources\Sales\Orders;
 use Bexio\Resources\Resource;
 use Bexio\Resources\Sales\Comments\Enums\KbDocumentType;
 use Bexio\Resources\Sales\Comments\Traits\HasComments;
+use Bexio\Resources\Sales\Deliveries\Delivery;
+use Bexio\Resources\Sales\DocumentConversionPayload;
+use Bexio\Resources\Sales\Invoices\Invoice;
 use Bexio\Resources\Sales\ItemPositions\Collections\ItemPositionCollection;
 use Bexio\Resources\Sales\ItemPositions\Concerns\HasSubItemPositions;
 use Bexio\Resources\Sales\ItemPositions\ItemPosition;
 use Bexio\Resources\Sales\ItemPositions\ItemPositionCast;
 use Bexio\Resources\Sales\KbDocumentContract;
 use Bexio\Resources\Sales\MwstType;
+use Bexio\Resources\Sales\Orders\Requests\CreateDeliveryFromOrderRequest;
+use Bexio\Resources\Sales\Orders\Requests\CreateInvoiceFromOrderRequest;
 use Bexio\Resources\Sales\Orders\Requests\CreateOrderRequest;
 use Bexio\Resources\Sales\Orders\Requests\DeleteOrderRequest;
 use Bexio\Resources\Sales\Orders\Requests\GetOrderRequest;
@@ -109,5 +114,45 @@ class Order extends Resource implements KbDocumentContract
             'reference',
         );
     }
-}
 
+    /**
+     * @param array<int, \Bexio\Resources\Sales\DocumentConversionPosition|array{id: int, type: string, amount: int|float|string}>|null $positions
+     */
+    public function createDelivery(?int $id = null, ?array $positions = null): Delivery
+    {
+        $orderId = $this->resolveConversionSourceId($id);
+        $request = new CreateDeliveryFromOrderRequest($orderId, $positions ?? $this->conversionPositionsFor($orderId));
+
+        return $request->createDtoFromResponse($this->client()->send($request))
+            ->attachClient($this->client());
+    }
+
+    /**
+     * @param array<int, \Bexio\Resources\Sales\DocumentConversionPosition|array{id: int, type: string, amount: int|float|string}>|null $positions
+     */
+    public function createInvoice(?int $id = null, ?array $positions = null): Invoice
+    {
+        $orderId = $this->resolveConversionSourceId($id);
+        $request = new CreateInvoiceFromOrderRequest($orderId, $positions ?? $this->conversionPositionsFor($orderId));
+
+        return $request->createDtoFromResponse($this->client()->send($request))
+            ->attachClient($this->client());
+    }
+
+    private function resolveConversionSourceId(?int $id): int
+    {
+        return $id ?? (int) $this->resolveResourceId();
+    }
+
+    /**
+     * @return array<int, \Bexio\Resources\Sales\DocumentConversionPosition>
+     */
+    private function conversionPositionsFor(int $orderId): array
+    {
+        if (isset($this->id) && $this->id === $orderId && isset($this->positions)) {
+            return DocumentConversionPayload::positionsFromSource($this->positions);
+        }
+
+        return DocumentConversionPayload::positionsFromSource($this->find($orderId)->positions ?? []);
+    }
+}

@@ -6,14 +6,19 @@ namespace Bexio\Resources\Sales\Quotes;
 use Bexio\Resources\Resource;
 use Bexio\Resources\Sales\Comments\Enums\KbDocumentType;
 use Bexio\Resources\Sales\Comments\Traits\HasComments;
+use Bexio\Resources\Sales\DocumentConversionPayload;
+use Bexio\Resources\Sales\Invoices\Invoice;
 use Bexio\Resources\Sales\ItemPositions\ItemPosition;
 use Bexio\Resources\Sales\KbDocumentContract;
 use Bexio\Resources\Sales\MwstType;
+use Bexio\Resources\Sales\Orders\Order;
 use Bexio\Resources\Sales\Quotes\Enums\QuoteStatus;
 use Bexio\Resources\Sales\Quotes\Requests\CreateQuoteRequest;
 use Bexio\Resources\Sales\Quotes\Requests\DeleteQuoteRequest;
 use Bexio\Resources\Sales\Quotes\Requests\GetQuoteRequest;
 use Bexio\Resources\Sales\Quotes\Requests\GetQuotesRequest;
+use Bexio\Resources\Sales\Quotes\Requests\CreateInvoiceFromQuoteRequest;
+use Bexio\Resources\Sales\Quotes\Requests\CreateOrderFromQuoteRequest;
 use Bexio\Resources\Sales\SalesTax;
 use Illuminate\Support\Collection;
 
@@ -90,5 +95,46 @@ class Quote extends Resource implements KbDocumentContract
         public ?Collection $positions = null,
     )
     {
+    }
+
+    /**
+     * @param array<int, \Bexio\Resources\Sales\DocumentConversionPosition|array{id: int, type: string, amount: int|float|string}>|null $positions
+     */
+    public function createOrder(?int $id = null, ?array $positions = null): Order
+    {
+        $quoteId = $this->resolveConversionSourceId($id);
+        $request = new CreateOrderFromQuoteRequest($quoteId, $positions ?? $this->conversionPositionsFor($quoteId));
+
+        return $request->createDtoFromResponse($this->client()->send($request))
+            ->attachClient($this->client());
+    }
+
+    /**
+     * @param array<int, \Bexio\Resources\Sales\DocumentConversionPosition|array{id: int, type: string, amount: int|float|string}>|null $positions
+     */
+    public function createInvoice(?int $id = null, ?array $positions = null): Invoice
+    {
+        $quoteId = $this->resolveConversionSourceId($id);
+        $request = new CreateInvoiceFromQuoteRequest($quoteId, $positions ?? $this->conversionPositionsFor($quoteId));
+
+        return $request->createDtoFromResponse($this->client()->send($request))
+            ->attachClient($this->client());
+    }
+
+    private function resolveConversionSourceId(?int $id): int
+    {
+        return $id ?? (int) $this->resolveResourceId();
+    }
+
+    /**
+     * @return array<int, \Bexio\Resources\Sales\DocumentConversionPosition>
+     */
+    private function conversionPositionsFor(int $quoteId): array
+    {
+        if (isset($this->id) && $this->id === $quoteId && isset($this->positions)) {
+            return DocumentConversionPayload::positionsFromSource($this->positions);
+        }
+
+        return DocumentConversionPayload::positionsFromSource($this->find($quoteId)->positions ?? []);
     }
 }

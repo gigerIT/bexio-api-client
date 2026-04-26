@@ -89,6 +89,7 @@ Detailed resource usage is documented in segmented guides under `docs/resources/
 - [Contacts guides](docs/resources/contacts/README.md)
 - [Contacts resource](docs/resources/contacts/contacts.md)
 - [Orders resource](docs/resources/sales/orders.md)
+- [Quotes resource](docs/resources/sales/quotes.md)
 
 ## OAuth2 Authentication
 
@@ -207,6 +208,7 @@ For detailed documentation and advanced usage examples, see:
 - **[Resource Guides Index](docs/resources/README.md)** - Entry point for segmented per-resource documentation
 - **[Contacts Guides](docs/resources/contacts/README.md)** - Contacts, Contact Relations, Contact Groups, Contact Sectors, Additional Addresses, Salutations, and Titles
 - **[Orders Guide](docs/resources/sales/orders.md)** - Order CRUD, search endpoint usage, and status helpers
+- **[Endpoint Status Overview](#available-resources)** - Current implementation status by Bexio endpoint
 - **[Legacy Contacts Redirect](docs/CONTACTS.md)** - Compatibility landing page pointing to the segmented contacts guides
 
 ### Additional Resources

@@ -130,6 +130,8 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 - Quote filtering: `POST /2.0/kb_offer/search` via `src/Resources/Sales/Quotes/Requests/SearchQuotesRequest.php`.
 - `src/Resources/Sales/Quotes/QuoteQueryBuilder.php` mirrors order builder: `status()`, `statusIn()`, `validFrom()`, `validTo()`, `validBetween()`.
 - Live API matches quote validity on `is_valid_until`; do not use `is_valid_to` in quote search helpers.
+- Quote conversion endpoints (`/2.0/kb_offer/{quote_id}/order` and `/2.0/kb_offer/{quote_id}/invoice`) require the quote to be accepted first. Disposable live tests can issue and accept a quote as setup; quote lifecycle actions remain separate endpoint work unless explicitly in scope.
+- Sales document conversion helpers synthesize explicit source-position payloads when callers omit positions. Live API rejects empty or null `positions` payloads for package-created source documents even though the docs describe the positions array as optional.
 
 ### Accounting search support
 
