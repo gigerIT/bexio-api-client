@@ -124,6 +124,12 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 - Keep `Order::$kb_item_status_id` as `int`. `OrderStatus` maps documented states: pending `5`, done `6`, partial `15`, canceled `21`.
 - `src/Resources/Sales/Orders/Order.php::toApi()` strips response-only/API-rejected create fields: `taxs`, `mwst_is_net`, `is_valid_to`, `project_id`, `reference`.
 
+### Other task reminder payloads
+
+- Task create/update payloads map `has_reminder` to API field `have_remember`.
+- Live task update rejects `have_remember` unless both `remember_type_id` and `remember_time_id` are submitted. Omit `have_remember` on update when reminder type/time are absent.
+- Country write endpoints require a valid `iso3166_alpha2`; update tests should preserve/send it even if the create response does not hydrate it.
+
 ### Quote query support
 
 - Unfiltered quote queries: `GET /2.0/kb_offer` with `order_by`, `limit`, `offset` via `src/Resources/Sales/Quotes/Requests/GetQuotesRequest.php`.
@@ -205,6 +211,7 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 - `tests/TestCase.php` loads `LaravelDataServiceProvider` and `BexioServiceProvider`.
 - Test env loads package-root `.env` only when neither `BEXIO_ACCESS_TOKEN` nor `TEST_API_KEY` exists in process env, then sets `config('bexio.access_token')` from those vars.
 - Missing credentials are not normal locally/CI. If test cannot run, first assume missing remote fixtures/data, not missing auth.
+- Payroll live endpoints may return authorization/company-context errors even with a working token; keep payroll construction tests strict, but live payroll calls may skip on remote API errors.
 - `tests/ArchitectureTest.php` bans debug helpers: `dd`, `dump`, `ray`, `sleep`.
 
 ## CI and Release

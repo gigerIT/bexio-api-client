@@ -27,7 +27,7 @@ class CreateOutgoingPaymentRequest extends Request implements HasBody
 
     protected function defaultBody(): array
     {
-        return $this->payment->toArray();
+        return $this->payment->toCreateApi();
     }
 
     public function createDtoFromResponse(Response $response): OutgoingPayment

@@ -5,11 +5,23 @@ namespace Bexio\Resources\Purchase\PurchaseOrders;
 
 use Bexio\Resources\Purchase\PurchaseOrders\Enums\PurchaseOrderStatus;
 use Bexio\Resources\Purchase\PurchaseOrders\Requests\CreatePurchaseOrderRequest;
+use Bexio\Resources\Purchase\PurchaseOrders\Requests\DeletePurchaseOrderRequest;
+use Bexio\Resources\Purchase\PurchaseOrders\Requests\GetPurchaseOrderRequest;
+use Bexio\Resources\Purchase\PurchaseOrders\Requests\GetPurchaseOrdersRequest;
+use Bexio\Resources\Purchase\PurchaseOrders\Requests\UpdatePurchaseOrderRequest;
 use Bexio\Resources\Resource;
 
+/**
+ * @method PurchaseOrderQueryBuilder query()
+ */
 class PurchaseOrder extends Resource
 {
+    const INDEX_REQUEST = GetPurchaseOrdersRequest::class;
+    const SHOW_REQUEST = GetPurchaseOrderRequest::class;
     const CREATE_REQUEST = CreatePurchaseOrderRequest::class;
+    const UPDATE_REQUEST = UpdatePurchaseOrderRequest::class;
+    const DELETE_REQUEST = DeletePurchaseOrderRequest::class;
+    const QUERY_BUILDER = PurchaseOrderQueryBuilder::class;
 
     public ?PurchaseOrderStatus $kb_item_status_id = null;
 

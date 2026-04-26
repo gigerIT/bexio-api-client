@@ -39,7 +39,59 @@ class OutgoingPayment extends Resource
         public ?string $sender_house_no = null,
         public ?string $sender_city = null,
         public ?string $sender_postcode = null,
+        public ?string $sender_country_code = null,
+        public ?string $sender_bc_no = null,
+        public ?string $sender_bank_no = null,
+        public ?string $sender_bank_name = null,
+        public ?string $receiver_name = null,
+        public ?string $receiver_street = null,
+        public ?string $receiver_house_no = null,
+        public ?string $receiver_city = null,
+        public ?string $receiver_postcode = null,
+        public ?string $receiver_country_code = null,
+        public ?string $receiver_bc_no = null,
+        public ?string $receiver_bank_no = null,
+        public ?string $receiver_bank_name = null,
+        public ?string $fee_type = null,
+        public ?bool $is_salary_payment = null,
+        public ?string $reference_no = null,
+        public ?string $message = null,
+        public ?string $booking_text = null,
     ) {
     }
-}
 
+    public function toCreateApi(): array
+    {
+        return $this->withoutNulls($this->except(
+            'id',
+            'status',
+            'banking_payment_id',
+            'transaction_id',
+        )->toArray());
+    }
+
+    public function toUpdateApi(): array
+    {
+        return $this->withoutNulls([
+            'payment_id' => $this->id,
+            'execution_date' => $this->execution_date,
+            'amount' => $this->amount,
+            'fee_type' => $this->fee_type,
+            'is_salary_payment' => $this->is_salary_payment,
+            'reference_no' => $this->reference_no,
+            'message' => $this->message,
+            'receiver_iban' => $this->receiver_iban,
+            'receiver_name' => $this->receiver_name,
+            'receiver_street' => $this->receiver_street,
+            'receiver_house_no' => $this->receiver_house_no,
+            'receiver_city' => $this->receiver_city,
+            'receiver_postcode' => $this->receiver_postcode,
+            'receiver_country_code' => $this->receiver_country_code,
+        ]);
+    }
+
+    private function withoutNulls(array $payload): array
+    {
+        return array_filter($payload, static fn (mixed $value): bool => $value !== null);
+    }
+}

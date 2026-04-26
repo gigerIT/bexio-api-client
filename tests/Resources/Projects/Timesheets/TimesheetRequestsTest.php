@@ -3,6 +3,8 @@
 namespace Bexio\Resources\Sales\Quotes\Requests;
 
 use Bexio\Resources\Projects\Timesheets\Timesheet;
+use Bexio\Resources\Projects\TimesheetStatuses\Requests\GetTimesheetStatusesRequest;
+use Bexio\Resources\Projects\TimesheetStatuses\TimesheetStatus;
 
 it('can get Timesheets', function () {
     try {
@@ -50,6 +52,37 @@ it('can get first Timesheet using query builder', function () {
 
     expect($timesheet)->toBeInstanceOf(Timesheet::class)
         ->and($timesheet->id)->toBeInt();
+});
+
+it('builds timesheet status requests', function () {
+    expect((new GetTimesheetStatusesRequest(20, 5, 'name'))->resolveEndpoint())
+        ->toBe('/2.0/timesheet_status');
+
+    $query = new \ReflectionMethod(GetTimesheetStatusesRequest::class, 'defaultQuery');
+    $query->setAccessible(true);
+
+    expect($query->invoke(new GetTimesheetStatusesRequest(20, 5, 'name')))
+        ->toBe([
+            'order_by' => 'name',
+            'limit' => 20,
+            'offset' => 5,
+        ]);
+});
+
+it('can get Timesheet statuses', function () {
+    try {
+        $statuses = Timesheet::statuses(testClient());
+    } catch (\Throwable $e) {
+        \PHPUnit\Framework\Assert::markTestSkipped('Timesheet statuses endpoint unavailable: ' . $e->getMessage());
+    }
+
+    if (count($statuses) === 0) {
+        \PHPUnit\Framework\Assert::markTestSkipped('No timesheet statuses available');
+    }
+
+    expect($statuses)->toBeArray()
+        ->and($statuses[0])->toBeInstanceOf(TimesheetStatus::class)
+        ->and($statuses[0]->id)->toBeInt();
 });
 
 

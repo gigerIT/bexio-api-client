@@ -3,6 +3,8 @@
 namespace Bexio\Resources\Sales\Comments\Traits;
 
 use Bexio\Resources\Sales\Comments\Comment;
+use Bexio\Resources\Sales\Comments\Requests\GetCommentRequest;
+use Bexio\Resources\Sales\Comments\Requests\GetCommentsRequest;
 
 trait HasComments
 {
@@ -22,5 +24,29 @@ trait HasComments
         }
 
         return $comment->createFor($this);
+    }
+
+    public function comments(int $limit = 500, int $offset = 0): array
+    {
+        $request = new GetCommentsRequest(
+            documentType: $this::DOCUMENT_TYPE,
+            documentId: $this->resolveKbDocumentId(),
+            limit: $limit,
+            offset: $offset,
+        );
+
+        return $request->createDtoFromResponse($this->client()->send($request));
+    }
+
+    public function comment(int $commentId): Comment
+    {
+        $request = new GetCommentRequest(
+            documentType: $this::DOCUMENT_TYPE,
+            documentId: $this->resolveKbDocumentId(),
+            commentId: $commentId,
+        );
+
+        return $request->createDtoFromResponse($this->client()->send($request))
+            ->attachClient($this->client());
     }
 }

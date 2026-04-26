@@ -12,7 +12,7 @@ class ItemPositionCustom extends ItemPosition
 
 
     public function __construct(
-        public int     $tax_id,
+        public ?int    $tax_id = null,
 
         public ?string $amount = null,
         public ?int    $unit_id = null,
