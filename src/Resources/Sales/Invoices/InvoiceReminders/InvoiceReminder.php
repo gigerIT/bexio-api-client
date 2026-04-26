@@ -4,10 +4,17 @@ declare(strict_types=1);
 namespace Bexio\Resources\Sales\Invoices\InvoiceReminders;
 
 use Bexio\Resources\Resource;
+use Bexio\Resources\Sales\DocumentPdf;
+use Bexio\Resources\Sales\Email\Email;
 use Bexio\Resources\Sales\Invoices\InvoiceReminders\Requests\CreateInvoiceReminderRequest;
 use Bexio\Resources\Sales\Invoices\InvoiceReminders\Requests\DeleteInvoiceReminderRequest;
+use Bexio\Resources\Sales\Invoices\InvoiceReminders\Requests\GetInvoiceReminderPdfRequest;
 use Bexio\Resources\Sales\Invoices\InvoiceReminders\Requests\GetInvoiceReminderRequest;
 use Bexio\Resources\Sales\Invoices\InvoiceReminders\Requests\GetInvoiceRemindersRequest;
+use Bexio\Resources\Sales\Invoices\InvoiceReminders\Requests\MarkInvoiceReminderAsSentRequest;
+use Bexio\Resources\Sales\Invoices\InvoiceReminders\Requests\MarkInvoiceReminderAsUnsentRequest;
+use Bexio\Resources\Sales\Invoices\InvoiceReminders\Requests\SendInvoiceReminderRequest;
+use Saloon\Http\Response;
 
 /**
  * @method InvoiceReminderQueryBuilder query()
@@ -59,5 +66,61 @@ class InvoiceReminder extends Resource
         $response = $this->client()->send($request);
 
         return $response->successful();
+    }
+
+    public function markAsSent(?int $id = null): Response
+    {
+        return $this->client()->send(new MarkInvoiceReminderAsSentRequest(
+            invoiceId: $this->requireInvoiceId(),
+            reminderId: $this->resolveReminderId($id),
+        ));
+    }
+
+    public function markAsUnsent(?int $id = null): Response
+    {
+        return $this->client()->send(new MarkInvoiceReminderAsUnsentRequest(
+            invoiceId: $this->requireInvoiceId(),
+            reminderId: $this->resolveReminderId($id),
+        ));
+    }
+
+    public function send(Email $email, ?int $id = null): Response
+    {
+        return $this->client()->send(new SendInvoiceReminderRequest(
+            invoiceId: $this->requireInvoiceId(),
+            reminderId: $this->resolveReminderId($id),
+            email: $email,
+        ));
+    }
+
+    public function pdf(?int $id = null, ?bool $logopaper = null): DocumentPdf
+    {
+        $request = new GetInvoiceReminderPdfRequest(
+            invoiceId: $this->requireInvoiceId(),
+            reminderId: $this->resolveReminderId($id),
+            logopaper: $logopaper,
+        );
+
+        return $request->createDtoFromResponse($this->client()->send($request));
+    }
+
+    private function requireInvoiceId(): int
+    {
+        if ($this->kb_invoice_id === null) {
+            throw new \RuntimeException('kb_invoice_id is required for InvoiceReminder operations');
+        }
+
+        return $this->kb_invoice_id;
+    }
+
+    private function resolveReminderId(?int $id): int
+    {
+        $reminderId = $id ?? $this->id;
+
+        if ($reminderId === null) {
+            throw new \RuntimeException('id is required for InvoiceReminder operations');
+        }
+
+        return $reminderId;
     }
 }

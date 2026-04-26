@@ -7,11 +7,25 @@ use Bexio\Resources\Resource;
 use Bexio\Resources\Sales\Comments\Enums\KbDocumentType;
 use Bexio\Resources\Sales\Comments\Traits\HasComments;
 use Bexio\Resources\Sales\Concerns\ResolvesKbDocumentId;
+use Bexio\Resources\Sales\DocumentCopyPayload;
+use Bexio\Resources\Sales\DocumentPdf;
+use Bexio\Resources\Sales\Email\Email;
 use Bexio\Resources\Sales\Invoices\Enums\InvoiceStatus;
+use Bexio\Resources\Sales\Invoices\Payments\InvoicePayment;
+use Bexio\Resources\Sales\Invoices\Payments\Requests\CreateInvoicePaymentRequest;
+use Bexio\Resources\Sales\Invoices\Payments\Requests\DeleteInvoicePaymentRequest;
+use Bexio\Resources\Sales\Invoices\Payments\Requests\GetInvoicePaymentRequest;
+use Bexio\Resources\Sales\Invoices\Payments\Requests\GetInvoicePaymentsRequest;
+use Bexio\Resources\Sales\Invoices\Requests\CancelInvoiceRequest;
+use Bexio\Resources\Sales\Invoices\Requests\CopyInvoiceRequest;
 use Bexio\Resources\Sales\Invoices\Requests\CreateInvoiceRequest;
 use Bexio\Resources\Sales\Invoices\Requests\DeleteInvoiceRequest;
+use Bexio\Resources\Sales\Invoices\Requests\GetInvoicePdfRequest;
 use Bexio\Resources\Sales\Invoices\Requests\GetInvoiceRequest;
 use Bexio\Resources\Sales\Invoices\Requests\GetInvoicesRequest;
+use Bexio\Resources\Sales\Invoices\Requests\MarkInvoiceAsSentRequest;
+use Bexio\Resources\Sales\Invoices\Requests\SendInvoiceRequest;
+use Bexio\Resources\Sales\Invoices\Requests\UpdateInvoiceRequest;
 use Bexio\Resources\Sales\ItemPositions\Collections\ItemPositionCollection;
 use Bexio\Resources\Sales\ItemPositions\Concerns\HasPositions;
 use Bexio\Resources\Sales\ItemPositions\Concerns\HasSubItemPositions;
@@ -42,6 +56,7 @@ class Invoice extends Resource implements KbDocumentContract
 
     public const SHOW_REQUEST = GetInvoiceRequest::class;
     public const CREATE_REQUEST = CreateInvoiceRequest::class;
+    public const UPDATE_REQUEST = UpdateInvoiceRequest::class;
 
     public const DELETE_REQUEST = DeleteInvoiceRequest::class;
 
@@ -114,6 +129,37 @@ class Invoice extends Resource implements KbDocumentContract
         $this->positions = $positions ?? new ItemPositionCollection([]);
     }
 
+    public function toUpdateApi(): Invoice
+    {
+        return $this->except(
+            'id',
+            'document_nr',
+            'total_gross',
+            'total_net',
+            'total_taxes',
+            'total',
+            'total_rounding_difference',
+            'contact_address',
+            'kb_item_status_id',
+            'updated_at',
+            'taxs',
+            'network_link',
+            'total_received_payments',
+            'total_credit_vouchers',
+            'total_remaining_payments',
+            'esr_id',
+            'qr_invoice_id',
+            'viewed_by_client_at',
+            'invoice_date',
+            'currency_code',
+            'exchange_rate',
+            'base_currency_amount',
+            'base_currency_code',
+            'project_id',
+            'positions',
+        );
+    }
+
     public static function createFromApiPayload(array $payload): static
     {
         $invoiceDate = $payload['invoice_date'] ?? $payload['is_valid_from'] ?? null;
@@ -174,8 +220,87 @@ class Invoice extends Resource implements KbDocumentContract
 
     public function revertIssue(?int $id = null): Response
     {
-        return $this->client()->send(new Requests\RevertIssueInvoiceRequest($id ?? $this->id));
+        return $this->client()->send(new Requests\RevertIssueInvoiceRequest($this->resolveInvoiceId($id)));
     }
 
+    public function pdf(?int $id = null, ?bool $logopaper = null): DocumentPdf
+    {
+        $request = new GetInvoicePdfRequest($this->resolveInvoiceId($id), $logopaper);
 
+        return $request->createDtoFromResponse($this->client()->send($request));
+    }
+
+    public function copy(?int $id = null, DocumentCopyPayload|array|null $payload = null): Invoice
+    {
+        $request = new CopyInvoiceRequest($this->resolveInvoiceId($id), $this->copyPayload($payload));
+
+        return $request->createDtoFromResponse($this->client()->send($request))
+            ->attachClient($this->client());
+    }
+
+    public function cancel(?int $id = null): Response
+    {
+        return $this->client()->send(new CancelInvoiceRequest($this->resolveInvoiceId($id)));
+    }
+
+    public function markAsSent(?int $id = null): Response
+    {
+        return $this->client()->send(new MarkInvoiceAsSentRequest($this->resolveInvoiceId($id)));
+    }
+
+    public function send(Email $email, ?int $id = null): Response
+    {
+        return $this->client()->send(new SendInvoiceRequest($this->resolveInvoiceId($id), $email));
+    }
+
+    public function payments(?int $id = null, int $limit = 500, int $offset = 0): array
+    {
+        $request = new GetInvoicePaymentsRequest($this->resolveInvoiceId($id), $limit, $offset);
+
+        return $request->createDtoFromResponse($this->client()->send($request));
+    }
+
+    public function createPayment(InvoicePayment $payment, ?int $id = null): InvoicePayment
+    {
+        $payment->kb_invoice_id = $this->resolveInvoiceId($id ?? $payment->kb_invoice_id);
+        $request = new CreateInvoicePaymentRequest($payment);
+
+        return $request->createDtoFromResponse($this->client()->send($request))
+            ->attachClient($this->client());
+    }
+
+    public function payment(int $paymentId, ?int $id = null): InvoicePayment
+    {
+        $invoiceId = $this->resolveInvoiceId($id);
+        $request = new GetInvoicePaymentRequest($invoiceId, $paymentId);
+
+        return $request->createDtoFromResponse($this->client()->send($request))
+            ->attachClient($this->client());
+    }
+
+    public function deletePayment(int $paymentId, ?int $id = null): bool
+    {
+        return $this->client()
+            ->send(new DeleteInvoicePaymentRequest($this->resolveInvoiceId($id), $paymentId))
+            ->successful();
+    }
+
+    private function resolveInvoiceId(?int $id): int
+    {
+        return $id ?? (int) $this->resolveResourceId();
+    }
+
+    private function copyPayload(DocumentCopyPayload|array|null $payload): DocumentCopyPayload|array
+    {
+        if ($payload !== null) {
+            return $payload;
+        }
+
+        return new DocumentCopyPayload(
+            contact_id: $this->contact_id,
+            contact_sub_id: $this->contact_sub_id,
+            is_valid_from: $this->is_valid_from,
+            title: $this->title,
+        );
+    }
 }

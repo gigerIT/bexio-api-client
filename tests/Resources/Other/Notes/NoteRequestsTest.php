@@ -3,6 +3,10 @@
 namespace Bexio\Resources\Sales\Quotes\Requests;
 
 use Bexio\Resources\Other\Notes\Note;
+use Bexio\Resources\Other\Notes\Requests\CreateNoteRequest;
+use Bexio\Resources\Other\Notes\Requests\DeleteNoteRequest;
+use Bexio\Resources\Other\Notes\Requests\UpdateNoteRequest;
+use Bexio\Resources\Other\Users\User;
 use Bexio\Support\Data\SearchCriteria;
 
 it('can get Notes', function () {
@@ -63,3 +67,62 @@ it('can get first Note using query builder', function () {
         ->and($note->id)->toBeInt();
 });
 
+it('builds note write requests with API payload names', function () {
+    $note = new Note(
+        id: 123,
+        user_id: 1,
+        event_start: '2026-04-26 10:00:00',
+        subject: 'API conception',
+        info: 'test note',
+        contact_id: 14,
+        project_id: 15,
+        entry_id: null,
+        module_id: null,
+    );
+
+    expect((new CreateNoteRequest($note))->resolveEndpoint())
+        ->toBe('/2.0/note')
+        ->and((new UpdateNoteRequest($note))->resolveEndpoint())
+        ->toBe('/2.0/note/123')
+        ->and((new DeleteNoteRequest(123))->resolveEndpoint())
+        ->toBe('/2.0/note/123');
+
+    $body = new \ReflectionMethod(CreateNoteRequest::class, 'defaultBody');
+    $body->setAccessible(true);
+
+    expect($body->invoke(new CreateNoteRequest($note)))
+        ->toMatchArray([
+            'user_id' => 1,
+            'event_start' => '2026-04-26 10:00:00',
+            'subject' => 'API conception',
+            'info' => 'test note',
+            'contact_id' => 14,
+            'pr_project_id' => 15,
+            'entry_id' => null,
+            'module_id' => null,
+        ])
+        ->not->toHaveKeys(['id', 'project_id']);
+});
+
+it('can create update and delete a disposable Note', function () {
+    $user = User::useClient(testClient())->me();
+
+    $note = (new Note(
+        user_id: $user->id,
+        event_start: now()->format('Y-m-d H:i:s'),
+        subject: 'API note ' . uniqid(),
+        info: 'Created by endpoint completion tests',
+    ))
+        ->attachClient(testClient())
+        ->create();
+
+    try {
+        $note->subject .= ' updated';
+        $updated = $note->update();
+
+        expect($updated)->toBeInstanceOf(Note::class)
+            ->and($updated->subject)->toBe($note->subject);
+    } finally {
+        $note->delete();
+    }
+});

@@ -3,11 +3,13 @@ declare(strict_types=1);
 
 namespace Bexio\Resources\Projects\Timesheets;
 
+use Bexio\BexioClient;
 use Bexio\Resources\Projects\Timesheets\Requests\CreateTimesheetRequest;
 use Bexio\Resources\Projects\Timesheets\Requests\DeleteTimesheetRequest;
 use Bexio\Resources\Projects\Timesheets\Requests\GetTimesheetRequest;
 use Bexio\Resources\Projects\Timesheets\Requests\GetTimesheetsRequest;
 use Bexio\Resources\Projects\Timesheets\Requests\UpdateTimesheetRequest;
+use Bexio\Resources\Projects\TimesheetStatuses\Requests\GetTimesheetStatusesRequest;
 use Bexio\Resources\Resource;
 
 /**
@@ -44,6 +46,14 @@ class Timesheet extends Resource
         public ?bool $running = null,
         public array $tracking = [],
     ) {
+    }
+
+    public static function statuses(BexioClient $client): array
+    {
+        $request = new GetTimesheetStatusesRequest();
+        $response = $client->send($request);
+
+        return $request->createDtoFromResponse($response);
     }
 }
 

@@ -18,16 +18,19 @@ class UpdateOutgoingPaymentRequest extends Request implements HasBody
 
     public function __construct(readonly protected OutgoingPayment $payment)
     {
+        if ($this->payment->id === null) {
+            throw new \InvalidArgumentException('id is required to update an outgoing payment.');
+        }
     }
 
     public function resolveEndpoint(): string
     {
-        return "/4.0/purchase/outgoing-payments/{$this->payment->id}";
+        return '/4.0/purchase/outgoing-payments';
     }
 
     protected function defaultBody(): array
     {
-        return $this->payment->toArray();
+        return $this->payment->toUpdateApi();
     }
 
     public function createDtoFromResponse(Response $response): OutgoingPayment

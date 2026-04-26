@@ -16,7 +16,9 @@ use Bexio\Resources\Sales\KbDocumentContract;
 use Bexio\Resources\Sales\MwstType;
 use Bexio\Resources\Sales\Deliveries\Requests\GetDeliveriesRequest;
 use Bexio\Resources\Sales\Deliveries\Requests\GetDeliveryRequest;
+use Bexio\Resources\Sales\Deliveries\Requests\IssueDeliveryRequest;
 use Bexio\Support\Concerns\HasOfficeLink;
+use Saloon\Http\Response;
 use Spatie\LaravelData\Attributes\WithCast;
 
 class Delivery extends Resource implements KbDocumentContract
@@ -80,5 +82,9 @@ class Delivery extends Resource implements KbDocumentContract
     ) {
         $this->positions = $positions ?? new ItemPositionCollection([]);
     }
-}
 
+    public function issue(?int $id = null): Response
+    {
+        return $this->client()->send(new IssueDeliveryRequest($id ?? (int) $this->resolveResourceId()));
+    }
+}

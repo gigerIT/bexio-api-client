@@ -7,8 +7,10 @@ use Bexio\Resources\Purchase\Bills\Enums\BillStatus;
 use Bexio\Resources\Purchase\Bills\Requests\CreateBillRequest;
 use Bexio\Resources\Purchase\Bills\Requests\DeleteBillRequest;
 use Bexio\Resources\Purchase\Bills\Requests\DuplicateBillRequest;
+use Bexio\Resources\Purchase\Bills\Requests\GetBillDocumentNumberRequest;
 use Bexio\Resources\Purchase\Bills\Requests\GetBillRequest;
 use Bexio\Resources\Purchase\Bills\Requests\GetBillsRequest;
+use Bexio\Resources\Purchase\Bills\Requests\UpdateBillBookingRequest;
 use Bexio\Resources\Purchase\Bills\Requests\UpdateBillRequest;
 use Bexio\Resources\Resource;
 
@@ -100,5 +102,24 @@ class Bill extends Resource
         $request = new DuplicateBillRequest($id ?? $this->id);
         $response = $this->client()->send($request);
         return $request->createDtoFromResponse($response)->attachClient($this->client());
+    }
+
+    public function book(BillStatus|string $status = BillStatus::BOOKED, ?string $id = null): Bill
+    {
+        $request = new UpdateBillBookingRequest(
+            id: $id ?? $this->id,
+            status: $status,
+        );
+        $response = $this->client()->send($request);
+
+        return $request->createDtoFromResponse($response)->attachClient($this->client());
+    }
+
+    public function validateDocumentNumber(string $documentNumber): array
+    {
+        $request = new GetBillDocumentNumberRequest($documentNumber);
+        $response = $this->client()->send($request);
+
+        return $request->createDtoFromResponse($response);
     }
 }

@@ -3,8 +3,14 @@ declare(strict_types=1);
 
 namespace Bexio\Resources\Other\Tasks;
 
+use Bexio\BexioClient;
+use Bexio\Resources\Other\Tasks\Requests\CreateTaskRequest;
+use Bexio\Resources\Other\Tasks\Requests\DeleteTaskRequest;
+use Bexio\Resources\Other\Tasks\Requests\GetTaskPrioritiesRequest;
 use Bexio\Resources\Other\Tasks\Requests\GetTaskRequest;
 use Bexio\Resources\Other\Tasks\Requests\GetTasksRequest;
+use Bexio\Resources\Other\Tasks\Requests\GetTaskStatusesRequest;
+use Bexio\Resources\Other\Tasks\Requests\UpdateTaskRequest;
 use Bexio\Resources\Resource;
 
 /**
@@ -15,6 +21,9 @@ class Task extends Resource
     public const INDEX_REQUEST = GetTasksRequest::class;
     public const QUERY_BUILDER = TaskQueryBuilder::class;
     public const SHOW_REQUEST = GetTaskRequest::class;
+    public const CREATE_REQUEST = CreateTaskRequest::class;
+    public const UPDATE_REQUEST = UpdateTaskRequest::class;
+    public const DELETE_REQUEST = DeleteTaskRequest::class;
 
     public function __construct(
         public ?int $id = null,
@@ -35,6 +44,41 @@ class Task extends Resource
         public ?int $remember_time_id = null,
         public ?int $communication_kind_id = null,
     ) {
+    }
+
+    public function toApi(): array
+    {
+        return array_filter([
+            'user_id' => $this->user_id,
+            'finish_date' => $this->finish_date,
+            'subject' => $this->subject,
+            'info' => $this->info,
+            'contact_id' => $this->contact_id,
+            'sub_contact_id' => $this->sub_contact_id,
+            'pr_project_id' => $this->project_id,
+            'entry_id' => $this->entry_id,
+            'module_id' => $this->module_id,
+            'todo_status_id' => $this->todo_status_id,
+            'todo_priority_id' => $this->todo_priority_id,
+            'have_remember' => $this->has_reminder,
+            'remember_type_id' => $this->remember_type_id,
+            'remember_time_id' => $this->remember_time_id,
+            'communication_kind_id' => $this->communication_kind_id,
+        ], static fn (mixed $value): bool => $value !== null);
+    }
+
+    public static function priorities(BexioClient $client): array
+    {
+        $request = new GetTaskPrioritiesRequest();
+
+        return $request->createDtoFromResponse($client->send($request));
+    }
+
+    public static function statuses(BexioClient $client): array
+    {
+        $request = new GetTaskStatusesRequest();
+
+        return $request->createDtoFromResponse($client->send($request));
     }
 }
 
