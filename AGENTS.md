@@ -194,6 +194,7 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 - Existing live API patterns:
   - create/update/delete disposable records as in `tests/Resources/Contacts/Contacts/ContactRequestsTest.php`, `tests/Resources/Purchase/Bills/BillRequestsTest.php`, `tests/Resources/Sales/Invoices/InvoiceRequestsTest.php`
   - read/search/query-builder tests fetch small live datasets, skip only when remote account lacks data, as in `tests/Resources/Projects/Projects/ProjectRequestsTest.php`, `tests/Resources/Banking/PaymentRequestsTest.php`
+- Parallel live tests share one Bexio account. Do not assert that an unfiltered `orderBy('id', 'desc')` or `first()` result is the record just created by the current test; another worker may create a newer record. Scope the query by unique fixture data when testing a specific record, or assert only stable ordering/type/id invariants.
 - For write endpoints, create prerequisite record in test instead of depending on existing account data.
 - For read-only/account-data endpoints, fetch small live dataset first; skip only when no compatible remote records.
 - One Saloon fixture exists: `tests/Fixtures/Saloon/contacts/contacts/get.json`.
