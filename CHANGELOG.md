@@ -1,5 +1,14 @@
 # Changelog
 
+## [4.5.1](https://github.com/gigerIT/bexio-api-client/compare/v4.5.0...v4.5.1) (2026-04-24)
+
+
+### Miscellaneous Chores
+
+* add additional default Bexio API scopes for email and company profile ([0b26ab7](https://github.com/gigerIT/bexio-api-client/commit/0b26ab7eb62b18004c9359ac60662abd02ff788a))
+* **deps:** bump googleapis/release-please-action from 4 to 5 ([59eaa54](https://github.com/gigerIT/bexio-api-client/commit/59eaa542eec5c3c21468faec29774d063cb64209))
+* **deps:** bump googleapis/release-please-action from 4 to 5 ([70b55d5](https://github.com/gigerIT/bexio-api-client/commit/70b55d561ec30365f07bdadf9e6aeacbad427ae5))
+
 ## [4.5.0](https://github.com/gigerIT/bexio-api-client/compare/v4.4.0...v4.5.0) (2026-04-01)
 
 
