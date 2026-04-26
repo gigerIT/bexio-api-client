@@ -1,117 +1,103 @@
 # Bexio API Client
 
-Laravel package for the Bexio API. The package uses `saloonphp/saloon` for HTTP connectors/requests and `spatie/laravel-data` for resource DTOs.
+Laravel package for Bexio API. Uses `saloonphp/saloon` for HTTP connectors/requests, `spatie/laravel-data` for resource DTOs.
 
 ## Project Snapshot
 
-- Package name: `gigerit/bexio-api-client`
-- Runtime requirements: PHP `^8.2`, `illuminate/support` `^10|^11|^12|^13`
+- Package: `gigerit/bexio-api-client`
+- Runtime: PHP `^8.2`, `illuminate/support` `^10|^11|^12|^13`
 - Main entry points:
   - `src/BexioClient.php`: Saloon connector for `https://api.bexio.com`
   - `src/BexioAuth.php`: OAuth connector for `https://auth.bexio.com/realms/bexio/protocol/openid-connect`
   - `src/BexioServiceProvider.php`: container binding, config merge, config publish
   - `src/Facades/Bexio.php`: Laravel facade
-- Composer auto-discovers `Bexio\BexioServiceProvider` and the `Bexio` facade alias.
+- Composer auto-discovers `Bexio\BexioServiceProvider` and `Bexio` facade alias.
 
 ## Repository Layout
 
 - `src/`: package source
-- `src/Resources/`: API resources grouped by domain (`Accounting`, `Banking`, `Contacts`, `Files`, `Items`, `Other`, `Projects`, `Purchase`, `Sales`)
+- `src/Resources/`: API resources by domain: `Accounting`, `Banking`, `Contacts`, `Files`, `Items`, `Other`, `Projects`, `Purchase`, `Sales`
 - `config/bexio.php`: published package config
 - `tests/`: Pest + Orchestra Testbench suite
-- `docs/resources/`: segmented public usage guides grouped by domain and resource
-- `docs/CONTACTS.md`: legacy landing page that points to the segmented contacts guides
-- `docs/bexio API docs.md`: bundled reference material from Bexio
-- `README.md`: installation, auth, examples, and resource coverage matrix
+- `docs/resources/`: segmented public usage guides by domain/resource
+- `docs/CONTACTS.md`: legacy landing page pointing to segmented contacts guides
+- `docs/bexio API docs.md`: bundled Bexio reference
+- `README.md`: installation, auth, examples, resource coverage matrix
 
 ## API Docs
 
 - mcp: context7 `bexio api`
 - Local: `docs/bexio API docs.md`
+- `README.md` is source of truth for documented endpoint coverage. Its `## Available Resources` tables list each bundled-doc endpoint and implementation status. Check there first for endpoint gaps, new resource planning, or existing coverage.
 
 ## Core Architecture
 
 ### `BexioClient`
 
 - Extends `Saloon\Http\Connector`.
-- Accepts either a token string, a Saloon `Authenticator`, or `null`.
+- Accepts token string, Saloon `Authenticator`, or `null`.
 - Uses `AcceptsJson` and `AlwaysThrowOnErrors`.
-- `testAccount()` resolves credentials from `BEXIO_ACCESS_TOKEN`, then `TEST_API_KEY`, then `config('bexio.access_token')`.
+- `testAccount()` resolves credentials: `BEXIO_ACCESS_TOKEN`, then `TEST_API_KEY`, then `config('bexio.access_token')`.
 
 ### `BexioAuth`
 
-- Separate connector for OAuth authorization-code flow.
-- Sets authorize, token, and user endpoints via Saloon's `AuthorizationCodeGrant` trait.
-- README contains the current redirect/callback example flow.
+- OAuth authorization-code connector.
+- Uses Saloon `AuthorizationCodeGrant` trait for authorize, token, user endpoints.
+- README has current redirect/callback example flow.
 
 ### `BexioServiceProvider`
 
 - Merges `config/bexio.php`.
-- Registers `BexioClient` as a singleton and aliases it to `bexio`.
-- Authentication resolution order is:
+- Registers `BexioClient` singleton and aliases it to `bexio`.
+- Auth resolution order:
   1. `config('bexio.access_token')`
   2. `config('bexio.oauth.access_token')`
-  3. `null` if neither is set
+  3. `null` when neither set
 - Publishes config with `php artisan vendor:publish --tag=bexio-config`.
 
 ## Resource Model Pattern
 
-All API DTOs extend `src/Resources/Resource.php`, which itself extends `Spatie\LaravelData\Data`.
+All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelData\Data`.
 
 ### Base Resource Behavior
 
-- `Resource::useClient($client)` creates an instance without running the constructor, then attaches the client.
-- `attachClient()` stores the client for instance methods.
-- Shared operations are implemented in the base class:
-  - `all()`
-  - `find()`
-  - `refresh()`
-  - `create()`
-  - `update()`
-  - `save()`
-  - `delete()`
-  - `query()`
-- Resources declare request classes through constants like `INDEX_REQUEST`, `SHOW_REQUEST`, `CREATE_REQUEST`, `UPDATE_REQUEST`, `DELETE_REQUEST`, and optionally `QUERY_BUILDER`.
-- If a resource does not define the required request constant for an operation, the base class throws at runtime.
+- `Resource::useClient($client)` creates instance without constructor, attaches client.
+- `attachClient()` stores client for instance methods.
+- Shared ops: `all()`, `find()`, `refresh()`, `create()`, `update()`, `save()`, `delete()`, `query()`.
+- Resources declare request classes through constants: `INDEX_REQUEST`, `SHOW_REQUEST`, `CREATE_REQUEST`, `UPDATE_REQUEST`, `DELETE_REQUEST`; optional `QUERY_BUILDER`.
+- Missing required request constant for an operation throws at runtime.
 
 ### Constructor and Payload Conventions
 
-- Constructor-promoted public properties represent fields expected for create/update operations.
-- Response-only fields are usually declared as normal public properties outside the constructor.
-- Create/update requests typically call `$resource->except(...)->toArray()` to strip response-only fields before sending JSON.
-- Preserve this split when adding fields; avoid putting response-only API fields into constructor-promoted properties unless they belong in create/update payloads.
+- Constructor-promoted public properties = create/update payload fields.
+- Response-only fields usually normal public properties outside constructor.
+- Create/update requests usually call `$resource->except(...)->toArray()` to strip response-only fields before JSON.
+- Preserve split. Do not put response-only API fields in constructor-promoted properties unless valid create/update payload fields.
 
 ### Request Class Pattern
 
-- Requests live beside the resource in a `Requests/` subdirectory.
-- Common naming is `GetXRequest`, `CreateXRequest`, `UpdateXRequest`, `DeleteXRequest`, `SearchXRequest`.
-- Search request naming is not fully consistent across the codebase (`SearchContactRequest`, `SearchItemsRequest`, `SearchBusinessActivitiesRequest` all exist). Match the local resource convention rather than trying to normalize unrelated files.
-- Each request is responsible for `resolveEndpoint()` and `createDtoFromResponse()`.
+- Requests live beside resource in `Requests/`.
+- Common names: `GetXRequest`, `CreateXRequest`, `UpdateXRequest`, `DeleteXRequest`, `SearchXRequest`.
+- Search naming varies: `SearchContactRequest`, `SearchItemsRequest`, `SearchBusinessActivitiesRequest`. Match local convention; do not normalize unrelated files.
+- Each request owns `resolveEndpoint()` and `createDtoFromResponse()`.
 - JSON body requests implement `HasBody` and use `HasJsonBody`.
 
 ### Query Builder Pattern
 
-- Base implementations live in `src/Support/QueryBuilder.php` and `src/Support/SearchableQueryBuilder.php`.
-- Shared fluent methods now include:
-  - `limit()`
-  - `offset()`
-  - `forPage()`
-  - `orderBy()`
-  - `when()`
-  - `get()`
-  - `first()`
-- `SearchableQueryBuilder` also provides `where()`, `whereIn()`, `whereNull()`, `whereNotNull()`, and `whereBetween()`.
-- Public collection retrieval is `get()` only. The older `search()` builder API has been removed in the current major-version work.
-- Searchable builders automatically switch from the resource `INDEX_REQUEST` to their dedicated `Search*Request` once any where-clause is present.
-- Resource-specific builders should be thin and only add domain sugar or endpoint-specific context, such as `withArchived()`, `forContact()`, or invoice-specific status/date helpers.
-- `QueryBuilder` still instantiates requests from constructor arguments, but resource-specific builders can override `indexRequestArguments()`, `searchRequestArguments()`, or `searchRequestQueryParameters()` when request constructor names or route context differ from the fluent builder state.
+- Base builders: `src/Support/QueryBuilder.php`, `src/Support/SearchableQueryBuilder.php`.
+- Shared fluent methods: `limit()`, `offset()`, `forPage()`, `orderBy()`, `when()`, `get()`, `first()`.
+- `SearchableQueryBuilder` also has `where()`, `whereIn()`, `whereNull()`, `whereNotNull()`, `whereBetween()`.
+- Public collection retrieval is `get()` only. Older `search()` builder API removed in current major-version work.
+- Searchable builders auto-switch from resource `INDEX_REQUEST` to dedicated `Search*Request` after any where-clause.
+- Resource-specific builders stay thin: domain sugar or endpoint context only, e.g. `withArchived()`, `forContact()`, invoice status/date helpers.
+- `QueryBuilder` still instantiates requests from constructor args. Resource-specific builders may override `indexRequestArguments()`, `searchRequestArguments()`, or `searchRequestQueryParameters()` when request constructor names or route context differ from fluent state.
 
 ### Search DTOs
 
-- Shared search operator enum: `src/Support/Data/SearchCriteria.php`.
+- Shared operator enum: `src/Support/Data/SearchCriteria.php`.
 - Shared base clause DTO: `src/Support/Data/SearchWhereClause.php`.
-- Many resources add resource-specific clause classes such as `ContactSearchWhereClause`, `ItemSearchWhereClause`, or `ProjectSearchWhereClause`.
-- Implementations are slightly inconsistent: some resource-specific clause classes extend the shared `SearchWhereClause`, others define their own `Data` class. Follow the pattern already used in the resource you are editing.
+- Many resources have resource-specific clause classes: `ContactSearchWhereClause`, `ItemSearchWhereClause`, `ProjectSearchWhereClause`.
+- Pattern varies: some extend shared `SearchWhereClause`, some define own `Data`. Follow resource-local pattern.
 
 ## Important Resource-Specific Caveats
 
@@ -119,155 +105,151 @@ All API DTOs extend `src/Resources/Resource.php`, which itself extends `Spatie\L
 
 - `src/Resources/Sales/Invoices/Invoice.php` has custom API payload helpers:
   - `createFromApiPayload()` backfills `invoice_date` from `is_valid_from` when needed.
-  - `collectFromApiPayload()` maps arrays through that normalization.
-  - `toApi()` strips response-only/reporting fields from outgoing create payloads, including API-rejected fields like `document_nr` and `mwst_is_net`.
-- Keep these helpers in sync with invoice response payloads and unit tests in `tests/Unit/Resources/Sales/Invoices/InvoiceDataTest.php`.
+  - `collectFromApiPayload()` maps arrays through same normalization.
+  - `toApi()` strips response-only/reporting fields from create payloads, including API-rejected `document_nr` and `mwst_is_net`.
+- Keep helpers synced with invoice response payloads and `tests/Unit/Resources/Sales/Invoices/InvoiceDataTest.php`.
 
 ### Invoice query support
 
-- `src/Resources/Sales/Invoices/InvoiceQueryBuilder.php` and `src/Resources/Sales/Orders/OrderQueryBuilder.php` are the sales-document-specific consumers of `SearchableQueryBuilder`.
-- Invoice filtering uses `POST /2.0/kb_invoice/search` through `src/Resources/Sales/Invoices/Requests/SearchInvoicesRequest.php`.
-- Live API verification shows `/2.0/kb_invoice/search` rejects a literal `invoice_date` search field; use `validFrom()`, `validTo()`, or `validBetween()` against the invoice's normalized `invoice_date`/validity dates instead.
-- Preferred fluent helpers are `status()`, `statusIn()`, `validFrom()`, `validTo()`, and `validBetween()`.
+- `src/Resources/Sales/Invoices/InvoiceQueryBuilder.php` and `src/Resources/Sales/Orders/OrderQueryBuilder.php` consume `SearchableQueryBuilder` for sales documents.
+- Invoice filtering uses `POST /2.0/kb_invoice/search` via `src/Resources/Sales/Invoices/Requests/SearchInvoicesRequest.php`.
+- Live API rejects literal `invoice_date` search field on `/2.0/kb_invoice/search`; use `validFrom()`, `validTo()`, or `validBetween()` against normalized `invoice_date`/validity dates.
+- Preferred helpers: `status()`, `statusIn()`, `validFrom()`, `validTo()`, `validBetween()`.
 
 ### Order query support
 
-- Unfiltered order queries use `GET /2.0/kb_order` and support `order_by`, `limit`, and `offset` through `src/Resources/Sales/Orders/Requests/GetOrdersRequest.php`.
-- Order filtering uses `POST /2.0/kb_order/search` through `src/Resources/Sales/Orders/Requests/SearchOrdersRequest.php`.
-- `src/Resources/Sales/Orders/OrderQueryBuilder.php` mirrors the invoice builder with `status()`, `statusIn()`, `validFrom()`, `validTo()`, and `validBetween()` helpers.
-- Keep `Order::$kb_item_status_id` as an `int` for now. `OrderStatus` maps the documented order states: pending `5`, done `6`, partial `15`, and canceled `21`.
-- `src/Resources/Sales/Orders/Order.php::toApi()` strips response-only and API-rejected create fields such as `taxs`, `mwst_is_net`, `is_valid_to`, `project_id`, and `reference` before `CreateOrderRequest` sends JSON.
+- Unfiltered order queries: `GET /2.0/kb_order` with `order_by`, `limit`, `offset` via `src/Resources/Sales/Orders/Requests/GetOrdersRequest.php`.
+- Order filtering: `POST /2.0/kb_order/search` via `src/Resources/Sales/Orders/Requests/SearchOrdersRequest.php`.
+- `src/Resources/Sales/Orders/OrderQueryBuilder.php` mirrors invoice builder: `status()`, `statusIn()`, `validFrom()`, `validTo()`, `validBetween()`.
+- Keep `Order::$kb_item_status_id` as `int`. `OrderStatus` maps documented states: pending `5`, done `6`, partial `15`, canceled `21`.
+- `src/Resources/Sales/Orders/Order.php::toApi()` strips response-only/API-rejected create fields: `taxs`, `mwst_is_net`, `is_valid_to`, `project_id`, `reference`.
 
 ### Quote query support
 
-- Unfiltered quote queries use `GET /2.0/kb_offer` and support `order_by`, `limit`, and `offset` through `src/Resources/Sales/Quotes/Requests/GetQuotesRequest.php`.
-- Quote filtering uses `POST /2.0/kb_offer/search` through `src/Resources/Sales/Quotes/Requests/SearchQuotesRequest.php`.
-- `src/Resources/Sales/Quotes/QuoteQueryBuilder.php` mirrors the order builder with `status()`, `statusIn()`, `validFrom()`, `validTo()`, and `validBetween()` helpers.
-- Live API verification shows `/2.0/kb_offer/search` matches quote validity on `is_valid_until`; do not use `is_valid_to` in quote search helpers.
+- Unfiltered quote queries: `GET /2.0/kb_offer` with `order_by`, `limit`, `offset` via `src/Resources/Sales/Quotes/Requests/GetQuotesRequest.php`.
+- Quote filtering: `POST /2.0/kb_offer/search` via `src/Resources/Sales/Quotes/Requests/SearchQuotesRequest.php`.
+- `src/Resources/Sales/Quotes/QuoteQueryBuilder.php` mirrors order builder: `status()`, `statusIn()`, `validFrom()`, `validTo()`, `validBetween()`.
+- Live API matches quote validity on `is_valid_until`; do not use `is_valid_to` in quote search helpers.
 
 ### Accounting search support
 
-- Account filtering uses `POST /2.0/accounts/search`. The API docs and live payloads use `fibu_account_group_id` as the account-group field name in search responses.
-- Calendar year filtering uses `POST /3.0/accounting/calendar_years/search`. Search clauses use the API field names `start` and `end`, even though the current `CalendarYear` DTO keeps `date_start` and `date_end` properties.
-- The calendar year docs note that end-date equality searches may require the full timestamp form; prefer `like` when filtering by end date unless you already have the API's exact datetime string.
+- Account filtering uses `POST /2.0/accounts/search`. Docs and live payloads use `fibu_account_group_id` as account-group field in search responses.
+- Calendar year filtering uses `POST /3.0/accounting/calendar_years/search`. Search clauses use API fields `start` and `end`, though `CalendarYear` DTO keeps `date_start` and `date_end`.
+- Calendar year docs: end-date equality searches may need full timestamp; prefer `like` for end date unless exact API datetime known.
 
 ### Invoice reminders need invoice context
 
-- `src/Resources/Sales/Invoices/InvoiceReminders/InvoiceReminder.php` overrides `find()` and `delete()` because the endpoint requires both `kb_invoice_id` and reminder id.
-- `src/Resources/Sales/Invoices/InvoiceReminders/InvoiceReminderQueryBuilder.php` adds `forInvoice(int $invoiceId)` and custom request instantiation for the same reason.
-- Invoice reminder listing, creation, and search all live under `/2.0/kb_invoice/{invoice_id}/kb_reminder`.
+- `src/Resources/Sales/Invoices/InvoiceReminders/InvoiceReminder.php` overrides `find()` and `delete()` because endpoint needs both `kb_invoice_id` and reminder id.
+- `src/Resources/Sales/Invoices/InvoiceReminders/InvoiceReminderQueryBuilder.php` adds `forInvoice(int $invoiceId)` and custom request instantiation.
+- Invoice reminder listing, creation, search live under `/2.0/kb_invoice/{invoice_id}/kb_reminder`.
 
 ### Additional addresses need contact context
 
-- `src/Resources/Contacts/AdditionalAddresses/AdditionalAddress.php` overrides `find()` and `delete()` because the endpoint requires both `contact_id` and address id.
-- `src/Resources/Contacts/AdditionalAddresses/AdditionalAddressQueryBuilder.php` adds `forContact(int $contactId)` and custom request instantiation for the same reason.
-- Do not assume base `Resource::find()` is sufficient for nested/contact-scoped resources.
+- `src/Resources/Contacts/AdditionalAddresses/AdditionalAddress.php` overrides `find()` and `delete()` because endpoint needs both `contact_id` and address id.
+- `src/Resources/Contacts/AdditionalAddresses/AdditionalAddressQueryBuilder.php` adds `forContact(int $contactId)` and custom request instantiation.
+- Do not assume base `Resource::find()` works for nested/contact-scoped resources.
 
 ### Office deep links
 
 - `src/Support/Concerns/HasOfficeLink.php` builds Office URLs from `SHOW_URL` and `Resource::OFFICE_BASE_URL`.
-- Resources using this trait must provide a matching `SHOW_URL` constant.
+- Resources using trait must provide matching `SHOW_URL` constant.
 
 ### Polymorphic item positions
 
-- `src/Resources/Sales/ItemPositions/ItemPositionCast.php` maps item-position payloads by `type` into concrete DTO classes.
-- Supported types are asserted in `tests/Unit/ItemPositionCastTest.php`.
-- If Bexio adds a new item position type, update the enum, cast, and test together.
+- `src/Resources/Sales/ItemPositions/ItemPositionCast.php` maps item-position payloads by `type` to concrete DTO classes.
+- Supported types asserted in `tests/Unit/ItemPositionCastTest.php`.
+- If Bexio adds item position type, update enum, cast, and test together.
 
 ### Endpoint versions are mixed
 
-- The codebase uses both `/2.0/...`, `/3.0/...` and `/4.0/...` endpoints depending on the resource.
-- Do not assume one version applies package-wide; check neighboring request classes before adding or editing endpoints.
+- Codebase uses `/2.0/...`, `/3.0/...`, `/4.0/...` by resource.
+- Do not assume one version package-wide; check neighboring request classes.
 
 ## Authentication and Config
 
-- Config file: `config/bexio.php`.
-- Supported auth modes:
+- Config: `config/bexio.php`.
+- Auth modes:
   - Personal access token via `BEXIO_ACCESS_TOKEN`
   - OAuth credentials via `BEXIO_CLIENT_ID`, `BEXIO_CLIENT_SECRET`, `BEXIO_REDIRECT_URI`
-- Config also includes default OAuth scopes and optional stored OAuth access/refresh tokens.
-- `.env.example` documents the expected environment variables.
+- Config includes default OAuth scopes and optional stored OAuth access/refresh tokens.
+- `.env.example` documents expected env vars.
 
 ## Testing Workflow
 
-- A working BEXIO_ACCESS_TOKEN will always be provided via .env in local development and in CI.
-- Test stack: Pest v3 + Orchestra Testbench.
-- Main files:
-  - `tests/Pest.php`
-  - `tests/TestCase.php`
-  - `phpunit.xml`
-- Local commands:
-  - `composer test`
-  - `composer test:types`
+- Working BEXIO_ACCESS_TOKEN always provided via .env locally and CI.
+- Stack: Pest v3 + Orchestra Testbench.
+- Main files: `tests/Pest.php`, `tests/TestCase.php`, `phpunit.xml`.
+- Commands: `composer test`, `composer test:types`.
 
 ### Test helpers
 
-- `tests/Pest.php` defines shared helpers:
-  - `testClient()` for live API access via `BexioClient::testAccount()`
+- `tests/Pest.php` helpers:
+  - `testClient()` for live API via `BexioClient::testAccount()`
   - `testMockClient()` for Saloon mock responses
-  - cached helpers like `testSaleTax()`, `testSalesAccount()`, `testAccountId()`
-- Resource coverage is expected to use real API requests. A working API key is available in local development and in CI, so new feature/resource tests should use `testClient()` and exercise the real Bexio endpoints rather than mocks.
-- Keep mocks/fixtures for narrow unit tests only, such as DTO, casting, or request-construction behavior; do not treat mocked tests as sufficient coverage for a new API feature.
-- Existing live API test patterns to follow:
-  - create/update/delete flows that generate disposable records and clean them up, as in `tests/Resources/Contacts/Contacts/ContactRequestsTest.php`, `tests/Resources/Purchase/Bills/BillRequestsTest.php`, and `tests/Resources/Sales/Invoices/InvoiceRequestsTest.php`
-  - read/search/query-builder coverage that fetches existing remote records, then skips only when the remote account genuinely lacks suitable data, as in `tests/Resources/Projects/Projects/ProjectRequestsTest.php` and `tests/Resources/Banking/PaymentRequestsTest.php`
-- When an endpoint supports writes, prefer creating the prerequisite record inside the test instead of depending on pre-existing account data.
-- When an endpoint is read-only or depends on account-specific data, fetch a small live dataset first and skip only if the remote account truly has no compatible records.
-- One Saloon fixture currently exists at `tests/Fixtures/Saloon/contacts/contacts/get.json`.
+  - cached helpers: `testSaleTax()`, `testSalesAccount()`, `testAccountId()`
+- Resource coverage should use real API requests. API key exists locally and CI. New API feature/resource tests should use `testClient()` and real Bexio endpoints, not mocks.
+- Keep mocks/fixtures for narrow unit tests only: DTO, casting, request construction. Mocked tests alone are insufficient for new API features.
+- Existing live API patterns:
+  - create/update/delete disposable records as in `tests/Resources/Contacts/Contacts/ContactRequestsTest.php`, `tests/Resources/Purchase/Bills/BillRequestsTest.php`, `tests/Resources/Sales/Invoices/InvoiceRequestsTest.php`
+  - read/search/query-builder tests fetch small live datasets, skip only when remote account lacks data, as in `tests/Resources/Projects/Projects/ProjectRequestsTest.php`, `tests/Resources/Banking/PaymentRequestsTest.php`
+- For write endpoints, create prerequisite record in test instead of depending on existing account data.
+- For read-only/account-data endpoints, fetch small live dataset first; skip only when no compatible remote records.
+- One Saloon fixture exists: `tests/Fixtures/Saloon/contacts/contacts/get.json`.
 
 ### Test environment behavior
 
 - `tests/TestCase.php` loads `LaravelDataServiceProvider` and `BexioServiceProvider`.
-- The package test environment explicitly loads the package-root `.env` when neither `BEXIO_ACCESS_TOKEN` nor `TEST_API_KEY` is already present in the process environment, then sets `config('bexio.access_token')` from those variables.
-- Missing credentials should not be treated as the normal path for local development or CI; if a test cannot run, the first assumption should be missing remote fixtures/data, not missing authentication.
-- `tests/ArchitectureTest.php` currently bans debug helpers like `dd`, `dump`, `ray`, and `sleep`.
+- Test env loads package-root `.env` only when neither `BEXIO_ACCESS_TOKEN` nor `TEST_API_KEY` exists in process env, then sets `config('bexio.access_token')` from those vars.
+- Missing credentials are not normal locally/CI. If test cannot run, first assume missing remote fixtures/data, not missing auth.
+- `tests/ArchitectureTest.php` bans debug helpers: `dd`, `dump`, `ray`, `sleep`.
 
 ## CI and Release
 
-- GitHub Actions workflow: `.github/workflows/CI.yml`.
-- On pushes to `main`:
+- Workflow: `.github/workflows/CI.yml`.
+- Pushes to `main`:
   - `Test` job runs on PHP 8.4.
-  - It executes `php vendor/bin/pest --colors=always -v --parallel --processes=6`.
-  - It exposes the same secret as both `BEXIO_ACCESS_TOKEN` and `TEST_API_KEY`.
-- Release automation uses `googleapis/release-please-action@v4` with `release-type: php`.
-- Test job is skipped for release commits whose message contains `chore(main): release`.
+  - Runs `php vendor/bin/pest --colors=always -v --parallel --processes=6`.
+  - Exposes same secret as `BEXIO_ACCESS_TOKEN` and `TEST_API_KEY`.
+- Release automation: `googleapis/release-please-action@v4`, `release-type: php`.
+- Test job skipped for release commits containing `chore(main): release`.
 - Dependabot updates Composer and GitHub Actions weekly via `.github/dependabot.yml`.
 
 ## Documentation Drift To Watch
 
-- `Contact` uses `titel_id` in `src/Resources/Contacts/Contacts/Contact.php`; some bundled Bexio docs may use `title_id` instead.
-- Some Pest resource test files contain copied namespace declarations unrelated to their directory. Pest still executes them, so do not treat those namespaces as authoritative project structure.
+- `Contact` uses `titel_id` in `src/Resources/Contacts/Contacts/Contact.php`; some bundled Bexio docs may use `title_id`.
+- Some Pest resource tests have copied namespace declarations unrelated to directory. Pest still executes them; do not treat namespaces as authoritative project structure.
 
 ## When Adding Or Updating Resources
 
-- Mirror the established structure:
-  1. Resource DTO in the resource directory
+- Mirror structure:
+  1. Resource DTO in resource directory
   2. Request classes in `Requests/`
   3. Optional query builder and search where-clause DTO
-  4. Integration or unit tests in the matching `tests/Resources/...` or `tests/Unit/...` location
-- Reuse the base `Resource` helpers unless the endpoint needs extra route context, custom normalization, or custom request assembly.
-- Match existing endpoint versioning and local naming in the area you are editing.
-- Every new API-facing feature should ship with real, working API tests in `tests/Resources/...`, following the established live-request style used by the existing resource suites.
-- If you add response-only fields, keep outgoing payload filtering up to date.
-- If you add a new pattern or project caveat, update this file in the same task.
+  4. Integration/unit tests in matching `tests/Resources/...` or `tests/Unit/...`
+- Reuse base `Resource` helpers unless endpoint needs route context, custom normalization, or custom request assembly.
+- Match endpoint versioning and local naming in edited area.
+- Keep `README.md` endpoint coverage synced with code changes. When adding/removing/renaming/changing API endpoint implementation, update relevant row in `## Available Resources` same task.
+- Every new API-facing feature ships with real API tests in `tests/Resources/...`, following existing live-request style.
+- If adding response-only fields, update outgoing payload filtering.
+- If adding new pattern or project caveat, update this file same task.
 
 ## Documentation Placement and Maintenance
 
 **When to document**
-Update or add documentation whenever a task introduces verified changes, reveals missing context, or uncovers gaps that would have been useful upfront. Only document based on verified facts from the current task — no speculation.
+Update/add docs when task introduces verified changes, reveals missing context, or uncovers useful gaps. Use verified current-task facts only; no speculation.
 
 **Where to document**
-Apply this decision rule before writing anything:
+Decision rule before writing:
 
-1. Global, reusable, or task-agnostic guidance → `AGENTS.md`
-2. File-, function-, or implementation-scoped insight → code comment at the relevant location
-3. Public package usage examples and resource-specific integration notes → `docs/resources/<domain>/<resource>.md`
-4. If both apply → global rule in `AGENTS.md`, local detail in code comment
+1. Global, reusable, task-agnostic guidance -> `AGENTS.md`
+2. File/function/implementation-scoped insight -> code comment at relevant location
+3. Public package usage examples/resource-specific integration notes -> `docs/resources/<domain>/<resource>.md`
+4. If both apply -> global rule in `AGENTS.md`, local detail in code comment
 
-Default to the narrowest correct target.
+Default to narrowest correct target.
 
 **Quality standard**
-Keep `AGENTS.md` high-signal and durable. Summarize, deduplicate, and prune stale or overly narrow entries so it stays useful without wasting tokens.
+Keep `AGENTS.md` high-signal and durable. Summarize, deduplicate, prune stale/overly narrow entries.
 
 **Completion check**
-Before finalizing any task: confirm that all needed `AGENTS.md` updates and relevant code comments have been made, or explicitly verify that none are needed. The task is incomplete until this check passes.
+Before final: confirm needed `AGENTS.md` updates and relevant code comments made, or explicitly verify none needed. Task incomplete until check passes.
