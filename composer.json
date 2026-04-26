@@ -54,6 +54,7 @@
     "test": [
       "vendor/bin/pest"
     ],
+    "test:parallel": "php vendor/bin/pest --colors=always -v -p",
     "test:types": "phpstan analyse --memory-limit=2G"
   },
   "minimum-stability": "stable",
