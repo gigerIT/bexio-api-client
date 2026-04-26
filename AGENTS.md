@@ -21,13 +21,13 @@ Laravel package for Bexio API. Uses `saloonphp/saloon` for HTTP connectors/reque
 - `tests/`: Pest + Orchestra Testbench suite
 - `docs/resources/`: segmented public usage guides by domain/resource
 - `docs/CONTACTS.md`: legacy landing page pointing to segmented contacts guides
-- `docs/bexio API docs.md`: bundled Bexio reference
+- `docs/bexio-api-docs.md`: bundled Bexio reference
 - `README.md`: installation, auth, examples, resource coverage matrix
 
 ## API Docs
 
 - mcp: context7 `bexio api`
-- Local: `docs/bexio API docs.md`
+- Local: `docs/bexio-api-docs.md`
 - `README.md` is source of truth for documented endpoint coverage. Its `## Available Resources` tables list each bundled-doc endpoint and implementation status. Check there first for endpoint gaps, new resource planning, or existing coverage.
 
 ## Core Architecture

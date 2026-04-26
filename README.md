@@ -222,7 +222,7 @@ DTOs provide type hinting and autocompletion in the IDE, for a better developmen
 
 ## Available Resources
 
-Endpoint coverage is derived from `docs/bexio API docs.md`. `Implemented` means a matching request method and endpoint exists in `src/Resources/**/Requests`.
+Endpoint coverage is derived from `docs/bexio-api-docs.md`. `Implemented` means a matching request method and endpoint exists in `src/Resources/**/Requests`.
 
 ### CONTACTS
 

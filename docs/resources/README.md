@@ -30,4 +30,4 @@ Detailed package usage lives in segmented resource guides under `docs/resources/
 
 - Package behavior: `src/`
 - Live usage examples: `tests/Resources/`
-- Bundled upstream API reference: `docs/bexio API docs.md`
+- Bundled upstream API reference: `docs/bexio-api-docs.md`
