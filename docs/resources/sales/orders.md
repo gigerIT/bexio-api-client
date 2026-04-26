@@ -7,8 +7,11 @@
 ```php
 use Bexio\BexioClient;
 use Bexio\Resources\Sales\ItemPositions\ItemPositionCustom;
+use Bexio\Resources\Sales\Orders\Enums\OrderRepetitionMonthlySchedule;
+use Bexio\Resources\Sales\Orders\Enums\OrderRepetitionWeekday;
 use Bexio\Resources\Sales\Orders\Enums\OrderStatus;
 use Bexio\Resources\Sales\Orders\Order;
+use Bexio\Resources\Sales\Orders\OrderRepetition;
 use Bexio\Support\Data\SearchCriteria;
 
 $client = app(BexioClient::class);
@@ -81,9 +84,45 @@ $created = $order->attachClient($client)->create();
 $order = Order::useClient($client)->find(1);
 
 $order->title = 'Updated order title';
-$order->save();
+$updated = $order->save();
 
-$order->delete();
+$updated->delete();
+```
+
+## Download A PDF
+
+```php
+$pdf = Order::useClient($client)->pdf(1);
+
+file_put_contents($pdf->name, $pdf->decodedContent());
+```
+
+## Manage Repetition
+
+```php
+$repetition = OrderRepetition::weekly(
+    start: '2026-05-01',
+    end: '2026-12-31',
+    interval: 2,
+    weekdays: [
+        OrderRepetitionWeekday::MONDAY,
+        OrderRepetitionWeekday::FRIDAY,
+    ],
+);
+
+$updated = Order::useClient($client)->updateRepetition($repetition, 1);
+$current = Order::useClient($client)->getRepetition(1);
+
+Order::useClient($client)->deleteRepetition(1);
+```
+
+Monthly repetitions use `OrderRepetitionMonthlySchedule`:
+
+```php
+$repetition = OrderRepetition::monthly(
+    start: '2026-05-01',
+    schedule: OrderRepetitionMonthlySchedule::FIXED_DAY,
+);
 ```
 
 ## Convert Orders
@@ -107,4 +146,7 @@ $invoice = Order::useClient($client)->createInvoice(1);
 - The order query builder switches to `POST /2.0/kb_order/search` as soon as a search clause is added.
 - Supported order helpers are `status()`, `statusIn()`, `validFrom()`, `validTo()`, and `validBetween()`.
 - Outgoing create payloads automatically strip response-only and API-rejected fields before the request is sent.
+- Outgoing update payloads strip response-only fields and positions. Manage positions through item position endpoints.
+- PDF responses are returned as a `DocumentPdf` DTO with base64 `content` and `decodedContent()`.
+- Repetition helpers use `OrderRepetition` plus enums for type-specific values such as weekdays and monthly schedules.
 - `createDelivery()` and `createInvoice()` call the Bexio conversion endpoints and automatically send source-position references when no explicit conversion positions are provided.

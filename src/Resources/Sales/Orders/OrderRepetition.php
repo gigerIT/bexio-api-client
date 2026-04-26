@@ -1,0 +1,69 @@
+<?php
+declare(strict_types=1);
+
+namespace Bexio\Resources\Sales\Orders;
+
+use Bexio\Resources\Sales\Orders\Enums\OrderRepetitionMonthlySchedule;
+use Bexio\Resources\Sales\Orders\Enums\OrderRepetitionWeekday;
+use Spatie\LaravelData\Data;
+
+class OrderRepetition extends Data
+{
+    public function __construct(
+        public string $start,
+        public ?string $end,
+        public OrderRepetitionRule $repetition,
+    ) {
+    }
+
+    public static function daily(string $start, ?string $end = null, int $interval = 1): self
+    {
+        return new self($start, $end, OrderRepetitionRule::daily($interval));
+    }
+
+    /**
+     * @param array<int, OrderRepetitionWeekday> $weekdays
+     */
+    public static function weekly(string $start, array $weekdays, ?string $end = null, int $interval = 1): self
+    {
+        return new self($start, $end, OrderRepetitionRule::weekly($weekdays, $interval));
+    }
+
+    public static function monthly(
+        string $start,
+        OrderRepetitionMonthlySchedule $schedule,
+        ?string $end = null,
+        int $interval = 1,
+    ): self {
+        return new self($start, $end, OrderRepetitionRule::monthly($schedule, $interval));
+    }
+
+    public static function yearly(string $start, ?string $end = null, int $interval = 1): self
+    {
+        return new self($start, $end, OrderRepetitionRule::yearly($interval));
+    }
+
+    /**
+     * @param array{start: string, end?: string|null, repetition: array<string, mixed>} $payload
+     */
+    public static function fromApiPayload(array $payload): self
+    {
+        return new self(
+            start: $payload['start'],
+            end: $payload['end'] ?? null,
+            repetition: OrderRepetitionRule::fromApiPayload($payload['repetition']),
+        );
+    }
+
+    /**
+     * @return array{start: string, end: string|null, repetition: array<string, mixed>}
+     */
+    public function toPayload(): array
+    {
+        return [
+            'start' => $this->start,
+            'end' => $this->end,
+            'repetition' => $this->repetition->toPayload(),
+        ];
+    }
+}

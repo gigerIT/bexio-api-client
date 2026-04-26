@@ -294,14 +294,14 @@ Endpoint coverage is derived from `docs/bexio API docs.md`. `Implemented` means 
 |  | `POST /2.0/kb_order` | ✅ |
 |  | `POST /2.0/kb_order/search` | ✅ |
 |  | `GET /2.0/kb_order/{order_id}` | ✅ |
-|  | `POST /2.0/kb_order/{order_id}` | ❌ |
+|  | `POST /2.0/kb_order/{order_id}` | ✅ |
 |  | `DELETE /2.0/kb_order/{order_id}` | ✅ |
 |  | `POST /2.0/kb_order/{order_id}/delivery` | ✅ |
 |  | `POST /2.0/kb_order/{order_id}/invoice` | ✅ |
-|  | `GET /2.0/kb_order/{order_id}/pdf` | ❌ |
-|  | `GET /2.0/kb_order/{order_id}/repetition` | ❌ |
-|  | `POST /2.0/kb_order/{order_id}/repetition` | ❌ |
-|  | `DELETE /2.0/kb_order/{order_id}/repetition` | ❌ |
+|  | `GET /2.0/kb_order/{order_id}/pdf` | ✅ |
+|  | `GET /2.0/kb_order/{order_id}/repetition` | ✅ |
+|  | `POST /2.0/kb_order/{order_id}/repetition` | ✅ |
+|  | `DELETE /2.0/kb_order/{order_id}/repetition` | ✅ |
 | Deliveries | `GET /2.0/kb_delivery` | ✅ |
 |  | `GET /2.0/kb_delivery/{delivery_id}` | ✅ |
 |  | `POST /2.0/kb_delivery/{delivery_id}/issue` | ❌ |

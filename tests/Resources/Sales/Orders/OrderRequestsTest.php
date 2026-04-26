@@ -1,8 +1,10 @@
 <?php
 
 use Bexio\Resources\Sales\ItemPositions\ItemPositionCustom;
+use Bexio\Resources\Sales\Orders\Enums\OrderRepetitionType;
 use Bexio\Resources\Sales\Orders\Enums\OrderStatus;
 use Bexio\Resources\Sales\Orders\Order;
+use Bexio\Resources\Sales\Orders\OrderRepetition;
 use Bexio\Support\Data\SearchCriteria;
 
 $testOrder = null;
@@ -61,6 +63,44 @@ it('can get an Order', function () use (&$testOrder) {
     expect($order)->toBeInstanceOf(Order::class)
         ->and($order->id)->toBeInt()
         ->and($order->document_nr)->toBeString();
+})->depends('it can create an Order');
+
+it('can update an Order', function () use (&$testOrder) {
+    $order = Order::useClient(testClient())->find($testOrder->id);
+    $order->title = sprintf('Updated Order %s', uniqid());
+
+    $testOrder = $order->attachClient(testClient())->save();
+
+    expect($testOrder)->toBeInstanceOf(Order::class)
+        ->and($testOrder->id)->toBe($order->id)
+        ->and($testOrder->title)->toBe($order->title);
+})->depends('it can create an Order');
+
+it('can get an Order PDF', function () use (&$testOrder) {
+    $pdf = $testOrder->attachClient(testClient())->pdf();
+
+    expect($pdf->mime)->toBe('application/pdf')
+        ->and($pdf->name)->toEndWith('.pdf')
+        ->and($pdf->decodedContent())->toStartWith('%PDF');
+})->depends('it can create an Order');
+
+it('can manage an Order repetition', function () use (&$testOrder) {
+    $repetition = OrderRepetition::daily(
+        start: date('Y-m-d', strtotime('+1 day')),
+        end: date('Y-m-d', strtotime('+1 month')),
+        interval: 1,
+    );
+
+    try {
+        $updated = $testOrder->attachClient(testClient())->updateRepetition($repetition);
+        $fetched = $testOrder->attachClient(testClient())->getRepetition();
+
+        expect($updated)->toBeInstanceOf(OrderRepetition::class)
+            ->and($fetched)->toBeInstanceOf(OrderRepetition::class)
+            ->and($fetched->repetition->type)->toBe(OrderRepetitionType::DAILY);
+    } finally {
+        $testOrder->attachClient(testClient())->deleteRepetition();
+    }
 })->depends('it can create an Order');
 
 it('can find an Order via the search endpoint', function () use (&$testOrder) {

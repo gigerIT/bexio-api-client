@@ -8,6 +8,7 @@ use Bexio\Resources\Sales\Comments\Enums\KbDocumentType;
 use Bexio\Resources\Sales\Comments\Traits\HasComments;
 use Bexio\Resources\Sales\Deliveries\Delivery;
 use Bexio\Resources\Sales\DocumentConversionPayload;
+use Bexio\Resources\Sales\DocumentPdf;
 use Bexio\Resources\Sales\Invoices\Invoice;
 use Bexio\Resources\Sales\ItemPositions\Collections\ItemPositionCollection;
 use Bexio\Resources\Sales\ItemPositions\Concerns\HasSubItemPositions;
@@ -19,8 +20,13 @@ use Bexio\Resources\Sales\Orders\Requests\CreateDeliveryFromOrderRequest;
 use Bexio\Resources\Sales\Orders\Requests\CreateInvoiceFromOrderRequest;
 use Bexio\Resources\Sales\Orders\Requests\CreateOrderRequest;
 use Bexio\Resources\Sales\Orders\Requests\DeleteOrderRequest;
+use Bexio\Resources\Sales\Orders\Requests\DeleteOrderRepetitionRequest;
 use Bexio\Resources\Sales\Orders\Requests\GetOrderRequest;
+use Bexio\Resources\Sales\Orders\Requests\GetOrderPdfRequest;
+use Bexio\Resources\Sales\Orders\Requests\GetOrderRepetitionRequest;
 use Bexio\Resources\Sales\Orders\Requests\GetOrdersRequest;
+use Bexio\Resources\Sales\Orders\Requests\UpdateOrderRepetitionRequest;
+use Bexio\Resources\Sales\Orders\Requests\UpdateOrderRequest;
 use Bexio\Support\Concerns\HasOfficeLink;
 use Spatie\LaravelData\Attributes\WithCast;
 
@@ -39,6 +45,7 @@ class Order extends Resource implements KbDocumentContract
     public const QUERY_BUILDER = OrderQueryBuilder::class;
     public const SHOW_REQUEST = GetOrderRequest::class;
     public const CREATE_REQUEST = CreateOrderRequest::class;
+    public const UPDATE_REQUEST = UpdateOrderRequest::class;
     public const DELETE_REQUEST = DeleteOrderRequest::class;
 
     public const SHOW_URL = '/index.php/kb_order/show/id/{id}';
@@ -63,6 +70,7 @@ class Order extends Resource implements KbDocumentContract
     public ?string $viewed_by_client_at = null;
     public ?int $project_id = null;
     public ?int $pr_project_id = null;
+    public ?bool $is_recurring = null;
 
     public function __construct(
         public ?int                    $id = null,
@@ -80,6 +88,9 @@ class Order extends Resource implements KbDocumentContract
         public ?bool                   $show_position_taxes = null,
         public ?string                 $is_valid_from = null,
         public ?string                 $is_valid_to = null,
+        public ?string                 $contact_address_manual = null,
+        public ?int                    $delivery_address_type = null,
+        public ?string                 $delivery_address_manual = null,
         public ?string                 $reference = null,
         public ?string                 $api_reference = null,
         public ?string                 $template_slug = null,
@@ -112,7 +123,63 @@ class Order extends Resource implements KbDocumentContract
             'project_id',
             'is_valid_to',
             'reference',
+            'is_recurring',
         );
+    }
+
+    public function toUpdateApi(): Order
+    {
+        return $this->except(
+            'id',
+            'document_nr',
+            'total_gross',
+            'total_net',
+            'total_taxes',
+            'total',
+            'total_rounding_difference',
+            'contact_address',
+            'delivery_address',
+            'kb_item_status_id',
+            'updated_at',
+            'taxs',
+            'network_link',
+            'esr_id',
+            'qr_invoice_id',
+            'viewed_by_client_at',
+            'project_id',
+            'is_valid_to',
+            'reference',
+            'is_recurring',
+            'positions',
+        );
+    }
+
+    public function pdf(?int $id = null, ?bool $logopaper = null): DocumentPdf
+    {
+        $request = new GetOrderPdfRequest($this->resolveOrderId($id), $logopaper);
+
+        return $request->createDtoFromResponse($this->client()->send($request));
+    }
+
+    public function getRepetition(?int $id = null): OrderRepetition
+    {
+        $request = new GetOrderRepetitionRequest($this->resolveOrderId($id));
+
+        return $request->createDtoFromResponse($this->client()->send($request));
+    }
+
+    public function updateRepetition(OrderRepetition $repetition, ?int $id = null): OrderRepetition
+    {
+        $request = new UpdateOrderRepetitionRequest($this->resolveOrderId($id), $repetition);
+
+        return $request->createDtoFromResponse($this->client()->send($request));
+    }
+
+    public function deleteRepetition(?int $id = null): bool
+    {
+        return $this->client()
+            ->send(new DeleteOrderRepetitionRequest($this->resolveOrderId($id)))
+            ->successful();
     }
 
     /**
@@ -140,6 +207,11 @@ class Order extends Resource implements KbDocumentContract
     }
 
     private function resolveConversionSourceId(?int $id): int
+    {
+        return $this->resolveOrderId($id);
+    }
+
+    private function resolveOrderId(?int $id): int
     {
         return $id ?? (int) $this->resolveResourceId();
     }
