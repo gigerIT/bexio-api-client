@@ -244,7 +244,7 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
   in `release-please-config.json` and `.release-please-manifest.json`.
   Manifest mode is required because the non-manifest action path runs a GitHub
   GraphQL merge-commit query that fails for this repo; keep `commit-batch-size`
-  at `8` unless the exact release-please query is re-verified.
+  at `4` unless the exact release-please query is re-verified.
   The config intentionally makes common conventional commit sections visible,
   including `docs` and `ci`, so release PR notes include all repo-maintenance
   commits made between releases.
