@@ -1,19 +1,22 @@
 ---
 name: bexio-api-client-development
-description: Build and maintain integrations with gigerit/bexio-api-client, including auth, resources, query builders, invoice flows, and package conventions.
+description: >-
+  Use when building or maintaining integrations with gigerit/bexio-api-client, including auth,
+  resources, query builders, sales document flows, and package conventions.
 ---
 
 # Bexio API Client Development
 
 ## When to use this skill
-Use this skill when working with the `gigerit/bexio-api-client` package itself or when generating code that consumes the package in a Laravel app.
+Use this skill when working with the `gigerit/bexio-api-client` package itself or when
+generating code that consumes the package in a Laravel app.
 
 Use it for:
 - configuring Bexio authentication
 - reading, creating, updating, and deleting Bexio resources
 - using resource query builders and search filters
 - implementing new resources, requests, DTO fields, or package tests
-- working with invoice-specific payload and query behavior
+- working with sales document payloads, item positions, conversions, and query behavior
 
 ## Package overview
 - Package: `gigerit/bexio-api-client`
@@ -127,7 +130,8 @@ Searchable resources also support:
 - `whereNotNull()`
 - `whereBetween()`
 
-Use `get()` for both index and filtered queries. Do not use `search()`; that API was removed in the current major version.
+Use `get()` for both index and filtered queries. Do not use `search()`; that API was
+removed in the current major version.
 
 Example:
 
@@ -146,17 +150,23 @@ $contacts = Contact::useClient($client)
 
 Implementation notes:
 - `Bexio\Support\QueryBuilder` is the base for index-style requests.
-- `Bexio\Support\SearchableQueryBuilder` automatically switches to the resource search request once any `where*` clause is added.
+- `Bexio\Support\SearchableQueryBuilder` automatically switches to the resource search request
+  once any `where*` clause is added.
 - Resource-specific builders should stay thin and add only domain helpers or route context.
 
-## Invoice-specific guidance
-Invoices have custom normalization and query behavior.
+## Sales document guidance
+Invoices, orders, and quotes share sales document query patterns, but each document type
+has a few API-specific payload rules.
 
 Use:
 - `Bexio\Resources\Sales\Invoices\Invoice`
 - `Bexio\Resources\Sales\Invoices\InvoiceQueryBuilder`
+- `Bexio\Resources\Sales\Orders\Order`
+- `Bexio\Resources\Sales\Orders\OrderQueryBuilder`
+- `Bexio\Resources\Sales\Quotes\Quote`
+- `Bexio\Resources\Sales\Quotes\QuoteQueryBuilder`
 
-Invoice query helpers:
+Shared sales document query helpers:
 - `status()`
 - `statusIn()`
 - `validFrom()`
@@ -183,9 +193,33 @@ Invoice payload rules:
 - `Invoice::toApi()` removes reporting and response-only fields before writes.
 - Keep API-rejected fields like `document_nr` and `mwst_is_net` out of create/update payloads.
 
+Order and quote query rules:
+- Unfiltered orders use `GET /2.0/kb_order`; filtered orders use `POST /2.0/kb_order/search`.
+- Unfiltered quotes use `GET /2.0/kb_offer`; filtered quotes use `POST /2.0/kb_offer/search`.
+- Quote validity searches use API field `is_valid_until`; do not use `is_valid_to` for quote helpers.
+- `OrderStatus` maps pending `5`, done `6`, partial `15`, and canceled `21`.
+
+Order item-position rules:
+- Orders containing `ItemPositionArticle` are created as an empty order first, then positions are
+  added through dedicated item-position endpoints. Some Bexio order widget schemas reject inline
+  `article_id` on `POST /2.0/kb_order`.
+- Updating an existing `ItemPositionArticle` omits `article_id` and `parent_id`; delete and recreate
+  the article position to change the linked item.
+- Order update payloads strip `positions`; manage positions through item-position endpoints.
+
+Conversion rules:
+- `Quote::createOrder()`, `Quote::createInvoice()`, `Order::createDelivery()`, and
+  `Order::createInvoice()` call Bexio conversion endpoints.
+- When callers omit conversion positions, the package derives explicit source-position payloads
+  from the source document because live Bexio rejects empty or null `positions` for
+  package-created source documents.
+
 ## Nested and special-case resources
 - `AdditionalAddress` requires contact context; use `->forContact($contactId)` before `get()` or filtered queries.
-- Some resources use different endpoint versions (`/2.0/...` and `/3.0/...`); always match neighboring request classes instead of assuming one global API version.
+- `InvoiceReminder` requires invoice context; use `->forInvoice($invoiceId)` before `get()` or
+  filtered queries, and keep `kb_invoice_id` available for `find()` and `delete()`.
+- Some resources use different endpoint versions (`/2.0/...` and `/3.0/...`); always match
+  neighboring request classes instead of assuming one global API version.
 - Resources using `HasOfficeLink` must define a matching `SHOW_URL` constant.
 
 ## Adding or changing package resources
@@ -199,7 +233,10 @@ When adding a resource feature, mirror the existing package structure:
 Prefer:
 - base `Resource` helpers for CRUD
 - `SearchableQueryBuilder` for resources with separate search endpoints
+- `Bexio\Support\Requests\SearchRequest` for search requests that only need the shared POST JSON
+  `searchClauses` body behavior
 - resource-specific builder sugar only for context-specific helpers like `forContact()` or invoice status/date methods
+- README `## Available Resources` updates whenever endpoint implementation status changes
 
 ## Testing guidance
 - Test stack: Pest + Orchestra Testbench
@@ -212,12 +249,17 @@ composer test:types
 
 - Use real API coverage for API-facing package features through `testClient()` from `tests/Pest.php`.
 - Prefer creating disposable remote records inside tests for write-capable endpoints.
-- For read-only endpoints, fetch a small live dataset and skip only when the remote account genuinely has no compatible data.
+- For read-only endpoints, fetch a small live dataset and skip only when the remote account
+  genuinely has no compatible data.
 - Use mock responses only for narrow unit tests like DTO normalization or request-construction behavior.
+- Live tests may run in parallel against one Bexio account. When testing a specific record, scope
+  queries by unique fixture data instead of assuming unfiltered `first()` or `orderBy('id', 'desc')`
+  returns the record created by the current test.
 
 ## Best practices for AI-generated code
 - Bind a client with `useClient()` for static reads and `attachClient()` for instance writes.
 - Reuse existing request and DTO patterns from the nearest resource instead of inventing new ones.
 - Keep query-builder APIs fluent and Laravel-like; collection retrieval should end with `get()` or `first()`.
 - If adding response-only fields, update outgoing payload filtering and relevant tests together.
-- When changing package architecture or conventions, also update package guidance such as `AGENTS.md`, README usage, and any Boost skill content.
+- When changing package architecture or conventions, also update package guidance such as
+  `AGENTS.md`, README usage, and any Boost skill content.
