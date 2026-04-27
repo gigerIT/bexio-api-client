@@ -240,11 +240,13 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
   - `Test` job runs on PHP 8.4.
   - Runs `php vendor/bin/pest --colors=always -v --parallel --processes=6`.
   - Exposes same secret as `BEXIO_ACCESS_TOKEN` and `TEST_API_KEY`.
-- Release automation: `googleapis/release-please-action@v4` with manifest config
-  in `release-please-config.json` and `.release-please-manifest.json`.
-  Manifest mode is required because the non-manifest action path runs a GitHub
-  GraphQL merge-commit query that fails for this repo; keep `commit-batch-size`
-  at `4` unless the exact release-please query is re-verified.
+- Release automation installs `release-please@17.3.0` and runs
+  `.github/scripts/release-please.js` with manifest config in
+  `release-please-config.json` and `.release-please-manifest.json`.
+  The wrapper patches only Release Please's merge-commit GraphQL query because
+  the stock query that requests PR bodies/files fails for this repo. Keep
+  commit-file backfilling through REST unless the exact release-please query is
+  re-verified against GitHub.
   The config intentionally makes common conventional commit sections visible,
   including `docs` and `ci`, so release PR notes include all repo-maintenance
   commits made between releases.
