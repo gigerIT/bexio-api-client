@@ -79,6 +79,7 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 - Requests live beside resource in `Requests/`.
 - Common names: `GetXRequest`, `CreateXRequest`, `UpdateXRequest`, `DeleteXRequest`, `SearchXRequest`.
 - Search naming varies: `SearchContactRequest`, `SearchItemsRequest`, `SearchBusinessActivitiesRequest`. Match local convention; do not normalize unrelated files.
+- Search requests should extend `Bexio\Support\Requests\SearchRequest` for shared POST JSON `searchClauses` behavior. Keep per-request constructors only for route context, query parameters, validation, or response normalization.
 - Each request owns `resolveEndpoint()` and `createDtoFromResponse()`.
 - JSON body requests implement `HasBody` and use `HasJsonBody`.
 

@@ -5,23 +5,16 @@ declare(strict_types=1);
 namespace Bexio\Resources\Contacts\AdditionalAddresses\Requests;
 
 use Bexio\Resources\Contacts\AdditionalAddresses\AdditionalAddress;
-use Saloon\Contracts\Body\HasBody;
-use Saloon\Enums\Method;
-use Saloon\Http\Request;
+use Bexio\Support\Requests\SearchRequest;
 use Saloon\Http\Response;
-use Saloon\Traits\Body\HasJsonBody;
 
-class SearchAdditionalAddressRequest extends Request implements HasBody
+class SearchAdditionalAddressRequest extends SearchRequest
 {
-    use HasJsonBody;
-
-    protected Method $method = Method::POST;
-
     public function __construct(
         protected readonly int $contactId,
-        protected readonly array $searchClauses = []
-    )
-    {
+        array $searchClauses = [],
+    ) {
+        parent::__construct($searchClauses);
     }
 
     public function resolveEndpoint(): string
@@ -33,11 +26,4 @@ class SearchAdditionalAddressRequest extends Request implements HasBody
     {
         return AdditionalAddress::collect($response->json());
     }
-
-    protected function defaultBody(): array
-    {
-        return $this->searchClauses;
-    }
-
 }
-

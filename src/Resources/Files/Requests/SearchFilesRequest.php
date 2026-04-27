@@ -5,25 +5,20 @@ namespace Bexio\Resources\Files\Requests;
 
 use Bexio\Resources\Files\Enums\FileArchivedState;
 use Bexio\Resources\Files\File;
+use Bexio\Support\Requests\SearchRequest;
 use InvalidArgumentException;
-use Saloon\Contracts\Body\HasBody;
-use Saloon\Enums\Method;
-use Saloon\Http\Request;
 use Saloon\Http\Response;
-use Saloon\Traits\Body\HasJsonBody;
 
-class SearchFilesRequest extends Request implements HasBody
+class SearchFilesRequest extends SearchRequest
 {
-    use HasJsonBody;
-
-    protected Method $method = Method::POST;
-
     public function __construct(
-        protected readonly array $searchClauses = [],
+        array $searchClauses = [],
         protected readonly ?FileArchivedState $archivedState = null,
         protected readonly int $limit = 500,
         protected readonly int $offset = 0,
     ) {
+        parent::__construct($searchClauses);
+
         if ($this->limit < 1 || $this->limit > 2000) {
             throw new InvalidArgumentException('Limit must be between 1 and 2000.');
         }
@@ -52,14 +47,8 @@ class SearchFilesRequest extends Request implements HasBody
         return $query;
     }
 
-    protected function defaultBody(): array
-    {
-        return $this->searchClauses;
-    }
-
     public function createDtoFromResponse(Response $response): array
     {
         return File::collect($response->json());
     }
 }
-

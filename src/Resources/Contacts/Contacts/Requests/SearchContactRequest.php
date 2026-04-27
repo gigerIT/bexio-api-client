@@ -5,22 +5,11 @@ declare(strict_types=1);
 namespace Bexio\Resources\Contacts\Contacts\Requests;
 
 use Bexio\Resources\Contacts\Contacts\Contact;
-use Saloon\Contracts\Body\HasBody;
-use Saloon\Enums\Method;
-use Saloon\Http\Request;
+use Bexio\Support\Requests\SearchRequest;
 use Saloon\Http\Response;
-use Saloon\Traits\Body\HasJsonBody;
 
-class SearchContactRequest extends Request implements HasBody
+class SearchContactRequest extends SearchRequest
 {
-    use HasJsonBody;
-
-    protected Method $method = Method::POST;
-
-    public function __construct(protected readonly array $searchClauses = [])
-    {
-    }
-
     public function resolveEndpoint(): string
     {
         return "/2.0/contact/search";
@@ -30,10 +19,4 @@ class SearchContactRequest extends Request implements HasBody
     {
         return Contact::collect($response->json());
     }
-
-    protected function defaultBody(): array
-    {
-        return $this->searchClauses;
-    }
-
 }

@@ -4,32 +4,21 @@ declare(strict_types=1);
 namespace Bexio\Resources\Sales\Invoices\InvoiceReminders\Requests;
 
 use Bexio\Resources\Sales\Invoices\InvoiceReminders\InvoiceReminder;
-use Saloon\Contracts\Body\HasBody;
-use Saloon\Enums\Method;
-use Saloon\Http\Request;
+use Bexio\Support\Requests\SearchRequest;
 use Saloon\Http\Response;
-use Saloon\Traits\Body\HasJsonBody;
 
-class SearchInvoiceRemindersRequest extends Request implements HasBody
+class SearchInvoiceRemindersRequest extends SearchRequest
 {
-    use HasJsonBody;
-
-    protected Method $method = Method::POST;
-
     public function __construct(
         protected readonly int $invoiceId,
-        protected readonly array $searchClauses = [],
+        array $searchClauses = [],
     ) {
+        parent::__construct($searchClauses);
     }
 
     public function resolveEndpoint(): string
     {
         return "/2.0/kb_invoice/{$this->invoiceId}/kb_reminder/search";
-    }
-
-    protected function defaultBody(): array
-    {
-        return $this->searchClauses;
     }
 
     public function createDtoFromResponse(Response $response): array
