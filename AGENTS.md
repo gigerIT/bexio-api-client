@@ -125,8 +125,7 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 - `src/Resources/Sales/Orders/OrderQueryBuilder.php` mirrors invoice builder: `status()`, `statusIn()`, `validFrom()`, `validTo()`, `validBetween()`.
 - Keep `Order::$kb_item_status_id` as `int`. `OrderStatus` maps documented states: pending `5`, done `6`, partial `15`, canceled `21`.
 - `src/Resources/Sales/Orders/Order.php::toApi()` strips response-only/API-rejected create fields: `taxs`, `mwst_is_net`, `is_valid_to`, `project_id`, `reference`.
-- Orders containing `ItemPositionArticle` must be created as an order shell and then populated through item-position endpoints. Some live Bexio order widget schemas reject inline `article_id` on `POST /2.0/kb_order`; keep article-position regression coverage on request sequencing, update payloads, and live order-to-invoice conversion.
-- `ItemPositionArticle::toApiPayload()` omits `article_id` and `parent_id` for updates because live Bexio rejects them on `POST /2.0/{kb_document_type}/{document_id}/kb_position_article/{position_id}`. To change the linked item, delete and recreate the article position.
+- Orders containing `ItemPositionArticle` must be created as an order shell and then populated through item-position endpoints. See the polymorphic item-position rules for the live-schema payload split.
 
 ### Other task reminder payloads
 
@@ -176,6 +175,9 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 - `src/Resources/Sales/ItemPositions/ItemPositionCast.php` maps item-position payloads by `type` to concrete DTO classes.
 - Supported types asserted in `tests/Unit/ItemPositionCastTest.php`.
 - Item position create requests strip DTO-only `type` from outgoing payloads; keep `CreateItemPositionRequest` and `CreateItemSubPositionRequest` aligned.
+- Do not trust bundled Bexio docs alone for item-position write schemas. Live widget schemas are stricter and may reject fields documented on create/update samples; verify outgoing request bodies and live behavior before shipping changes.
+- `ItemPositionArticle` has split write semantics: dedicated create endpoints need `article_id`, but order inline create rejects it for some accounts, and article-position update rejects `article_id` and `parent_id`. Do not reuse the shared `ItemPosition::toApiPayload()` assumptions without type-specific tests.
+- Any change touching item-position create/update serialization must include a mocked Saloon body assertion for the exact endpoint and a live disposable sales-document test for the affected create/update flow. Creation-only coverage is not enough when update payloads differ.
 - If Bexio adds item position type, update enum, cast, and test together.
 
 ### Endpoint versions are mixed
@@ -264,7 +266,9 @@ Decision rule before writing:
 1. Global, reusable, task-agnostic guidance -> `AGENTS.md`
 2. File/function/implementation-scoped insight -> code comment at relevant location
 3. Public package usage examples/resource-specific integration notes -> `docs/resources/<domain>/<resource>.md`
-4. AI-agent integration guidance for consumers -> keep Laravel Boost skill resource `resources/boost/skills/bexio-api-client-development/SKILL.md` in sync when the change is useful for agents integrating this package
+4. AI-agent integration guidance for consumers -> keep Laravel Boost skill resource
+   `resources/boost/skills/bexio-api-client-development/SKILL.md` in sync when the
+   change is useful for agents integrating this package
 5. If both apply -> global rule in `AGENTS.md`, local detail in code comment
 
 Default to narrowest correct target.
