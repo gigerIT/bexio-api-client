@@ -243,6 +243,7 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 - Release automation: `googleapis/release-please-action@v4`, `release-type: php`.
 - Test job skipped for release commits containing `chore(main): release`.
 - Dependabot updates Composer and GitHub Actions weekly via `.github/dependabot.yml`.
+  It ignores major updates for `googleapis/release-please-action`; keep release automation on v4 until v5 is verified against this workflow.
 
 ## Documentation Drift To Watch
 

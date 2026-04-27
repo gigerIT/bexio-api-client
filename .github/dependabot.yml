@@ -10,6 +10,10 @@ updates:
       interval: "weekly"
     labels:
       - "dependencies"
+    ignore:
+      - dependency-name: "googleapis/release-please-action"
+        update-types:
+          - "version-update:semver-major"
 
   - package-ecosystem: "composer"
     directory: "/"
