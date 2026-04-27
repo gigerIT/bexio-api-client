@@ -2,15 +2,23 @@
 
 use Bexio\BexioClient;
 use Bexio\Resources\Sales\DocumentPdf;
+use Bexio\Resources\Sales\ItemPositions\Collections\ItemPositionCollection;
+use Bexio\Resources\Sales\ItemPositions\ItemPositionArticle;
+use Bexio\Resources\Sales\ItemPositions\ItemPositionCustom;
+use Bexio\Resources\Sales\ItemPositions\Requests\CreateItemPositionRequest;
 use Bexio\Resources\Sales\Orders\Enums\OrderRepetitionMonthlySchedule;
 use Bexio\Resources\Sales\Orders\Enums\OrderRepetitionWeekday;
 use Bexio\Resources\Sales\Orders\Order;
 use Bexio\Resources\Sales\Orders\OrderRepetition;
+use Bexio\Resources\Sales\Orders\Requests\CreateOrderRequest;
+use Bexio\Resources\Sales\Orders\Requests\DeleteOrderRequest;
 use Bexio\Resources\Sales\Orders\Requests\DeleteOrderRepetitionRequest;
+use Bexio\Resources\Sales\Orders\Requests\GetOrderRequest;
 use Bexio\Resources\Sales\Orders\Requests\GetOrderPdfRequest;
 use Bexio\Resources\Sales\Orders\Requests\GetOrderRepetitionRequest;
 use Bexio\Resources\Sales\Orders\Requests\UpdateOrderRepetitionRequest;
 use Bexio\Resources\Sales\Orders\Requests\UpdateOrderRequest;
+use Saloon\Exceptions\Request\RequestException;
 use Saloon\Http\Faking\MockClient;
 use Saloon\Http\Faking\MockResponse;
 use Saloon\Http\Request as SaloonRequest;
@@ -69,6 +77,185 @@ it('updates an order through the resource save API', function () {
             && ! array_key_exists('id', $body)
             && ! array_key_exists('positions', $body);
     });
+});
+
+it('creates orders with article positions through the item position endpoint', function () {
+    $articlePositionPayload = [
+        'id' => 456,
+        'type' => 'KbPositionArticle',
+        'amount' => '1.000000',
+        'unit_id' => 1,
+        'account_id' => 3200,
+        'tax_id' => 28,
+        'text' => 'Article position',
+        'unit_price' => '123.450000',
+        'article_id' => 99,
+        'discount_in_percent' => '0.000000',
+    ];
+    $customPositionPayload = [
+        'id' => 457,
+        'type' => 'KbPositionCustom',
+        'amount' => '2.000000',
+        'unit_id' => 1,
+        'account_id' => 3200,
+        'tax_id' => 28,
+        'text' => 'Custom position',
+        'unit_price' => '50.000000',
+        'discount_in_percent' => '0.000000',
+    ];
+
+    $mockClient = new MockClient([
+        MockResponse::make([
+            'id' => 123,
+            'title' => 'Article order',
+            'positions' => [],
+        ], 201),
+        MockResponse::make($articlePositionPayload, 201),
+        MockResponse::make($customPositionPayload, 201),
+        MockResponse::make([
+            'id' => 123,
+            'title' => 'Article order',
+            'positions' => [$articlePositionPayload, $customPositionPayload],
+        ]),
+    ]);
+
+    $client = (new BexioClient('mock-token'))->withMockClient($mockClient);
+    $order = (new Order(
+        title: 'Article order',
+        contact_id: 1,
+        positions: new ItemPositionCollection([
+            new ItemPositionArticle(
+                amount: '1',
+                unit_id: 1,
+                account_id: 3200,
+                tax_id: 28,
+                text: 'Article position',
+                unit_price: '123.45',
+                article_id: 99,
+                discount_in_percent: '0',
+            ),
+            new ItemPositionCustom(
+                tax_id: 28,
+                amount: '2',
+                unit_id: 1,
+                account_id: 3200,
+                text: 'Custom position',
+                unit_price: '50',
+                discount_in_percent: '0',
+            ),
+        ]),
+    ))->attachClient($client);
+
+    $created = $order->create();
+
+    expect($created)->toBeInstanceOf(Order::class)
+        ->and($created->positions[0])->toBeInstanceOf(ItemPositionArticle::class)
+        ->and($created->positions[0]->article_id)->toBe(99);
+
+    $mockClient->assertSentInOrder([
+        function (SaloonRequest $request): bool {
+            $body = $request->body()->all();
+
+            return $request instanceof CreateOrderRequest
+                && $request->resolveEndpoint() === '/2.0/kb_order'
+                && $body['positions'] === [];
+        },
+        function (SaloonRequest $request): bool {
+            $body = $request->body()->all();
+
+            return $request instanceof CreateItemPositionRequest
+                && $request->resolveEndpoint() === '/2.0/kb_order/123/kb_position_article'
+                && $body['article_id'] === 99
+                && ! array_key_exists('type', $body);
+        },
+        function (SaloonRequest $request): bool {
+            $body = $request->body()->all();
+
+            return $request instanceof CreateItemPositionRequest
+                && $request->resolveEndpoint() === '/2.0/kb_order/123/kb_position_custom'
+                && $body['text'] === 'Custom position'
+                && ! array_key_exists('type', $body);
+        },
+        fn (SaloonRequest $request): bool => $request instanceof GetOrderRequest
+            && $request->resolveEndpoint() === '/2.0/kb_order/123',
+    ]);
+});
+
+it('keeps custom-only order creation inline', function () {
+    $mockClient = new MockClient([
+        CreateOrderRequest::class => MockResponse::make([
+            'id' => 123,
+            'title' => 'Custom order',
+        ], 201),
+    ]);
+
+    $client = (new BexioClient('mock-token'))->withMockClient($mockClient);
+    $order = (new Order(
+        title: 'Custom order',
+        contact_id: 1,
+        positions: new ItemPositionCollection([
+            new ItemPositionCustom(
+                tax_id: 28,
+                amount: '1',
+                account_id: 3200,
+                text: 'Custom position',
+                unit_price: '50',
+            ),
+        ]),
+    ))->attachClient($client);
+
+    $created = $order->create();
+
+    expect($created)->toBeInstanceOf(Order::class)
+        ->and($created->id)->toBe(123);
+
+    $mockClient->assertSentCount(1);
+    $mockClient->assertSent(function (SaloonRequest $request): bool {
+        $body = $request->body()->all();
+
+        return $request instanceof CreateOrderRequest
+            && $request->resolveEndpoint() === '/2.0/kb_order'
+            && $body['positions'][0]['text'] === 'Custom position';
+    });
+});
+
+it('deletes the shell order when deferred article position creation fails', function () {
+    $mockClient = new MockClient([
+        CreateOrderRequest::class => MockResponse::make([
+            'id' => 123,
+            'title' => 'Article order',
+            'positions' => [],
+        ], 201),
+        CreateItemPositionRequest::class => MockResponse::make([
+            'error_code' => 422,
+            'errors' => ['Article position rejected'],
+        ], 422),
+        DeleteOrderRequest::class => MockResponse::make(['success' => true]),
+    ]);
+
+    $client = (new BexioClient('mock-token'))->withMockClient($mockClient);
+    $order = (new Order(
+        title: 'Article order',
+        contact_id: 1,
+        positions: new ItemPositionCollection([
+            new ItemPositionArticle(
+                amount: '1',
+                unit_id: 1,
+                account_id: 3200,
+                tax_id: 28,
+                text: 'Article position',
+                unit_price: '123.45',
+                article_id: 99,
+                discount_in_percent: '0',
+            ),
+        ]),
+    ))->attachClient($client);
+
+    expect(fn () => $order->create())->toThrow(RequestException::class);
+
+    $mockClient->assertSent(fn (SaloonRequest $request): bool => $request instanceof DeleteOrderRequest
+        && $request->resolveEndpoint() === '/2.0/kb_order/123');
+    $mockClient->assertNotSent(GetOrderRequest::class);
 });
 
 it('returns a document pdf dto for an order pdf request', function () {

@@ -146,6 +146,7 @@ $invoice = Order::useClient($client)->createInvoice(1);
 - The order query builder switches to `POST /2.0/kb_order/search` as soon as a search clause is added.
 - Supported order helpers are `status()`, `statusIn()`, `validFrom()`, `validTo()`, and `validBetween()`.
 - Outgoing create payloads automatically strip response-only and API-rejected fields before the request is sent.
+- Orders containing `ItemPositionArticle` are created as an empty order first, then positions are added through the dedicated item position endpoints so `article_id` is not sent to the order-create widget schema.
 - Outgoing update payloads strip response-only fields and positions. Manage positions through item position endpoints.
 - PDF responses are returned as a `DocumentPdf` DTO with base64 `content` and `decodedContent()`.
 - Repetition helpers use `OrderRepetition` plus enums for type-specific values such as weekdays and monthly schedules.

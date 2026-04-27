@@ -125,6 +125,7 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 - `src/Resources/Sales/Orders/OrderQueryBuilder.php` mirrors invoice builder: `status()`, `statusIn()`, `validFrom()`, `validTo()`, `validBetween()`.
 - Keep `Order::$kb_item_status_id` as `int`. `OrderStatus` maps documented states: pending `5`, done `6`, partial `15`, canceled `21`.
 - `src/Resources/Sales/Orders/Order.php::toApi()` strips response-only/API-rejected create fields: `taxs`, `mwst_is_net`, `is_valid_to`, `project_id`, `reference`.
+- Orders containing `ItemPositionArticle` must be created as an order shell and then populated through item-position endpoints. Some live Bexio order widget schemas reject inline `article_id` on `POST /2.0/kb_order`; keep article-position regression coverage on both request sequencing and live order-to-invoice conversion.
 
 ### Other task reminder payloads
 
