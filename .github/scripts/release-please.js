@@ -66,69 +66,54 @@ function loadManifest(github) {
 
 function patchMergeCommitQuery() {
     GitHub.prototype.mergeCommitsGraphQL = async function mergeCommitsGraphQL(targetBranch, cursor, options = {}) {
-        this.logger.debug(`Fetching merge commits on branch ${targetBranch} with cursor: ${cursor}`)
+        this.logger.debug(`Fetching commits on branch ${targetBranch} with REST cursor: ${cursor}`)
 
-        const query = `query pullRequestsSince($owner: String!, $repo: String!, $num: Int!, $targetBranch: String!, $cursor: String) {
-      repository(owner: $owner, name: $repo) {
-        ref(qualifiedName: $targetBranch) {
-          target {
-            ... on Commit {
-              history(first: $num, after: $cursor) {
-                nodes {
-                  associatedPullRequests(first: 10) {
-                    nodes {
-                      number
-                      title
-                      baseRefName
-                      headRefName
-                      labels(first: 10) {
-                        nodes {
-                          name
-                        }
-                      }
-                      mergeCommit {
-                        oid
-                      }
-                    }
-                  }
-                  sha: oid
-                  message
-                }
-                pageInfo {
-                  hasNextPage
-                  endCursor
-                }
-              }
-            }
-          }
-        }
-      }
-    }`
+        const page = cursor ? Number(cursor) : 1
+        const perPage = options.batchSize ?? 10
 
-        const response = await this.graphqlRequest({
-            query,
-            cursor,
+        const response = await this.octokit.request('GET /repos/{owner}/{repo}/commits', {
             owner: this.repository.owner,
             repo: this.repository.repo,
-            num: options.batchSize ?? 10,
-            targetBranch,
+            sha: targetBranch,
+            per_page: perPage,
+            page,
         })
 
-        if (!response) {
-            this.logger.warn(`Did not receive a response for query: ${query}`)
-            return null
-        }
-
-        if (!response.repository?.ref) {
-            this.logger.warn(`Could not find commits for branch ${targetBranch} - it likely does not exist.`)
-            return null
-        }
-
-        const history = response.repository.ref.target.history
-        const commits = history.nodes || []
+        const commits = response.data || []
         const mergeCommitCount = {}
+        const commitsWithPullRequests = []
 
         for (const commit of commits) {
+            const pullRequests = await this.pullRequestsForCommit(commit.sha)
+            const graphCommit = {
+                sha: commit.sha,
+                message: commit.commit.message,
+                associatedPullRequests: {
+                    nodes: pullRequests.map((pullRequest) => {
+                        return {
+                            number: pullRequest.number,
+                            title: pullRequest.title,
+                            baseRefName: pullRequest.base.ref,
+                            headRefName: pullRequest.head.ref,
+                            labels: {
+                                nodes: (pullRequest.labels || []).map((label) => {
+                                    return { name: label.name }
+                                }),
+                            },
+                            mergeCommit: pullRequest.merge_commit_sha
+                                ? {
+                                      oid: pullRequest.merge_commit_sha,
+                                  }
+                                : undefined,
+                        }
+                    }),
+                },
+            }
+
+            commitsWithPullRequests.push(graphCommit)
+        }
+
+        for (const commit of commitsWithPullRequests) {
             for (const pullRequest of commit.associatedPullRequests.nodes) {
                 if (pullRequest.mergeCommit?.oid) {
                     mergeCommitCount[pullRequest.mergeCommit.oid] ??= 0
@@ -139,7 +124,7 @@ function patchMergeCommitQuery() {
 
         const data = []
 
-        for (const graphCommit of commits) {
+        for (const graphCommit of commitsWithPullRequests) {
             const commit = {
                 sha: graphCommit.sha,
                 message: graphCommit.message,
@@ -179,8 +164,38 @@ function patchMergeCommitQuery() {
         }
 
         return {
-            pageInfo: history.pageInfo,
+            pageInfo: {
+                hasNextPage: commits.length === perPage,
+                endCursor: String(page + 1),
+            },
             data,
         }
+    }
+
+    GitHub.prototype.pullRequestsForCommit = async function pullRequestsForCommit(commitSha) {
+        let response
+
+        try {
+            response = await this.octokit.request('GET /repos/{owner}/{repo}/commits/{commit_sha}/pulls', {
+                owner: this.repository.owner,
+                repo: this.repository.repo,
+                commit_sha: commitSha,
+                headers: {
+                    accept: 'application/vnd.github+json',
+                },
+            })
+        } catch (error) {
+            if (error.status === 404 || error.status === 500) {
+                this.logger.debug(
+                    `Could not fetch pull requests for commit ${commitSha}; treating it as a direct commit`,
+                )
+
+                return []
+            }
+
+            throw error
+        }
+
+        return response.data || []
     }
 }
