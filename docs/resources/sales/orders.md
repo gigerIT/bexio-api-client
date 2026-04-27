@@ -148,6 +148,7 @@ $invoice = Order::useClient($client)->createInvoice(1);
 - Outgoing create payloads automatically strip response-only and API-rejected fields before the request is sent.
 - Orders containing `ItemPositionArticle` are created as an empty order first, then positions are added through the dedicated item position endpoints so `article_id` is not sent to the order-create widget schema.
 - Outgoing update payloads strip response-only fields and positions. Manage positions through item position endpoints.
+- Updating an existing `ItemPositionArticle` keeps the current linked item; `article_id` and response-only nesting context are omitted from update payloads. Delete and recreate the article position to link a different item.
 - PDF responses are returned as a `DocumentPdf` DTO with base64 `content` and `decodedContent()`.
 - Repetition helpers use `OrderRepetition` plus enums for type-specific values such as weekdays and monthly schedules.
 - `createDelivery()` and `createInvoice()` call the Bexio conversion endpoints and automatically send source-position references when no explicit conversion positions are provided.

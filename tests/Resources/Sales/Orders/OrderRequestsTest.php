@@ -179,6 +179,21 @@ it('can create an Order with an article position and convert it to an Invoice', 
             ->and($articlePosition)->toBeInstanceOf(ItemPositionArticle::class)
             ->and($articlePosition->article_id)->toBe($item->id);
 
+        $articlePosition->text = sprintf('Updated article position %s', uniqid());
+        $articlePosition->unit_price = '124.45';
+        $updatedPosition = $createdOrder->attachClient($client)->updatePosition($articlePosition);
+
+        expect($updatedPosition)->toBeInstanceOf(ItemPositionArticle::class)
+            ->and($updatedPosition->text)->toBe($articlePosition->text)
+            ->and($updatedPosition->article_id)->toBe($item->id);
+
+        $createdOrder = Order::useClient($client)->find($createdOrder->id);
+        $articlePosition = $createdOrder->positions
+            ->first(fn ($position): bool => $position instanceof ItemPositionArticle);
+
+        expect($articlePosition)->toBeInstanceOf(ItemPositionArticle::class)
+            ->and($articlePosition->article_id)->toBe($item->id);
+
         $createdInvoice = $createdOrder->attachClient($client)->createInvoice();
 
         expect($createdInvoice)->toBeInstanceOf(Invoice::class)

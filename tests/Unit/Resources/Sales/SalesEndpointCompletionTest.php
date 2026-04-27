@@ -27,6 +27,7 @@ use Bexio\Resources\Sales\Invoices\Requests\MarkInvoiceAsSentRequest;
 use Bexio\Resources\Sales\Invoices\Requests\SendInvoiceRequest;
 use Bexio\Resources\Sales\Invoices\Requests\UpdateInvoiceRequest;
 use Bexio\Resources\Sales\ItemPositions\Enums\ItemPositionType;
+use Bexio\Resources\Sales\ItemPositions\ItemPositionArticle;
 use Bexio\Resources\Sales\ItemPositions\ItemPositionCustom;
 use Bexio\Resources\Sales\ItemPositions\ItemPositionDiscount;
 use Bexio\Resources\Sales\ItemPositions\ItemPositionSubtotal;
@@ -35,6 +36,7 @@ use Bexio\Resources\Sales\ItemPositions\Requests\GetItemPositionRequest;
 use Bexio\Resources\Sales\ItemPositions\Requests\GetItemPositionsRequest;
 use Bexio\Resources\Sales\ItemPositions\Requests\UpdateItemPositionRequest;
 use Bexio\Resources\Sales\MwstType;
+use Bexio\Resources\Sales\Orders\Order;
 use Bexio\Resources\Sales\Quotes\Quote;
 use Bexio\Resources\Sales\Quotes\Requests\AcceptQuoteRequest;
 use Bexio\Resources\Sales\Quotes\Requests\CopyQuoteRequest;
@@ -497,6 +499,72 @@ it('manages item positions generically by position type for sales documents', fu
         && ! array_key_exists('id', $request->body()->all())
         && ! array_key_exists('type', $request->body()->all()));
     $mockClient->assertSent(fn (SaloonRequest $request): bool => $request instanceof DeleteItemPositionRequest && $request->resolveEndpoint() === '/2.0/kb_invoice/123/kb_position_custom/222');
+});
+
+it('updates article positions without resending the immutable article id', function () {
+    $positionPayload = [
+        'id' => 222,
+        'type' => ItemPositionType::ARTICLE->value,
+        'amount' => '1.000000',
+        'unit_id' => 1,
+        'account_id' => 3200,
+        'tax_id' => 28,
+        'text' => 'Updated article position',
+        'unit_price' => '75.000000',
+        'article_id' => 99,
+        'discount_in_percent' => '0.000000',
+        'internal_pos' => 1,
+        'parent_id' => null,
+        'is_optional' => false,
+    ];
+    $mockClient = new MockClient([
+        UpdateItemPositionRequest::class => MockResponse::make($positionPayload),
+    ]);
+    $client = (new BexioClient('mock-token'))->withMockClient($mockClient);
+    $order = (new Order(id: 123))->attachClient($client);
+    $position = new ItemPositionArticle(
+        amount: '1.000000',
+        unit_id: 1,
+        account_id: 3200,
+        tax_id: 28,
+        text: 'Updated article position',
+        unit_price: '75.000000',
+        article_id: 99,
+        discount_in_percent: '0.000000',
+    );
+    $position->id = 222;
+    $position->internal_pos = 1;
+    $position->parent_id = null;
+    $position->is_optional = false;
+
+    $updated = $order->updatePosition($position);
+
+    expect($position->toApiPayload())->toBe([
+        'amount' => '1.000000',
+        'unit_id' => 1,
+        'account_id' => 3200,
+        'tax_id' => 28,
+        'text' => 'Updated article position',
+        'unit_price' => '75.000000',
+        'discount_in_percent' => '0.000000',
+        'is_optional' => false,
+    ])
+        ->and($updated)->toBeInstanceOf(ItemPositionArticle::class)
+        ->and($updated->article_id)->toBe(99);
+
+    $mockClient->assertSent(function (SaloonRequest $request): bool {
+        $body = $request->body()->all();
+
+        return $request instanceof UpdateItemPositionRequest
+            && $request->resolveEndpoint() === '/2.0/kb_order/123/kb_position_article/222'
+            && $body['text'] === 'Updated article position'
+            && $body['unit_price'] === '75.000000'
+            && ! array_key_exists('id', $body)
+            && ! array_key_exists('type', $body)
+            && ! array_key_exists('internal_pos', $body)
+            && ! array_key_exists('article_id', $body)
+            && ! array_key_exists('parent_id', $body);
+    });
 });
 
 it('strips computed item position fields from update payloads', function () {

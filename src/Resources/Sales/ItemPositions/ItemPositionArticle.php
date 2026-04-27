@@ -23,4 +23,13 @@ class ItemPositionArticle extends ItemPosition
     {
 
     }
+
+    public function toApiPayload(): array
+    {
+        $payload = parent::toApiPayload();
+
+        unset($payload['article_id'], $payload['parent_id']);
+
+        return $payload;
+    }
 }
