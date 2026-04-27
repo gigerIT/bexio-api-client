@@ -3,6 +3,7 @@
 namespace Bexio\Resources\Banking;
 
 use Bexio\Resources\Banking\Payments\Payment;
+use Saloon\Exceptions\Request\Statuses\NotFoundException;
 
 it('can get Payments', function () {
     try {
@@ -22,7 +23,7 @@ it('can get Payments', function () {
 
 it('can get a Payment', function () {
     try {
-        $payments = Payment::useClient(testClient())->query()->perPage(1)->get();
+        $payments = Payment::useClient(testClient())->query()->perPage(20)->get();
     } catch (\Throwable $e) {
         \PHPUnit\Framework\Assert::markTestSkipped('Payments endpoint unavailable: ' . $e->getMessage());
     }
@@ -31,8 +32,23 @@ it('can get a Payment', function () {
         \PHPUnit\Framework\Assert::markTestSkipped('No payments available');
     }
 
-    $identifier = $payments[0]->uuid ?? (string)$payments[0]->id;
-    $payment = Payment::useClient(testClient())->find($identifier);
+    $payment = null;
+
+    foreach ($payments as $candidate) {
+        $identifier = $candidate->uuid ?? (string)$candidate->id;
+
+        try {
+            $payment = Payment::useClient(testClient())->find($identifier);
+
+            break;
+        } catch (NotFoundException) {
+            continue;
+        }
+    }
+
+    if (! $payment) {
+        \PHPUnit\Framework\Assert::markTestSkipped('No retrievable payments available');
+    }
 
     expect($payment)->toBeInstanceOf(Payment::class)
         ->and($payment->uuid ?? $payment->id)->not->toBeNull();

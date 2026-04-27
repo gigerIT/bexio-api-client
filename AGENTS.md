@@ -159,6 +159,11 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 - `src/Resources/Contacts/AdditionalAddresses/AdditionalAddressQueryBuilder.php` adds `forContact(int $contactId)` and custom request instantiation.
 - Do not assume base `Resource::find()` works for nested/contact-scoped resources.
 
+### Banking payments show endpoint
+
+- The live `/4.0/banking/payments` index may return payment UUIDs that immediately 404 on `GET /4.0/banking/payments/{payment_id}` in the shared test account.
+- Read-only tests for `Payment::find()` should try a small indexed page and skip only when no indexed payment is retrievable, instead of assuming the first payment can be shown.
+
 ### Office deep links
 
 - `src/Support/Concerns/HasOfficeLink.php` builds Office URLs from `SHOW_URL` and `Resource::OFFICE_BASE_URL`.
