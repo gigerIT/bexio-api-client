@@ -30,7 +30,7 @@ class UpdatePurchaseOrderRequest extends Request implements HasBody
 
     protected function defaultBody(): array
     {
-        return $this->purchaseOrder->toArray();
+        return $this->purchaseOrder->toApi()->toArray();
     }
 
     public function createDtoFromResponse(Response $response): PurchaseOrder

@@ -146,7 +146,7 @@ $invoice = Order::useClient($client)->createInvoice(1);
 - The order query builder switches to `POST /2.0/kb_order/search` as soon as a search clause is added.
 - Supported order helpers are `status()`, `statusIn()`, `validFrom()`, `validTo()`, and `validBetween()`.
 - Outgoing create payloads automatically strip response-only and API-rejected fields before the request is sent.
-- Orders containing `ItemPositionArticle` are created as an empty order first, then positions are added through the dedicated item position endpoints so `article_id` is not sent to the order-create widget schema.
+- Sales documents containing `ItemPositionArticle` are created as an empty document first, then positions are added through the dedicated item position endpoints so `article_id` is not sent to strict create widget schemas.
 - Outgoing update payloads strip response-only fields and positions. Manage positions through item position endpoints.
 - Updating an existing `ItemPositionArticle` keeps the current linked item; `article_id` and response-only nesting context are omitted from update payloads. Delete and recreate the article position to link a different item.
 - PDF responses are returned as a `DocumentPdf` DTO with base64 `content` and `decodedContent()`.

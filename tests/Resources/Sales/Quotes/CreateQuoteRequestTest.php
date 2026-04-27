@@ -2,6 +2,9 @@
 
 namespace Bexio\Resources\Sales\Quotes\Requests;
 
+use Bexio\Resources\Items\Items\Item;
+use Bexio\Resources\Sales\ItemPositions\Enums\ItemPositionType;
+use Bexio\Resources\Sales\ItemPositions\ItemPositionArticle;
 use Bexio\Resources\Sales\ItemPositions\ItemPositionCustom;
 use Bexio\Resources\Sales\Quotes\Enums\QuoteStatus;
 use Bexio\Resources\Sales\Quotes\Quote;
@@ -97,6 +100,64 @@ it('can get first Quote using query builder', function () use (&$testQuote) {
     expect($quote)->toBeInstanceOf(Quote::class)
         ->and($quote->id)->toBeGreaterThanOrEqual($testQuote->id);
 })->depends('it can create a Quote');
+
+it('can create a Quote with an article position', function () {
+    $client = testClient();
+    $createdQuote = null;
+
+    try {
+        $items = Item::useClient($client)->all();
+    } catch (\Throwable $exception) {
+        \PHPUnit\Framework\Assert::markTestSkipped('Items endpoint unavailable: ' . $exception->getMessage());
+    }
+
+    $item = collect($items)->first(fn (Item $item): bool => $item->id !== null && $item->unit_id !== null);
+
+    if (! $item instanceof Item) {
+        \PHPUnit\Framework\Assert::markTestSkipped('No item with a unit is available for article-position quote testing.');
+    }
+
+    $salesAccount = testSalesAccount();
+    $text = $item->intern_name !== '' ? $item->intern_name : ($item->intern_code !== '' ? $item->intern_code : 'Article position');
+
+    try {
+        $quote = new Quote(
+            title: sprintf('Article Position Quote %s', uniqid()),
+            contact_id: 1,
+            user_id: 1,
+            is_valid_from: date('Y-m-d'),
+            is_valid_until: date('Y-m-d', strtotime('+14 days')),
+            positions: new Collection([
+                new ItemPositionArticle(
+                    amount: '1',
+                    unit_id: $item->unit_id,
+                    account_id: $salesAccount->id,
+                    tax_id: $salesAccount->tax_id,
+                    text: $text,
+                    unit_price: '123.45',
+                    article_id: $item->id,
+                    discount_in_percent: '0',
+                ),
+            ]),
+        );
+
+        $createdQuote = $quote->attachClient($client)->create();
+        $articlePositions = $createdQuote->attachClient($client)->positionsByType(ItemPositionType::ARTICLE);
+
+        expect($createdQuote)->toBeInstanceOf(Quote::class)
+            ->and($createdQuote->id)->toBeInt()
+            ->and($articlePositions[0])->toBeInstanceOf(ItemPositionArticle::class)
+            ->and($articlePositions[0]->article_id)->toBe($item->id);
+    } finally {
+        if ($createdQuote instanceof Quote) {
+            try {
+                $createdQuote->attachClient($client)->delete();
+            } catch (\Throwable) {
+                // Cleanup failures should not hide the regression assertion result.
+            }
+        }
+    }
+});
 
 it('can delete a Quote', function () use (&$testQuote) {
     expect($testQuote->attachClient(testClient())->delete())->toBeTrue();

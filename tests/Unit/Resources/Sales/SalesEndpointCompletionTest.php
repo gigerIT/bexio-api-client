@@ -22,15 +22,19 @@ use Bexio\Resources\Sales\Invoices\Payments\Requests\GetInvoicePaymentRequest;
 use Bexio\Resources\Sales\Invoices\Payments\Requests\GetInvoicePaymentsRequest;
 use Bexio\Resources\Sales\Invoices\Requests\CancelInvoiceRequest;
 use Bexio\Resources\Sales\Invoices\Requests\CopyInvoiceRequest;
+use Bexio\Resources\Sales\Invoices\Requests\CreateInvoiceRequest;
+use Bexio\Resources\Sales\Invoices\Requests\GetInvoiceRequest;
 use Bexio\Resources\Sales\Invoices\Requests\GetInvoicePdfRequest;
 use Bexio\Resources\Sales\Invoices\Requests\MarkInvoiceAsSentRequest;
 use Bexio\Resources\Sales\Invoices\Requests\SendInvoiceRequest;
 use Bexio\Resources\Sales\Invoices\Requests\UpdateInvoiceRequest;
+use Bexio\Resources\Sales\ItemPositions\Collections\ItemPositionCollection;
 use Bexio\Resources\Sales\ItemPositions\Enums\ItemPositionType;
 use Bexio\Resources\Sales\ItemPositions\ItemPositionArticle;
 use Bexio\Resources\Sales\ItemPositions\ItemPositionCustom;
 use Bexio\Resources\Sales\ItemPositions\ItemPositionDiscount;
 use Bexio\Resources\Sales\ItemPositions\ItemPositionSubtotal;
+use Bexio\Resources\Sales\ItemPositions\Requests\CreateItemPositionRequest;
 use Bexio\Resources\Sales\ItemPositions\Requests\DeleteItemPositionRequest;
 use Bexio\Resources\Sales\ItemPositions\Requests\GetItemPositionRequest;
 use Bexio\Resources\Sales\ItemPositions\Requests\GetItemPositionsRequest;
@@ -40,6 +44,8 @@ use Bexio\Resources\Sales\Orders\Order;
 use Bexio\Resources\Sales\Quotes\Quote;
 use Bexio\Resources\Sales\Quotes\Requests\AcceptQuoteRequest;
 use Bexio\Resources\Sales\Quotes\Requests\CopyQuoteRequest;
+use Bexio\Resources\Sales\Quotes\Requests\CreateQuoteRequest;
+use Bexio\Resources\Sales\Quotes\Requests\GetQuoteRequest;
 use Bexio\Resources\Sales\Quotes\Requests\GetQuotePdfRequest;
 use Bexio\Resources\Sales\Quotes\Requests\IssueQuoteRequest;
 use Bexio\Resources\Sales\Quotes\Requests\MarkQuoteAsSentRequest;
@@ -139,6 +145,227 @@ function salesEndpointQuotePayload(array $overrides = []): array
         'positions' => [],
     ], $overrides);
 }
+
+function salesEndpointArticlePositionPayload(array $overrides = []): array
+{
+    return array_replace([
+        'id' => 222,
+        'type' => ItemPositionType::ARTICLE->value,
+        'amount' => '1.000000',
+        'unit_id' => 1,
+        'account_id' => 3200,
+        'tax_id' => 28,
+        'text' => 'Article position',
+        'unit_price' => '75.000000',
+        'article_id' => 99,
+        'discount_in_percent' => '0.000000',
+        'internal_pos' => 1,
+        'parent_id' => null,
+        'is_optional' => false,
+    ], $overrides);
+}
+
+function salesEndpointCustomPositionPayload(array $overrides = []): array
+{
+    return array_replace([
+        'id' => 223,
+        'type' => ItemPositionType::CUSTOM->value,
+        'amount' => '1.000000',
+        'unit_id' => null,
+        'account_id' => 3200,
+        'tax_id' => 28,
+        'text' => 'Custom position',
+        'unit_price' => '50.000000',
+        'discount_in_percent' => null,
+        'internal_pos' => 2,
+        'parent_id' => null,
+        'is_optional' => false,
+    ], $overrides);
+}
+
+it('creates quotes with article positions through the item position endpoint', function () {
+    $articlePositionPayload = salesEndpointArticlePositionPayload();
+    $customPositionPayload = salesEndpointCustomPositionPayload();
+    $mockClient = new MockClient([
+        MockResponse::make(salesEndpointQuotePayload(['positions' => []]), 201),
+        MockResponse::make($articlePositionPayload, 201),
+        MockResponse::make($customPositionPayload, 201),
+        MockResponse::make(salesEndpointQuotePayload([
+            'positions' => [$articlePositionPayload, $customPositionPayload],
+        ])),
+    ]);
+    $client = (new BexioClient('mock-token'))->withMockClient($mockClient);
+
+    $quote = (new Quote(
+        title: 'Quote with article',
+        contact_id: 1,
+        is_valid_from: '2026-04-01',
+        is_valid_until: '2026-04-30',
+        positions: new Collection([
+            new ItemPositionArticle(
+                amount: '1',
+                unit_id: 1,
+                account_id: 3200,
+                tax_id: 28,
+                text: 'Article position',
+                unit_price: '75',
+                article_id: 99,
+                discount_in_percent: '0',
+            ),
+            new ItemPositionCustom(
+                tax_id: 28,
+                amount: '1',
+                account_id: 3200,
+                text: 'Custom position',
+                unit_price: '50',
+            ),
+        ]),
+    ))->attachClient($client);
+
+    $created = $quote->create();
+
+    expect($created)->toBeInstanceOf(Quote::class);
+
+    $mockClient->assertSentInOrder([
+        function (SaloonRequest $request): bool {
+            $body = $request->body()->all();
+
+            return $request instanceof CreateQuoteRequest
+                && $request->resolveEndpoint() === '/2.0/kb_offer'
+                && $body['positions'] === [];
+        },
+        function (SaloonRequest $request): bool {
+            $body = $request->body()->all();
+
+            return $request instanceof CreateItemPositionRequest
+                && $request->resolveEndpoint() === '/2.0/kb_offer/456/kb_position_article'
+                && $body['article_id'] === 99
+                && ! array_key_exists('type', $body);
+        },
+        function (SaloonRequest $request): bool {
+            $body = $request->body()->all();
+
+            return $request instanceof CreateItemPositionRequest
+                && $request->resolveEndpoint() === '/2.0/kb_offer/456/kb_position_custom'
+                && $body['text'] === 'Custom position'
+                && ! array_key_exists('type', $body);
+        },
+        fn (SaloonRequest $request): bool => $request instanceof GetQuoteRequest
+            && $request->resolveEndpoint() === '/2.0/kb_offer/456',
+    ]);
+});
+
+it('creates invoices with article positions through the item position endpoint', function () {
+    $articlePositionPayload = salesEndpointArticlePositionPayload();
+    $customPositionPayload = salesEndpointCustomPositionPayload();
+    $mockClient = new MockClient([
+        MockResponse::make(salesEndpointInvoicePayload(['positions' => []]), 201),
+        MockResponse::make($articlePositionPayload, 201),
+        MockResponse::make($customPositionPayload, 201),
+        MockResponse::make(salesEndpointInvoicePayload([
+            'positions' => [$articlePositionPayload, $customPositionPayload],
+        ])),
+    ]);
+    $client = (new BexioClient('mock-token'))->withMockClient($mockClient);
+
+    $invoice = (new Invoice(
+        title: 'Invoice with article',
+        contact_id: 1,
+        is_valid_from: '2026-04-01',
+        is_valid_to: '2026-04-30',
+        positions: new ItemPositionCollection([
+            new ItemPositionArticle(
+                amount: '1',
+                unit_id: 1,
+                account_id: 3200,
+                tax_id: 28,
+                text: 'Article position',
+                unit_price: '75',
+                article_id: 99,
+                discount_in_percent: '0',
+            ),
+            new ItemPositionCustom(
+                tax_id: 28,
+                amount: '1',
+                account_id: 3200,
+                text: 'Custom position',
+                unit_price: '50',
+            ),
+        ]),
+    ))->attachClient($client);
+
+    $created = $invoice->create();
+
+    expect($created)->toBeInstanceOf(Invoice::class);
+
+    $mockClient->assertSentInOrder([
+        function (SaloonRequest $request): bool {
+            $body = $request->body()->all();
+
+            return $request instanceof CreateInvoiceRequest
+                && $request->resolveEndpoint() === '/2.0/kb_invoice'
+                && $body['positions'] === [];
+        },
+        function (SaloonRequest $request): bool {
+            $body = $request->body()->all();
+
+            return $request instanceof CreateItemPositionRequest
+                && $request->resolveEndpoint() === '/2.0/kb_invoice/123/kb_position_article'
+                && $body['article_id'] === 99
+                && ! array_key_exists('type', $body);
+        },
+        function (SaloonRequest $request): bool {
+            $body = $request->body()->all();
+
+            return $request instanceof CreateItemPositionRequest
+                && $request->resolveEndpoint() === '/2.0/kb_invoice/123/kb_position_custom'
+                && $body['text'] === 'Custom position'
+                && ! array_key_exists('type', $body);
+        },
+        fn (SaloonRequest $request): bool => $request instanceof GetInvoiceRequest
+            && $request->resolveEndpoint() === '/2.0/kb_invoice/123',
+    ]);
+});
+
+it('creates quotes without response-only fields from hydrated resources', function () {
+    $mockClient = new MockClient([
+        CreateQuoteRequest::class => MockResponse::make(salesEndpointQuotePayload(['title' => 'Created quote']), 201),
+    ]);
+    $client = (new BexioClient('mock-token'))->withMockClient($mockClient);
+    $quote = (new Quote(
+        id: 456,
+        title: 'Created quote',
+        contact_id: 1,
+        is_valid_from: '2026-04-01',
+        is_valid_until: '2026-04-30',
+        viewed_by_client_at: '2026-04-01 12:00:00',
+        positions: new Collection(),
+    ))->attachClient($client);
+    $quote->document_nr = 'AN-00001';
+    $quote->total = '10.810000';
+    $quote->mwst_is_net = true;
+
+    $created = $quote->create();
+
+    expect($created)->toBeInstanceOf(Quote::class);
+
+    $mockClient->assertSent(function (SaloonRequest $request): bool {
+        if (! $request instanceof CreateQuoteRequest) {
+            return false;
+        }
+
+        $body = $request->body()->all();
+
+        return $request->resolveEndpoint() === '/2.0/kb_offer'
+            && $body['title'] === 'Created quote'
+            && $body['positions'] === []
+            && ! array_key_exists('id', $body)
+            && ! array_key_exists('document_nr', $body)
+            && ! array_key_exists('total', $body)
+            && ! array_key_exists('mwst_is_net', $body)
+            && ! array_key_exists('viewed_by_client_at', $body);
+    });
+});
 
 it('updates quotes and exposes quote action, pdf, send, and copy endpoints', function () {
     $mockClient = new MockClient([

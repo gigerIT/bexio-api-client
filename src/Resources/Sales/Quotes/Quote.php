@@ -6,6 +6,7 @@ namespace Bexio\Resources\Sales\Quotes;
 use Bexio\Resources\Resource;
 use Bexio\Resources\Sales\Comments\Enums\KbDocumentType;
 use Bexio\Resources\Sales\Comments\Traits\HasComments;
+use Bexio\Resources\Sales\Concerns\CreatesSalesDocumentsWithDeferredArticlePositions;
 use Bexio\Resources\Sales\Concerns\ResolvesKbDocumentId;
 use Bexio\Resources\Sales\DocumentConversionPayload;
 use Bexio\Resources\Sales\DocumentCopyPayload;
@@ -46,6 +47,7 @@ class Quote extends Resource implements KbDocumentContract
     use HasComments;
     use HasPositions;
     use ResolvesKbDocumentId;
+    use CreatesSalesDocumentsWithDeferredArticlePositions;
 
     const DOCUMENT_TYPE = KbDocumentType::OFFER;
 
@@ -137,6 +139,39 @@ class Quote extends Resource implements KbDocumentContract
             'viewed_by_client_at',
             'positions',
         );
+    }
+
+    public function toApi(): Quote
+    {
+        return $this->except(
+            'id',
+            'document_nr',
+            'project_id',
+            'total_gross',
+            'total_net',
+            'total_taxes',
+            'total',
+            'total_rounding_difference',
+            'show_total',
+            'contact_address',
+            'delivery_address',
+            'kb_item_status_id',
+            'updated_at',
+            'taxs',
+            'network_link',
+            'mwst_is_net',
+            'viewed_by_client_at',
+        );
+    }
+
+    protected function emptyPositionsForDeferredArticleCreate(): Collection
+    {
+        return new Collection();
+    }
+
+    protected function setPositionsForDeferredArticleCreate(Collection $positions): void
+    {
+        $this->positions = $positions;
     }
 
     public function issue(?int $id = null): Response

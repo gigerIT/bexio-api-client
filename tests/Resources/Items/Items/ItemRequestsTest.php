@@ -81,4 +81,33 @@ it('can get first Item using query builder', function () {
         ->and($item->id)->toBeInt();
 });
 
+it('can create, update, and delete an Item', function () {
+    $client = testClient();
+    $createdItem = null;
+    $code = sprintf('api-test-%s', uniqid());
+
+    try {
+        $createdItem = (new Item(
+            intern_code: $code,
+            intern_name: 'API item payload test',
+        ))
+            ->attachClient($client)
+            ->create();
+
+        expect($createdItem)->toBeInstanceOf(Item::class)
+            ->and($createdItem->id)->toBeInt()
+            ->and($createdItem->intern_code)->toBe($code);
+
+        $createdItem->intern_name = 'API item payload test updated';
+        $updatedItem = $createdItem->attachClient($client)->update();
+
+        expect($updatedItem)->toBeInstanceOf(Item::class)
+            ->and($updatedItem->id)->toBe($createdItem->id)
+            ->and($updatedItem->intern_name)->toBe('API item payload test updated');
+    } finally {
+        if ($createdItem?->id !== null) {
+            $createdItem->attachClient($client)->delete();
+        }
+    }
+});
 

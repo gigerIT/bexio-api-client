@@ -28,6 +28,8 @@ class UpdateItemRequest extends Request implements HasBody
     protected function defaultBody(): array
     {
         return $this->item->except(
+            'id',
+            'article_type_id',
             'stock_reserved_nr',
             'stock_available_nr',
             'stock_picked_nr',

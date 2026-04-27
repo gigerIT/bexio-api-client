@@ -6,6 +6,7 @@ namespace Bexio\Resources\Sales\Invoices;
 use Bexio\Resources\Resource;
 use Bexio\Resources\Sales\Comments\Enums\KbDocumentType;
 use Bexio\Resources\Sales\Comments\Traits\HasComments;
+use Bexio\Resources\Sales\Concerns\CreatesSalesDocumentsWithDeferredArticlePositions;
 use Bexio\Resources\Sales\Concerns\ResolvesKbDocumentId;
 use Bexio\Resources\Sales\DocumentCopyPayload;
 use Bexio\Resources\Sales\DocumentPdf;
@@ -35,6 +36,7 @@ use Bexio\Resources\Sales\KbDocumentContract;
 use Bexio\Resources\Sales\MwstType;
 use Bexio\Resources\Sales\SalesTax;
 use Bexio\Support\Concerns\HasOfficeLink;
+use Illuminate\Support\Collection;
 use Saloon\Http\Response;
 use Spatie\LaravelData\Attributes\WithCast;
 
@@ -48,6 +50,7 @@ class Invoice extends Resource implements KbDocumentContract
     use HasSubItemPositions;
     use HasOfficeLink;
     use ResolvesKbDocumentId;
+    use CreatesSalesDocumentsWithDeferredArticlePositions;
 
     const DOCUMENT_TYPE = KbDocumentType::INVOICE;
 
@@ -158,6 +161,18 @@ class Invoice extends Resource implements KbDocumentContract
             'project_id',
             'positions',
         );
+    }
+
+    protected function emptyPositionsForDeferredArticleCreate(): ItemPositionCollection
+    {
+        return new ItemPositionCollection();
+    }
+
+    protected function setPositionsForDeferredArticleCreate(Collection $positions): void
+    {
+        $this->positions = $positions instanceof ItemPositionCollection
+            ? $positions
+            : new ItemPositionCollection($positions->all());
     }
 
     public static function createFromApiPayload(array $payload): static

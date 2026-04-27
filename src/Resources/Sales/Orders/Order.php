@@ -6,6 +6,7 @@ namespace Bexio\Resources\Sales\Orders;
 use Bexio\Resources\Resource;
 use Bexio\Resources\Sales\Comments\Enums\KbDocumentType;
 use Bexio\Resources\Sales\Comments\Traits\HasComments;
+use Bexio\Resources\Sales\Concerns\CreatesSalesDocumentsWithDeferredArticlePositions;
 use Bexio\Resources\Sales\Concerns\ResolvesKbDocumentId;
 use Bexio\Resources\Sales\Deliveries\Delivery;
 use Bexio\Resources\Sales\DocumentConversionPayload;
@@ -15,7 +16,6 @@ use Bexio\Resources\Sales\ItemPositions\Collections\ItemPositionCollection;
 use Bexio\Resources\Sales\ItemPositions\Concerns\HasPositions;
 use Bexio\Resources\Sales\ItemPositions\Concerns\HasSubItemPositions;
 use Bexio\Resources\Sales\ItemPositions\ItemPosition;
-use Bexio\Resources\Sales\ItemPositions\ItemPositionArticle;
 use Bexio\Resources\Sales\ItemPositions\ItemPositionCast;
 use Bexio\Resources\Sales\KbDocumentContract;
 use Bexio\Resources\Sales\MwstType;
@@ -31,8 +31,8 @@ use Bexio\Resources\Sales\Orders\Requests\GetOrdersRequest;
 use Bexio\Resources\Sales\Orders\Requests\UpdateOrderRepetitionRequest;
 use Bexio\Resources\Sales\Orders\Requests\UpdateOrderRequest;
 use Bexio\Support\Concerns\HasOfficeLink;
+use Illuminate\Support\Collection;
 use Spatie\LaravelData\Attributes\WithCast;
-use Throwable;
 
 /**
  * @method OrderQueryBuilder query()
@@ -44,6 +44,7 @@ class Order extends Resource implements KbDocumentContract
     use HasSubItemPositions;
     use HasOfficeLink;
     use ResolvesKbDocumentId;
+    use CreatesSalesDocumentsWithDeferredArticlePositions;
 
     public const DOCUMENT_TYPE = KbDocumentType::ORDER;
 
@@ -107,15 +108,6 @@ class Order extends Resource implements KbDocumentContract
         $this->positions = $positions ?? new ItemPositionCollection([]);
     }
 
-    public function create(): static
-    {
-        if (! $this->hasArticlePosition()) {
-            return parent::create();
-        }
-
-        return $this->createWithDeferredPositions();
-    }
-
     public function toApi(): Order
     {
         return $this->except(
@@ -167,6 +159,18 @@ class Order extends Resource implements KbDocumentContract
             'is_recurring',
             'positions',
         );
+    }
+
+    protected function emptyPositionsForDeferredArticleCreate(): ItemPositionCollection
+    {
+        return new ItemPositionCollection();
+    }
+
+    protected function setPositionsForDeferredArticleCreate(Collection $positions): void
+    {
+        $this->positions = $positions instanceof ItemPositionCollection
+            ? $positions
+            : new ItemPositionCollection($positions->all());
     }
 
     public function pdf(?int $id = null, ?bool $logopaper = null): DocumentPdf
@@ -243,41 +247,4 @@ class Order extends Resource implements KbDocumentContract
         return DocumentConversionPayload::positionsFromSource($this->find($orderId)->positions ?? []);
     }
 
-    private function hasArticlePosition(): bool
-    {
-        return $this->positions?->contains(
-            static fn (ItemPosition $position): bool => $position instanceof ItemPositionArticle,
-        ) ?? false;
-    }
-
-    private function createWithDeferredPositions(): static
-    {
-        /** @var ItemPositionCollection<int, ItemPosition> $positions */
-        $positions = $this->positions ?? new ItemPositionCollection([]);
-
-        // Some Bexio order widget schemas reject article_id in inline positions.
-        $this->positions = new ItemPositionCollection([]);
-
-        try {
-            $created = parent::create();
-        } finally {
-            $this->positions = $positions;
-        }
-
-        try {
-            foreach ($positions as $position) {
-                $position->attachClient($this->client())->createFor($created);
-            }
-
-            return $created->refresh();
-        } catch (Throwable $exception) {
-            try {
-                $created->delete();
-            } catch (Throwable) {
-                // Keep the original position creation failure visible to callers.
-            }
-
-            throw $exception;
-        }
-    }
 }

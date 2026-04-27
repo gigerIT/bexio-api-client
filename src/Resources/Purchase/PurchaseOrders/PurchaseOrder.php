@@ -72,4 +72,21 @@ class PurchaseOrder extends Resource
     )
     {
     }
+
+    public function toApi(): PurchaseOrder
+    {
+        return $this->except(
+            'id',
+            'document_nr',
+            'language',
+            'currency',
+            'created_at',
+            'updated_at',
+            'custom_translations',
+            'date_format',
+            'positions',
+            'kb_item_status_id',
+            'viewed_by_client_at',
+        );
+    }
 }

@@ -29,6 +29,7 @@ class CreateItemRequest extends Request implements HasBody
     {
         return $this->item->except(
             'id',
+            'article_type_id',
             'stock_reserved_nr',
             'stock_available_nr',
             'stock_picked_nr',

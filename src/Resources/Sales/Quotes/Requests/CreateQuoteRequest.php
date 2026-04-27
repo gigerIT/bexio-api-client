@@ -29,7 +29,7 @@ class CreateQuoteRequest extends Request implements HasBody
 
     protected function defaultBody(): array
     {
-        return $this->quote->toArray();
+        return $this->quote->toApi()->toArray();
     }
 
     public function createDtoFromResponse(Response $response): Quote

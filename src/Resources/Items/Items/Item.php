@@ -30,7 +30,7 @@ class Item extends Resource
     public ?int $tax_id = null;
 
     public function __construct(
-        public int $article_type_id = 1,
+        public ?int $article_type_id = 1,
         public int $user_id = 1,
         public string $intern_code = '',
         public string $intern_name = '',

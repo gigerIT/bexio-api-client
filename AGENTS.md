@@ -176,9 +176,13 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 - Supported types asserted in `tests/Unit/ItemPositionCastTest.php`.
 - Item position create requests strip DTO-only `type` from outgoing payloads; keep `CreateItemPositionRequest` and `CreateItemSubPositionRequest` aligned.
 - Do not trust bundled Bexio docs alone for item-position write schemas. Live widget schemas are stricter and may reject fields documented on create/update samples; verify outgoing request bodies and live behavior before shipping changes.
-- `ItemPositionArticle` has split write semantics: dedicated create endpoints need `article_id`, but order inline create rejects it for some accounts, and article-position update rejects `article_id` and `parent_id`. Do not reuse the shared `ItemPosition::toApiPayload()` assumptions without type-specific tests.
+- `ItemPositionArticle` has split write semantics: dedicated create endpoints need `article_id`, but inline sales-document create can reject it, and article-position update rejects `article_id` and `parent_id`. Create orders, quotes, and invoices with article positions as an empty document first, then add positions through dedicated item-position endpoints. Do not reuse shared item-position payload assumptions without type-specific tests.
 - Any change touching item-position create/update serialization must include a mocked Saloon body assertion for the exact endpoint and a live disposable sales-document test for the affected create/update flow. Creation-only coverage is not enough when update payloads differ.
 - If Bexio adds item position type, update enum, cast, and test together.
+
+### Item write payloads
+
+- Live `/2.0/article` create/update rejects `article_type_id` in write bodies even though bundled docs list it. Omit `article_type_id` and route `id` from item write payloads; keep live create/update/delete coverage because read responses may still hydrate `article_type_id` and can return it as `null`.
 
 ### Endpoint versions are mixed
 

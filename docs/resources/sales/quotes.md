@@ -85,4 +85,5 @@ $order = Quote::useClient($client)->createOrder(1);
 - The quote query builder switches to `POST /2.0/kb_offer/search` as soon as a search clause is added.
 - Supported quote helpers are `status()`, `statusIn()`, `validFrom()`, `validTo()`, and `validBetween()`.
 - `validTo()` and `validBetween()` filter on `is_valid_until`, which matches the live quote search endpoint.
+- Quotes containing `ItemPositionArticle` are created as an empty quote first, then positions are added through the dedicated item position endpoints so `article_id` is not sent to strict quote-create widget schemas.
 - `createOrder()` and `createInvoice()` call the Bexio conversion endpoints and automatically send source-position references when no explicit conversion positions are provided.

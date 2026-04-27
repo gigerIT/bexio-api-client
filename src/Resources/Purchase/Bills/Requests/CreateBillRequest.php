@@ -34,7 +34,7 @@ class CreateBillRequest extends Request implements HasBody
 
     protected function defaultBody(): array
     {
-        return $this->bill->toArray();
+        return $this->bill->toApi()->toArray();
     }
 
 }

@@ -2,6 +2,12 @@
 
 use Bexio\Resources\Purchase\Bills\Requests\GetBillDocumentNumberRequest;
 use Bexio\Resources\Purchase\Bills\Requests\UpdateBillBookingRequest;
+use Bexio\Resources\Purchase\Bills\Bill;
+use Bexio\Resources\Purchase\Bills\BillAddress;
+use Bexio\Resources\Purchase\Bills\BillLineItem;
+use Bexio\Resources\Purchase\Bills\Enums\BillAddressType;
+use Bexio\Resources\Purchase\Bills\Enums\BillStatus;
+use Bexio\Resources\Purchase\Bills\Requests\CreateBillRequest;
 use Bexio\Resources\Purchase\Expenses\Expense;
 use Bexio\Resources\Purchase\Expenses\Requests\CreateExpenseRequest;
 use Bexio\Resources\Purchase\Expenses\Requests\DeleteExpenseRequest;
@@ -52,6 +58,58 @@ it('builds bill booking and document number requests', function () {
         ->and(purchaseDefaultQuery($documentNumber))->toBe(['document_no' => 'LR-100']);
 });
 
+it('builds bill create requests without response-only fields from hydrated resources', function () {
+    $bill = new Bill(
+        supplier_id: 1,
+        contact_partner_id: 1,
+        address: new BillAddress(
+            lastname_company: 'Test Supplier',
+            type: BillAddressType::COMPANY,
+            address_line: 'Test Street 1',
+            postcode: '8000',
+            city: 'Zurich',
+            country_code: 'CH',
+        ),
+        bill_date: '2026-04-27',
+        due_date: '2026-05-27',
+        line_items: [
+            new BillLineItem(
+                amount: 100.00,
+                position: 0,
+                title: 'Test Line Item',
+            ),
+        ],
+        title: 'Hydrated bill',
+        vendor_ref: 'Vendor Ref',
+    );
+    $bill->id = 'bill-uuid';
+    $bill->document_no = 'LR-00001';
+    $bill->status = BillStatus::DRAFT;
+    $bill->overdue = false;
+    $bill->firstname_suffix = null;
+    $bill->lastname_company = 'Test Supplier';
+    $bill->created_at = '2026-04-27T10:00:00+02:00';
+    $bill->pending_amount = 100.00;
+
+    $body = purchaseDefaultBody(new CreateBillRequest($bill));
+
+    expect($body)->toMatchArray([
+        'supplier_id' => 1,
+        'title' => 'Hydrated bill',
+        'vendor_ref' => 'Vendor Ref',
+    ])
+        ->not->toHaveKeys([
+            'id',
+            'document_no',
+            'status',
+            'overdue',
+            'firstname_suffix',
+            'lastname_company',
+            'created_at',
+            'pending_amount',
+        ]);
+});
+
 it('builds expense CRUD, booking, action, and document number requests', function () {
     $expense = new Expense(
         paid_on: '2024-01-15',
@@ -100,8 +158,20 @@ it('builds purchase order create, read, update, and delete requests', function (
     $purchaseOrder = new PurchaseOrder(
         contact_id: 14,
         id: 123,
+        document_nr: 'PO-00001',
         title: 'Updated purchase order',
+        language: ['id' => 1, 'name' => 'Deutsch'],
+        currency: ['id' => 1, 'name' => 'CHF'],
+        created_at: '2026-04-27T10:00:00+02:00',
+        updated_at: '2026-04-27T11:00:00+02:00',
+        custom_translations: [],
+        date_format: 'd.m.Y',
+        positions: [
+            ['id' => 987, 'internal_pos' => 1, 'text' => 'Response position'],
+        ],
     );
+    $purchaseOrder->kb_item_status_id = \Bexio\Resources\Purchase\PurchaseOrders\Enums\PurchaseOrderStatus::DRAFT;
+    $purchaseOrder->viewed_by_client_at = '2026-04-27T12:00:00+02:00';
 
     $index = new GetPurchaseOrdersRequest(orderBy: 'updated_at_desc', limit: 5, offset: 10);
     $create = new CreatePurchaseOrderRequest($purchaseOrder);
@@ -120,13 +190,38 @@ it('builds purchase order create, read, update, and delete requests', function (
             'contact_id' => 14,
             'title' => 'Updated purchase order',
         ])
+        ->and(purchaseDefaultBody($create))->not->toHaveKeys([
+            'id',
+            'document_nr',
+            'language',
+            'currency',
+            'created_at',
+            'updated_at',
+            'custom_translations',
+            'date_format',
+            'positions',
+            'kb_item_status_id',
+            'viewed_by_client_at',
+        ])
         ->and((new GetPurchaseOrderRequest(123))->resolveEndpoint())->toBe('/3.0/purchase_orders/123')
         ->and($update->getMethod())->toBe(Method::PUT)
         ->and($update->resolveEndpoint())->toBe('/3.0/purchase_orders/123')
         ->and(purchaseDefaultBody($update))->toMatchArray([
-            'id' => 123,
             'contact_id' => 14,
             'title' => 'Updated purchase order',
+        ])
+        ->and(purchaseDefaultBody($update))->not->toHaveKeys([
+            'id',
+            'document_nr',
+            'language',
+            'currency',
+            'created_at',
+            'updated_at',
+            'custom_translations',
+            'date_format',
+            'positions',
+            'kb_item_status_id',
+            'viewed_by_client_at',
         ])
         ->and((new DeletePurchaseOrderRequest(123))->getMethod())->toBe(Method::DELETE)
         ->and((new DeletePurchaseOrderRequest(123))->resolveEndpoint())->toBe('/3.0/purchase_orders/123');

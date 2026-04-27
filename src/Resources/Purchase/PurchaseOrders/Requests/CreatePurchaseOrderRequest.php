@@ -34,7 +34,7 @@ class CreatePurchaseOrderRequest extends Request implements HasBody
 
     protected function defaultBody(): array
     {
-        return $this->purchaseOrder->toArray();
+        return $this->purchaseOrder->toApi()->toArray();
     }
 
 }
