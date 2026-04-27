@@ -359,10 +359,10 @@ it('creates quotes without response-only fields from hydrated resources', functi
         return $request->resolveEndpoint() === '/2.0/kb_offer'
             && $body['title'] === 'Created quote'
             && $body['positions'] === []
+            && $body['mwst_is_net'] === true
             && ! array_key_exists('id', $body)
             && ! array_key_exists('document_nr', $body)
             && ! array_key_exists('total', $body)
-            && ! array_key_exists('mwst_is_net', $body)
             && ! array_key_exists('viewed_by_client_at', $body);
     });
 });

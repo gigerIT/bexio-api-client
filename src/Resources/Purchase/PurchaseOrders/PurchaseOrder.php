@@ -84,9 +84,8 @@ class PurchaseOrder extends Resource
             'updated_at',
             'custom_translations',
             'date_format',
-            'positions',
             'kb_item_status_id',
             'viewed_by_client_at',
-        );
+        )->exceptWhen('positions', $this->positions === null);
     }
 }

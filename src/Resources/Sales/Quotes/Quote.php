@@ -159,9 +159,8 @@ class Quote extends Resource implements KbDocumentContract
             'updated_at',
             'taxs',
             'network_link',
-            'mwst_is_net',
             'viewed_by_client_at',
-        );
+        )->exceptWhen('mwst_is_net', ! isset($this->mwst_is_net));
     }
 
     protected function emptyPositionsForDeferredArticleCreate(): Collection

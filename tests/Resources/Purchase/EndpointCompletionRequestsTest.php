@@ -155,6 +155,17 @@ it('builds expense CRUD, booking, action, and document number requests', functio
 });
 
 it('builds purchase order create, read, update, and delete requests', function () {
+    $positions = [
+        'required' => [
+            [
+                'type' => 'text',
+                'text' => 'Write payload position',
+                'show_pos_nr' => false,
+            ],
+        ],
+        'optional' => [],
+        'discount' => [],
+    ];
     $purchaseOrder = new PurchaseOrder(
         contact_id: 14,
         id: 123,
@@ -166,9 +177,7 @@ it('builds purchase order create, read, update, and delete requests', function (
         updated_at: '2026-04-27T11:00:00+02:00',
         custom_translations: [],
         date_format: 'd.m.Y',
-        positions: [
-            ['id' => 987, 'internal_pos' => 1, 'text' => 'Response position'],
-        ],
+        positions: $positions,
     );
     $purchaseOrder->kb_item_status_id = \Bexio\Resources\Purchase\PurchaseOrders\Enums\PurchaseOrderStatus::DRAFT;
     $purchaseOrder->viewed_by_client_at = '2026-04-27T12:00:00+02:00';
@@ -189,6 +198,7 @@ it('builds purchase order create, read, update, and delete requests', function (
         ->and(purchaseDefaultBody($create))->toMatchArray([
             'contact_id' => 14,
             'title' => 'Updated purchase order',
+            'positions' => $positions,
         ])
         ->and(purchaseDefaultBody($create))->not->toHaveKeys([
             'id',
@@ -199,7 +209,6 @@ it('builds purchase order create, read, update, and delete requests', function (
             'updated_at',
             'custom_translations',
             'date_format',
-            'positions',
             'kb_item_status_id',
             'viewed_by_client_at',
         ])
@@ -209,6 +218,7 @@ it('builds purchase order create, read, update, and delete requests', function (
         ->and(purchaseDefaultBody($update))->toMatchArray([
             'contact_id' => 14,
             'title' => 'Updated purchase order',
+            'positions' => $positions,
         ])
         ->and(purchaseDefaultBody($update))->not->toHaveKeys([
             'id',
@@ -219,7 +229,6 @@ it('builds purchase order create, read, update, and delete requests', function (
             'updated_at',
             'custom_translations',
             'date_format',
-            'positions',
             'kb_item_status_id',
             'viewed_by_client_at',
         ])
