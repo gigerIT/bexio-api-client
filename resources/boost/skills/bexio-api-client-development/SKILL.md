@@ -193,19 +193,28 @@ Invoice payload rules:
 - `Invoice::toApi()` removes reporting and response-only fields before writes.
 - Keep API-rejected fields like `document_nr` and `mwst_is_net` out of create/update payloads.
 
+Item payload rules:
+- Bexio item responses may hydrate `article_type_id` as `null`.
+- Do not send `article_type_id` or route `id` in `/2.0/article` create/update payloads.
+
 Order and quote query rules:
 - Unfiltered orders use `GET /2.0/kb_order`; filtered orders use `POST /2.0/kb_order/search`.
 - Unfiltered quotes use `GET /2.0/kb_offer`; filtered quotes use `POST /2.0/kb_offer/search`.
 - Quote validity searches use API field `is_valid_until`; do not use `is_valid_to` for quote helpers.
 - `OrderStatus` maps pending `5`, done `6`, partial `15`, and canceled `21`.
 
-Order item-position rules:
-- Orders containing `ItemPositionArticle` are created as an empty order first, then positions are
-  added through dedicated item-position endpoints. Some Bexio order widget schemas reject inline
-  `article_id` on `POST /2.0/kb_order`.
+Sales document item-position rules:
+- Orders, quotes, and invoices containing `ItemPositionArticle` are created as an empty document
+  first, then positions are added through dedicated item-position endpoints. Some Bexio widget
+  schemas reject inline `article_id` on sales document create endpoints.
 - Updating an existing `ItemPositionArticle` omits `article_id` and `parent_id`; delete and recreate
   the article position to change the linked item.
-- Order update payloads strip `positions`; manage positions through item-position endpoints.
+- Sales document update payloads strip `positions`; manage positions through item-position endpoints.
+
+Purchase payload rules:
+- Bill and purchase-order create/update requests use `toApi()` helpers so hydrated DTOs do not
+  resend response-only IDs, document numbers, statuses, totals, timestamps, or embedded response
+  objects.
 
 Conversion rules:
 - `Quote::createOrder()`, `Quote::createInvoice()`, `Order::createDelivery()`, and

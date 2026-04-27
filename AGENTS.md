@@ -184,6 +184,10 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 
 - Live `/2.0/article` create/update rejects `article_type_id` in write bodies even though bundled docs list it. Omit `article_type_id` and route `id` from item write payloads; keep live create/update/delete coverage because read responses may still hydrate `article_type_id` and can return it as `null`.
 
+### Purchase write payloads
+
+- Bills and purchase orders can be reused from hydrated DTOs that include response-only fields. Create/update requests should use resource `toApi()` helpers instead of raw `toArray()`, and unit tests should assert hydrated write bodies omit IDs, document numbers, status, totals, timestamps, and embedded response objects.
+
 ### Endpoint versions are mixed
 
 - Codebase uses `/2.0/...`, `/3.0/...`, `/4.0/...` by resource.
