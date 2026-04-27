@@ -240,7 +240,11 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
   - `Test` job runs on PHP 8.4.
   - Runs `php vendor/bin/pest --colors=always -v --parallel --processes=6`.
   - Exposes same secret as `BEXIO_ACCESS_TOKEN` and `TEST_API_KEY`.
-- Release automation: `googleapis/release-please-action@v4`, `release-type: php`.
+- Release automation: `googleapis/release-please-action@v4` with manifest config
+  in `release-please-config.json` and `.release-please-manifest.json`.
+  Manifest mode is required because the non-manifest action path runs a GitHub
+  GraphQL merge-commit query that fails for this repo; keep `commit-batch-size`
+  at `8` unless the exact release-please query is re-verified.
 - Test job skipped for release commits containing `chore(main): release`.
 - Dependabot updates Composer and GitHub Actions weekly via `.github/dependabot.yml`.
   It ignores major updates for `googleapis/release-please-action`; keep release automation on v4 until v5 is verified against this workflow.
