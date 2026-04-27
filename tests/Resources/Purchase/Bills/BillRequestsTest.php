@@ -9,6 +9,16 @@ use Bexio\Resources\Purchase\Bills\Enums\BillAddressType;
 
 $testBill = null;
 
+it('can validate a Bill document number', function () {
+    $documentNumber = 'LR-' . date('YmdHis') . '-' . random_int(1000, 9999);
+
+    $validation = Bill::useClient(testClient())->validateDocumentNumber($documentNumber);
+
+    expect($validation)->toBeArray()
+        ->and($validation)->toHaveKey('valid')
+        ->and($validation['valid'])->toBeBool();
+});
+
 it('can create a Bill', closure: function () use (&$testBill) {
     $testBill = new Bill(
         supplier_id: 1,

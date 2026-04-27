@@ -5,6 +5,7 @@ namespace Bexio\Resources\Sales\Quotes\Requests;
 use Bexio\Resources\Projects\Timesheets\Timesheet;
 use Bexio\Resources\Projects\TimesheetStatuses\Requests\GetTimesheetStatusesRequest;
 use Bexio\Resources\Projects\TimesheetStatuses\TimesheetStatus;
+use Bexio\Support\Data\SearchCriteria;
 
 it('can get Timesheets', function () {
     try {
@@ -52,6 +53,24 @@ it('can get first Timesheet using query builder', function () {
 
     expect($timesheet)->toBeInstanceOf(Timesheet::class)
         ->and($timesheet->id)->toBeInt();
+});
+
+it('can search Timesheets', function () {
+    $timesheets = Timesheet::useClient(testClient())->all();
+
+    if (count($timesheets) === 0) {
+        \PHPUnit\Framework\Assert::markTestSkipped('No timesheets available');
+    }
+
+    $searchedTimesheets = Timesheet::useClient(testClient())
+        ->query()
+        ->where('id', SearchCriteria::EQUAL, (string)$timesheets[0]->id)
+        ->get();
+
+    expect($searchedTimesheets)->toBeArray()
+        ->and($searchedTimesheets[0])->toBeInstanceOf(Timesheet::class)
+        ->and(array_map(static fn (Timesheet $timesheet): ?int => $timesheet->id, $searchedTimesheets))
+        ->toContain($timesheets[0]->id);
 });
 
 it('builds timesheet status requests', function () {
