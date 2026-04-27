@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.8.0](https://github.com/gigerIT/bexio-api-client/compare/v4.7.0...v4.8.0) (2026-04-27)
+
+
+### Features
+
+* **sales:** introduce shared sales document query builders for invoices, orders, and quotes ([4f559db](https://github.com/gigerIT/bexio-api-client/commit/4f559dbd7ef7a202c332d6b168265cc2d46e7ee4))
+
+
+### Bug Fixes
+
+* **tests:** enhance payment retrieval logic and adjust test parameters ([7555e6d](https://github.com/gigerIT/bexio-api-client/commit/7555e6d6096e883a7d06636210ab5dc5edbfd91b))
+
 ## [4.7.0](https://github.com/gigerIT/bexio-api-client/compare/v4.6.0...v4.7.0) (2026-04-26)
 
 
