@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.8.1](https://github.com/gigerIT/bexio-api-client/compare/v4.8.0...v4.8.1) (2026-04-27)
+
+
+### Bug Fixes
+
+* **orders:** defer article positions during creation ([a16601f](https://github.com/gigerIT/bexio-api-client/commit/a16601fabbfab229ad28d0ee3eee883089f781ea))
+
 ## [4.8.0](https://github.com/gigerIT/bexio-api-client/compare/v4.7.0...v4.8.0) (2026-04-27)
 
 
