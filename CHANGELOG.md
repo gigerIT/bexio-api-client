@@ -1,5 +1,38 @@
 # Changelog
 
+## [4.8.2](https://github.com/gigerIT/bexio-api-client/compare/v4.8.1...v4.8.2) (2026-04-27)
+
+
+### Bug Fixes
+
+* align bexio write payloads with live schemas ([6c2b328](https://github.com/gigerIT/bexio-api-client/commit/6c2b328191ad16b45238c083dfcaba3c39455a5e))
+* ci ([83bbde2](https://github.com/gigerIT/bexio-api-client/commit/83bbde2402fe592fcb3531943801040420caede9))
+* ci ([227e2a6](https://github.com/gigerIT/bexio-api-client/commit/227e2a666ef2710fe6baae20f5e95931c2b04c14))
+* **item-positions:** omit article fields on update ([5091f87](https://github.com/gigerIT/bexio-api-client/commit/5091f8704b6922ec8670abe21a8be433526baa61))
+* **resources:** preserve writable payload fields ([1176301](https://github.com/gigerIT/bexio-api-client/commit/1176301c5a3aa2326dd273eb6e8ec451a494d5bc))
+
+
+### Documentation
+
+* **agents:** clarify item-position handling and update payload requirements ([dc521c0](https://github.com/gigerIT/bexio-api-client/commit/dc521c0ebceb8223506e9c0c813b705146adf9e0))
+* **agents:** enhance purchase write payload guidelines and clarify item-position rules ([510fd5b](https://github.com/gigerIT/bexio-api-client/commit/510fd5b6646dd695c4ba99c1c7fcfcda0fa38161))
+* **bexio-api-client:** update skill documentation for sales documents and query behavior ([41aa0a1](https://github.com/gigerIT/bexio-api-client/commit/41aa0a1a89221a9842b99898b5f3eea345f4a61d))
+
+
+### Continuous Integration
+
+* allow Release job to continue on error ([6a18cba](https://github.com/gigerIT/bexio-api-client/commit/6a18cba67f2166092d3f8eb680ae54240f1436c1))
+* include maintenance commits in release notes ([158baf2](https://github.com/gigerIT/bexio-api-client/commit/158baf25f51dda9e68c6bb9d375bb1a99ba72ebb))
+* patch release-please merge commit query ([ab5413c](https://github.com/gigerIT/bexio-api-client/commit/ab5413c524b3a9d94f269e2a5da3a04c96fae357))
+* reduce release-please commit batch size ([a0b45a4](https://github.com/gigerIT/bexio-api-client/commit/a0b45a4cb25ddd503d04041949d7a489855bbf25))
+* tolerate direct commits in release wrapper ([bafcc48](https://github.com/gigerIT/bexio-api-client/commit/bafcc485756b7c86e550054cf9614f466f80b1e0))
+* use release-please manifest config ([ec6a2de](https://github.com/gigerIT/bexio-api-client/commit/ec6a2de254dde7e94097a4fbd950f930e2bf0b6b))
+
+
+### Miscellaneous Chores
+
+* **dependabot:** configure to ignore major updates for release-please-action ([c1e34af](https://github.com/gigerIT/bexio-api-client/commit/c1e34af07943f214498ecbd75476f9571b9a425d))
+
 ## [4.8.1](https://github.com/gigerIT/bexio-api-client/compare/v4.8.0...v4.8.1) (2026-04-27)
 
 
