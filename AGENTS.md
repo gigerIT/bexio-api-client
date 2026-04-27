@@ -245,6 +245,9 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
   Manifest mode is required because the non-manifest action path runs a GitHub
   GraphQL merge-commit query that fails for this repo; keep `commit-batch-size`
   at `8` unless the exact release-please query is re-verified.
+  The config intentionally makes common conventional commit sections visible,
+  including `docs` and `ci`, so release PR notes include all repo-maintenance
+  commits made between releases.
 - Test job skipped for release commits containing `chore(main): release`.
 - Dependabot updates Composer and GitHub Actions weekly via `.github/dependabot.yml`.
   It ignores major updates for `googleapis/release-please-action`; keep release automation on v4 until v5 is verified against this workflow.
