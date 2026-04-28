@@ -6,14 +6,13 @@ namespace Bexio\Resources\Accounting\ManualEntries;
 use Bexio\Resources\Accounting\ManualEntries\Requests\CreateManualEntryRequest;
 use Bexio\Resources\Accounting\ManualEntries\Requests\DeleteManualEntryRequest;
 use Bexio\Resources\Accounting\ManualEntries\Requests\GetManualEntriesRequest;
-use Bexio\Resources\Accounting\ManualEntries\Requests\GetManualEntryRequest;
 use Bexio\Resources\Accounting\ManualEntries\Requests\UpdateManualEntryRequest;
 use Bexio\Resources\Resource;
+use LogicException;
 
 class ManualEntry extends Resource
 {
     public const INDEX_REQUEST = GetManualEntriesRequest::class;
-    public const SHOW_REQUEST = GetManualEntryRequest::class;
     public const CREATE_REQUEST = CreateManualEntryRequest::class;
     public const UPDATE_REQUEST = UpdateManualEntryRequest::class;
     public const DELETE_REQUEST = DeleteManualEntryRequest::class;
@@ -34,6 +33,16 @@ class ManualEntry extends Resource
     public function toApi(): ManualEntry
     {
         return $this->except('uuid');
+    }
+
+    public function find(int|string $id): static
+    {
+        throw new LogicException('Manual entries do not support direct show requests.');
+    }
+
+    public function refresh(): static
+    {
+        throw new LogicException('Manual entries do not support direct show requests.');
     }
 }
 

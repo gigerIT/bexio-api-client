@@ -227,6 +227,8 @@ Conversion rules:
 - `AdditionalAddress` requires contact context; use `->forContact($contactId)` before `get()` or filtered queries.
 - `InvoiceReminder` requires invoice context; use `->forInvoice($invoiceId)` before `get()` or
   filtered queries, and keep `kb_invoice_id` available for `find()` and `delete()`.
+- `ManualEntry` has no documented/live show endpoint; use index queries for reads. `find()` and
+  `refresh()` intentionally throw instead of calling `/3.0/accounting/manual_entries/{id}`.
 - Some resources use different endpoint versions (`/2.0/...` and `/3.0/...`); always match
   neighboring request classes instead of assuming one global API version.
 - Resources using `HasOfficeLink` must define a matching `SHOW_URL` constant.
