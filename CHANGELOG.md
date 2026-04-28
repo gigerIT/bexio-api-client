@@ -1,5 +1,19 @@
 # Changelog
 
+## [4.8.3](https://github.com/gigerIT/bexio-api-client/compare/v4.8.2...v4.8.3) (2026-04-28)
+
+
+### Bug Fixes
+
+* **accounting:** hydrate year response dates ([0e9f6dd](https://github.com/gigerIT/bexio-api-client/commit/0e9f6ddf5b9222a1fc2740dc2b49652d4707c251))
+* **accounting:** map documented account group fields ([42ed526](https://github.com/gigerIT/bexio-api-client/commit/42ed52642bb97153630607d8a47456f107587a76))
+* **accounting:** remove unsupported Manual Entry show endpoint and update documentation ([16318a4](https://github.com/gigerIT/bexio-api-client/commit/16318a43eec463bb5dd9c55b87ee9541ec82420e))
+
+
+### Tests
+
+* enhance API coverage with live tests and new endpoints ([77e64d9](https://github.com/gigerIT/bexio-api-client/commit/77e64d9b7a10b281f0b0e59328166f98f7cca7c1))
+
 ## [4.8.2](https://github.com/gigerIT/bexio-api-client/compare/v4.8.1...v4.8.2) (2026-04-27)
 
 
