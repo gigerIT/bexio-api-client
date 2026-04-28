@@ -6,6 +6,7 @@ namespace Bexio\Resources\Accounting\Accounts;
 
 use Bexio\Resources\Accounting\Accounts\Requests\GetAccountsRequest;
 use Bexio\Resources\Resource;
+use Spatie\LaravelData\Attributes\MapInputName;
 
 /**
  * @method AccountQueryBuilder query()
@@ -14,7 +15,7 @@ use Bexio\Resources\Resource;
  * "id": 1,
  * "account_no": "3201",
  * "name": "Gross proceeds credit sales",
- * "account_group_id": 65,
+ * "fibu_account_group_id": 65,
  * "account_type": 1,
  * "tax_id": 40,
  * "is_active": true,
@@ -29,6 +30,7 @@ class Account extends Resource
     public int $id;
     public string $account_no;
     public string $name;
+    #[MapInputName('fibu_account_group_id')]
     public int $account_group_id;
     public int $account_type;
     public ?int $tax_id;

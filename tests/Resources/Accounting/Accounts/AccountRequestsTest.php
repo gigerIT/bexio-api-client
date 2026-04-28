@@ -11,7 +11,8 @@ it('can get Accounts', function () {
 
     expect($accounts)->toBeArray()
         ->and($accounts[0])->toBeInstanceOf(Account::class)
-        ->and($accounts[0]->id)->toBeInt();
+        ->and($accounts[0]->id)->toBeInt()
+        ->and($accounts[0]->account_group_id)->toBeInt();
 });
 
 it('can search Accounts', function () {

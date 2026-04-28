@@ -144,7 +144,8 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 
 ### Accounting search support
 
-- Account filtering uses `POST /2.0/accounts/search`. Docs and live payloads use `fibu_account_group_id` as account-group field in search responses.
+- Account filtering uses `POST /2.0/accounts/search`. Docs and live payloads use `fibu_account_group_id`; `Account` maps this to public `account_group_id`.
+- Account group docs/live payloads use `parent_fibu_account_group_id`; `AccountGroup` maps this to public `parent_id`.
 - Manual entries do not have a documented/live show endpoint. `ManualEntry::find()` and `refresh()` intentionally throw instead of calling `GET /3.0/accounting/manual_entries/{id}`.
 - Calendar year filtering uses `POST /3.0/accounting/calendar_years/search`. Search clauses use API fields `start` and `end`, though `CalendarYear` DTO keeps `date_start` and `date_end`.
 - Calendar and business year API responses use `start` and `end`; DTOs expose these as `date_start` and `date_end` via input mapping.
