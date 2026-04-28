@@ -219,6 +219,7 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
   - `testMockClient()` for Saloon mock responses
   - cached helpers: `testSaleTax()`, `testSalesAccount()`, `testAccountId()`
 - Resource coverage should use real API requests. API key exists locally and CI. New API feature/resource tests should use `testClient()` and real Bexio endpoints, not mocks.
+- `tests/Resources/LiveApiOperationCoverageTest.php` guards exposed `SHOW_REQUEST` operations: any resource advertising `find()` must have live resource-level show coverage and a matching README coverage-table row.
 - Keep mocks/fixtures for narrow unit tests only: DTO, casting, request construction. Mocked tests alone are insufficient for new API features.
 - Existing live API patterns:
   - create/update/delete disposable records as in `tests/Resources/Contacts/Contacts/ContactRequestsTest.php`, `tests/Resources/Purchase/Bills/BillRequestsTest.php`, `tests/Resources/Sales/Invoices/InvoiceRequestsTest.php`

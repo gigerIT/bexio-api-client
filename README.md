@@ -249,6 +249,7 @@ Endpoint coverage is derived from `docs/bexio-api-docs.md`. `Implemented` means 
 |  | `POST /2.0/contact_group/{contact_group_id}` | ✅ |
 |  | `DELETE /2.0/contact_group/{contact_group_id}` | ✅ |
 | Contact Sectors | `GET /2.0/contact_branch` | ✅ |
+|  | `GET /2.0/contact_branch/{contact_branch_id}` | ✅ |
 |  | `POST /2.0/contact_branch/search` | ✅ |
 | Additional Addresses | `GET /2.0/contact/{contact_id}/additional_address` | ✅ |
 |  | `POST /2.0/contact/{contact_id}/additional_address` | ✅ |
@@ -410,6 +411,7 @@ Endpoint coverage is derived from `docs/bexio-api-docs.md`. `Implemented` means 
 | Accounts | `GET /2.0/accounts` | ✅ |
 |  | `POST /2.0/accounts/search` | ✅ |
 | Account Groups | `GET /2.0/account_groups` | ✅ |
+|  | `GET /2.0/account_groups/{account_group_id}` | ✅ |
 | Calendar Years | `GET /3.0/accounting/calendar_years` | ✅ |
 |  | `POST /3.0/accounting/calendar_years` | ✅ |
 |  | `POST /3.0/accounting/calendar_years/search` | ✅ |
@@ -512,9 +514,11 @@ Endpoint coverage is derived from `docs/bexio-api-docs.md`. `Implemented` means 
 |  | `DELETE /2.0/timesheet/{timesheet_id}` | ✅ |
 |  | `GET /2.0/timesheet_status` | ✅ |
 | Business Activities | `GET /2.0/client_service` | ✅ |
+|  | `GET /2.0/client_service/{client_service_id}` | ✅ |
 |  | `POST /2.0/client_service` | ✅ |
 |  | `POST /2.0/client_service/search` | ✅ |
 | Communication Types | `GET /2.0/communication_kind` | ✅ |
+|  | `GET /2.0/communication_kind/{communication_kind_id}` | ✅ |
 |  | `POST /2.0/communication_kind/search` | ✅ |
 
 ### FILES

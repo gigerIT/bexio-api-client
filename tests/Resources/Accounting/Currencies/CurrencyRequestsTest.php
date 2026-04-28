@@ -43,6 +43,12 @@ it('can create and delete a Currency', function () {
             ->and($createdCurrency->id)->toBeInt()
             ->and($createdCurrency->name)->toBe($currencyCode)
             ->and($createdCurrency->round_factor)->toBe(0.01);
+
+        $fetchedCurrency = Currency::useClient($client)->find($createdCurrency->id);
+
+        expect($fetchedCurrency)->toBeInstanceOf(Currency::class)
+            ->and($fetchedCurrency->id)->toBe($createdCurrency->id)
+            ->and($fetchedCurrency->name)->toBe($currencyCode);
     } finally {
         if ($createdCurrency?->id !== null) {
             $createdCurrency->attachClient($client)->delete();
