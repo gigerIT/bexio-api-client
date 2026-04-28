@@ -15,7 +15,9 @@ it('can get Calendar Years', function () {
 
     expect($years)->toBeArray()
         ->and($years[0])->toBeInstanceOf(CalendarYear::class)
-        ->and($years[0]->id)->toBeInt();
+        ->and($years[0]->id)->toBeInt()
+        ->and($years[0]->date_start)->toBeString()->not->toBe('')
+        ->and($years[0]->date_end)->toBeString()->not->toBe('');
 });
 
 it('can get a Calendar Year', function () {
@@ -28,7 +30,9 @@ it('can get a Calendar Year', function () {
     $year = CalendarYear::useClient(testClient())->find($id);
 
     expect($year)->toBeInstanceOf(CalendarYear::class)
-        ->and($year->id)->toBeInt();
+        ->and($year->id)->toBeInt()
+        ->and($year->date_start)->toBeString()->not->toBe('')
+        ->and($year->date_end)->toBeString()->not->toBe('');
 });
 
 it('can search Calendar Years', function () {
@@ -51,7 +55,9 @@ it('can search Calendar Years', function () {
         ->get();
 
     expect($results)->toBeArray()
-        ->and($results[0])->toBeInstanceOf(CalendarYear::class);
+        ->and($results[0])->toBeInstanceOf(CalendarYear::class)
+        ->and($results[0]->date_start)->toBeString()->not->toBe('')
+        ->and($results[0]->date_end)->toBeString()->not->toBe('');
 });
 
 it('can get first Calendar Year using query builder', function () {
@@ -62,6 +68,8 @@ it('can get first Calendar Year using query builder', function () {
     }
 
     expect($year)->toBeInstanceOf(CalendarYear::class)
-        ->and($year->id)->toBeInt();
+        ->and($year->id)->toBeInt()
+        ->and($year->date_start)->toBeString()->not->toBe('')
+        ->and($year->date_end)->toBeString()->not->toBe('');
 });
 

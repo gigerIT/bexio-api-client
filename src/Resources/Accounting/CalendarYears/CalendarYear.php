@@ -7,6 +7,7 @@ use Bexio\Resources\Accounting\CalendarYears\Requests\CreateCalendarYearRequest;
 use Bexio\Resources\Accounting\CalendarYears\Requests\GetCalendarYearRequest;
 use Bexio\Resources\Accounting\CalendarYears\Requests\GetCalendarYearsRequest;
 use Bexio\Resources\Resource;
+use Spatie\LaravelData\Attributes\MapInputName;
 
 /**
  * @method CalendarYearQueryBuilder query()
@@ -21,7 +22,9 @@ class CalendarYear extends Resource
     public function __construct(
         public ?int $id = null,
         public ?string $uuid = null,
+        #[MapInputName('start')]
         public ?string $date_start = null,
+        #[MapInputName('end')]
         public ?string $date_end = null,
         public ?string $year = null,
         public ?bool $is_vat_subject = null,

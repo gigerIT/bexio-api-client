@@ -13,7 +13,10 @@ it('can get Business Years', function () {
 
     expect($years)->toBeArray()
         ->and($years[0])->toBeInstanceOf(BusinessYear::class)
-        ->and($years[0]->id)->toBeInt();
+        ->and($years[0]->id)->toBeInt()
+        ->and($years[0]->date_start)->toBeString()->not->toBe('')
+        ->and($years[0]->date_end)->toBeString()->not->toBe('')
+        ->and($years[0]->status)->toBeString()->not->toBe('');
 });
 
 it('can get a Business Year', function () {
@@ -26,7 +29,10 @@ it('can get a Business Year', function () {
     $year = BusinessYear::useClient(testClient())->find($id);
 
     expect($year)->toBeInstanceOf(BusinessYear::class)
-        ->and($year->id)->toBeInt();
+        ->and($year->id)->toBeInt()
+        ->and($year->date_start)->toBeString()->not->toBe('')
+        ->and($year->date_end)->toBeString()->not->toBe('')
+        ->and($year->status)->toBeString()->not->toBe('');
 });
 
 it('can get first Business Year using query builder', function () {
@@ -37,6 +43,9 @@ it('can get first Business Year using query builder', function () {
     }
 
     expect($year)->toBeInstanceOf(BusinessYear::class)
-        ->and($year->id)->toBeInt();
+        ->and($year->id)->toBeInt()
+        ->and($year->date_start)->toBeString()->not->toBe('')
+        ->and($year->date_end)->toBeString()->not->toBe('')
+        ->and($year->status)->toBeString()->not->toBe('');
 });
 
