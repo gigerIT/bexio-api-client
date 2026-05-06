@@ -6,10 +6,10 @@ namespace Bexio\Resources\Sales\Orders;
 use Bexio\Resources\Resource;
 use Bexio\Resources\Sales\Comments\Enums\KbDocumentType;
 use Bexio\Resources\Sales\Comments\Traits\HasComments;
+use Bexio\Resources\Sales\Concerns\ConvertsSalesDocuments;
 use Bexio\Resources\Sales\Concerns\CreatesSalesDocumentsWithDeferredArticlePositions;
 use Bexio\Resources\Sales\Concerns\ResolvesKbDocumentId;
 use Bexio\Resources\Sales\Deliveries\Delivery;
-use Bexio\Resources\Sales\DocumentConversionPayload;
 use Bexio\Resources\Sales\DocumentPdf;
 use Bexio\Resources\Sales\Invoices\Invoice;
 use Bexio\Resources\Sales\ItemPositions\Collections\ItemPositionCollection;
@@ -45,6 +45,7 @@ class Order extends Resource implements KbDocumentContract
     use HasOfficeLink;
     use ResolvesKbDocumentId;
     use CreatesSalesDocumentsWithDeferredArticlePositions;
+    use ConvertsSalesDocuments;
 
     public const DOCUMENT_TYPE = KbDocumentType::ORDER;
 
@@ -233,18 +234,6 @@ class Order extends Resource implements KbDocumentContract
     private function resolveOrderId(?int $id): int
     {
         return $id ?? (int) $this->resolveResourceId();
-    }
-
-    /**
-     * @return array<int, \Bexio\Resources\Sales\DocumentConversionPosition>
-     */
-    private function conversionPositionsFor(int $orderId): array
-    {
-        if (isset($this->id) && $this->id === $orderId && isset($this->positions)) {
-            return DocumentConversionPayload::positionsFromSource($this->positions);
-        }
-
-        return DocumentConversionPayload::positionsFromSource($this->find($orderId)->positions ?? []);
     }
 
 }

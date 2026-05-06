@@ -6,9 +6,9 @@ namespace Bexio\Resources\Sales\Quotes;
 use Bexio\Resources\Resource;
 use Bexio\Resources\Sales\Comments\Enums\KbDocumentType;
 use Bexio\Resources\Sales\Comments\Traits\HasComments;
+use Bexio\Resources\Sales\Concerns\ConvertsSalesDocuments;
 use Bexio\Resources\Sales\Concerns\CreatesSalesDocumentsWithDeferredArticlePositions;
 use Bexio\Resources\Sales\Concerns\ResolvesKbDocumentId;
-use Bexio\Resources\Sales\DocumentConversionPayload;
 use Bexio\Resources\Sales\DocumentCopyPayload;
 use Bexio\Resources\Sales\DocumentPdf;
 use Bexio\Resources\Sales\Email\Email;
@@ -48,6 +48,7 @@ class Quote extends Resource implements KbDocumentContract
     use HasPositions;
     use ResolvesKbDocumentId;
     use CreatesSalesDocumentsWithDeferredArticlePositions;
+    use ConvertsSalesDocuments;
 
     const DOCUMENT_TYPE = KbDocumentType::OFFER;
 
@@ -255,18 +256,6 @@ class Quote extends Resource implements KbDocumentContract
     private function resolveQuoteId(?int $id): int
     {
         return $id ?? (int) $this->resolveResourceId();
-    }
-
-    /**
-     * @return array<int, \Bexio\Resources\Sales\DocumentConversionPosition>
-     */
-    private function conversionPositionsFor(int $quoteId): array
-    {
-        if (isset($this->id) && $this->id === $quoteId && isset($this->positions)) {
-            return DocumentConversionPayload::positionsFromSource($this->positions);
-        }
-
-        return DocumentConversionPayload::positionsFromSource($this->find($quoteId)->positions ?? []);
     }
 
     private function copyPayload(DocumentCopyPayload|array|null $payload): DocumentCopyPayload|array
