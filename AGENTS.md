@@ -101,6 +101,13 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 - Many resources have resource-specific clause classes: `ContactSearchWhereClause`, `ItemSearchWhereClause`, `ProjectSearchWhereClause`.
 - Pattern varies: some extend shared `SearchWhereClause`, some define own `Data`. Follow resource-local pattern.
 
+### Enum Usage
+
+- Prefer package enums over raw API IDs or strings whenever an enum exists, especially for statuses and typed values in consuming projects.
+- Use sales status enums such as `InvoiceStatus`, `OrderStatus`, and `QuoteStatus` with query-builder `status()`/`statusIn()` helpers instead of numeric `kb_item_status_id` values.
+- Use purchase/status and typed-value enums such as `BillStatus`, `PurchaseOrderStatus`, `ContactType`, `ItemPositionType`, and `SearchCriteria` instead of memorized API constants.
+- Fall back to raw IDs or strings only when the package has no enum for that API value yet or the method explicitly supports custom values.
+
 ## Important Resource-Specific Caveats
 
 ### Invoice payload normalization

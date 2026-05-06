@@ -111,6 +111,18 @@ $saved->delete();
 - Do not move response-only API fields into constructor-promoted properties unless the API accepts them on write.
 - Preserve package naming even when Bexio docs differ. Example: contacts use `titel_id`, not `title_id`.
 
+## Enum usage
+Prefer package enums over raw API IDs or strings whenever an enum exists for the field.
+This is especially important for statuses and typed values in consuming Laravel apps.
+
+Examples:
+- use `InvoiceStatus`, `OrderStatus`, and `QuoteStatus` with sales document status filters
+- use `BillStatus` and `PurchaseOrderStatus` for purchase status fields/actions
+- use enums such as `ContactType`, `ItemPositionType`, and `SearchCriteria` instead of memorizing API constants
+
+Raw IDs or strings are acceptable only when the package has no enum for that API value yet or a method
+explicitly documents support for custom values.
+
 ## Query builder usage
 Use `->query()` for fluent reads.
 
@@ -172,6 +184,8 @@ Shared sales document query helpers:
 - `validFrom()`
 - `validTo()`
 - `validBetween()`
+
+Pass the matching status enum to status helpers instead of numeric `kb_item_status_id` values.
 
 Example:
 
