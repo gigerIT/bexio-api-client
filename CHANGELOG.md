@@ -1,5 +1,22 @@
 # Changelog
 
+## [4.9.0](https://github.com/gigerIT/bexio-api-client/compare/v4.8.3...v4.9.0) (2026-05-06)
+
+
+### Features
+
+* **sales:** introduce ConvertsSalesDocuments trait for document conversion ([ba38e6b](https://github.com/gigerIT/bexio-api-client/commit/ba38e6b1f77d53d4c3dc7f0e63b3af1f9d6fd20c))
+
+
+### Documentation
+
+* update AGENTS.md and SKILL.md to emphasize enum usage ([630e4a9](https://github.com/gigerIT/bexio-api-client/commit/630e4a9cd6c5771567d2de77ec1e5d021045f9eb))
+
+
+### Miscellaneous Chores
+
+* **deps:** bump spatie/laravel-data from 4.20.1 to 4.22.1 ([715527c](https://github.com/gigerIT/bexio-api-client/commit/715527c857c8461f836da8e3c2f741af1b2ed232))
+
 ## [4.8.3](https://github.com/gigerIT/bexio-api-client/compare/v4.8.2...v4.8.3) (2026-04-28)
 
 
