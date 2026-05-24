@@ -161,4 +161,4 @@ it('can create a Quote with an article position', function () {
 
 it('can delete a Quote', function () use (&$testQuote) {
     expect($testQuote->attachClient(testClient())->delete())->toBeTrue();
-});
+})->depends('it can create a Quote', 'it can get a Quote');
