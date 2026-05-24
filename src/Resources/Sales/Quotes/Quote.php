@@ -9,6 +9,7 @@ use Bexio\Resources\Sales\Comments\Traits\HasComments;
 use Bexio\Resources\Sales\Concerns\ConvertsSalesDocuments;
 use Bexio\Resources\Sales\Concerns\CreatesSalesDocumentsWithDeferredArticlePositions;
 use Bexio\Resources\Sales\Concerns\ResolvesKbDocumentId;
+use Bexio\Resources\Sales\Concerns\SerializesSalesDocumentPayloads;
 use Bexio\Resources\Sales\DocumentCopyPayload;
 use Bexio\Resources\Sales\DocumentPdf;
 use Bexio\Resources\Sales\Email\Email;
@@ -49,6 +50,7 @@ class Quote extends Resource implements KbDocumentContract
     use ResolvesKbDocumentId;
     use CreatesSalesDocumentsWithDeferredArticlePositions;
     use ConvertsSalesDocuments;
+    use SerializesSalesDocumentPayloads;
 
     const DOCUMENT_TYPE = KbDocumentType::OFFER;
 
@@ -121,47 +123,27 @@ class Quote extends Resource implements KbDocumentContract
 
     public function toUpdateApi(): Quote
     {
-        return $this->except(
+        return $this->salesDocumentPayload([
             'id',
             'document_nr',
             'project_id',
-            'total_gross',
-            'total_net',
-            'total_taxes',
-            'total',
-            'total_rounding_difference',
             'show_total',
-            'contact_address',
             'delivery_address',
-            'kb_item_status_id',
-            'updated_at',
-            'taxs',
-            'network_link',
-            'viewed_by_client_at',
             'positions',
-        );
+        ]);
     }
 
     public function toApi(): Quote
     {
-        return $this->except(
+        return $this->salesDocumentPayload([
             'id',
             'document_nr',
             'project_id',
-            'total_gross',
-            'total_net',
-            'total_taxes',
-            'total',
-            'total_rounding_difference',
             'show_total',
-            'contact_address',
             'delivery_address',
-            'kb_item_status_id',
-            'updated_at',
-            'taxs',
-            'network_link',
-            'viewed_by_client_at',
-        )->exceptWhen('mwst_is_net', ! isset($this->mwst_is_net));
+        ], [
+            'mwst_is_net' => ! isset($this->mwst_is_net),
+        ]);
     }
 
     protected function emptyPositionsForDeferredArticleCreate(): Collection

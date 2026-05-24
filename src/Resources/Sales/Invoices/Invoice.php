@@ -8,6 +8,7 @@ use Bexio\Resources\Sales\Comments\Enums\KbDocumentType;
 use Bexio\Resources\Sales\Comments\Traits\HasComments;
 use Bexio\Resources\Sales\Concerns\CreatesSalesDocumentsWithDeferredArticlePositions;
 use Bexio\Resources\Sales\Concerns\ResolvesKbDocumentId;
+use Bexio\Resources\Sales\Concerns\SerializesSalesDocumentPayloads;
 use Bexio\Resources\Sales\DocumentCopyPayload;
 use Bexio\Resources\Sales\DocumentPdf;
 use Bexio\Resources\Sales\Email\Email;
@@ -51,6 +52,7 @@ class Invoice extends Resource implements KbDocumentContract
     use HasOfficeLink;
     use ResolvesKbDocumentId;
     use CreatesSalesDocumentsWithDeferredArticlePositions;
+    use SerializesSalesDocumentPayloads;
 
     const DOCUMENT_TYPE = KbDocumentType::INVOICE;
 
@@ -134,25 +136,14 @@ class Invoice extends Resource implements KbDocumentContract
 
     public function toUpdateApi(): Invoice
     {
-        return $this->except(
+        return $this->salesDocumentPayload([
             'id',
             'document_nr',
-            'total_gross',
-            'total_net',
-            'total_taxes',
-            'total',
-            'total_rounding_difference',
-            'contact_address',
-            'kb_item_status_id',
-            'updated_at',
-            'taxs',
-            'network_link',
             'total_received_payments',
             'total_credit_vouchers',
             'total_remaining_payments',
             'esr_id',
             'qr_invoice_id',
-            'viewed_by_client_at',
             'invoice_date',
             'currency_code',
             'exchange_rate',
@@ -160,7 +151,7 @@ class Invoice extends Resource implements KbDocumentContract
             'base_currency_code',
             'project_id',
             'positions',
-        );
+        ]);
     }
 
     protected function emptyPositionsForDeferredArticleCreate(): ItemPositionCollection
@@ -198,33 +189,22 @@ class Invoice extends Resource implements KbDocumentContract
 
     public function toApi(): Invoice
     {
-        return $this->except(
+        return $this->salesDocumentPayload([
             'id',
             'document_nr',
-            'total_gross',
-            'total_net',
-            'total_taxes',
-            'total',
-            'total_rounding_difference',
-            'contact_address',
-            'kb_item_status_id',
-            'updated_at',
-            'taxs',
-            'network_link',
             'mwst_is_net',
             'total_received_payments',
             'total_credit_vouchers',
             'total_remaining_payments',
             'esr_id',
             'qr_invoice_id',
-            'viewed_by_client_at',
             'invoice_date',
             'currency_code',
             'exchange_rate',
             'base_currency_amount',
             'base_currency_code',
             'project_id',
-        );
+        ]);
     }
 
 

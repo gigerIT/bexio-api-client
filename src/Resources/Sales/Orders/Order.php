@@ -9,6 +9,7 @@ use Bexio\Resources\Sales\Comments\Traits\HasComments;
 use Bexio\Resources\Sales\Concerns\ConvertsSalesDocuments;
 use Bexio\Resources\Sales\Concerns\CreatesSalesDocumentsWithDeferredArticlePositions;
 use Bexio\Resources\Sales\Concerns\ResolvesKbDocumentId;
+use Bexio\Resources\Sales\Concerns\SerializesSalesDocumentPayloads;
 use Bexio\Resources\Sales\Deliveries\Delivery;
 use Bexio\Resources\Sales\DocumentPdf;
 use Bexio\Resources\Sales\Invoices\Invoice;
@@ -46,6 +47,7 @@ class Order extends Resource implements KbDocumentContract
     use ResolvesKbDocumentId;
     use CreatesSalesDocumentsWithDeferredArticlePositions;
     use ConvertsSalesDocuments;
+    use SerializesSalesDocumentPayloads;
 
     public const DOCUMENT_TYPE = KbDocumentType::ORDER;
 
@@ -111,55 +113,33 @@ class Order extends Resource implements KbDocumentContract
 
     public function toApi(): Order
     {
-        return $this->except(
+        return $this->salesDocumentPayload([
             'id',
-            'total_gross',
-            'total_net',
-            'total_taxes',
-            'total',
-            'total_rounding_difference',
-            'contact_address',
             'delivery_address',
-            'kb_item_status_id',
-            'updated_at',
-            'taxs',
-            'network_link',
             'mwst_is_net',
             'esr_id',
             'qr_invoice_id',
-            'viewed_by_client_at',
             'project_id',
             'is_valid_to',
             'reference',
             'is_recurring',
-        );
+        ]);
     }
 
     public function toUpdateApi(): Order
     {
-        return $this->except(
+        return $this->salesDocumentPayload([
             'id',
             'document_nr',
-            'total_gross',
-            'total_net',
-            'total_taxes',
-            'total',
-            'total_rounding_difference',
-            'contact_address',
             'delivery_address',
-            'kb_item_status_id',
-            'updated_at',
-            'taxs',
-            'network_link',
             'esr_id',
             'qr_invoice_id',
-            'viewed_by_client_at',
             'project_id',
             'is_valid_to',
             'reference',
             'is_recurring',
             'positions',
-        );
+        ]);
     }
 
     protected function emptyPositionsForDeferredArticleCreate(): ItemPositionCollection
