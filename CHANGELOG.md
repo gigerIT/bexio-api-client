@@ -1,5 +1,19 @@
 # Changelog
 
+## [4.9.1](https://github.com/gigerIT/bexio-api-client/compare/v4.9.0...v4.9.1) (2026-06-19)
+
+
+### Code Refactoring
+
+* **sales:** share document payload serialization ([c6cf481](https://github.com/gigerIT/bexio-api-client/commit/c6cf4819d809bc89a80df4defc92752a0d218955))
+
+
+### Miscellaneous Chores
+
+* **deps:** bump actions/checkout from 6 to 7 ([290b94f](https://github.com/gigerIT/bexio-api-client/commit/290b94f085c4a63d18307a3dfa9cb0758ac300a5))
+* **deps:** bump actions/checkout from 6 to 7 ([2b8a8ed](https://github.com/gigerIT/bexio-api-client/commit/2b8a8ed80dff806d30c2df05b5e89a2b487a2f6c))
+* upgrade Laravel test stack ([469877d](https://github.com/gigerIT/bexio-api-client/commit/469877dcd91135d3d46557a669a7cb7d799a216d))
+
 ## [4.9.0](https://github.com/gigerIT/bexio-api-client/compare/v4.8.3...v4.9.0) (2026-05-06)
 
 
