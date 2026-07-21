@@ -20,3 +20,10 @@ it('can get a Tax', function () {
         ->and($tax->id)->toBeInt()
         ->and($tax->name)->toBeString();
 });
+
+it('provides an active sale tax for sales document tests', function () {
+    $tax = testSaleTax();
+
+    expect($tax->type)->toBe('sales_tax')
+        ->and($tax->is_active)->toBeTrue();
+});

@@ -96,6 +96,7 @@ function testSaleTax(): Tax
     static $tax;
     if ($tax === null) {
         $request = new GetTaxesRequest();
+        $request->query()->add('types', 'sales_tax');
         $response = testClient()->send($request);
         $taxes = $request->createDtoFromResponse($response);
         $tax = $taxes[0];
