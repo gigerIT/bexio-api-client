@@ -54,6 +54,17 @@ BEXIO_OAUTH_ACCESS_TOKEN=...
 BEXIO_OAUTH_REFRESH_TOKEN=...
 ```
 
+Revoke OAuth tokens through `BexioAuth`. A redirect URI is not required for revocation:
+
+```php
+use Bexio\BexioAuth;
+
+$auth = new BexioAuth($clientId, $clientSecret);
+$auth->revokeToken($refreshToken, 'refresh_token');
+```
+
+For disconnect flows, revoke the stored refresh token first and clear persisted access token, refresh token, and expiry values only after the call succeeds. Revoking an access token alone does not end the renewable refresh-token session. The hint is advisory, and this API does not revoke personal access tokens.
+
 Resolve the client from the container or facade:
 
 ```php

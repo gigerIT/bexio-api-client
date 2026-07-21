@@ -199,6 +199,34 @@ public function getContacts()
 }
 ```
 
+### 4. Disconnect OAuth
+
+Revoke the stored refresh token before clearing the locally persisted OAuth values. `revokeToken()` throws when Bexio rejects the request, so the local values are cleared only after a successful revocation:
+
+```php
+use Bexio\BexioAuth;
+
+public function disconnect()
+{
+    $user = auth()->user();
+
+    $auth = new BexioAuth(
+        config('bexio.oauth.client_id'),
+        config('bexio.oauth.client_secret'),
+    );
+
+    $auth->revokeToken($user->bexio_refresh_token, 'refresh_token');
+
+    $user->update([
+        'bexio_access_token' => null,
+        'bexio_refresh_token' => null,
+        'bexio_expires_at' => null,
+    ]);
+}
+```
+
+Revoking only an OAuth access token invalidates that token but does not disconnect the renewable refresh-token session. For a full disconnect, revoke the refresh token as shown above. The optional `token_type_hint` (`access_token` or `refresh_token`) helps the authorization server locate the token but is advisory. This method is for tokens issued through the OAuth flow; it does not revoke Bexio personal access tokens.
+
 ## Documentation
 
 For detailed documentation and advanced usage examples, see:

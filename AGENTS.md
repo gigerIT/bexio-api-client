@@ -43,6 +43,8 @@ Laravel package for Bexio API. Uses `saloonphp/saloon` for HTTP connectors/reque
 
 - OAuth authorization-code connector.
 - Uses Saloon `AuthorizationCodeGrant` trait for authorize, token, user endpoints.
+- `revokeToken()` posts form data to `/revoke`, validates only client ID/secret, applies the configured OAuth request modifier, and throws on non-success responses.
+- Keep revocation tests mock-only so the shared OAuth credentials/session are never invalidated; assert the exact form body and both access/refresh token hints.
 - README has current redirect/callback example flow.
 
 ### `BexioServiceProvider`

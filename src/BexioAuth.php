@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Bexio;
 
+use Bexio\Auth\Requests\RevokeTokenRequest;
 use Saloon\Helpers\OAuth2\OAuthConfig;
 use Saloon\Http\Connector;
+use Saloon\Http\Response;
 use Saloon\Traits\OAuth2\AuthorizationCodeGrant;
 use Saloon\Traits\Plugins\AcceptsJson;
 
@@ -32,6 +34,21 @@ class BexioAuth extends Connector
     public function resolveBaseUrl(): string
     {
         return 'https://auth.bexio.com/realms/bexio/protocol/openid-connect';
+    }
+
+
+    public function revokeToken(string $token, ?string $tokenTypeHint = null): Response
+    {
+        $oauthConfig = $this->oauthConfig();
+        $oauthConfig->validate(withRedirectUrl: false);
+
+        $request = new RevokeTokenRequest($oauthConfig, $token, $tokenTypeHint);
+        $request = $oauthConfig->invokeRequestModifier($request);
+        $response = $this->send($request);
+
+        $response->throw();
+
+        return $response;
     }
 
 
