@@ -1,5 +1,22 @@
 # Changelog
 
+## [4.10.0](https://github.com/gigerIT/bexio-api-client/compare/v4.9.1...v4.10.0) (2026-07-21)
+
+
+### Features
+
+* **auth:** add OAuth token revocation ([16307d3](https://github.com/gigerIT/bexio-api-client/commit/16307d37a670100fa15c8b4a380a146c4fcbff59))
+
+
+### Bug Fixes
+
+* **taxes:** replace sales account tax ID with testSaleTaxId in various tests ([b35b1c4](https://github.com/gigerIT/bexio-api-client/commit/b35b1c4c91dbb7bec723a0bee05e1eba56931df9))
+
+
+### Tests
+
+* **taxes:** add sales tax retrieval test and update tax request ([af41e5c](https://github.com/gigerIT/bexio-api-client/commit/af41e5c188f1426417fe831b434c070fb30bc4c0))
+
 ## [4.9.1](https://github.com/gigerIT/bexio-api-client/compare/v4.9.0...v4.9.1) (2026-06-19)
 
 
