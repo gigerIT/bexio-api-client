@@ -24,7 +24,7 @@ function createSalesConversionQuote(string $title): Quote
 
     $quote->positions->add(
         new ItemPositionCustom(
-            tax_id: $salesAccount->tax_id,
+            tax_id: testSaleTaxId(),
             account_id: $salesAccount->id,
             amount: '1',
             text: 'Conversion test position',
@@ -58,7 +58,7 @@ function createSalesConversionOrder(string $title): Order
 
     $order->positions->add(
         new ItemPositionCustom(
-            tax_id: $salesAccount->tax_id,
+            tax_id: testSaleTaxId(),
             account_id: $salesAccount->id,
             amount: '1',
             text: 'Conversion test position',

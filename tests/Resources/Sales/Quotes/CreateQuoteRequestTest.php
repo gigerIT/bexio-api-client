@@ -29,7 +29,7 @@ it('can create a Quote', function () use (&$testQuote) {
 
     $quote->positions->add(
         new ItemPositionCustom(
-            tax_id: $salesAccount->tax_id,
+            tax_id: testSaleTaxId(),
             account_id: $salesAccount->id,
             amount: '10',
             text: 'Test Position',
@@ -132,7 +132,7 @@ it('can create a Quote with an article position', function () {
                     amount: '1',
                     unit_id: $item->unit_id,
                     account_id: $salesAccount->id,
-                    tax_id: $salesAccount->tax_id,
+                    tax_id: testSaleTaxId(),
                     text: $text,
                     unit_price: '123.45',
                     article_id: $item->id,

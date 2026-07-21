@@ -12,7 +12,7 @@ it('can create a Comment for a Invoice', function () {
 
     $testInvoice->positions->add(
         new \Bexio\Resources\Sales\ItemPositions\ItemPositionCustom(
-            tax_id: $salesAccount->tax_id,
+            tax_id: testSaleTaxId(),
             account_id: $salesAccount->id,
             amount: '10',
             text: 'Test Position',

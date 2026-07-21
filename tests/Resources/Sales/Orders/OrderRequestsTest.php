@@ -25,7 +25,7 @@ it('can create an Order', function () use (&$testOrder) {
 
     $testOrder->positions->add(
         new ItemPositionCustom(
-            tax_id: $salesAccount->tax_id,
+            tax_id: testSaleTaxId(),
             account_id: $salesAccount->id,
             amount: '10',
             text: 'Test Position',
@@ -161,7 +161,7 @@ it('can create an Order with an article position and convert it to an Invoice', 
                     amount: '1',
                     unit_id: $item->unit_id,
                     account_id: $salesAccount->id,
-                    tax_id: $salesAccount->tax_id,
+                    tax_id: testSaleTaxId(),
                     text: $text,
                     unit_price: '123.45',
                     article_id: $item->id,
@@ -223,4 +223,3 @@ it('can delete an Order', function () use (&$testOrder) {
 
     expect($response)->toBeTrue();
 })->depends('it can create an Order', 'it can find an Order via the search endpoint');
-

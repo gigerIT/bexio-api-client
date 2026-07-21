@@ -20,7 +20,7 @@ it('can create an Invoice for reminder tests', function () use (&$testInvoice) {
 
     $testInvoice->positions->add(
         new ItemPositionCustom(
-            tax_id: $salesAccount->tax_id,
+            tax_id: testSaleTaxId(),
             account_id: $salesAccount->id,
             amount: '10',
             text: 'Reminder Test Position',

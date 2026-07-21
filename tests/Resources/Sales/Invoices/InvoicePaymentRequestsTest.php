@@ -23,7 +23,7 @@ it('can create list fetch and delete a disposable InvoicePayment', function () {
 
     $salesAccount = testSalesAccount();
     $invoice->positions->add(new ItemPositionCustom(
-        tax_id: $salesAccount->tax_id,
+        tax_id: testSaleTaxId(),
         account_id: $salesAccount->id,
         amount: '1',
         text: 'Payment Test Position',
