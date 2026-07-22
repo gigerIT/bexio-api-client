@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.10.1](https://github.com/gigerIT/bexio-api-client/compare/v4.10.0...v4.10.1) (2026-07-22)
+
+
+### Bug Fixes
+
+* **query-builder:** forward unmatched parameters to request query string for zero and partial constructor index requests ([e760adb](https://github.com/gigerIT/bexio-api-client/commit/e760adb1013ee6a1ca8e2bde4ee32cb0175e7d84))
+
 ## [4.10.0](https://github.com/gigerIT/bexio-api-client/compare/v4.9.1...v4.10.0) (2026-07-21)
 
 
