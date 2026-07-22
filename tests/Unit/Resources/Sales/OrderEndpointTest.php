@@ -45,6 +45,32 @@ it('serializes order repetition payloads with helper enums', function () {
     ]);
 });
 
+it('rejects malformed order repetition API payloads', function (array $payload, string $message) {
+    expect(fn () => OrderRepetition::fromApiPayload($payload))
+        ->toThrow(UnexpectedValueException::class, $message);
+})->with([
+    'missing start' => [
+        ['repetition' => ['type' => 'daily', 'interval' => 1]],
+        'Order repetition response field "start" must be a string.',
+    ],
+    'non-string start' => [
+        ['start' => 20260501, 'repetition' => ['type' => 'daily', 'interval' => 1]],
+        'Order repetition response field "start" must be a string.',
+    ],
+    'missing repetition' => [
+        ['start' => '2026-05-01'],
+        'Order repetition response field "repetition" must be an array.',
+    ],
+    'non-array repetition' => [
+        ['start' => '2026-05-01', 'repetition' => 'daily'],
+        'Order repetition response field "repetition" must be an array.',
+    ],
+    'non-string end' => [
+        ['start' => '2026-05-01', 'end' => 20261231, 'repetition' => ['type' => 'daily', 'interval' => 1]],
+        'Order repetition response field "end" must be a string or null.',
+    ],
+]);
+
 it('updates an order through the resource save API', function () {
     $mockClient = new MockClient([
         UpdateOrderRequest::class => MockResponse::make([

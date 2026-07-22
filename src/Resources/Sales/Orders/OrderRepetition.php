@@ -6,6 +6,7 @@ namespace Bexio\Resources\Sales\Orders;
 use Bexio\Resources\Sales\Orders\Enums\OrderRepetitionMonthlySchedule;
 use Bexio\Resources\Sales\Orders\Enums\OrderRepetitionWeekday;
 use Spatie\LaravelData\Data;
+use UnexpectedValueException;
 
 class OrderRepetition extends Data
 {
@@ -44,14 +45,29 @@ class OrderRepetition extends Data
     }
 
     /**
-     * @param array{start: string, end?: string|null, repetition: array<string, mixed>} $payload
+     * @param array<mixed> $payload
      */
     public static function fromApiPayload(array $payload): self
     {
+        $start = $payload['start'] ?? null;
+        if (! is_string($start)) {
+            throw new UnexpectedValueException('Order repetition response field "start" must be a string.');
+        }
+
+        $end = $payload['end'] ?? null;
+        if ($end !== null && ! is_string($end)) {
+            throw new UnexpectedValueException('Order repetition response field "end" must be a string or null.');
+        }
+
+        $repetition = $payload['repetition'] ?? null;
+        if (! is_array($repetition)) {
+            throw new UnexpectedValueException('Order repetition response field "repetition" must be an array.');
+        }
+
         return new self(
-            start: $payload['start'],
-            end: $payload['end'] ?? null,
-            repetition: OrderRepetitionRule::fromApiPayload($payload['repetition']),
+            start: $start,
+            end: $end,
+            repetition: OrderRepetitionRule::fromApiPayload($repetition),
         );
     }
 
