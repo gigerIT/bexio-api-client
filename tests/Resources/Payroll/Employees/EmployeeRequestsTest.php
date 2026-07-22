@@ -12,6 +12,7 @@ use Bexio\Resources\Payroll\Absences\Requests\UpdateAbsenceRequest;
 use Bexio\Resources\Payroll\Documents\Requests\GetPaystubPdfRequest;
 use Bexio\Resources\Payroll\Documents\PaystubPdf;
 use Bexio\Resources\Payroll\Employees\Employee;
+use Carbon\CarbonImmutable;
 use Saloon\Http\Faking\MockClient;
 use Saloon\Http\Faking\MockResponse;
 
@@ -66,6 +67,65 @@ it('builds employee requests', function () {
             'annual_vacation_days_left',
             'effective_working_hours_per_week',
         ]);
+});
+
+it('defaults employee snapshot requests to today', function () {
+    CarbonImmutable::setTestNow('2026-04-27 14:30:00');
+
+    try {
+        $query = new \ReflectionMethod(GetEmployeeRequest::class, 'defaultQuery');
+        $query->setAccessible(true);
+
+        expect($query->invoke(new GetEmployeeRequest('497f6eca-6276-4993-bfeb-53cbbbba6f08')))
+            ->toBe(['date' => '2026-04-27']);
+    } finally {
+        CarbonImmutable::setTestNow();
+    }
+});
+
+it('preserves an explicit employee snapshot date', function () {
+    CarbonImmutable::setTestNow('2026-04-27 14:30:00');
+
+    try {
+        $query = new \ReflectionMethod(GetEmployeeRequest::class, 'defaultQuery');
+        $query->setAccessible(true);
+
+        expect($query->invoke(new GetEmployeeRequest(
+            '497f6eca-6276-4993-bfeb-53cbbbba6f08',
+            '2025-12-31',
+        )))->toBe(['date' => '2025-12-31']);
+    } finally {
+        CarbonImmutable::setTestNow();
+    }
+});
+
+it("sends today's snapshot date when refreshing an employee", function () {
+    CarbonImmutable::setTestNow('2026-04-27 14:30:00');
+
+    try {
+        $mockClient = new MockClient([
+            GetEmployeeRequest::class => MockResponse::make([
+                'id' => '497f6eca-6276-4993-bfeb-53cbbbba6f08',
+                'email' => 'person@example.com',
+                'first_name' => 'Ada',
+                'last_name' => 'Lovelace',
+            ]),
+        ]);
+        $client = (new BexioClient('mock-token'))->withMockClient($mockClient);
+        $employee = (new Employee(id: '497f6eca-6276-4993-bfeb-53cbbbba6f08'))
+            ->attachClient($client);
+
+        $refreshed = $employee->refresh();
+
+        expect($refreshed)->toBeInstanceOf(Employee::class)
+            ->and($refreshed->id)->toBe($employee->id);
+
+        $mockClient->assertSent(fn (GetEmployeeRequest $request): bool =>
+            $request->query()->get('date') === '2026-04-27'
+        );
+    } finally {
+        CarbonImmutable::setTestNow();
+    }
 });
 
 it('hydrates payroll list response envelopes', function () {
