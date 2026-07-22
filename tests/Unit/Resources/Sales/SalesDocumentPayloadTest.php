@@ -137,7 +137,7 @@ it('serializes quote create and update payloads with current field exclusions', 
         is_valid_from: '2026-05-01',
         is_valid_until: '2026-05-31',
         viewed_by_client_at: '2026-05-02 12:00:00',
-        positions: new Collection([
+        positions: new ItemPositionCollection([
             new ItemPositionCustom(text: 'Custom quote position'),
         ]),
     );

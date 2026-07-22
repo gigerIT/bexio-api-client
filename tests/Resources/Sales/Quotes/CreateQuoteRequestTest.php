@@ -10,6 +10,7 @@ use Bexio\Resources\Sales\Quotes\Enums\QuoteStatus;
 use Bexio\Resources\Sales\Quotes\Quote;
 use Bexio\Support\Data\SearchCriteria;
 use Illuminate\Support\Collection;
+use Bexio\Resources\Sales\ItemPositions\Collections\ItemPositionCollection;
 
 $testQuote = null;
 
@@ -21,7 +22,7 @@ it('can create a Quote', function () use (&$testQuote) {
         user_id: 1,
         is_valid_from: date('Y-m-d'),
         is_valid_until: date('Y-m-d', strtotime('+14 days')),
-        positions: new Collection(),
+        positions: new ItemPositionCollection(),
     );
 
     $salesAccount = testSalesAccount();
@@ -127,7 +128,7 @@ it('can create a Quote with an article position', function () {
             user_id: 1,
             is_valid_from: date('Y-m-d'),
             is_valid_until: date('Y-m-d', strtotime('+14 days')),
-            positions: new Collection([
+            positions: new ItemPositionCollection([
                 new ItemPositionArticle(
                     amount: '1',
                     unit_id: $item->unit_id,

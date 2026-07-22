@@ -8,6 +8,7 @@ use Bexio\Resources\Sales\Quotes\Quote;
 use Illuminate\Support\Collection;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
+use Bexio\Resources\Sales\ItemPositions\Collections\ItemPositionCollection;
 
 function createSalesConversionQuote(string $title): Quote
 {
@@ -17,7 +18,7 @@ function createSalesConversionQuote(string $title): Quote
         user_id: 1,
         is_valid_from: date('Y-m-d'),
         is_valid_until: date('Y-m-d', strtotime('+14 days')),
-        positions: new Collection(),
+        positions: new ItemPositionCollection(),
     );
 
     $salesAccount = testSalesAccount();

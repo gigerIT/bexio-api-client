@@ -79,7 +79,7 @@ it('creates an order from loaded quote positions without fetching the quote', fu
 
     $quote = (new Quote(
         id: 123,
-        positions: new Collection([
+        positions: new ItemPositionCollection([
             ItemPosition::fromApiPayload([
                 'id' => 987,
                 'type' => 'KbPositionCustom',
@@ -147,7 +147,7 @@ it('creates an invoice from loaded quote positions without fetching the quote', 
 
     $quote = (new Quote(
         id: 123,
-        positions: new Collection([
+        positions: new ItemPositionCollection([
             ItemPosition::fromApiPayload([
                 'id' => 987,
                 'type' => 'KbPositionCustom',

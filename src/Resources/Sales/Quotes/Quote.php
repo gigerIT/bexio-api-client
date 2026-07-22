@@ -15,7 +15,9 @@ use Bexio\Resources\Sales\DocumentPdf;
 use Bexio\Resources\Sales\Email\Email;
 use Bexio\Resources\Sales\Invoices\Invoice;
 use Bexio\Resources\Sales\ItemPositions\Concerns\HasPositions;
+use Bexio\Resources\Sales\ItemPositions\Collections\ItemPositionCollection;
 use Bexio\Resources\Sales\ItemPositions\ItemPosition;
+use Bexio\Resources\Sales\ItemPositions\ItemPositionCast;
 use Bexio\Resources\Sales\KbDocumentContract;
 use Bexio\Resources\Sales\MwstType;
 use Bexio\Resources\Sales\Orders\Order;
@@ -39,6 +41,7 @@ use Bexio\Resources\Sales\Quotes\Requests\UpdateQuoteRequest;
 use Bexio\Resources\Sales\SalesTax;
 use Illuminate\Support\Collection;
 use Saloon\Http\Response;
+use Spatie\LaravelData\Attributes\WithCast;
 
 /**
  * @method QuoteQueryBuilder query()
@@ -115,10 +118,12 @@ class Quote extends Resource implements KbDocumentContract
         public ?int        $kb_terms_of_payment_template_id = null,
         public ?string     $template_slug = null,
 
-        /** @var Collection<int, ItemPosition> */
-        public ?Collection $positions = null,
+        /** @var ItemPositionCollection<int, ItemPosition> */
+        #[WithCast(ItemPositionCast::class)]
+        public ?ItemPositionCollection $positions = null,
     )
     {
+        $this->positions = $positions ?? new ItemPositionCollection([]);
     }
 
     public function toUpdateApi(): Quote
@@ -146,14 +151,16 @@ class Quote extends Resource implements KbDocumentContract
         ]);
     }
 
-    protected function emptyPositionsForDeferredArticleCreate(): Collection
+    protected function emptyPositionsForDeferredArticleCreate(): ItemPositionCollection
     {
-        return new Collection();
+        return new ItemPositionCollection();
     }
 
     protected function setPositionsForDeferredArticleCreate(Collection $positions): void
     {
-        $this->positions = $positions;
+        $this->positions = $positions instanceof ItemPositionCollection
+            ? $positions
+            : new ItemPositionCollection($positions->all());
     }
 
     public function issue(?int $id = null): Response

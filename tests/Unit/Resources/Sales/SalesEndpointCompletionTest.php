@@ -201,7 +201,7 @@ it('creates quotes with article positions through the item position endpoint', f
         contact_id: 1,
         is_valid_from: '2026-04-01',
         is_valid_until: '2026-04-30',
-        positions: new Collection([
+        positions: new ItemPositionCollection([
             new ItemPositionArticle(
                 amount: '1',
                 unit_id: 1,
@@ -339,7 +339,7 @@ it('creates quotes without response-only fields from hydrated resources', functi
         is_valid_from: '2026-04-01',
         is_valid_until: '2026-04-30',
         viewed_by_client_at: '2026-04-01 12:00:00',
-        positions: new Collection(),
+        positions: new ItemPositionCollection(),
     ))->attachClient($client);
     $quote->document_nr = 'AN-00001';
     $quote->total = '10.810000';
@@ -392,7 +392,7 @@ it('updates quotes and exposes quote action, pdf, send, and copy endpoints', fun
         contact_id: 1,
         is_valid_from: '2026-04-01',
         is_valid_until: '2026-04-30',
-        positions: new Collection(),
+        positions: new ItemPositionCollection(),
     ))->attachClient($client);
     $quote->total = '10.810000';
 
