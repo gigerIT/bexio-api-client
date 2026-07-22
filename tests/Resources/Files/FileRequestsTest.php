@@ -11,12 +11,15 @@ it('can get Files', function () {
 
 it('can create, update, search, download and delete a File', function () {
     $tempFile = tempnam(sys_get_temp_dir(), 'bexio-file-');
-    file_put_contents($tempFile, 'bexio file upload test');
+    file_put_contents($tempFile, "%PDF-1.4\n% Bexio API Client Upload Test\n%%EOF");
 
     $createdFile = null;
 
     try {
-        $createdFile = (new File(path: $tempFile))
+        $file = new File(path: $tempFile);
+        $file->name = basename($tempFile) . '.pdf';
+
+        $createdFile = $file
             ->attachClient(testClient())
             ->save();
 
@@ -57,4 +60,3 @@ it('can create, update, search, download and delete a File', function () {
         }
     }
 });
-
