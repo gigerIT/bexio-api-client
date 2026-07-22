@@ -75,6 +75,19 @@ class Payment extends Resource
             'due_date',
         );
     }
-}
 
+    public function toUpdateApi(): Payment
+    {
+        return $this->only(
+            'allowance',
+            'amount',
+            'currency',
+            'execution_date',
+            'is_salary',
+            'recipient',
+            'is_editing_restricted',
+            'message',
+        );
+    }
+}
 
