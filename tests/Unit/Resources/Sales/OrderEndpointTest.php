@@ -46,10 +46,18 @@ it('serializes order repetition payloads with helper enums', function () {
     ]);
 });
 
-it('rejects malformed order repetition API payloads', function (array $payload, string $message) {
+it('rejects malformed order repetition API payloads', function (mixed $payload, string $message) {
     expect(fn () => OrderRepetition::fromApiPayload($payload))
         ->toThrow(UnexpectedValueException::class, $message);
 })->with([
+    'scalar response' => [
+        'not-an-object',
+        'Order repetition response must be an array.',
+    ],
+    'null response' => [
+        null,
+        'Order repetition response must be an array.',
+    ],
     'missing start' => [
         ['repetition' => ['type' => 'daily', 'interval' => 1]],
         'Order repetition response field "start" must be a string.',

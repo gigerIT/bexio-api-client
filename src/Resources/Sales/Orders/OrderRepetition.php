@@ -44,11 +44,12 @@ class OrderRepetition extends Data
         return new self($start, $end, OrderRepetitionRule::yearly($interval));
     }
 
-    /**
-     * @param array<mixed> $payload
-     */
-    public static function fromApiPayload(array $payload): self
+    public static function fromApiPayload(mixed $payload): self
     {
+        if (! is_array($payload)) {
+            throw new UnexpectedValueException('Order repetition response must be an array.');
+        }
+
         $start = $payload['start'] ?? null;
         if (! is_string($start)) {
             throw new UnexpectedValueException('Order repetition response field "start" must be a string.');
