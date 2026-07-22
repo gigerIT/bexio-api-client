@@ -185,6 +185,12 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 - `src/Support/Concerns/HasOfficeLink.php` builds Office URLs from `SHOW_URL` and `Resource::OFFICE_BASE_URL`.
 - Resources using trait must provide matching `SHOW_URL` constant.
 
+### Deliveries have no nested comment/position APIs
+
+- Bexio comment and item-position endpoints only accept `kb_offer` / `kb_order` / `kb_invoice`.
+- `Delivery` must not set `DOCUMENT_TYPE` to `KbDocumentType::ORDER` or use `HasComments` / `HasPositions` / `HasSubItemPositions`.
+- Embedded delivery `positions` hydrate from show/index responses via `ItemPositionCast` only.
+
 ### Polymorphic item positions
 
 - `src/Resources/Sales/ItemPositions/ItemPositionCast.php` maps item-position payloads by `type` to concrete DTO classes.
