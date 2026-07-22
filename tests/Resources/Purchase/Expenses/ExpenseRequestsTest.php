@@ -29,3 +29,10 @@ it('can get an indexed Expense', function () {
     expect($expense)->toBeInstanceOf(Expense::class)
         ->and($expense->id)->toBeString();
 });
+
+it('limits live expense index queries', function () {
+    $expenses = Expense::useClient(testClient())->query()->limit(1)->get();
+
+    expect($expenses)->toBeArray()
+        ->and(count($expenses))->toBeLessThanOrEqual(1);
+});

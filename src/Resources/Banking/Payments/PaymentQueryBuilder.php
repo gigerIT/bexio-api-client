@@ -26,6 +26,27 @@ class PaymentQueryBuilder extends QueryBuilder
         return $this;
     }
 
+    public function limit(int $limit): static
+    {
+        if ($limit < 1) {
+            throw new InvalidArgumentException('Limit must be greater than 0.');
+        }
+
+        return $this->perPage($limit);
+    }
+
+    public function offset(int $offset): static
+    {
+        throw new InvalidArgumentException(
+            'Payments use page-based pagination. Use page() or forPage() instead of offset().'
+        );
+    }
+
+    public function orderBy(string $field, string $direction = 'asc'): static
+    {
+        throw new InvalidArgumentException('Payments API does not support orderBy().');
+    }
+
     public function forPage(int $page, int $perPage = 15): static
     {
         if ($page < 1) {
@@ -49,7 +70,13 @@ class PaymentQueryBuilder extends QueryBuilder
 
         return $results[0] ?? null;
     }
+
+    protected function indexRequestArguments(): array
+    {
+        return array_filter([
+            'filterBy' => $this->getParameter('filterBy'),
+            'page' => $this->getParameter('page'),
+            'perPage' => $this->getParameter('perPage'),
+        ], static fn (mixed $value): bool => $value !== null);
+    }
 }
-
-
-

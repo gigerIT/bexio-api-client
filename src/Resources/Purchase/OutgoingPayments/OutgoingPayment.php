@@ -10,6 +10,9 @@ use Bexio\Resources\Purchase\OutgoingPayments\Requests\GetOutgoingPaymentsReques
 use Bexio\Resources\Purchase\OutgoingPayments\Requests\UpdateOutgoingPaymentRequest;
 use Bexio\Resources\Resource;
 
+/**
+ * @method OutgoingPaymentQueryBuilder query()
+ */
 class OutgoingPayment extends Resource
 {
     public const INDEX_REQUEST = GetOutgoingPaymentsRequest::class;
@@ -17,6 +20,7 @@ class OutgoingPayment extends Resource
     public const CREATE_REQUEST = CreateOutgoingPaymentRequest::class;
     public const UPDATE_REQUEST = UpdateOutgoingPaymentRequest::class;
     public const DELETE_REQUEST = DeleteOutgoingPaymentRequest::class;
+    public const QUERY_BUILDER = OutgoingPaymentQueryBuilder::class;
 
     public function __construct(
         public ?string $id = null,

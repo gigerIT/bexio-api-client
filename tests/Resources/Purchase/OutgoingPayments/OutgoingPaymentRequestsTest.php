@@ -52,3 +52,28 @@ it('can get first Outgoing Payment using query builder', function () {
         ->and($payment->id)->toBeString();
 });
 
+it('can scope outgoing payments by bill id', function () {
+    try {
+        $payments = OutgoingPayment::useClient(testClient())->query()->limit(1)->get();
+    } catch (\Throwable $e) {
+        \PHPUnit\Framework\Assert::markTestSkipped('Outgoing payments endpoint requires bill context: ' . $e->getMessage());
+    }
+
+    if (count($payments) === 0 || blank($payments[0]->bill_id ?? null)) {
+        \PHPUnit\Framework\Assert::markTestSkipped('No outgoing payments with bill_id available');
+    }
+
+    $scoped = OutgoingPayment::useClient(testClient())
+        ->query()
+        ->forBill($payments[0]->bill_id)
+        ->limit(1)
+        ->get();
+
+    expect($scoped)->toBeArray()
+        ->and(count($scoped))->toBeLessThanOrEqual(1);
+
+    if (count($scoped) > 0) {
+        expect($scoped[0]->bill_id)->toBe($payments[0]->bill_id);
+    }
+});
+

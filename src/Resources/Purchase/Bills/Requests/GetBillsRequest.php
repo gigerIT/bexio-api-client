@@ -13,11 +13,6 @@ class GetBillsRequest extends Request
 {
     protected Method $method = Method::GET;
 
-    public function __construct()
-    {
-
-    }
-
     public function resolveEndpoint(): string
     {
         return "/4.0/purchase/bills";
@@ -27,5 +22,4 @@ class GetBillsRequest extends Request
     {
         return Bill::collect($response->json()['data']);
     }
-
 }

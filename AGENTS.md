@@ -96,6 +96,8 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 - Sales document builders for invoices, orders, and quotes share `src/Resources/Sales/Concerns/BuildsSalesDocumentQueries.php`; keep concrete typed public helpers and override only endpoint-specific field names such as quote `is_valid_until`.
 - `QueryBuilder` still instantiates requests from constructor args. Resource-specific builders may override `indexRequestArguments()`, `searchRequestArguments()`, or `searchRequestQueryParameters()` when request constructor names or route context differ from fluent state.
 - Unmatched builder parameters (not bound to request constructor args) are forwarded onto the Saloon request query string. Zero-constructor and partial-constructor index requests therefore still receive `limit`/`offset`/`order_by` and resource-specific filters such as Tax `scope`/`date`/`types`.
+- v4 purchase list builders (`Bill`, `Expense`, `OutgoingPayment`) use `src/Resources/Purchase/Concerns/BuildsPageBasedListQueries.php`: `forPage()`/`orderBy()` emit `page`/`limit`/`order`/`sort`; `offset()` throws. Do not assume base `offset`/`order_by` on those resources.
+- Banking `PaymentQueryBuilder` uses 0-based `page` + `perPage` (`per-page`); `limit()` remaps to `perPage()`, while `offset()`/`orderBy()` throw.
 
 ### Search DTOs
 

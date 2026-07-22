@@ -121,10 +121,10 @@ it('builds expense CRUD, booking, action, and document number requests', functio
         booking_account_id: 77,
     );
 
-    expect((new GetExpensesRequest(limit: 5, offset: 10))->resolveEndpoint())->toBe('/4.0/expenses')
-        ->and(purchaseDefaultQuery(new GetExpensesRequest(limit: 5, offset: 10)))->toBe([
+    expect((new GetExpensesRequest(limit: 5, page: 2))->resolveEndpoint())->toBe('/4.0/expenses')
+        ->and(purchaseDefaultQuery(new GetExpensesRequest(limit: 5, page: 2)))->toBe([
             'limit' => 5,
-            'offset' => 10,
+            'page' => 2,
         ])
         ->and((new GetExpenseRequest('expense-uuid'))->resolveEndpoint())->toBe('/4.0/expenses/expense-uuid')
         ->and((new DeleteExpenseRequest('expense-uuid'))->getMethod())->toBe(Method::DELETE)

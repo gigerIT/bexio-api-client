@@ -14,7 +14,7 @@ class GetExpensesRequest extends Request
 
     public function __construct(
         protected ?int $limit = null,
-        protected int $offset = 0,
+        protected int $page = 1,
         protected ?string $status = null,
         protected ?string $vendor = null,
         protected ?float $gross_min = null,
@@ -35,8 +35,8 @@ class GetExpensesRequest extends Request
             throw new \InvalidArgumentException('Limit must be between 1 and 2000.');
         }
 
-        if ($this->offset < 0) {
-            throw new \InvalidArgumentException('Offset cannot be negative.');
+        if ($this->page < 1) {
+            throw new \InvalidArgumentException('Page must be greater than 0.');
         }
     }
 
@@ -49,7 +49,7 @@ class GetExpensesRequest extends Request
     {
         return array_filter([
             'limit' => $this->limit,
-            'offset' => $this->offset,
+            'page' => $this->page,
             'status' => $this->status,
             'vendor' => $this->vendor,
             'gross_min' => $this->gross_min,

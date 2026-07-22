@@ -59,6 +59,13 @@ it('can get Bills', function () {
     expect($bills)->toBeArray()->and($bills[0])->toBeInstanceOf(Bill::class);
 })->depends('it can create a Bill');
 
+it('limits live bill index queries', function () {
+    $bills = Bill::useClient(testClient())->query()->limit(1)->get();
+
+    expect($bills)->toBeArray()
+        ->and(count($bills))->toBeLessThanOrEqual(1);
+});
+
 
 it('can get a Bill', function () use (&$testBill) {
     $bill = Bill::useClient(testClient())->find($testBill->id);

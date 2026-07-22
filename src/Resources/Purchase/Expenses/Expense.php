@@ -14,6 +14,9 @@ use Bexio\Resources\Purchase\Expenses\Requests\UpdateExpenseBookingRequest;
 use Bexio\Resources\Purchase\Expenses\Requests\UpdateExpenseRequest;
 use Bexio\Resources\Resource;
 
+/**
+ * @method ExpenseQueryBuilder query()
+ */
 class Expense extends Resource
 {
     public const INDEX_REQUEST = GetExpensesRequest::class;
@@ -21,6 +24,7 @@ class Expense extends Resource
     public const CREATE_REQUEST = CreateExpenseRequest::class;
     public const UPDATE_REQUEST = UpdateExpenseRequest::class;
     public const DELETE_REQUEST = DeleteExpenseRequest::class;
+    public const QUERY_BUILDER = ExpenseQueryBuilder::class;
 
     public function __construct(
         public ?string $paid_on = null,

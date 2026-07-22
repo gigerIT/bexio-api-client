@@ -14,7 +14,9 @@ use Bexio\Resources\Purchase\Bills\Requests\UpdateBillBookingRequest;
 use Bexio\Resources\Purchase\Bills\Requests\UpdateBillRequest;
 use Bexio\Resources\Resource;
 
-
+/**
+ * @method BillQueryBuilder query()
+ */
 class Bill extends Resource
 {
     const INDEX_REQUEST = GetBillsRequest::class;
@@ -26,6 +28,8 @@ class Bill extends Resource
     const UPDATE_REQUEST = UpdateBillRequest::class;
 
     const DELETE_REQUEST = DeleteBillRequest::class;
+
+    const QUERY_BUILDER = BillQueryBuilder::class;
 
 
     public string $id;
