@@ -1,5 +1,13 @@
 # Changelog
 
+## [4.10.2](https://github.com/gigerIT/bexio-api-client/compare/v4.10.1...v4.10.2) (2026-07-22)
+
+
+### Bug Fixes
+
+* **api-scope:** add ACCOUNTING case for write access to accounting data ([65d7428](https://github.com/gigerIT/bexio-api-client/commit/65d7428d821ea27b18d943ee92660b428b39cdd2))
+* **pagination:** update query builders for Bills, Expenses, and Outgoing Payments to use page-based pagination; modify GetExpensesRequest to use page instead of offset ([a40d9af](https://github.com/gigerIT/bexio-api-client/commit/a40d9afea98f957599894c6a70bffe9b9081a6f2))
+
 ## [4.10.1](https://github.com/gigerIT/bexio-api-client/compare/v4.10.0...v4.10.1) (2026-07-22)
 
 
