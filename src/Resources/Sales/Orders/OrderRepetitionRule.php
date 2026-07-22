@@ -7,6 +7,7 @@ use Bexio\Resources\Sales\Orders\Enums\OrderRepetitionMonthlySchedule;
 use Bexio\Resources\Sales\Orders\Enums\OrderRepetitionType;
 use Bexio\Resources\Sales\Orders\Enums\OrderRepetitionWeekday;
 use Spatie\LaravelData\Data;
+use UnexpectedValueException;
 
 class OrderRepetitionRule extends Data
 {
@@ -45,22 +46,61 @@ class OrderRepetitionRule extends Data
     }
 
     /**
-     * @param array<string, mixed> $payload
+     * @param array<mixed> $payload
      */
     public static function fromApiPayload(array $payload): self
     {
+        $typeValue = $payload['type'] ?? null;
+        $type = is_string($typeValue) ? OrderRepetitionType::tryFrom($typeValue) : null;
+        if ($type === null) {
+            throw new UnexpectedValueException(
+                'Order repetition response field "repetition.type" must be a valid repetition type.',
+            );
+        }
+
+        $interval = $payload['interval'] ?? null;
+        if (! is_int($interval)) {
+            throw new UnexpectedValueException(
+                'Order repetition response field "repetition.interval" must be an integer.',
+            );
+        }
+
+        $weekdayValues = $payload['weekdays'] ?? null;
+        if ($weekdayValues !== null && ! is_array($weekdayValues)) {
+            throw new UnexpectedValueException(
+                'Order repetition response field "repetition.weekdays" must be an array or null.',
+            );
+        }
+
+        $weekdays = null;
+        if ($weekdayValues !== null) {
+            $weekdays = [];
+
+            foreach ($weekdayValues as $weekdayValue) {
+                $weekday = is_string($weekdayValue) ? OrderRepetitionWeekday::tryFrom($weekdayValue) : null;
+                if ($weekday === null) {
+                    throw new UnexpectedValueException(
+                        'Order repetition response field "repetition.weekdays" contains an invalid weekday.',
+                    );
+                }
+
+                $weekdays[] = $weekday;
+            }
+        }
+
+        $scheduleValue = $payload['schedule'] ?? null;
+        $schedule = is_string($scheduleValue) ? OrderRepetitionMonthlySchedule::tryFrom($scheduleValue) : null;
+        if ($scheduleValue !== null && $schedule === null) {
+            throw new UnexpectedValueException(
+                'Order repetition response field "repetition.schedule" must be a valid monthly schedule or null.',
+            );
+        }
+
         return new self(
-            type: OrderRepetitionType::from((string) $payload['type']),
-            interval: (int) $payload['interval'],
-            weekdays: isset($payload['weekdays']) ? array_map(
-                static fn (string|OrderRepetitionWeekday $weekday): OrderRepetitionWeekday => $weekday instanceof OrderRepetitionWeekday
-                    ? $weekday
-                    : OrderRepetitionWeekday::from($weekday),
-                $payload['weekdays'],
-            ) : null,
-            schedule: isset($payload['schedule'])
-                ? OrderRepetitionMonthlySchedule::from((string) $payload['schedule'])
-                : null,
+            type: $type,
+            interval: $interval,
+            weekdays: $weekdays,
+            schedule: $schedule,
         );
     }
 

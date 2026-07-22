@@ -7,6 +7,7 @@ use Bexio\Resources\Sales\ItemPositions\ItemPositionArticle;
 use Bexio\Resources\Sales\ItemPositions\ItemPositionCustom;
 use Bexio\Resources\Sales\ItemPositions\Requests\CreateItemPositionRequest;
 use Bexio\Resources\Sales\Orders\Enums\OrderRepetitionMonthlySchedule;
+use Bexio\Resources\Sales\Orders\Enums\OrderRepetitionType;
 use Bexio\Resources\Sales\Orders\Enums\OrderRepetitionWeekday;
 use Bexio\Resources\Sales\Orders\Order;
 use Bexio\Resources\Sales\Orders\OrderRepetition;
@@ -68,6 +69,75 @@ it('rejects malformed order repetition API payloads', function (array $payload, 
     'non-string end' => [
         ['start' => '2026-05-01', 'end' => 20261231, 'repetition' => ['type' => 'daily', 'interval' => 1]],
         'Order repetition response field "end" must be a string or null.',
+    ],
+    'empty repetition' => [
+        ['start' => '2026-05-01', 'repetition' => []],
+        'Order repetition response field "repetition.type" must be a valid repetition type.',
+    ],
+    'invalid repetition type' => [
+        ['start' => '2026-05-01', 'repetition' => ['type' => 'sometimes', 'interval' => 1]],
+        'Order repetition response field "repetition.type" must be a valid repetition type.',
+    ],
+    'missing interval' => [
+        ['start' => '2026-05-01', 'repetition' => ['type' => 'daily']],
+        'Order repetition response field "repetition.interval" must be an integer.',
+    ],
+    'non-integer interval' => [
+        ['start' => '2026-05-01', 'repetition' => ['type' => 'daily', 'interval' => '1']],
+        'Order repetition response field "repetition.interval" must be an integer.',
+    ],
+    'scalar weekdays' => [
+        ['start' => '2026-05-01', 'repetition' => ['type' => 'weekly', 'interval' => 1, 'weekdays' => 'monday']],
+        'Order repetition response field "repetition.weekdays" must be an array or null.',
+    ],
+    'invalid weekday' => [
+        ['start' => '2026-05-01', 'repetition' => ['type' => 'weekly', 'interval' => 1, 'weekdays' => ['holiday']]],
+        'Order repetition response field "repetition.weekdays" contains an invalid weekday.',
+    ],
+    'invalid monthly schedule' => [
+        ['start' => '2026-05-01', 'repetition' => ['type' => 'monthly', 'interval' => 1, 'schedule' => 'middle_day']],
+        'Order repetition response field "repetition.schedule" must be a valid monthly schedule or null.',
+    ],
+]);
+
+it('maps valid order repetition API rules to enums', function (
+    array $rule,
+    OrderRepetitionType $type,
+    ?array $weekdays,
+    ?OrderRepetitionMonthlySchedule $schedule,
+) {
+    $repetition = OrderRepetition::fromApiPayload([
+        'start' => '2026-05-01',
+        'repetition' => $rule,
+    ]);
+
+    expect($repetition->repetition->type)->toBe($type)
+        ->and($repetition->repetition->weekdays)->toBe($weekdays)
+        ->and($repetition->repetition->schedule)->toBe($schedule);
+})->with([
+    'daily' => [
+        ['type' => 'daily', 'interval' => 1],
+        OrderRepetitionType::DAILY,
+        null,
+        null,
+    ],
+    'weekly' => [
+        ['type' => 'weekly', 'interval' => 2, 'weekdays' => ['monday', 'friday']],
+        OrderRepetitionType::WEEKLY,
+        [OrderRepetitionWeekday::MONDAY, OrderRepetitionWeekday::FRIDAY],
+        null,
+    ],
+    'monthly' => [
+        ['type' => 'monthly', 'interval' => 1, 'schedule' => 'fixed_day'],
+        OrderRepetitionType::MONTHLY,
+        null,
+        OrderRepetitionMonthlySchedule::FIXED_DAY,
+    ],
+    'yearly' => [
+        ['type' => 'yearly', 'interval' => 1],
+        OrderRepetitionType::YEARLY,
+        null,
+        null,
     ],
 ]);
 
