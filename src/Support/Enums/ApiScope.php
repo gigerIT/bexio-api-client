@@ -30,6 +30,10 @@ enum ApiScope: string
      */
     case PROFILE = 'profile';
 
+    /**
+     * Write access to accounting data
+     */
+    case ACCOUNTING = 'accounting';
 
     /**
      * Read access to items / products
