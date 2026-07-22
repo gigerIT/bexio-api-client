@@ -181,6 +181,10 @@ class QueryBuilder
     /**
      * Create a request instance with the appropriate parameters based on what the constructor accepts.
      *
+     * Unmatched builder parameters are forwarded onto the request query string so
+     * zero-constructor and partial-constructor index requests still receive
+     * limit/offset/order_by (and resource-specific filters).
+     *
      * @param array<string, mixed> $parameters
      */
     protected function createRequestWithParameters(string $requestClass, array $parameters = []): Request
@@ -188,25 +192,50 @@ class QueryBuilder
         $reflection = new ReflectionClass($requestClass);
         $constructor = $reflection->getConstructor();
 
-        // If there's no constructor, just instantiate the class
-        if (!$constructor) {
-            return new $requestClass();
+        if (! $constructor) {
+            $request = new $requestClass();
+            $this->applyUnmatchedQueryParameters($request, $parameters, matchedKeys: []);
+
+            return $request;
         }
 
-        $constructorParams = $constructor->getParameters();
         $args = [];
+        $matchedKeys = [];
 
-        foreach ($constructorParams as $parameter) {
+        foreach ($constructor->getParameters() as $parameter) {
             $paramName = $parameter->getName();
 
-            // Try to match from our parameters collection, otherwise use default value
             if (array_key_exists($paramName, $parameters)) {
                 $args[$paramName] = $parameters[$paramName];
+                $matchedKeys[] = $paramName;
             } elseif ($parameter->isDefaultValueAvailable()) {
                 $args[$paramName] = $parameter->getDefaultValue();
             }
         }
 
-        return new $requestClass(...$args);
+        $request = new $requestClass(...$args);
+        $this->applyUnmatchedQueryParameters($request, $parameters, $matchedKeys);
+
+        return $request;
+    }
+
+    /**
+     * Forward builder parameters that were not bound to constructor arguments.
+     *
+     * @param  array<string, mixed>  $parameters
+     * @param  array<int, string>  $matchedKeys
+     */
+    protected function applyUnmatchedQueryParameters(Request $request, array $parameters, array $matchedKeys): void
+    {
+        foreach ($parameters as $key => $value) {
+            if (in_array($key, $matchedKeys, true)) {
+                continue;
+            }
+
+            $request->query()->add(
+                $key,
+                $value instanceof \BackedEnum ? $value->value : $value,
+            );
+        }
     }
 }

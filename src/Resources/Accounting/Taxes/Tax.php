@@ -8,6 +8,9 @@ use Bexio\Resources\Accounting\Taxes\Requests\GetTaxesRequest;
 use Bexio\Resources\Accounting\Taxes\Requests\GetTaxRequest;
 use Bexio\Resources\Resource;
 
+/**
+ * @method TaxQueryBuilder query()
+ */
 class Tax extends Resource
 {
     const INDEX_REQUEST = GetTaxesRequest::class;
@@ -15,6 +18,8 @@ class Tax extends Resource
     const SHOW_REQUEST = GetTaxRequest::class;
 
     const DELETE_REQUEST = DeleteTaxRequest::class;
+
+    const QUERY_BUILDER = TaxQueryBuilder::class;
 
     public int $id;
     public string $uuid;

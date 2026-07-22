@@ -95,6 +95,7 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 - Resource-specific builders stay thin: domain sugar or endpoint context only, e.g. `withArchived()`, `forContact()`, invoice status/date helpers.
 - Sales document builders for invoices, orders, and quotes share `src/Resources/Sales/Concerns/BuildsSalesDocumentQueries.php`; keep concrete typed public helpers and override only endpoint-specific field names such as quote `is_valid_until`.
 - `QueryBuilder` still instantiates requests from constructor args. Resource-specific builders may override `indexRequestArguments()`, `searchRequestArguments()`, or `searchRequestQueryParameters()` when request constructor names or route context differ from fluent state.
+- Unmatched builder parameters (not bound to request constructor args) are forwarded onto the Saloon request query string. Zero-constructor and partial-constructor index requests therefore still receive `limit`/`offset`/`order_by` and resource-specific filters such as Tax `scope`/`date`/`types`.
 
 ### Search DTOs
 

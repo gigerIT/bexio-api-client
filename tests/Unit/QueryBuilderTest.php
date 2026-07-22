@@ -221,6 +221,88 @@ it('passes pagination and sorting to the unfiltered orders index request', funct
     });
 });
 
+it('forwards unmatched pagination params to zero-constructor index requests', function () {
+    $mockClient = new MockClient([
+        TestSearchIndexRequest::class => MockResponse::make([]),
+    ]);
+
+    $client = (new BexioClient('mock-token'))->withMockClient($mockClient);
+    $queryBuilder = new QueryBuilder(TestZeroCtorResource::class, $client);
+
+    $results = $queryBuilder
+        ->forPage(2, 5)
+        ->orderBy('updated_at', 'desc')
+        ->get();
+
+    expect($results)->toBeArray()->toBe([]);
+
+    $mockClient->assertSent(function (SaloonRequest $request): bool {
+        return $request instanceof TestSearchIndexRequest
+            && $request->query()->get('limit') === 5
+            && $request->query()->get('offset') === 5
+            && $request->query()->get('order_by') === 'updated_at_desc';
+    });
+});
+
+it('preserves defaultQuery when forwarding unmatched index params', function () {
+    $mockClient = new MockClient([
+        TestScopedIndexRequest::class => MockResponse::make([]),
+    ]);
+
+    $client = (new BexioClient('mock-token'))->withMockClient($mockClient);
+    $queryBuilder = new QueryBuilder(TestScopedResource::class, $client);
+
+    $queryBuilder->limit(5)->get();
+
+    $mockClient->assertSent(function (SaloonRequest $request): bool {
+        return $request instanceof TestScopedIndexRequest
+            && $request->query()->all() === [
+                'scope' => 'active',
+                'limit' => 5,
+            ];
+    });
+});
+
+it('allows explicit null query overrides for unmatched index params', function () {
+    $mockClient = new MockClient([
+        TestScopedIndexRequest::class => MockResponse::make([]),
+    ]);
+
+    $client = (new BexioClient('mock-token'))->withMockClient($mockClient);
+    $queryBuilder = new TestScopedQueryBuilder(TestScopedResource::class, $client);
+
+    $queryBuilder->withInactive()->limit(5)->get();
+
+    $mockClient->assertSent(function (SaloonRequest $request): bool {
+        $query = $request->query()->all();
+
+        return $request instanceof TestScopedIndexRequest
+            && array_key_exists('scope', $query)
+            && $query['scope'] === null
+            && $query['limit'] === 5;
+    });
+});
+
+it('forwards unmatched params when the constructor only accepts route context', function () {
+    $mockClient = new MockClient([
+        TestPartialCtorIndexRequest::class => MockResponse::make([]),
+    ]);
+
+    $client = (new BexioClient('mock-token'))->withMockClient($mockClient);
+    $queryBuilder = new TestPartialCtorQueryBuilder(TestPartialCtorResource::class, $client);
+
+    $queryBuilder->forContext(42)->limit(10)->offset(20)->get();
+
+    $mockClient->assertSent(function (SaloonRequest $request): bool {
+        return $request instanceof TestPartialCtorIndexRequest
+            && $request->contextId === 42
+            && $request->query()->all() === [
+                'limit' => 10,
+                'offset' => 20,
+            ];
+    });
+});
+
 it('limits searchable first queries to one record', function () {
     $mockClient = new MockClient([
         TestSearchRequest::class => MockResponse::make([
@@ -280,6 +362,21 @@ class TestResource
     public const INDEX_REQUEST = TestIndexRequest::class;
 }
 
+class TestZeroCtorResource
+{
+    public const INDEX_REQUEST = TestSearchIndexRequest::class;
+}
+
+class TestScopedResource
+{
+    public const INDEX_REQUEST = TestScopedIndexRequest::class;
+}
+
+class TestPartialCtorResource
+{
+    public const INDEX_REQUEST = TestPartialCtorIndexRequest::class;
+}
+
 class TestSearchableResource
 {
     public const INDEX_REQUEST = TestSearchIndexRequest::class;
@@ -288,6 +385,34 @@ class TestSearchableResource
 class TestSearchQueryBuilder extends SearchableQueryBuilder
 {
     protected const SEARCH_REQUEST = TestSearchRequest::class;
+}
+
+class TestScopedQueryBuilder extends QueryBuilder
+{
+    public function withInactive(): static
+    {
+        return $this->setParameter('scope', null);
+    }
+}
+
+class TestPartialCtorQueryBuilder extends QueryBuilder
+{
+    private ?int $contextId = null;
+
+    public function forContext(int $contextId): static
+    {
+        $this->contextId = $contextId;
+
+        return $this;
+    }
+
+    protected function indexRequestArguments(): array
+    {
+        return [
+            'contextId' => $this->contextId,
+            ...parent::indexRequestArguments(),
+        ];
+    }
 }
 
 class TestIndexRequest extends SaloonRequest
@@ -318,6 +443,47 @@ class TestSearchIndexRequest extends SaloonRequest
     public function resolveEndpoint(): string
     {
         return '/search-test';
+    }
+
+    public function createDtoFromResponse(Response $response): array
+    {
+        return $response->json();
+    }
+}
+
+class TestScopedIndexRequest extends SaloonRequest
+{
+    protected Method $method = Method::GET;
+
+    public function resolveEndpoint(): string
+    {
+        return '/scoped-test';
+    }
+
+    protected function defaultQuery(): array
+    {
+        return [
+            'scope' => 'active',
+        ];
+    }
+
+    public function createDtoFromResponse(Response $response): array
+    {
+        return $response->json();
+    }
+}
+
+class TestPartialCtorIndexRequest extends SaloonRequest
+{
+    protected Method $method = Method::GET;
+
+    public function __construct(public readonly int $contextId)
+    {
+    }
+
+    public function resolveEndpoint(): string
+    {
+        return '/partial-ctor-test/'.$this->contextId;
     }
 
     public function createDtoFromResponse(Response $response): array
