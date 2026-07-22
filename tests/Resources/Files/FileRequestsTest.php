@@ -3,6 +3,32 @@
 use Bexio\Resources\Files\File;
 use Bexio\Support\Data\SearchCriteria;
 
+function fileUploadTestPdf(): string
+{
+    $objects = [
+        '<< /Type /Catalog /Pages 2 0 R >>',
+        '<< /Type /Pages /Kids [3 0 R] /Count 1 >>',
+        '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 72 72] >>',
+    ];
+
+    $pdf = "%PDF-1.4\n";
+    $offsets = [];
+
+    foreach ($objects as $index => $object) {
+        $offsets[] = strlen($pdf);
+        $pdf .= sprintf("%d 0 obj\n%s\nendobj\n", $index + 1, $object);
+    }
+
+    $xrefOffset = strlen($pdf);
+    $pdf .= "xref\n0 4\n0000000000 65535 f \n";
+
+    foreach ($offsets as $offset) {
+        $pdf .= sprintf("%010d 00000 n \n", $offset);
+    }
+
+    return $pdf . "trailer\n<< /Size 4 /Root 1 0 R >>\nstartxref\n{$xrefOffset}\n%%EOF\n";
+}
+
 it('can get Files', function () {
     $files = File::useClient(testClient())->all();
 
@@ -11,7 +37,7 @@ it('can get Files', function () {
 
 it('can create, update, search, download and delete a File', function () {
     $tempFile = tempnam(sys_get_temp_dir(), 'bexio-file-');
-    file_put_contents($tempFile, "%PDF-1.4\n% Bexio API Client Upload Test\n%%EOF");
+    file_put_contents($tempFile, fileUploadTestPdf());
 
     $createdFile = null;
 
