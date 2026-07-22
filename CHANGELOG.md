@@ -1,5 +1,35 @@
 # Changelog
 
+## [4.10.3](https://github.com/gigerIT/bexio-api-client/compare/v4.10.2...v4.10.3) (2026-07-22)
+
+
+### Bug Fixes
+
+* attach client to query results ([bf384fa](https://github.com/gigerIT/bexio-api-client/commit/bf384fa6d83ba9df416e4204e5af83e90af7e765))
+* **contacts:** forward show_archived on search ([7a498f5](https://github.com/gigerIT/bexio-api-client/commit/7a498f53dc3906b8cc3a9aeaf608a38e3bacfee9))
+* default employee snapshot date ([8579b30](https://github.com/gigerIT/bexio-api-client/commit/8579b30579ba46bd71eb409b7da41af0d846c591))
+* **deliveries:** drop fake kb_order nested APIs ([ab497c4](https://github.com/gigerIT/bexio-api-client/commit/ab497c4148136e0f87f2161df2a3bd36f2bfc498))
+* preserve uploaded file contents ([788eab3](https://github.com/gigerIT/bexio-api-client/commit/788eab3cdc95e66faea514327ea7d649efa8604e))
+* **quotes:** cast positions via ItemPositionCast ([c30bbd9](https://github.com/gigerIT/bexio-api-client/commit/c30bbd9b035382335ff061328f608d59083337ea))
+* **quotes:** rename QuoteStatus::DEClLINED to DECLINED ([c923d19](https://github.com/gigerIT/bexio-api-client/commit/c923d192cbcdf192631df4211c790d70ba1c1997))
+* restrict payment update payload ([e6d4402](https://github.com/gigerIT/bexio-api-client/commit/e6d440250d5f072d1b7ee5061d299f28481f5501))
+* validate order repetition response roots ([9e2468f](https://github.com/gigerIT/bexio-api-client/commit/9e2468f6190a6d2b707248942c8e90be260a9ab3))
+* validate order repetition responses ([2907e9f](https://github.com/gigerIT/bexio-api-client/commit/2907e9fa04d5648c1731eaf96d7ab47c55e1f011))
+* validate order repetition rules ([55eeffb](https://github.com/gigerIT/bexio-api-client/commit/55eeffbbaf46ec068ebc8e49e72cc37139993e79))
+
+
+### Documentation
+
+* mark audit fix plan complete ([64e3de1](https://github.com/gigerIT/bexio-api-client/commit/64e3de1c76f3816a0e74fdeccd573e07db10fbc4))
+* plan audit finding fixes ([2b4fbca](https://github.com/gigerIT/bexio-api-client/commit/2b4fbcafd308f114c174de3045c32c1a5d0ec0a6))
+
+
+### Tests
+
+* generate valid PDF upload fixture ([34a3165](https://github.com/gigerIT/bexio-api-client/commit/34a3165189496ed32746209ae9249014c37cd39c))
+* hydrate payment payload fixture ([eba26cb](https://github.com/gigerIT/bexio-api-client/commit/eba26cb93aaaf46f5f1c6291192664629f57c870))
+* use supported file upload fixture ([32f67b9](https://github.com/gigerIT/bexio-api-client/commit/32f67b9fb15703ba86dba8956e03a634e2e33efd))
+
 ## [4.10.2](https://github.com/gigerIT/bexio-api-client/compare/v4.10.1...v4.10.2) (2026-07-22)
 
 
