@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bexio\Support;
 
 use Bexio\BexioClient;
+use Bexio\Resources\Resource;
 use InvalidArgumentException;
 use Illuminate\Support\Collection;
 use ReflectionClass;
@@ -175,7 +176,15 @@ class QueryBuilder
             throw new RuntimeException('Failed to fetch resources: ' . $message);
         }
 
-        return $request->createDtoFromResponse($response);
+        $results = $request->createDtoFromResponse($response);
+
+        foreach ($results as $key => $result) {
+            if ($result instanceof Resource) {
+                $results[$key] = $result->attachClient($this->client);
+            }
+        }
+
+        return $results;
     }
 
     /**

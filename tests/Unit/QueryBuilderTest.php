@@ -2,6 +2,7 @@
 
 use Bexio\BexioClient;
 use Bexio\Resources\Sales\Orders\Order;
+use Bexio\Resources\Sales\Orders\Requests\GetOrderRequest;
 use Bexio\Resources\Sales\Orders\Requests\GetOrdersRequest;
 use Bexio\Support\QueryBuilder;
 use Bexio\Support\SearchableQueryBuilder;
@@ -220,6 +221,36 @@ it('passes pagination and sorting to the unfiltered orders index request', funct
             ];
     });
 });
+
+it('attaches the query client to orders returned by get and first', function (Closure $query) {
+    $mockClient = new MockClient([
+        GetOrdersRequest::class => MockResponse::make([
+            ['id' => 123, 'title' => 'Queried order'],
+        ]),
+        GetOrderRequest::class => MockResponse::make([
+            'id' => 123,
+            'title' => 'Refreshed order',
+        ]),
+    ]);
+
+    $client = (new BexioClient('mock-token'))->withMockClient($mockClient);
+    $order = $query(Order::useClient($client)->query());
+
+    $refreshedOrder = $order->refresh();
+
+    expect($order)->toBeInstanceOf(Order::class)
+        ->and($refreshedOrder)->toBeInstanceOf(Order::class)
+        ->and($refreshedOrder->id)->toBe(123)
+        ->and($refreshedOrder->title)->toBe('Refreshed order');
+
+    $mockClient->assertSent(function (SaloonRequest $request): bool {
+        return $request instanceof GetOrderRequest
+            && $request->resolveEndpoint() === '/2.0/kb_order/123';
+    });
+})->with([
+    'get' => static fn (QueryBuilder $queryBuilder): Order => $queryBuilder->get()[0],
+    'first' => static fn (QueryBuilder $queryBuilder): Order => $queryBuilder->first(),
+]);
 
 it('forwards unmatched pagination params to zero-constructor index requests', function () {
     $mockClient = new MockClient([
