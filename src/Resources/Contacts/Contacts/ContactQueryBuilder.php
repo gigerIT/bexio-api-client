@@ -19,4 +19,12 @@ class ContactQueryBuilder extends SearchableQueryBuilder
 
         return $this;
     }
+
+    protected function searchRequestQueryParameters(): array
+    {
+        return array_filter([
+            'show_archived' => $this->getParameter('showArchived') ?: null,
+            ...parent::searchRequestQueryParameters(),
+        ], static fn (mixed $value): bool => $value !== null);
+    }
 }
