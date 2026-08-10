@@ -24,6 +24,20 @@ Laravel package for Bexio API. Uses `saloonphp/saloon` for HTTP connectors/reque
 - `docs/bexio-api-docs.md`: bundled Bexio reference
 - `README.md`: installation, auth, examples, resource coverage matrix
 
+## Agent skills
+
+### Issue tracker
+
+Issues are tracked in this repository's GitHub Issues. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Triage uses the five canonical label names. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Domain documentation uses the single-context layout. See `docs/agents/domain.md`.
+
 ## API Docs
 
 - mcp: context7 `bexio api`
