@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.10.4](https://github.com/gigerIT/bexio-api-client/compare/v4.10.3...v4.10.4) (2026-08-10)
+
+
+### Bug Fixes
+
+* **payroll:** preserve absence on empty update ([994916e](https://github.com/gigerIT/bexio-api-client/commit/994916e8b76ea7b942af6f490e38207460ae4dca)), closes [#85](https://github.com/gigerIT/bexio-api-client/issues/85)
+
+
+### Documentation
+
+* **agents:** configure engineering skills ([3e37d87](https://github.com/gigerIT/bexio-api-client/commit/3e37d873e15c8a30d6ea30af3347ff890020b5d5))
+
 ## [4.10.3](https://github.com/gigerIT/bexio-api-client/compare/v4.10.2...v4.10.3) (2026-07-22)
 
 
