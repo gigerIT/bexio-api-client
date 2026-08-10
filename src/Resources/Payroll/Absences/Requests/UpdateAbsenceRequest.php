@@ -33,6 +33,10 @@ class UpdateAbsenceRequest extends Request implements HasBody
 
     public function createDtoFromResponse(Response $response): Absence
     {
+        if ($response->status() === 204) {
+            return $this->absence;
+        }
+
         return Absence::from($response->json());
     }
 

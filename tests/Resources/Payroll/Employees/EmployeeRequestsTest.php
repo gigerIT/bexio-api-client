@@ -208,6 +208,24 @@ it('builds absence and paystub requests', function () {
         ->not->toHaveKeys(['id', 'employee_id']);
 });
 
+it('preserves the submitted absence after a successful update without response content', function () {
+    $absence = new Absence(
+        employee_id: '497f6eca-6276-4993-bfeb-53cbbbba6f08',
+        id: 'c56a4180-65aa-42ec-a945-5fd21dec0538',
+        reason: 'Sickness',
+        start_date: '2026-08-01',
+        end_date: '2026-08-03',
+    );
+    $client = (new BexioClient('mock-token'))->withMockClient(new MockClient([
+        UpdateAbsenceRequest::class => MockResponse::make('', 204),
+    ]));
+    $request = new UpdateAbsenceRequest($absence);
+
+    $updated = $request->createDtoFromResponse($client->send($request));
+
+    expect($updated)->toBe($absence);
+});
+
 it('preserves payroll paystub download locations', function () {
     $client = (new BexioClient('mock-token'))->withMockClient(new MockClient([
         GetPaystubPdfRequest::class => MockResponse::make([
