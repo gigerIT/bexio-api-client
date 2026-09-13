@@ -38,12 +38,12 @@ it('serializes invoice create and update payloads with current field exclusions'
     $updatePayload = $invoice->toUpdateApi()->toArray();
 
     expect($createPayload)
+        ->toHaveKey('mwst_is_net', true)
         ->toHaveKey('title', 'Invoice payload')
         ->toHaveKey('positions')
         ->not->toHaveKeys([
             'id',
             'document_nr',
-            'mwst_is_net',
             'total',
             'invoice_date',
             'currency_code',

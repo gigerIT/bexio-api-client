@@ -189,10 +189,10 @@ class Invoice extends Resource implements KbDocumentContract
 
     public function toApi(): Invoice
     {
+        // Preserve explicit gross/net pricing; omit null to retain the Bexio default.
         return $this->salesDocumentPayload([
             'id',
             'document_nr',
-            'mwst_is_net',
             'total_received_payments',
             'total_credit_vouchers',
             'total_remaining_payments',
@@ -204,7 +204,7 @@ class Invoice extends Resource implements KbDocumentContract
             'base_currency_amount',
             'base_currency_code',
             'project_id',
-        ]);
+        ], ['mwst_is_net' => $this->mwst_is_net === null]);
     }
 
 

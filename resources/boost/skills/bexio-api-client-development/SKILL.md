@@ -216,7 +216,10 @@ $invoices = Invoice::useClient($client)
 Invoice payload rules:
 - `Invoice::createFromApiPayload()` backfills `invoice_date` from `is_valid_from` when needed.
 - `Invoice::toApi()` removes reporting and response-only fields before writes.
-- Keep API-rejected fields like `document_nr` and `mwst_is_net` out of create/update payloads.
+- Keep `document_nr` out of invoice create/update payloads.
+- Invoice creation preserves explicit `mwst_is_net: false` (gross prices) and `true` (net prices).
+  Omit it or pass `null` to use the Bexio default. This setting affects totals when
+  `mwst_type` is `MwstType::INCLUDING`.
 
 Item payload rules:
 - Bexio item responses may hydrate `article_type_id` as `null`.

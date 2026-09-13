@@ -1,8 +1,12 @@
 <?php
 
+use Bexio\BexioClient;
 use Bexio\Resources\Sales\Invoices\Enums\InvoiceStatus;
 use Bexio\Resources\Sales\Invoices\Invoice;
+use Bexio\Resources\Sales\Invoices\Requests\CreateInvoiceRequest;
 use Bexio\Resources\Sales\MwstType;
+use Saloon\Http\Faking\MockClient;
+use Saloon\Http\Faking\MockResponse;
 
 function invoiceApiPayload(array $overrides = []): array
 {
@@ -123,7 +127,7 @@ it('keeps response-only invoice fields out of create payloads', function () {
         ->toHaveKey('logopaper_id')
         ->toHaveKey('contact_address_manual')
         ->not->toHaveKey('document_nr')
-        ->not->toHaveKey('mwst_is_net')
+        ->toHaveKey('mwst_is_net', true)
         ->not->toHaveKey('invoice_date')
         ->not->toHaveKey('currency_code')
         ->not->toHaveKey('exchange_rate')
@@ -133,4 +137,27 @@ it('keeps response-only invoice fields out of create payloads', function () {
         ->not->toHaveKey('project_id')
         ->and($payload['logopaper_id'])->toBe(3)
         ->and($payload['contact_address_manual'])->toBe("ACME GmbH\nMain Street 1\n8000 Zurich");
+});
+
+it('preserves explicit invoice tax mode in the create request', function (bool $mode) {
+    $invoice = new Invoice(contact_id: 1, mwst_is_net: $mode);
+    $mock = new MockClient([CreateInvoiceRequest::class => MockResponse::make(invoiceApiPayload(['mwst_is_net' => $mode]))]);
+    $client = (new BexioClient('test-token'))->withMockClient($mock);
+    $client->send(new CreateInvoiceRequest($invoice));
+    $mock->assertSent(function (CreateInvoiceRequest $request) use ($mode): bool {
+        expect($request->resolveEndpoint())->toBe('/2.0/kb_invoice')
+            ->and($request->body()->all())->toHaveKey('mwst_is_net', $mode);
+
+        return true;
+    });
+    $body = (new CreateInvoiceRequest($invoice))->body()->all();
+
+    expect($body)->toHaveKey('mwst_is_net', $mode)
+        ->and($invoice->toApi()->toArray())->toHaveKey('mwst_is_net', $mode);
+})->with([false, true]);
+
+it('omits unspecified invoice tax mode from the create request', function () {
+    $body = (new CreateInvoiceRequest(new Invoice(contact_id: 1)))->body()->all();
+
+    expect($body)->not->toHaveKey('mwst_is_net');
 });

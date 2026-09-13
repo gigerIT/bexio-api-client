@@ -339,7 +339,7 @@ Endpoint coverage is derived from `docs/bexio-api-docs.md`. `Implemented` means 
 |  | `GET /2.0/kb_delivery/{delivery_id}` | ✅ |
 |  | `POST /2.0/kb_delivery/{delivery_id}/issue` | ✅ |
 | Invoices | `GET /2.0/kb_invoice` | ✅ |
-|  | `POST /2.0/kb_invoice` | ✅ |
+|  | `POST /2.0/kb_invoice` | ✅ [Explicit net/gross pricing](docs/resources/sales/invoices.md) |
 |  | `POST /2.0/kb_invoice/search` | ✅ |
 |  | `GET /2.0/kb_invoice/{invoice_id}` | ✅ |
 |  | `POST /2.0/kb_invoice/{invoice_id}` | ✅ |

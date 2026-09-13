@@ -134,7 +134,7 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 - `src/Resources/Sales/Invoices/Invoice.php` has custom API payload helpers:
   - `createFromApiPayload()` backfills `invoice_date` from `is_valid_from` when needed.
   - `collectFromApiPayload()` maps arrays through same normalization.
-  - `toApi()` strips response-only/reporting fields from create payloads, including API-rejected `document_nr` and `mwst_is_net`.
+  - `toApi()` strips response-only/reporting fields from create payloads, including API-rejected `document_nr`. Explicit `mwst_is_net` booleans are preserved; `null` is omitted so Bexio chooses the default.
 - Keep helpers synced with invoice response payloads and `tests/Unit/Resources/Sales/Invoices/InvoiceDataTest.php`.
 
 ### Invoice query support
