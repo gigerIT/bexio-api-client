@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.10.5](https://github.com/gigerIT/bexio-api-client/compare/v4.10.4...v4.10.5) (2026-09-13)
+
+
+### Bug Fixes
+
+* **invoices:** preserve explicit tax mode ([683d4c3](https://github.com/gigerIT/bexio-api-client/commit/683d4c3ae5cf69738033b30c5b2f7c0163cbc2fe)), closes [#88](https://github.com/gigerIT/bexio-api-client/issues/88)
+
+
+### Documentation
+
+* add package badges ([d85601a](https://github.com/gigerIT/bexio-api-client/commit/d85601ad17d2a886068b47bb6bd4e766ac7142df))
+
 ## [4.10.4](https://github.com/gigerIT/bexio-api-client/compare/v4.10.3...v4.10.4) (2026-08-10)
 
 
