@@ -1,5 +1,9 @@
 # Bexio API Laravel Package
 
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/gigerit/bexio-api-client.svg?style=for-the-badge)](https://packagist.org/packages/gigerit/bexio-api-client)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/gigerit/bexio-api-client/CI.yml?branch=main&label=tests&style=for-the-badge)](https://github.com/gigerit/bexio-api-client/actions?query=workflow%3ACI+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/gigerit/bexio-api-client.svg?style=for-the-badge)](https://packagist.org/packages/gigerit/bexio-api-client)
+
 A Laravel package for the [Bexio API](https://docs.bexio.com), built with [`saloonphp/saloon`](https://docs.saloon.dev/) as API connector and [`spatie/laravel-data`](https://github.com/spatie/laravel-data) for DTOs.
 
 ## Requirements
