@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.11.0](https://github.com/gigerIT/bexio-api-client/compare/v4.10.5...v4.11.0) (2026-10-02)
+
+
+### Features
+
+* sync client with current Bexio API ([ff25038](https://github.com/gigerIT/bexio-api-client/commit/ff250388215bbcfd82eb76aadfb9425927eb6f94))
+
 ## [4.10.5](https://github.com/gigerIT/bexio-api-client/compare/v4.10.4...v4.10.5) (2026-09-13)
 
 
