@@ -27,7 +27,7 @@ class CreateProjectRequest extends Request implements HasBody
 
     protected function defaultBody(): array
     {
-        return $this->project->except('id', 'uuid', 'nr')->toArray();
+        return $this->project->toApi();
     }
 
     public function createDtoFromResponse(Response $response): Project
@@ -35,5 +35,4 @@ class CreateProjectRequest extends Request implements HasBody
         return Project::from($response->json());
     }
 }
-
 

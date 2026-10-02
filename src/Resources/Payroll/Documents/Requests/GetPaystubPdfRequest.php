@@ -8,6 +8,9 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 use Saloon\Http\Response;
 
+/**
+ * @deprecated Use DownloadPaystubPdfRequest to download the PDF directly.
+ */
 class GetPaystubPdfRequest extends Request
 {
     protected Method $method = Method::GET;

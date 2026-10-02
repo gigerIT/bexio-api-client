@@ -82,6 +82,7 @@ class BillPayment extends Resource
         public ?string         $booking_text = null,
         public ?string         $reference_no = null,
         public ?string         $note = null,
+        public ?string         $account_no = null,
     )
     {
     }

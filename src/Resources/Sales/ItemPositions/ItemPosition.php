@@ -25,6 +25,8 @@ class ItemPosition extends Resource
 
     public ?bool $is_optional;
 
+    public ?string $pos;
+
     public function attachTo($parent): static
     {
         if (static::CAN_BE_ATTACHED === false) {
@@ -73,6 +75,15 @@ class ItemPosition extends Resource
             'id',
             'type',
             'internal_pos',
+            'pos',
+            'position_total',
+            'tax_value',
+            'unit_name',
+            'amount_completed',
+            'amount_open',
+            'amount_reserved',
+            'show_pos_prices',
+            'total_sum',
         )->toArray();
 
         unset($payload['discount_total']);
@@ -82,6 +93,11 @@ class ItemPosition extends Resource
         }
 
         return $payload;
+    }
+
+    public function toCreateApiPayload(): array
+    {
+        return $this->toApiPayload();
     }
 
     /**

@@ -5,6 +5,7 @@ namespace Bexio\Resources\Sales\DocumentTemplates;
 
 use Bexio\Resources\Resource;
 use Bexio\Resources\Sales\DocumentTemplates\Requests\GetDocumentTemplatesRequest;
+use Spatie\LaravelData\Attributes\MapInputName;
 
 class DocumentTemplate extends Resource
 {
@@ -14,6 +15,7 @@ class DocumentTemplate extends Resource
      * @param string[]|null $default_for_document_types
      */
     public function __construct(
+        #[MapInputName('template_slug')]
         public ?string $slug = null,
         public ?string $name = null,
         public ?bool $is_default = null,
@@ -21,4 +23,3 @@ class DocumentTemplate extends Resource
     ) {
     }
 }
-

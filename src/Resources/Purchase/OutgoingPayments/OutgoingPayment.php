@@ -22,6 +22,9 @@ class OutgoingPayment extends Resource
     public const DELETE_REQUEST = DeleteOutgoingPaymentRequest::class;
     public const QUERY_BUILDER = OutgoingPaymentQueryBuilder::class;
 
+    public ?string $created_at = null;
+    public ?string $banking_payment_entry_id = null;
+
     public function __construct(
         public ?string $id = null,
         public ?string $bill_id = null,
@@ -71,6 +74,8 @@ class OutgoingPayment extends Resource
             'status',
             'banking_payment_id',
             'transaction_id',
+            'created_at',
+            'banking_payment_entry_id',
         )->toArray());
     }
 

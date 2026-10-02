@@ -12,16 +12,18 @@ class BankAccount extends Resource
     public const INDEX_REQUEST = GetBankAccountsRequest::class;
     public const SHOW_REQUEST = GetBankAccountRequest::class;
 
+    public ?string $uuid = null;
+
     public function __construct(
         public ?int $id = null,
         public ?string $name = null,
         public ?string $owner = null,
         public ?string $owner_address = null,
         public string|int|null $owner_house_number = null,
-        public ?int $owner_zip = null,
+        public string|int|null $owner_zip = null,
         public ?string $owner_city = null,
         public ?string $owner_country_code = null,
-        public ?int $bc_nr = null,
+        public string|int|null $bc_nr = null,
         public ?string $bank_name = null,
         public ?string $bank_nr = null,
         public ?string $bank_account_nr = null,
@@ -35,6 +37,5 @@ class BankAccount extends Resource
     ) {
     }
 }
-
 
 

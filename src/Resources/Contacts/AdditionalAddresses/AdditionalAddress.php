@@ -38,6 +38,7 @@ class AdditionalAddress extends Resource
         public ?int $country_id = null,
         public ?string $subject = null,
         public ?string $description = null,
+        public ?string $name_addition = null,
     ) {
     }
 
@@ -77,4 +78,3 @@ class AdditionalAddress extends Resource
         return $response->successful();
     }
 }
-

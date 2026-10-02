@@ -78,7 +78,7 @@ class Invoice extends Resource implements KbDocumentContract
 
     /** @var SalesTax[] */
     public array $taxs;
-    public string $network_link;
+    public ?string $network_link;
     public ?string $total_received_payments;
     public ?string $total_credit_vouchers;
     public ?string $total_remaining_payments;

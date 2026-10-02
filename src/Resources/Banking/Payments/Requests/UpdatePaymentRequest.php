@@ -30,7 +30,12 @@ class UpdatePaymentRequest extends Request implements HasBody
 
     protected function defaultBody(): array
     {
-        return $this->payment->toUpdateApi()->toArray();
+        $payload = $this->payment->toUpdateApi()->toArray();
+        if (is_string($payload['amount'] ?? null)) {
+            $payload['amount'] = (float) $payload['amount'];
+        }
+
+        return $payload;
     }
 
     public function createDtoFromResponse(Response $response): Payment
@@ -39,5 +44,4 @@ class UpdatePaymentRequest extends Request implements HasBody
         return Payment::from($data);
     }
 }
-
 

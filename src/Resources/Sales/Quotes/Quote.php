@@ -83,9 +83,14 @@ class Quote extends Resource implements KbDocumentContract
     /** @var SalesTax[] */
     public array $taxs;
 
-    public string $network_link;
+    public ?string $network_link;
 
     public ?bool $mwst_is_net;
+
+    public ?int $project_id = null;
+
+    /** @deprecated Use template_slug for new documents. */
+    public ?int $logopaper_id = null;
 
 
     public function __construct(
@@ -121,6 +126,8 @@ class Quote extends Resource implements KbDocumentContract
         /** @var ItemPositionCollection<int, ItemPosition> */
         #[WithCast(ItemPositionCast::class)]
         public ?ItemPositionCollection $positions = null,
+        public ?string $contact_address_manual = null,
+        public ?string $delivery_address_manual = null,
     )
     {
         $this->positions = $positions ?? new ItemPositionCollection([]);
@@ -135,6 +142,7 @@ class Quote extends Resource implements KbDocumentContract
             'show_total',
             'delivery_address',
             'positions',
+            'logopaper_id',
         ]);
     }
 
@@ -146,6 +154,7 @@ class Quote extends Resource implements KbDocumentContract
             'project_id',
             'show_total',
             'delivery_address',
+            'logopaper_id',
         ], [
             'mwst_is_net' => ! isset($this->mwst_is_net),
         ]);

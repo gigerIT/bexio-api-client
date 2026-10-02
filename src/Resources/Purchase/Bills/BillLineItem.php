@@ -8,6 +8,9 @@ use Bexio\Resources\Resource;
 
 class BillLineItem extends Resource
 {
+    public ?string $id = null;
+    public ?float $tax_calc = null;
+
     public function __construct(
         public float $amount,
         public int   $position = 0,

@@ -118,3 +118,14 @@ $result = $contact->restore();
 - Use `titel_id` when assigning a title. The package intentionally matches that field name even though some Bexio docs use `title_id`.
 - `withArchived()` is specific to the contact query builder.
 - The deprecated `address` property is response-only. Prefer `street_name`, `house_number`, and `address_addition` for writes.
+
+## Current address and title payloads
+
+`title_id` in responses hydrates the existing public `titel_id` property. Writes
+continue using `titel_id`. Create, update and bulk creation share the same
+serializer: response IDs, timestamps, profile images, deprecated `is_lead`, and
+the old combined `address` are omitted. Use `street_name`, `house_number` and
+`address_addition` for new writes. A fetched contact can be reused for bulk
+creation; clear its `nr` when the new contact should receive a new number.
+
+Verified with a disposable contact/title and bulk round trip on 2026-10-02.

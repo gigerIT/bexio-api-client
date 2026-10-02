@@ -8,6 +8,8 @@ use Bexio\Resources\Resource;
 
 class BillDiscount extends Resource
 {
+    public ?string $id = null;
+
     public function __construct(
         public int   $position,
         public float $amount,

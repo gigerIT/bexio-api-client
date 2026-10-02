@@ -35,6 +35,10 @@ class UpdateEmployeeRequest extends Request implements HasBody
 
     public function createDtoFromResponse(Response $response): Employee
     {
+        if ($response->status() === 204) {
+            return $this->employee;
+        }
+
         return Employee::from($response->json());
     }
 }

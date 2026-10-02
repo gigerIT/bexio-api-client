@@ -48,6 +48,11 @@ class Timesheet extends Resource
     ) {
     }
 
+    public function toApi(): array
+    {
+        return $this->except('id', 'date', 'duration', 'running', 'travel_time', 'travel_charge', 'travel_distance')->toArray();
+    }
+
     public static function statuses(BexioClient $client): array
     {
         $request = new GetTimesheetStatusesRequest();
@@ -56,5 +61,4 @@ class Timesheet extends Resource
         return $request->createDtoFromResponse($response);
     }
 }
-
 

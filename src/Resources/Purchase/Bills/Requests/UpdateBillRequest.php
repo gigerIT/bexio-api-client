@@ -38,7 +38,7 @@ class UpdateBillRequest extends Request implements HasBody
             ->bill
             ->toApi()
             ->except('purchase_order_id', 'qr_bill_information')
-            ->toArray();
+            ->toApiPayload(updating: true);
     }
 
 }

@@ -42,39 +42,33 @@ it('builds package requests with project context', function () {
 });
 
 it('can create update fetch and delete a disposable package', function () {
-    try {
-        $project = Project::useClient(testClient())->query()->first();
-    } catch (\Throwable $e) {
-        \PHPUnit\Framework\Assert::markTestSkipped('Projects endpoint unavailable: ' . $e->getMessage());
-    }
+    withTestProject(function (Project $project): void {
+        $package = (new Package(
+            project_id: $project->id,
+            name: 'API package ' . uniqid(),
+            estimated_time_in_hours: 1.0,
+            comment: 'Created by endpoint completion tests',
+        ))
+            ->attachClient(testClient())
+            ->create();
 
-    if (! $project) {
-        \PHPUnit\Framework\Assert::markTestSkipped('No projects available');
-    }
+        try {
+            $package->name .= ' updated';
+            $updated = $package->update();
+            $found = Package::useClient(testClient())
+                ->forProject($project->id)
+                ->find($package->id);
+            $listed = Package::useClient(testClient())->query()->forProject($project->id)->get();
 
-    $package = (new Package(
-        project_id: $project->id,
-        name: 'API package ' . uniqid(),
-        estimated_time_in_hours: 1.0,
-        comment: 'Created by endpoint completion tests',
-    ))
-        ->attachClient(testClient())
-        ->create();
-
-    try {
-        $package->name .= ' updated';
-        $updated = $package->update();
-        $found = Package::useClient(testClient())
-            ->forProject($project->id)
-            ->find($package->id);
-
-        expect($updated)->toBeInstanceOf(Package::class)
-            ->and($updated->name)->toBe($package->name)
-            ->and($found)->toBeInstanceOf(Package::class)
-            ->and($found->id)->toBe($package->id);
-    } finally {
-        Package::useClient(testClient())
-            ->forProject($project->id)
-            ->delete($package->id);
-    }
+            expect($updated)->toBeInstanceOf(Package::class)
+                ->and($updated->name)->toBe($package->name)
+                ->and($found)->toBeInstanceOf(Package::class)
+                ->and($found->id)->toBe($package->id)
+                ->and(array_column($listed, 'id'))->toContain($package->id);
+        } finally {
+            Package::useClient(testClient())
+                ->forProject($project->id)
+                ->delete($package->id);
+        }
+    });
 });

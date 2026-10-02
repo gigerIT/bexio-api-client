@@ -48,6 +48,18 @@ class Project extends Resource
     ) {
     }
 
+    public function toApi(): array
+    {
+        $payload = $this->except('id', 'uuid', 'nr')->toArray();
+
+        // Automatic-numbering accounts reject document_nr even when it is null.
+        if ($this->document_nr === null) {
+            unset($payload['document_nr']);
+        }
+
+        return $payload;
+    }
+
     /**
      * Archive the project.
      */
@@ -92,5 +104,4 @@ class Project extends Resource
         return $request->createDtoFromResponse($response);
     }
 }
-
 

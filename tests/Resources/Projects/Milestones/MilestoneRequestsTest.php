@@ -40,39 +40,33 @@ it('builds milestone requests with project context', function () {
 });
 
 it('can create update fetch and delete a disposable milestone', function () {
-    try {
-        $project = Project::useClient(testClient())->query()->first();
-    } catch (\Throwable $e) {
-        \PHPUnit\Framework\Assert::markTestSkipped('Projects endpoint unavailable: ' . $e->getMessage());
-    }
+    withTestProject(function (Project $project): void {
+        $milestone = (new Milestone(
+            project_id: $project->id,
+            name: 'API milestone ' . uniqid(),
+            end_date: '2026-12-31',
+            comment: 'Created by endpoint completion tests',
+        ))
+            ->attachClient(testClient())
+            ->create();
 
-    if (! $project) {
-        \PHPUnit\Framework\Assert::markTestSkipped('No projects available');
-    }
+        try {
+            $milestone->name .= ' updated';
+            $updated = $milestone->update();
+            $found = Milestone::useClient(testClient())
+                ->forProject($project->id)
+                ->find($milestone->id);
+            $listed = Milestone::useClient(testClient())->query()->forProject($project->id)->get();
 
-    $milestone = (new Milestone(
-        project_id: $project->id,
-        name: 'API milestone ' . uniqid(),
-        end_date: '2026-12-31',
-        comment: 'Created by endpoint completion tests',
-    ))
-        ->attachClient(testClient())
-        ->create();
-
-    try {
-        $milestone->name .= ' updated';
-        $updated = $milestone->update();
-        $found = Milestone::useClient(testClient())
-            ->forProject($project->id)
-            ->find($milestone->id);
-
-        expect($updated)->toBeInstanceOf(Milestone::class)
-            ->and($updated->name)->toBe($milestone->name)
-            ->and($found)->toBeInstanceOf(Milestone::class)
-            ->and($found->id)->toBe($milestone->id);
-    } finally {
-        Milestone::useClient(testClient())
-            ->forProject($project->id)
-            ->delete($milestone->id);
-    }
+            expect($updated)->toBeInstanceOf(Milestone::class)
+                ->and($updated->name)->toBe($milestone->name)
+                ->and($found)->toBeInstanceOf(Milestone::class)
+                ->and($found->id)->toBe($milestone->id)
+                ->and(array_column($listed, 'id'))->toContain($milestone->id);
+        } finally {
+            Milestone::useClient(testClient())
+                ->forProject($project->id)
+                ->delete($milestone->id);
+        }
+    });
 });

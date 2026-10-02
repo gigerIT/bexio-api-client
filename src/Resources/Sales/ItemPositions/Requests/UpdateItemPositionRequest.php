@@ -32,7 +32,14 @@ class UpdateItemPositionRequest extends Request implements HasBody
 
     protected function defaultBody(): array
     {
-        return $this->itemPosition->toApiPayload();
+        $payload = $this->itemPosition->toApiPayload();
+        // Existing hierarchy is immutable; invoice widgets have no optional positions.
+        unset($payload['parent_id']);
+        if ($this->documentType === KbDocumentType::INVOICE) {
+            unset($payload['is_optional']);
+        }
+
+        return $payload;
     }
 
     public function createDtoFromResponse(Response $response): ItemPosition

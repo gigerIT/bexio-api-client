@@ -1,0 +1,156 @@
+{
+  "id": "20261002T163145-d4824d76",
+  "started_at": "2026-10-02T16:31:45.427665+00:00",
+  "status": "complete",
+  "decisions": [
+    {
+      "key": "guide/Authentication/Authorization Code Flow",
+      "fingerprint": "cb4d9e355ade4a0db2e80896dfaf1266c8e7fcd2de6b98612fad0a2d65bdf037",
+      "snapshot": "8b1481c31c8e96b32f111585d15d3832deb6ad57c5023b740619df8788e45f8b",
+      "resolved_at": "2026-10-02T16:31:46.039413+00:00",
+      "outcome": "already-current",
+      "reason": "BexioAuth delegates authorization-code and refresh grants to installed Saloon. Inspected Saloon GetAccessTokenRequest and GetRefreshTokenRequest: POST /token form bodies contain the appropriate grant_type and client credentials. The configured authorization endpoint /auth follows the current OIDC table, despite stale /authorize wording in the flow prose. Default scopes include offline_access and README stores rotating refresh tokens. The third-party PHP example adds no package behavior. Re-reviewed after final documentation and owned-project fixture changes; the contract disposition is unchanged. Documentation-only re-review: contacts redirect restored and license declaration linked to composer.json. API code and validation unchanged.",
+      "files": {
+        "src/BexioAuth.php": "a4a57555e64c00eeced62be0604f22560ee36b6b6cff2ec31696f5b11216f1ec",
+        "config/bexio.php": "f6b01732adc3752f2335ca47a9a5d55f70cf912a13d67a3618cb505355a17c0d",
+        "README.md": "c55339902e9c496e5e2537fc20e7af616cfce491640f2bfa09630d5b0cd3abc7",
+        "composer.json": "3d064f5d0d47d523e00dea02bb72ba57c805c17b98ce90896da1400f62f2bc72",
+        "tests/Auth/AuthTest.php": "a8b70aa733b4907e3f3ace31a1e62ef93b7cfc9b1316a251b88a74cd8e022a2c"
+      },
+      "checks": [
+        "Final full suite: php vendor/bin/pest --parallel --processes=6 --compact --colors=never — 422 passed, 36 explicit trial/data skips, 1860 assertions, 35.82s.",
+        "composer test:types — passed after final nested DTO changes; git diff --check — passed.",
+        "Local Markdown link targets and git diff --check pass."
+      ]
+    },
+    {
+      "key": "guide/Authentication/Authorization Code Flow/Code example (PHP)",
+      "fingerprint": "4f381d2fc20df6f498d3a11d12fa55cff194bcd6f48b491d4d238cc54dc8db25",
+      "snapshot": "8b1481c31c8e96b32f111585d15d3832deb6ad57c5023b740619df8788e45f8b",
+      "resolved_at": "2026-10-02T16:31:46.039562+00:00",
+      "outcome": "already-current",
+      "reason": "BexioAuth delegates authorization-code and refresh grants to installed Saloon. Inspected Saloon GetAccessTokenRequest and GetRefreshTokenRequest: POST /token form bodies contain the appropriate grant_type and client credentials. The configured authorization endpoint /auth follows the current OIDC table, despite stale /authorize wording in the flow prose. Default scopes include offline_access and README stores rotating refresh tokens. The third-party PHP example adds no package behavior. Re-reviewed after final documentation and owned-project fixture changes; the contract disposition is unchanged. Documentation-only re-review: contacts redirect restored and license declaration linked to composer.json. API code and validation unchanged.",
+      "files": {
+        "src/BexioAuth.php": "a4a57555e64c00eeced62be0604f22560ee36b6b6cff2ec31696f5b11216f1ec",
+        "config/bexio.php": "f6b01732adc3752f2335ca47a9a5d55f70cf912a13d67a3618cb505355a17c0d",
+        "README.md": "c55339902e9c496e5e2537fc20e7af616cfce491640f2bfa09630d5b0cd3abc7",
+        "composer.json": "3d064f5d0d47d523e00dea02bb72ba57c805c17b98ce90896da1400f62f2bc72",
+        "tests/Auth/AuthTest.php": "a8b70aa733b4907e3f3ace31a1e62ef93b7cfc9b1316a251b88a74cd8e022a2c"
+      },
+      "checks": [
+        "Final full suite: php vendor/bin/pest --parallel --processes=6 --compact --colors=never — 422 passed, 36 explicit trial/data skips, 1860 assertions, 35.82s.",
+        "composer test:types — passed after final nested DTO changes; git diff --check — passed.",
+        "Local Markdown link targets and git diff --check pass."
+      ]
+    },
+    {
+      "key": "guide/Authentication/Authorization Code Flow/How it works",
+      "fingerprint": "8cefaa2deb7d792899b425ba584dd147fc8eca11213ce3800b9f097c758bd96b",
+      "snapshot": "8b1481c31c8e96b32f111585d15d3832deb6ad57c5023b740619df8788e45f8b",
+      "resolved_at": "2026-10-02T16:31:46.039693+00:00",
+      "outcome": "already-current",
+      "reason": "BexioAuth delegates authorization-code and refresh grants to installed Saloon. Inspected Saloon GetAccessTokenRequest and GetRefreshTokenRequest: POST /token form bodies contain the appropriate grant_type and client credentials. The configured authorization endpoint /auth follows the current OIDC table, despite stale /authorize wording in the flow prose. Default scopes include offline_access and README stores rotating refresh tokens. The third-party PHP example adds no package behavior. Re-reviewed after final documentation and owned-project fixture changes; the contract disposition is unchanged. Documentation-only re-review: contacts redirect restored and license declaration linked to composer.json. API code and validation unchanged.",
+      "files": {
+        "src/BexioAuth.php": "a4a57555e64c00eeced62be0604f22560ee36b6b6cff2ec31696f5b11216f1ec",
+        "config/bexio.php": "f6b01732adc3752f2335ca47a9a5d55f70cf912a13d67a3618cb505355a17c0d",
+        "README.md": "c55339902e9c496e5e2537fc20e7af616cfce491640f2bfa09630d5b0cd3abc7",
+        "composer.json": "3d064f5d0d47d523e00dea02bb72ba57c805c17b98ce90896da1400f62f2bc72",
+        "tests/Auth/AuthTest.php": "a8b70aa733b4907e3f3ace31a1e62ef93b7cfc9b1316a251b88a74cd8e022a2c"
+      },
+      "checks": [
+        "Final full suite: php vendor/bin/pest --parallel --processes=6 --compact --colors=never — 422 passed, 36 explicit trial/data skips, 1860 assertions, 35.82s.",
+        "composer test:types — passed after final nested DTO changes; git diff --check — passed.",
+        "Local Markdown link targets and git diff --check pass."
+      ]
+    },
+    {
+      "key": "guide/Authentication/Migration from idp.bexio.com to auth.bexio.com/Are there breaking changes?",
+      "fingerprint": "8ec0547ad0d3bf3c2e16e9553e4d5afa3c241007e629a5c575fed34590f60059",
+      "snapshot": "8b1481c31c8e96b32f111585d15d3832deb6ad57c5023b740619df8788e45f8b",
+      "resolved_at": "2026-10-02T16:31:46.039772+00:00",
+      "outcome": "already-current",
+      "reason": "The connector uses the new issuer and Saloon form-body token requests, not query parameters. It does not decode sub/locale/shard_id claims or assume an email subject. The README persists the refreshed access token, refresh token and expiry; consent and token rotation remain consuming-application responsibilities. Re-reviewed after final documentation and owned-project fixture changes; the contract disposition is unchanged. Documentation-only re-review: contacts redirect restored and license declaration linked to composer.json. API code and validation unchanged.",
+      "files": {
+        "src/BexioAuth.php": "a4a57555e64c00eeced62be0604f22560ee36b6b6cff2ec31696f5b11216f1ec",
+        "README.md": "c55339902e9c496e5e2537fc20e7af616cfce491640f2bfa09630d5b0cd3abc7",
+        "composer.json": "3d064f5d0d47d523e00dea02bb72ba57c805c17b98ce90896da1400f62f2bc72"
+      },
+      "checks": [
+        "Final full suite: php vendor/bin/pest --parallel --processes=6 --compact --colors=never — 422 passed, 36 explicit trial/data skips, 1860 assertions, 35.82s.",
+        "composer test:types — passed after final nested DTO changes; git diff --check — passed.",
+        "Local Markdown link targets and git diff --check pass."
+      ]
+    },
+    {
+      "key": "guide/Authentication/Migration from idp.bexio.com to auth.bexio.com/Do users have to re-authorize my application after the switch?",
+      "fingerprint": "6211ee342c295b880e63724df04b3de49a610dc09c6841d323a97924825d6582",
+      "snapshot": "8b1481c31c8e96b32f111585d15d3832deb6ad57c5023b740619df8788e45f8b",
+      "resolved_at": "2026-10-02T16:31:46.039849+00:00",
+      "outcome": "already-current",
+      "reason": "The connector uses the new issuer and Saloon form-body token requests, not query parameters. It does not decode sub/locale/shard_id claims or assume an email subject. The README persists the refreshed access token, refresh token and expiry; consent and token rotation remain consuming-application responsibilities. Re-reviewed after final documentation and owned-project fixture changes; the contract disposition is unchanged. Documentation-only re-review: contacts redirect restored and license declaration linked to composer.json. API code and validation unchanged.",
+      "files": {
+        "src/BexioAuth.php": "a4a57555e64c00eeced62be0604f22560ee36b6b6cff2ec31696f5b11216f1ec",
+        "README.md": "c55339902e9c496e5e2537fc20e7af616cfce491640f2bfa09630d5b0cd3abc7",
+        "composer.json": "3d064f5d0d47d523e00dea02bb72ba57c805c17b98ce90896da1400f62f2bc72"
+      },
+      "checks": [
+        "Final full suite: php vendor/bin/pest --parallel --processes=6 --compact --colors=never — 422 passed, 36 explicit trial/data skips, 1860 assertions, 35.82s.",
+        "composer test:types — passed after final nested DTO changes; git diff --check — passed.",
+        "Local Markdown link targets and git diff --check pass."
+      ]
+    },
+    {
+      "key": "guide/Authentication/Refresh Token Flow",
+      "fingerprint": "7d791e7175c11df8db60796bfdd4b4ac185dd0d67065b6f7bd878f3449edd66f",
+      "snapshot": "8b1481c31c8e96b32f111585d15d3832deb6ad57c5023b740619df8788e45f8b",
+      "resolved_at": "2026-10-02T16:31:46.040043+00:00",
+      "outcome": "already-current",
+      "reason": "BexioAuth delegates authorization-code and refresh grants to installed Saloon. Inspected Saloon GetAccessTokenRequest and GetRefreshTokenRequest: POST /token form bodies contain the appropriate grant_type and client credentials. The configured authorization endpoint /auth follows the current OIDC table, despite stale /authorize wording in the flow prose. Default scopes include offline_access and README stores rotating refresh tokens. The third-party PHP example adds no package behavior. Re-reviewed after final documentation and owned-project fixture changes; the contract disposition is unchanged. Documentation-only re-review: contacts redirect restored and license declaration linked to composer.json. API code and validation unchanged.",
+      "files": {
+        "src/BexioAuth.php": "a4a57555e64c00eeced62be0604f22560ee36b6b6cff2ec31696f5b11216f1ec",
+        "config/bexio.php": "f6b01732adc3752f2335ca47a9a5d55f70cf912a13d67a3618cb505355a17c0d",
+        "README.md": "c55339902e9c496e5e2537fc20e7af616cfce491640f2bfa09630d5b0cd3abc7",
+        "composer.json": "3d064f5d0d47d523e00dea02bb72ba57c805c17b98ce90896da1400f62f2bc72",
+        "tests/Auth/AuthTest.php": "a8b70aa733b4907e3f3ace31a1e62ef93b7cfc9b1316a251b88a74cd8e022a2c"
+      },
+      "checks": [
+        "Final full suite: php vendor/bin/pest --parallel --processes=6 --compact --colors=never — 422 passed, 36 explicit trial/data skips, 1860 assertions, 35.82s.",
+        "composer test:types — passed after final nested DTO changes; git diff --check — passed.",
+        "Local Markdown link targets and git diff --check pass."
+      ]
+    },
+    {
+      "key": "guide/Changelog",
+      "fingerprint": "b741a1772b659137457145aab74d29bfcc391b4731f5cd6a982ba0dd9dc3cb9c",
+      "snapshot": "8b1481c31c8e96b32f111585d15d3832deb6ad57c5023b740619df8788e45f8b",
+      "resolved_at": "2026-10-02T16:31:46.040619+00:00",
+      "outcome": "docs-only",
+      "reason": "Reviewed entries through 2026-06-19 against current operations and fields: purchase scopes, direct payroll PDF, address/title mappings, payroll structured addresses, annual VAT/calendar flag, journal currency/ref metadata, project UUID/user, OAuth host/PAT changes, new v4 banking, outgoing PUT, files, recurrence and historical deprecations. Required code changes have separate operation/schema dispositions; historical service fixes and removed IS/ISR APIs do not require new client endpoints. Documentation-only re-review: contacts redirect restored and license declaration linked to composer.json. API code and validation unchanged.",
+      "files": {
+        "docs/bexio-api-docs.md": "433bb379f3e85139b3831c0eb9b19609dab2d0cffcbc08bbe95aa481a9089e79",
+        "README.md": "c55339902e9c496e5e2537fc20e7af616cfce491640f2bfa09630d5b0cd3abc7",
+        "docs/resources/banking/payments.md": "1f180f83629a2f0dbab9fe7fbf95d6371eab84e8e5ad4bafd6fdb0b71444a8c5",
+        "docs/resources/payroll/documents.md": "e6b1a88776a765c71fe3d54005ed6f7c6d0ed20f62a0e5b95250922ea45a6787"
+      },
+      "checks": [
+        "Final full suite: php vendor/bin/pest --parallel --processes=6 --compact --colors=never — 422 passed, 36 explicit trial/data skips, 1860 assertions, 35.82s.",
+        "composer test:types — passed after final nested DTO changes; git diff --check — passed.",
+        "Local Markdown link targets and git diff --check pass."
+      ]
+    }
+  ],
+  "snapshot": "8b1481c31c8e96b32f111585d15d3832deb6ad57c5023b740619df8788e45f8b",
+  "pending_at_check": 7,
+  "metrics": {
+    "http_status": 304,
+    "download_bytes": 0,
+    "etag": "\"5af2ecd7e1c80ea9beb172c1218fe9a0\"",
+    "last_modified": "Mon, 28 Sep 2026 12:05:15 GMT",
+    "operations": 310,
+    "units": 732,
+    "snapshot_bytes": 325601,
+    "seconds": 0.474
+  },
+  "finished_at": "2026-10-02T16:31:46.453184+00:00",
+  "pending_at_finish": {}
+}

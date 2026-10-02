@@ -33,6 +33,8 @@ class Tax extends Resource
     public ?float $net_tax_value;
     public ?int $start_year;
     public ?int $end_year;
+    public ?int $start_month = null;
+    public ?int $end_month = null;
     public ?bool $is_active;
     public ?string $display_name;
 }

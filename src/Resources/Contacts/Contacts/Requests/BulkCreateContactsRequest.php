@@ -30,7 +30,7 @@ class BulkCreateContactsRequest extends Request implements HasBody
     protected function defaultBody(): array
     {
         return array_map(function (Contact $contact) {
-            return $contact->except("updated_at", "profile_image")->toArray();
+            return $contact->toApi();
         }, $this->contacts);
     }
 
@@ -40,4 +40,3 @@ class BulkCreateContactsRequest extends Request implements HasBody
     }
 
 }
-

@@ -8,6 +8,8 @@ use Bexio\Resources\Resource;
 
 class SalesTax extends Resource
 {
+    public ?string $value = null;
+
     public function __construct(
         public string $percentage,
         public ?string $name,

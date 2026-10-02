@@ -25,6 +25,40 @@ Detailed package usage lives in segmented resource guides under `docs/resources/
 
 - [Sales guides index](sales/README.md)
 - [Orders](sales/orders.md)
+- [Quotes](sales/quotes.md)
+- [Position metadata and writes](sales/positions.md)
+- [Document templates](sales/document-templates.md)
+
+## Payroll
+
+- [Paystub downloads](payroll/documents.md)
+- [Employees and absences](payroll/employees-and-absences.md)
+
+## Accounting
+
+- [VAT periods](accounting/vat-periods.md)
+- [Response metadata](accounting/response-metadata.md)
+- [Manual entries and attachments](accounting/manual-entries.md)
+
+## Banking
+
+- [Bank accounts](banking/bank-accounts.md)
+- [V4 payments](banking/payments.md)
+
+## Other
+
+- [Note and task mappings](other/notes-and-tasks.md)
+
+## Projects
+
+- [Project numbering](projects/projects.md)
+- [Timesheets](projects/timesheets.md)
+
+## Purchase
+
+- [OAuth scopes](purchase/scopes.md)
+- [Response metadata](purchase/response-metadata.md)
+- [Outgoing payments](purchase/outgoing-payments.md)
 
 ## Source Of Truth
 

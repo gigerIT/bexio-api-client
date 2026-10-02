@@ -1,5 +1,19 @@
 Title: bexio API documentation
 
+Sync check: 2026-10-02 against <https://docs.bexio.com/>. The current contract and
+live discrepancies are tracked in [the sync ledger and reports](api-sync/).
+The following package notes supplement the bundled historical reference:
+
+- [Contacts](resources/contacts/contacts.md): current title mapping and structured address writes, including bulk creation.
+- [Sales positions](resources/sales/positions.md): calculated response fields and endpoint-specific create/update filtering.
+- [Quotes](resources/sales/quotes.md): manual contact/delivery addresses and project references; sales network links may be null.
+- Invoice payment responses preserve `kb_bill_id`, `kb_credit_voucher_id`, and `kb_credit_voucher_text`; these are never written. Delivery responses preserve `delivery_address_type`.
+- [Manual entries](resources/accounting/manual-entries.md): ownership/lock metadata and attachment fields.
+- [Timesheets](resources/projects/timesheets.md): write tracking rather than computed response fields.
+- [V4 banking payments](resources/banking/payments.md): numeric amounts, UUID instance operations, QR fields and live update `type` requirement.
+- [Purchase responses](resources/purchase/response-metadata.md) and [outgoing payments](resources/purchase/outgoing-payments.md): totals, bill context and supported update types.
+- [Payroll](resources/payroll/employees-and-absences.md): structured addresses, permit metadata, absence context and HTTP 204 behavior. The trial account uses explicit contract-test exceptions.
+
 * Overview
 * First steps
 * Reporting a problem
@@ -356,6 +370,7 @@ Title: bexio API documentation
 * delDeleting employee absence with given id
 * Documents
 * getRetrieving pdf for employee for given month
+* getDownload paystub pdf for employee for given month
 * Other endpoints
 * Company Profile
 * getFetch a list of company profiles
@@ -3206,6 +3221,9 @@ application/json
 
 Additional Addresses
 --------------------
+
+`name_addition` is an optional nullable name line in create/update payloads and
+list/show/search responses. The package exposes it as `AdditionalAddress::name_addition`.
 
 Fetch a list of additional addresses
 ------------------------------------
@@ -15946,6 +15964,9 @@ application/json
 Document templates
 ------------------
 
+Client note (verified 2026-10-02): response `template_slug` maps to the package's
+public `DocumentTemplate::slug` property.
+
 List document templates
 -----------------------
 
@@ -16029,6 +16050,10 @@ application/json
 
 Bills
 -----
+
+OAuth scopes (official contract checked 2026-10-02): `openid contact_show` for
+all bill operations, including document-number validation. These requirements
+were updated in the upstream changelog on 2026-06-19.
 
 Get Bills
 ---------
@@ -18072,6 +18097,9 @@ application/json
 
 Expenses
 --------
+
+OAuth scopes (official contract checked 2026-10-02): `openid contact_show` for
+all expense operations, including document-number validation.
 
 Get Expenses
 ------------
@@ -20579,6 +20607,11 @@ application/json
 
 Outgoing Payment
 ----------------
+
+OAuth scopes (official contract checked 2026-10-02): `openid contact_show` for
+list, show and create; add `bank_payment_edit` for update (`PUT`), and add
+`kb_bill_show` for delete. These are purchase outgoing-payment requirements;
+banking `/4.0/banking/payments` uses `bank_payment_show` / `bank_payment_edit`.
 
 Retrieve Outgoing Payments
 --------------------------
@@ -24351,6 +24384,10 @@ application/json
 Vat Periods
 -----------
 
+The response field `type` accepts `quarter`, `semester`, and `annual`. API dates
+`start` and `end` map to the package's `VatPeriod::date_from` and `date_to`.
+The response also includes `closed_at` and `status`.
+
 Fetch a list of vat periods
 ---------------------------
 
@@ -28096,6 +28133,11 @@ application/json
 
 Projects
 --------
+
+Client notes (verified live 2026-10-02): automatic-numbering project create/update
+rejects an explicitly null `document_nr`; the client omits it when unset.
+Milestone updates require PATCH. The documented POST update returned 404 for an
+existing disposable milestone, while PATCH returned 200.
 
 Fetch a list of projects
 ------------------------
@@ -32909,6 +32951,10 @@ Documents
 Retrieving pdf for employee for given month
 -------------------------------------------
 
+Deprecated upstream on 2026-05-26. This endpoint still returns a JSON `location`.
+Use the direct PDF download endpoint below for new integrations.
+Required OAuth scope: `payroll_paystub_show`.
+
 ##### Authorizations
 
 _bearerAuth_
@@ -32975,6 +33021,33 @@ application/json
 
 }
 ```
+
+Download paystub pdf for employee for given month
+------------------------------------------------
+
+Source: <https://docs.bexio.com/#operation/downloadPaystubPdf>, checked 2026-10-02.
+
+`GET /4.0/payroll/employees/{employeeId}/paystub-pdf-download/{year}/{month}`
+
+Required OAuth scope: `payroll_paystub_show`.
+
+| Path parameter | Type | Meaning |
+| --- | --- | --- |
+| employeeId | string (UUID) | Payroll employee ID |
+| year | integer | Paystub year |
+| month | integer | Paystub month |
+
+### Responses
+
+| Status | Response |
+| --- | --- |
+| 200 | Binary `application/pdf` with a `Content-Disposition` attachment filename |
+| 400 | Malformed parameters (`application/problem+json`) |
+| 404 | Employee not found (`application/problem+json`) |
+| 410 | Employee deleted (`application/problem+json`) |
+
+The success body contains the PDF itself, rather than a JSON download location.
+See [package usage and migration](resources/payroll/documents.md).
 
 Company Profile
 ---------------
@@ -34676,6 +34749,11 @@ application/json
 
 Tasks
 -----
+
+Client note (verified live 2026-10-02): responses use `has_reminder` with string
+values `"true"`/`"false"`, although the schema describes boolean `have_remember`.
+The client normalizes both variants into its boolean `has_reminder` property.
+Writes still use `have_remember`; updates require reminder type/time alongside it.
 
 Fetch a list of tasks
 ---------------------

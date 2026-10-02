@@ -37,7 +37,7 @@ class UpdateAbsenceRequest extends Request implements HasBody
             return $this->absence;
         }
 
-        return Absence::from($response->json());
+        return Absence::from([...$response->json(), 'employee_id' => $this->employeeId()]);
     }
 
     private function employeeId(): string

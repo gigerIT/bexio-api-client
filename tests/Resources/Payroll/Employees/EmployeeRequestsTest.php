@@ -241,13 +241,14 @@ it('preserves payroll paystub download locations', function () {
 });
 
 it('reads live payroll employees', function () {
-    $employees = Employee::useClient(testClient())->all();
+    $client = testFullAccountClient();
+    $employees = Employee::useClient($client)->all();
 
     if (count($employees) === 0) {
         \PHPUnit\Framework\Assert::markTestSkipped('No payroll employees available');
     }
 
-    $employee = Employee::useClient(testClient())->find($employees[0]->id, now()->toDateString());
+    $employee = Employee::useClient($client)->find($employees[0]->id, now()->toDateString());
 
     expect($employee)->toBeInstanceOf(Employee::class)
         ->and($employee->id)->toBeString();

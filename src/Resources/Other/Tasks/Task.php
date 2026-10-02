@@ -12,6 +12,7 @@ use Bexio\Resources\Other\Tasks\Requests\GetTasksRequest;
 use Bexio\Resources\Other\Tasks\Requests\GetTaskStatusesRequest;
 use Bexio\Resources\Other\Tasks\Requests\UpdateTaskRequest;
 use Bexio\Resources\Resource;
+use Spatie\LaravelData\Attributes\MapInputName;
 
 /**
  * @method TaskQueryBuilder query()
@@ -34,16 +35,34 @@ class Task extends Resource
         public ?string $info = null,
         public ?int $contact_id = null,
         public ?int $sub_contact_id = null,
+        #[MapInputName('pr_project_id')]
         public ?int $project_id = null,
         public ?int $entry_id = null,
         public ?int $module_id = null,
         public ?int $todo_status_id = null,
         public ?int $todo_priority_id = null,
+        #[MapInputName('have_remember')]
         public ?bool $has_reminder = null,
         public ?int $remember_type_id = null,
         public ?int $remember_time_id = null,
         public ?int $communication_kind_id = null,
     ) {
+    }
+
+    public static function prepareForPipeline(array $properties): array
+    {
+        // Live responses use has_reminder with string booleans; the docs use have_remember.
+        foreach (['has_reminder', 'have_remember'] as $field) {
+            if (array_key_exists($field, $properties)) {
+                $properties[$field] = match ($properties[$field]) {
+                    'false' => false,
+                    'true' => true,
+                    default => $properties[$field],
+                };
+            }
+        }
+
+        return $properties;
     }
 
     public function toApi(): array
@@ -81,4 +100,3 @@ class Task extends Resource
         return $request->createDtoFromResponse($client->send($request));
     }
 }
-

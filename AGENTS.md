@@ -157,6 +157,7 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 
 - Task create/update payloads map `has_reminder` to API field `have_remember`.
 - Live task update rejects `have_remember` unless both `remember_type_id` and `remember_time_id` are submitted. Omit `have_remember` on update when reminder type/time are absent.
+- Live task responses use string booleans (`"false"` / `"true"`) in `has_reminder`, while the docs describe boolean `have_remember`. Normalize both inputs before DTO boolean casting; a plain cast turns `"false"` into `true`.
 - Country write endpoints require a valid `iso3166_alpha2`; update tests should preserve/send it even if the create response does not hydrate it.
 
 ### Quote query support
@@ -189,7 +190,10 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 - `src/Resources/Contacts/AdditionalAddresses/AdditionalAddressQueryBuilder.php` adds `forContact(int $contactId)` and custom request instantiation.
 - Do not assume base `Resource::find()` works for nested/contact-scoped resources.
 
-### Banking payments show endpoint
+### Banking payments
+
+- V4 payment instance refresh/delete/save uses `uuid` when present. Create/update bodies serialize `amount` as a JSON number, including hydrated string amounts.
+- Live v4 updates require `type` even though the public update schema omits it. QR payloads omit the IBAN-only `allowance`; QR reference and additional information remain writable.
 
 - The live `/4.0/banking/payments` index may return payment UUIDs that immediately 404 on `GET /4.0/banking/payments/{payment_id}` in the shared test account.
 - Read-only tests for `Payment::find()` should try a small indexed page and skip only when no indexed payment is retrievable, instead of assuming the first payment can be shown.
@@ -215,18 +219,22 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 - Any change touching item-position create/update serialization must include a mocked Saloon body assertion for the exact endpoint and a live disposable sales-document test for the affected create/update flow. Creation-only coverage is not enough when update payloads differ.
 - If Bexio adds item position type, update enum, cast, and test together.
 
+- Fetched position totals, tax values, quantities, numbering and group totals are response metadata. Dedicated create and update serialization must omit them; updates also omit `parent_id`, and invoice widgets reject `is_optional`. Keep non-null parent IDs for supported nested creates.
+
 ### Item write payloads
 
 - Live `/2.0/article` create/update rejects `article_type_id` in write bodies even though bundled docs list it. Omit `article_type_id` and route `id` from item write payloads; keep live create/update/delete coverage because read responses may still hydrate `article_type_id` and can return it as `null`.
 
 ### Purchase write payloads
 
+- Bill writes distinguish create/update child rows: preserve line-item/discount IDs on update, omit them on create, and never write calculated line `tax_calc`. Use `Bill::toApiPayload()` for JSON bodies.
 - Bills and purchase orders can be reused from hydrated DTOs that include response-only fields. Create/update requests should use resource `toApi()` helpers instead of raw `toArray()`, and unit tests should assert hydrated write bodies omit IDs, document numbers, status, totals, timestamps, and embedded response objects.
 
 ### Endpoint versions are mixed
 
 - Codebase uses `/2.0/...`, `/3.0/...`, `/4.0/...` by resource.
 - Do not assume one version package-wide; check neighboring request classes.
+- Milestone updates use `PATCH /3.0/projects/{project_id}/milestones/{milestone_id}`. The official docs still list POST, which returns 404 for an existing milestone; disposable create/update/show/delete verified PATCH.
 
 ## Authentication and Config
 
@@ -266,7 +274,7 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 - `tests/TestCase.php` loads `LaravelDataServiceProvider` and `BexioServiceProvider`.
 - Test env loads package-root `.env` only when neither `BEXIO_ACCESS_TOKEN` nor `TEST_API_KEY` exists in process env, then sets `config('bexio.access_token')` from those vars.
 - Missing credentials are not normal locally/CI. If test cannot run, first assume missing remote fixtures/data, not missing auth.
-- Payroll live endpoint availability is expected in local/CI. Do not skip authorization or endpoint errors; read-only payroll tests may skip only when the remote account has no compatible payroll data.
+- Full-account live tests must surface authorization and endpoint errors. For a known trial account, set `BEXIO_TEST_ACCOUNT_PLAN=trial`: only payroll, legacy IBAN/QR writes, and purchase-order writes use `testFullAccountClient()` to skip unavailable access explicitly. Contract tests still run; these skips do not prove live compatibility. Read-only tests may also skip when the account has no compatible data.
 - `tests/ArchitectureTest.php` bans debug helpers: `dd`, `dump`, `ray`, `sleep`.
 
 ## CI and Release

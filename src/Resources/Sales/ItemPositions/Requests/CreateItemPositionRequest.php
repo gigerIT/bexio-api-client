@@ -33,12 +33,20 @@ class CreateItemPositionRequest extends Request implements HasBody
      */
     protected function defaultBody(): array
     {
-        return $this->itemPosition->except('type')->toArray();
+        $payload = $this->itemPosition->toCreateApiPayload();
+        if ($this->documentType === KbDocumentType::INVOICE) {
+            unset($payload['is_optional']);
+        }
+        if (($payload['parent_id'] ?? null) === null) {
+            unset($payload['parent_id']);
+        }
+
+        return $payload;
     }
 
     public function createDtoFromResponse(Response $response): ItemPosition
     {
-        return ItemPosition::from($response->json());
+        return ItemPosition::fromApiPayload($response->json());
     }
 
 

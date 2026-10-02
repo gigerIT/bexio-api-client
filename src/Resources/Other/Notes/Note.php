@@ -9,6 +9,7 @@ use Bexio\Resources\Other\Notes\Requests\GetNoteRequest;
 use Bexio\Resources\Other\Notes\Requests\GetNotesRequest;
 use Bexio\Resources\Other\Notes\Requests\UpdateNoteRequest;
 use Bexio\Resources\Resource;
+use Spatie\LaravelData\Attributes\MapInputName;
 
 /**
  * @method NoteQueryBuilder query()
@@ -29,6 +30,7 @@ class Note extends Resource
         public ?string $subject = null,
         public ?string $info = null,
         public ?int $contact_id = null,
+        #[MapInputName('pr_project_id')]
         public ?int $project_id = null,
         public ?int $entry_id = null,
         public ?int $module_id = null,
@@ -49,4 +51,3 @@ class Note extends Resource
         ];
     }
 }
-

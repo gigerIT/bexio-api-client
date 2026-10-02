@@ -19,6 +19,9 @@ class CalendarYear extends Resource
     public const SHOW_REQUEST = GetCalendarYearRequest::class;
     public const CREATE_REQUEST = CreateCalendarYearRequest::class;
 
+    public ?string $created_at = null;
+    public ?string $updated_at = null;
+
     public function __construct(
         public ?int $id = null,
         public ?string $uuid = null,
@@ -38,7 +41,6 @@ class CalendarYear extends Resource
 
     public function toApi(): CalendarYear
     {
-        return $this->except('id', 'uuid', 'date_start', 'date_end');
+        return $this->except('id', 'uuid', 'date_start', 'date_end', 'created_at', 'updated_at');
     }
 }
-

@@ -19,7 +19,7 @@ class Comment extends Resource
 
     public function __construct(
         public string  $text,
-        public int     $user_id = 1,
+        public ?int    $user_id = 1,
         public bool    $is_public = false,
         public ?string $user_name = null,
         public ?string $user_email = null,

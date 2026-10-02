@@ -48,6 +48,7 @@ class Delivery extends Resource
     public ?string $viewed_by_client_at = null;
     public ?int $project_id = null;
     public ?int $pr_project_id = null;
+    public ?int $delivery_address_type = null;
 
     public function __construct(
         public ?int                    $id = null,

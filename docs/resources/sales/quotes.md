@@ -87,3 +87,12 @@ $order = Quote::useClient($client)->createOrder(1);
 - `validTo()` and `validBetween()` filter on `is_valid_until`, which matches the live quote search endpoint.
 - Quotes containing `ItemPositionArticle` are created as an empty quote first, then positions are added through the dedicated item position endpoints so `article_id` is not sent to strict quote-create widget schemas.
 - `createOrder()` and `createInvoice()` call the Bexio conversion endpoints and automatically send source-position references when no explicit conversion positions are provided.
+
+## Manual addresses and project references
+
+Create/update accepts `contact_address_manual` and `delivery_address_manual`.
+Use `delivery_address_type: 1` for a manual delivery address. Read the resulting
+formatted `contact_address` and `delivery_address` from the response.
+`project_id` is response metadata; write a project link using `pr_project_id`.
+`network_link` can be null. Use `template_slug` instead of deprecated logopaper
+identifiers. Disposable create/update was verified on 2026-10-02.

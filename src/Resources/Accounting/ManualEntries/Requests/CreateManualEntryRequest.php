@@ -27,7 +27,7 @@ class CreateManualEntryRequest extends Request implements HasBody
 
     protected function defaultBody(): array
     {
-        return $this->manualEntry->toApi()->toArray();
+        return $this->manualEntry->toApi()->except('id')->toArray();
     }
 
     public function createDtoFromResponse(Response $response): ManualEntry

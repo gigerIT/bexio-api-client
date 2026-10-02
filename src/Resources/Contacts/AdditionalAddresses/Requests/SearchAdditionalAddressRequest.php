@@ -24,6 +24,12 @@ class SearchAdditionalAddressRequest extends SearchRequest
 
     public function createDtoFromResponse(Response $response): array
     {
-        return AdditionalAddress::collect($response->json());
+        $data = array_map(function (array $item): array {
+            $item['contact_id'] = $this->contactId;
+
+            return $item;
+        }, $response->json());
+
+        return AdditionalAddress::collect($data);
     }
 }

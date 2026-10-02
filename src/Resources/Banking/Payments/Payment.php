@@ -48,6 +48,16 @@ class Payment extends Resource
     ) {
     }
 
+    protected function resolveResourceId(): int|string
+    {
+        return $this->uuid ?? parent::resolveResourceId();
+    }
+
+    protected function hasResourceId(): bool
+    {
+        return isset($this->uuid) || parent::hasResourceId();
+    }
+
     public function cancel(?string $paymentId = null): Payment
     {
         $targetId = $paymentId ?? $this->uuid ?? ($this->id !== null ? (string)$this->id : null);
@@ -68,17 +78,22 @@ class Payment extends Resource
             'uuid',
             'sender',
             'instruction_id',
-            'purchase_reference',
             'document_no',
             'status',
             'created_at',
             'due_date',
-        );
+        )->exceptWhen('purchase_reference', $this->purchase_reference === null)
+            ->exceptWhen('qr_reference_number', $this->qr_reference_number === null)
+            ->exceptWhen('additional_information', $this->additional_information === null)
+            ->exceptWhen('is_editing_restricted', $this->is_editing_restricted === null)
+            ->exceptWhen('allowance', $this->allowance === null || $this->type === 'qr');
     }
 
     public function toUpdateApi(): Payment
     {
         return $this->only(
+            // The live update endpoint requires the type despite its omitted schema field.
+            'type',
             'allowance',
             'amount',
             'currency',
@@ -87,7 +102,11 @@ class Payment extends Resource
             'recipient',
             'is_editing_restricted',
             'message',
-        );
+            'additional_information',
+            'qr_reference_number',
+        )->exceptWhen('qr_reference_number', $this->qr_reference_number === null)
+            ->exceptWhen('additional_information', $this->additional_information === null)
+            ->exceptWhen('is_editing_restricted', $this->is_editing_restricted === null)
+            ->exceptWhen('allowance', $this->allowance === null || $this->type === 'qr');
     }
 }
-

@@ -33,7 +33,7 @@ class CreateAbsenceRequest extends Request implements HasBody
 
     public function createDtoFromResponse(Response $response): Absence
     {
-        return Absence::from($response->json());
+        return Absence::from([...$response->json(), 'employee_id' => $this->employeeId()]);
     }
 
     private function employeeId(): string

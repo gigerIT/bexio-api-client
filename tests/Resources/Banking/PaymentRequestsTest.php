@@ -6,11 +6,7 @@ use Bexio\Resources\Banking\Payments\Payment;
 use Saloon\Exceptions\Request\Statuses\NotFoundException;
 
 it('can get Payments', function () {
-    try {
-        $payments = Payment::useClient(testClient())->query()->perPage(1)->get();
-    } catch (\Throwable $e) {
-        \PHPUnit\Framework\Assert::markTestSkipped('Payments endpoint unavailable: ' . $e->getMessage());
-    }
+    $payments = Payment::useClient(testClient())->query()->perPage(1)->get();
 
     if (empty($payments)) {
         \PHPUnit\Framework\Assert::markTestSkipped('No payments available');
@@ -22,11 +18,7 @@ it('can get Payments', function () {
 });
 
 it('can get a Payment', function () {
-    try {
-        $payments = Payment::useClient(testClient())->query()->perPage(20)->get();
-    } catch (\Throwable $e) {
-        \PHPUnit\Framework\Assert::markTestSkipped('Payments endpoint unavailable: ' . $e->getMessage());
-    }
+    $payments = Payment::useClient(testClient())->query()->perPage(20)->get();
 
     if (empty($payments)) {
         \PHPUnit\Framework\Assert::markTestSkipped('No payments available');

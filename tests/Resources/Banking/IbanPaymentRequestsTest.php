@@ -12,7 +12,7 @@ use DateTimeImmutable;
 use Saloon\Exceptions\Request\Statuses\ForbiddenException;
 
 it('covers IBAN payment create, get and update endpoints', function () {
-    $client = testClient();
+    $client = testFullAccountClient();
     $bankAccount = null;
 
     foreach (BankAccount::useClient($client)->all() as $account) {

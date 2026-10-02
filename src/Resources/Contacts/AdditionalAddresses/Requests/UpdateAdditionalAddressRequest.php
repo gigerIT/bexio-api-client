@@ -35,8 +35,10 @@ class UpdateAdditionalAddressRequest extends Request implements HasBody
     public function createDtoFromResponse(Response $response): AdditionalAddress
     {
 
-        return AdditionalAddress::from($response->json());
+        $data = $response->json();
+        $data['contact_id'] = $this->additionalAddress->contact_id;
+
+        return AdditionalAddress::from($data);
     }
 
 }
-

@@ -21,6 +21,10 @@ class InvoicePayment extends Resource
     public const DELETE_REQUEST = DeleteInvoicePaymentRequest::class;
     public const QUERY_BUILDER = InvoicePaymentQueryBuilder::class;
 
+    public ?int $kb_bill_id = null;
+    public ?int $kb_credit_voucher_id = null;
+    public ?string $kb_credit_voucher_text = null;
+
     public function __construct(
         public ?int $kb_invoice_id = null,
         public ?int $id = null,
@@ -72,6 +76,9 @@ class InvoicePayment extends Resource
             'is_cash_discount',
             'created_at',
             'updated_at',
+            'kb_bill_id',
+            'kb_credit_voucher_id',
+            'kb_credit_voucher_text',
         );
     }
 

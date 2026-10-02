@@ -252,7 +252,28 @@ Conversion rules:
   package-created source documents.
 
 ## Nested and special-case resources
+- `DocumentTemplate::slug` maps the API's `template_slug`; use the public `slug`
+  value when selecting a template for a sales document.
+- Note/task `project_id` maps `pr_project_id` in both directions. Task `has_reminder`
+  normalizes the live string booleans and writes `have_remember`; updates still
+  require reminder type/time before sending that flag.
+- Leave project `document_nr` unset for automatic numbering. Null is omitted on
+  create/update because the live form rejects it; explicit manual numbers are retained.
+- Milestone updates use PATCH: the documented POST method returns 404 on the live
+  API. Preserve the request method and project context when integrating milestones.
+- Bank account postal/clearing identifiers can be strings; preserve leading zeros.
+  Accounting response metadata is documented in `docs/resources/accounting/response-metadata.md`.
+- For bills, expenses, and purchase outgoing payments, consult
+  `docs/resources/purchase/scopes.md`: their OAuth requirements differ from banking
+  payments and vary by operation. Use the existing `ApiScope` values.
+- Payroll paystubs: use `Payroll\Documents\Requests\DownloadPaystubPdfRequest` and
+  read `$response->body()` for PDF bytes. The older `GetPaystubPdfRequest` returns
+  a location DTO and is deprecated upstream. Both require `ApiScope::PAYROLL_PAYSTUB_SHOW`.
 - `AdditionalAddress` requires contact context; use `->forContact($contactId)` before `get()` or filtered queries.
+- `AdditionalAddress::name_addition` is the optional second name line. Search and update
+  results retain contact context for subsequent instance operations.
+- VAT periods expose API `start`/`end` as `date_from`/`date_to`; their read-only `type`
+  supports `quarter`, `semester`, and `annual`, with `closed_at` available when closed.
 - `InvoiceReminder` requires invoice context; use `->forInvoice($invoiceId)` before `get()` or
   filtered queries, and keep `kb_invoice_id` available for `find()` and `delete()`.
 - `ManualEntry` has no documented/live show endpoint; use index queries for reads. `find()` and
@@ -276,6 +297,17 @@ Prefer:
   `searchClauses` body behavior
 - resource-specific builder sugar only for context-specific helpers like `forContact()` or invoice status/date methods
 - README `## Available Resources` updates whenever endpoint implementation status changes
+
+## Additional verified wire behavior
+
+- Contact reads accept `title_id` as public `titel_id`; create/update/bulk omit legacy `address` and response metadata.
+- Timesheet writes use `tracking`; computed date, duration, running and travel fields are omitted.
+- Quote manual addresses use `contact_address_manual` / `delivery_address_manual`; write project context as `pr_project_id` and read `project_id`.
+- Position DTOs retain calculated totals and quantities. Dedicated creates retain article/parent IDs where supported; updates omit immutable parent IDs, and invoice position writes omit `is_optional`.
+- V4 banking payments use UUIDs for instance operations, JSON numbers for amounts, and `type` on update. QR writes omit `allowance`; reference and additional-information fields remain writable.
+- Bill payloads preserve line/discount IDs on update and omit them, calculated line taxes, and create-incompatible metadata on create. Use request classes or `toApiPayload()`.
+- Outgoing purchase-payment lists require `query()->forBill($billId)`. Only IBAN/QR payments can be updated remotely.
+- Payroll absence DTOs retain employee route context. Successful employee/absence HTTP 204 updates return the submitted DTO.
 
 ## Testing guidance
 - Test stack: Pest + Orchestra Testbench

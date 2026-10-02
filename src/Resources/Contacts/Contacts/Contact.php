@@ -13,6 +13,7 @@ use Bexio\Resources\Contacts\Contacts\Requests\RestoreContactRequest;
 use Bexio\Resources\Contacts\Contacts\Requests\UpdateContactRequest;
 use Bexio\Resources\Resource;
 use Bexio\Support\Concerns\HasOfficeLink;
+use Spatie\LaravelData\Attributes\MapInputName;
 
 /**
  * @method ContactQueryBuilder query()
@@ -33,6 +34,9 @@ class Contact extends Resource
     public ?string $updated_at;
     public ?string $profile_image;
 
+    /** @deprecated Retained for legacy API responses. */
+    public ?bool $is_lead = null;
+
     /** @deprecated use street_name, house_number, address_addition instead. This property is not included in the create and update requests. */
     public ?string $address;
 
@@ -44,6 +48,7 @@ class Contact extends Resource
         public ?string $name_2 = null,
         public ?int $salutation_id = null,
         public ?string $salutation_form = null,
+        #[MapInputName('title_id')]
         public ?int $titel_id = null,
         public ?string $birthday = null,
         public ?string $street_name = null,
@@ -70,6 +75,11 @@ class Contact extends Resource
         public int $owner_id = 1,
 
     ) {
+    }
+
+    public function toApi(): array
+    {
+        return $this->except('id', 'updated_at', 'profile_image', 'address', 'is_lead')->toArray();
     }
 
     /**

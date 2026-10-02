@@ -8,11 +8,7 @@ use Bexio\Resources\Projects\TimesheetStatuses\TimesheetStatus;
 use Bexio\Support\Data\SearchCriteria;
 
 it('can get Timesheets', function () {
-    try {
-        $timesheets = Timesheet::useClient(testClient())->all();
-    } catch (\Throwable $e) {
-        \PHPUnit\Framework\Assert::markTestSkipped('Timesheets endpoint unavailable: ' . $e->getMessage());
-    }
+    $timesheets = Timesheet::useClient(testClient())->all();
 
     if (count($timesheets) === 0) {
         \PHPUnit\Framework\Assert::markTestSkipped('No timesheets available');
@@ -24,11 +20,7 @@ it('can get Timesheets', function () {
 });
 
 it('can get a Timesheet', function () {
-    try {
-        $timesheets = Timesheet::useClient(testClient())->all();
-    } catch (\Throwable $e) {
-        \PHPUnit\Framework\Assert::markTestSkipped('Timesheets endpoint unavailable: ' . $e->getMessage());
-    }
+    $timesheets = Timesheet::useClient(testClient())->all();
 
     if (count($timesheets) === 0) {
         \PHPUnit\Framework\Assert::markTestSkipped('No timesheets available');
@@ -41,11 +33,7 @@ it('can get a Timesheet', function () {
 });
 
 it('can get first Timesheet using query builder', function () {
-    try {
-        $timesheet = Timesheet::useClient(testClient())->query()->first();
-    } catch (\Throwable $e) {
-        \PHPUnit\Framework\Assert::markTestSkipped('Timesheets endpoint unavailable: ' . $e->getMessage());
-    }
+    $timesheet = Timesheet::useClient(testClient())->query()->first();
 
     if (!$timesheet) {
         \PHPUnit\Framework\Assert::markTestSkipped('No timesheets available');
@@ -89,11 +77,7 @@ it('builds timesheet status requests', function () {
 });
 
 it('can get Timesheet statuses', function () {
-    try {
-        $statuses = Timesheet::statuses(testClient());
-    } catch (\Throwable $e) {
-        \PHPUnit\Framework\Assert::markTestSkipped('Timesheet statuses endpoint unavailable: ' . $e->getMessage());
-    }
+    $statuses = Timesheet::statuses(testClient());
 
     if (count($statuses) === 0) {
         \PHPUnit\Framework\Assert::markTestSkipped('No timesheet statuses available');

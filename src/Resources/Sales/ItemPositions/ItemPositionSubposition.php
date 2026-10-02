@@ -15,6 +15,9 @@ class ItemPositionSubposition extends ItemPosition
 
     public ItemPositionType $type = ItemPositionType::SUBPOSITION;
 
+    public ?bool $show_pos_prices;
+    public ?string $total_sum;
+
     public function __construct(
         public ?string $text,
         public bool   $show_pos_nr = true,

@@ -258,6 +258,8 @@ Endpoint coverage is derived from `docs/bexio-api-docs.md`. `Implemented` means 
 
 ### CONTACTS
 
+See [contact title/address payloads](docs/resources/contacts/contacts.md).
+
 | Resource | Endpoint | Implemented |
 | --- | --- | --- |
 | Contacts | `GET /2.0/contact` | ✅ |
@@ -283,7 +285,7 @@ Endpoint coverage is derived from `docs/bexio-api-docs.md`. `Implemented` means 
 | Contact Sectors | `GET /2.0/contact_branch` | ✅ |
 |  | `GET /2.0/contact_branch/{contact_branch_id}` | ✅ |
 |  | `POST /2.0/contact_branch/search` | ✅ |
-| Additional Addresses | `GET /2.0/contact/{contact_id}/additional_address` | ✅ |
+| Additional Addresses | `GET /2.0/contact/{contact_id}/additional_address` | ✅ [Name additions and contact context](docs/resources/contacts/additional-addresses.md) |
 |  | `POST /2.0/contact/{contact_id}/additional_address` | ✅ |
 |  | `POST /2.0/contact/{contact_id}/additional_address/search` | ✅ |
 |  | `GET /2.0/contact/{contact_id}/additional_address/{additional_address_id}` | ✅ |
@@ -303,6 +305,8 @@ Endpoint coverage is derived from `docs/bexio-api-docs.md`. `Implemented` means 
 |  | `DELETE /2.0/title/{title_id}` | ✅ |
 
 ### SALES ORDER MANAGEMENT
+
+See [manual quote addresses](docs/resources/sales/quotes.md) and [position metadata and writes](docs/resources/sales/positions.md).
 
 | Resource | Endpoint | Implemented |
 | --- | --- | --- |
@@ -403,9 +407,13 @@ Endpoint coverage is derived from `docs/bexio-api-docs.md`. `Implemented` means 
 |  | `GET /2.0/{kb_document_type}/{document_id}/kb_position_subposition/{position_id}` | ✅ |
 |  | `POST /2.0/{kb_document_type}/{document_id}/kb_position_subposition/{position_id}` | ✅ |
 |  | `DELETE /2.0/{kb_document_type}/{document_id}/kb_position_subposition/{position_id}` | ✅ |
-| Document templates | `GET /3.0/document_templates` | ✅ |
+| Document templates | `GET /3.0/document_templates` | ✅ [Template slugs](docs/resources/sales/document-templates.md) |
 
 ### PURCHASE
+
+See [current purchase OAuth scope requirements](docs/resources/purchase/scopes.md),
+[response metadata](docs/resources/purchase/response-metadata.md), and
+[bill-scoped outgoing payments](docs/resources/purchase/outgoing-payments.md).
 
 | Resource | Endpoint | Implemented |
 | --- | --- | --- |
@@ -438,13 +446,15 @@ Endpoint coverage is derived from `docs/bexio-api-docs.md`. `Implemented` means 
 
 ### ACCOUNTING
 
+See [manual entry metadata and attachments](docs/resources/accounting/manual-entries.md).
+
 | Resource | Endpoint | Implemented |
 | --- | --- | --- |
-| Accounts | `GET /2.0/accounts` | ✅ |
+| Accounts | `GET /2.0/accounts` | ✅ [Response metadata](docs/resources/accounting/response-metadata.md) |
 |  | `POST /2.0/accounts/search` | ✅ |
 | Account Groups | `GET /2.0/account_groups` | ✅ |
 |  | `GET /2.0/account_groups/{account_group_id}` | ✅ |
-| Calendar Years | `GET /3.0/accounting/calendar_years` | ✅ |
+| Calendar Years | `GET /3.0/accounting/calendar_years` | ✅ [Response metadata](docs/resources/accounting/response-metadata.md) |
 |  | `POST /3.0/accounting/calendar_years` | ✅ |
 |  | `POST /3.0/accounting/calendar_years/search` | ✅ |
 |  | `GET /3.0/accounting/calendar_years/{calendar_year_id}` | ✅ |
@@ -470,18 +480,20 @@ Endpoint coverage is derived from `docs/bexio-api-docs.md`. `Implemented` means 
 |  | `POST /3.0/accounting/manual_entries/{manual_entry_id}/files` | ✅ |
 |  | `GET /3.0/accounting/manual_entries/{manual_entry_id}/files/{file_id}` | ✅ |
 |  | `DELETE /3.0/accounting/manual_entries/{manual_entry_id}/files/{file_id}` | ✅ |
-| Reports | `GET /3.0/accounting/journal` | ✅ |
-| Taxes | `GET /3.0/taxes` | ✅ |
+| Reports | `GET /3.0/accounting/journal` | ✅ [Currency amounts and references](docs/resources/accounting/response-metadata.md) |
+| Taxes | `GET /3.0/taxes` | ✅ [Response metadata](docs/resources/accounting/response-metadata.md) |
 |  | `GET /3.0/taxes/{tax_id}` | ✅ |
 |  | `DELETE /3.0/taxes/{tax_id}` | ✅ |
-| Vat Periods | `GET /3.0/accounting/vat_periods` | ✅ |
+| Vat Periods | `GET /3.0/accounting/vat_periods` | ✅ [Dates and annual reporting periods](docs/resources/accounting/vat-periods.md) |
 |  | `GET /3.0/accounting/vat_periods/{vat_period_id}` | ✅ |
 
 ### BANKING
 
+See [v4 payment creation and updates](docs/resources/banking/payments.md).
+
 | Resource | Endpoint | Implemented |
 | --- | --- | --- |
-| Bank Accounts | `GET /3.0/banking/accounts` | ✅ |
+| Bank Accounts | `GET /3.0/banking/accounts` | ✅ [Identifiers](docs/resources/banking/bank-accounts.md) |
 |  | `GET /3.0/banking/accounts/{bank_account_id}` | ✅ |
 | IBAN Payments | `POST /3.0/banking/bank_accounts/{bank_account_id}/iban_payments` | ✅ |
 |  | `GET /3.0/banking/bank_accounts/{bank_account_id}/iban_payments/{payment_id}` | ✅ |
@@ -516,9 +528,11 @@ Endpoint coverage is derived from `docs/bexio-api-docs.md`. `Implemented` means 
 
 ### PROJECTS & TIME TRACKING
 
+See [timesheet tracking payloads](docs/resources/projects/timesheets.md).
+
 | Resource | Endpoint | Implemented |
 | --- | --- | --- |
-| Projects | `GET /2.0/pr_project` | ✅ |
+| Projects | `GET /2.0/pr_project` | ✅ [Project numbering](docs/resources/projects/projects.md) |
 |  | `POST /2.0/pr_project` | ✅ |
 |  | `POST /2.0/pr_project/search` | ✅ |
 |  | `GET /2.0/pr_project/{project_id}` | ✅ |
@@ -531,7 +545,8 @@ Endpoint coverage is derived from `docs/bexio-api-docs.md`. `Implemented` means 
 |  | `GET /3.0/projects/{project_id}/milestones` | ✅ |
 |  | `POST /3.0/projects/{project_id}/milestones` | ✅ |
 |  | `GET /3.0/projects/{project_id}/milestones/{milestone_id}` | ✅ |
-|  | `POST /3.0/projects/{project_id}/milestones/{milestone_id}` | ✅ |
+|  | `POST /3.0/projects/{project_id}/milestones/{milestone_id}` | ⚠️ Documented method returns 404; [use PATCH](docs/resources/projects/projects.md) |
+|  | `PATCH /3.0/projects/{project_id}/milestones/{milestone_id}` | ✅ Verified live update method |
 |  | `DELETE /3.0/projects/{project_id}/milestones/{milestone_id}` | ✅ |
 |  | `GET /3.0/projects/{project_id}/packages` | ✅ |
 |  | `POST /3.0/projects/{project_id}/packages` | ✅ |
@@ -569,6 +584,8 @@ Endpoint coverage is derived from `docs/bexio-api-docs.md`. `Implemented` means 
 
 ### PAYROLL
 
+See [employee and absence contracts](docs/resources/payroll/employees-and-absences.md).
+
 | Resource | Endpoint | Implemented |
 | --- | --- | --- |
 | Employees | `GET /4.0/payroll/employees` | ✅ |
@@ -580,7 +597,8 @@ Endpoint coverage is derived from `docs/bexio-api-docs.md`. `Implemented` means 
 |  | `GET /4.0/payroll/employees/{employeeId}/absences/{absenceId}` | ✅ |
 |  | `PUT /4.0/payroll/employees/{employeeId}/absences/{absenceId}` | ✅ |
 |  | `DELETE /4.0/payroll/employees/{employeeId}/absences/{absenceId}` | ✅ |
-| Documents | `GET /4.0/payroll/employees/{employeeId}/paystub-pdf/{year}/{month}` | ✅ |
+| Documents | `GET /4.0/payroll/employees/{employeeId}/paystub-pdf/{year}/{month}` | ✅ Deprecated upstream; [migration](docs/resources/payroll/documents.md) |
+|  | `GET /4.0/payroll/employees/{employeeId}/paystub-pdf-download/{year}/{month}` | ✅ [Direct PDF download](docs/resources/payroll/documents.md) (trial account: contract-tested) |
 
 ### OTHER
 
@@ -596,7 +614,7 @@ Endpoint coverage is derived from `docs/bexio-api-docs.md`. `Implemented` means 
 |  | `DELETE /2.0/country/{country_id}` | ✅ |
 | Languages | `GET /2.0/language` | ✅ |
 |  | `POST /2.0/language/search` | ✅ |
-| Notes | `GET /2.0/note` | ✅ |
+| Notes | `GET /2.0/note` | ✅ [Project reference mapping](docs/resources/other/notes-and-tasks.md) |
 |  | `POST /2.0/note` | ✅ |
 |  | `POST /2.0/note/search` | ✅ |
 |  | `GET /2.0/note/{note_id}` | ✅ |
@@ -605,7 +623,7 @@ Endpoint coverage is derived from `docs/bexio-api-docs.md`. `Implemented` means 
 | Payment Types | `GET /2.0/payment_type` | ✅ |
 |  | `POST /2.0/payment_type/search` | ✅ |
 | Permissions | `GET /3.0/permissions` | ✅ |
-| Tasks | `GET /2.0/task` | ✅ |
+| Tasks | `GET /2.0/task` | ✅ [Project and reminder mappings](docs/resources/other/notes-and-tasks.md) |
 |  | `POST /2.0/task` | ✅ |
 |  | `POST /2.0/task/search` | ✅ |
 |  | `GET /2.0/task/{task_id}` | ✅ |
@@ -634,6 +652,14 @@ Endpoint coverage is derived from `docs/bexio-api-docs.md`. `Implemented` means 
 composer test
 ```
 
+For a known trial test account, set `BEXIO_TEST_ACCOUNT_PLAN=trial` in `.env`.
+This explicitly skips live payroll, legacy IBAN/QR writes, and purchase-order
+writes unavailable on that account; their request/DTO contract tests still run. Leave the setting
+empty for full accounts so authorization failures surface. Data-dependent skips
+and trial exclusions do not constitute successful live verification.
+CI defaults to the shared trial account; set the repository variable
+`BEXIO_TEST_ACCOUNT_PLAN` to `full` when using an account with the required access.
+
 ## License
 
-MIT License - see the [LICENSE](LICENSE) file for details.
+MIT, as declared in [composer.json](composer.json).

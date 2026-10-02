@@ -47,6 +47,14 @@ class Bill extends Resource
 
     public bool $split_into_line_items;
 
+    /** @var array<int, int>|null */
+    public ?array $booking_account_ids = null;
+    public ?float $gross = null;
+    public ?float $net = null;
+    public ?string $vendor = null;
+    public ?bool $average_exchange_rate_enabled = null;
+    public ?string $base_currency_code = null;
+
 
     public function __construct(
         public ?int         $supplier_id,
@@ -97,7 +105,32 @@ class Bill extends Resource
 
     public function toApi(): Bill
     {
-        return $this->except('id', 'document_no', 'status', 'overdue', 'firstname_suffix', 'lastname_company', 'created_at', 'pending_amount');
+        return $this->except(
+            'id', 'document_no', 'status', 'overdue', 'firstname_suffix', 'lastname_company', 'created_at', 'pending_amount',
+            'booking_account_ids', 'gross', 'net', 'vendor', 'average_exchange_rate_enabled', 'base_currency_code',
+        );
+    }
+
+    public function toApiPayload(bool $updating = false): array
+    {
+        $payload = $this->toApi()->toArray();
+        if (! $updating) {
+            unset($payload['split_into_line_items']);
+        }
+        foreach (['line_items', 'discounts'] as $field) {
+            if (isset($payload[$field])) {
+                $payload[$field] = array_map(static function (array $item) use ($updating): array {
+                    unset($item['tax_calc']);
+                    if (! $updating || ($item['id'] ?? null) === null) {
+                        unset($item['id']);
+                    }
+
+                    return $item;
+                }, $payload[$field]);
+            }
+        }
+
+        return $payload;
     }
 
 

@@ -9,6 +9,13 @@ class ItemPositionArticle extends ItemPosition
 {
     public ItemPositionType $type = ItemPositionType::ARTICLE;
 
+    public ?string $position_total;
+    public ?string $tax_value;
+    public ?string $unit_name;
+    public ?string $amount_completed;
+    public ?string $amount_open;
+    public ?string $amount_reserved;
+
     public function __construct(
         public ?string $amount,
         public ?int    $unit_id,
@@ -31,5 +38,11 @@ class ItemPositionArticle extends ItemPosition
         unset($payload['article_id'], $payload['parent_id']);
 
         return $payload;
+    }
+
+    public function toCreateApiPayload(): array
+    {
+        // Dedicated creation accepts article_id and parent_id; updates do not.
+        return parent::toApiPayload();
     }
 }

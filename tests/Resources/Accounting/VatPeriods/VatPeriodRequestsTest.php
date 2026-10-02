@@ -25,7 +25,10 @@ it('can get a Vat Period', function () {
     $period = VatPeriod::useClient(testClient())->find($periods[0]->uuid ?? $periods[0]->id);
 
     expect($period)->toBeInstanceOf(VatPeriod::class)
-        ->and($period->id)->toBeInt();
+        ->and($period->id)->toBeInt()
+        ->and($period->date_from)->toBeString()
+        ->and($period->date_to)->toBeString()
+        ->and($period->type)->toBeIn(['quarter', 'semester', 'annual']);
 });
 
 it('can get first Vat Period using query builder', function () {
@@ -38,4 +41,3 @@ it('can get first Vat Period using query builder', function () {
     expect($period)->toBeInstanceOf(VatPeriod::class)
         ->and($period->id)->toBeInt();
 });
-

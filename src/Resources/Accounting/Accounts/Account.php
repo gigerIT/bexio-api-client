@@ -28,6 +28,7 @@ class Account extends Resource
     const QUERY_BUILDER = AccountQueryBuilder::class;
 
     public int $id;
+    public ?string $uuid = null;
     public string $account_no;
     public string $name;
     #[MapInputName('fibu_account_group_id')]

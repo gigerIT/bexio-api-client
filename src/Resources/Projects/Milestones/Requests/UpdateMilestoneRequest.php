@@ -15,7 +15,8 @@ class UpdateMilestoneRequest extends Request implements HasBody
 {
     use HasJsonBody;
 
-    protected Method $method = Method::POST;
+    // The docs list POST, but a disposable live milestone returns 404 for POST and 200 for PATCH.
+    protected Method $method = Method::PATCH;
 
     public function __construct(protected readonly Milestone $milestone)
     {

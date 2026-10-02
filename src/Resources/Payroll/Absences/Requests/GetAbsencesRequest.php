@@ -32,6 +32,9 @@ class GetAbsencesRequest extends Request
 
     public function createDtoFromResponse(Response $response): array
     {
-        return Absence::collect($response->json('data') ?? []);
+        return Absence::collect(array_map(
+            fn (array $payload): array => [...$payload, 'employee_id' => (string) $this->employeeId],
+            $response->json('data') ?? [],
+        ));
     }
 }

@@ -17,6 +17,11 @@ class ManualEntry extends Resource
     public const UPDATE_REQUEST = UpdateManualEntryRequest::class;
     public const DELETE_REQUEST = DeleteManualEntryRequest::class;
 
+    public ?int $created_by_user_id = null;
+    public ?int $edited_by_user_id = null;
+    public ?bool $is_locked = null;
+    public ?string $locked_info = null;
+
     public function __construct(
         public ?int $id = null,
         public ?string $uuid = null,
@@ -32,7 +37,7 @@ class ManualEntry extends Resource
 
     public function toApi(): ManualEntry
     {
-        return $this->except('uuid');
+        return $this->except('uuid', 'description', 'amount', 'currency_code', 'created_by_user_id', 'edited_by_user_id', 'is_locked', 'locked_info');
     }
 
     public function find(int|string $id): static
@@ -45,4 +50,3 @@ class ManualEntry extends Resource
         throw new LogicException('Manual entries do not support direct show requests.');
     }
 }
-

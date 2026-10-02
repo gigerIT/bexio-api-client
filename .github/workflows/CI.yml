@@ -34,6 +34,7 @@ jobs:
         env:
           BEXIO_ACCESS_TOKEN: ${{ secrets.TEST_API_KEY }}
           TEST_API_KEY: ${{ secrets.TEST_API_KEY }}
+          BEXIO_TEST_ACCOUNT_PLAN: ${{ vars.BEXIO_TEST_ACCOUNT_PLAN || 'trial' }}
         run: php vendor/bin/pest --colors=always -v --parallel --processes=6
 
   Release:

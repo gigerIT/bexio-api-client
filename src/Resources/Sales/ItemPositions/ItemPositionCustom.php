@@ -9,6 +9,13 @@ class ItemPositionCustom extends ItemPosition
 {
     public ItemPositionType $type = ItemPositionType::CUSTOM;
 
+    public ?string $position_total;
+    public ?string $tax_value;
+    public ?string $unit_name;
+    public ?string $amount_completed;
+    public ?string $amount_open;
+    public ?string $amount_reserved;
+
 
 
     public function __construct(

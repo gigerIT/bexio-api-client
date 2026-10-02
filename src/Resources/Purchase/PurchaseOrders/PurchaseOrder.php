@@ -27,6 +27,8 @@ class PurchaseOrder extends Resource
 
     public ?string $viewed_by_client_at = null;
 
+    public ?float $total_rounding_difference = null;
+
     public function __construct(
         public int     $contact_id,
 
@@ -86,6 +88,7 @@ class PurchaseOrder extends Resource
             'date_format',
             'kb_item_status_id',
             'viewed_by_client_at',
+            'total_rounding_difference',
         )->exceptWhen('positions', $this->positions === null);
     }
 }

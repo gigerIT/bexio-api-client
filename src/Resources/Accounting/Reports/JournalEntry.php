@@ -10,6 +10,16 @@ class JournalEntry extends Resource
 {
     public const INDEX_REQUEST = GetJournalRequest::class;
 
+    public ?int $debit_account_id = null;
+    public ?int $credit_account_id = null;
+    public ?int $currency_id = null;
+    public ?int $base_currency_id = null;
+    public ?float $currency_factor = null;
+    public ?float $base_currency_amount = null;
+    public ?string $ref_class = null;
+    public ?int $ref_id = null;
+    public ?string $ref_uuid = null;
+
     public function __construct(
         public ?string $id = null,
         public ?string $date = null,
@@ -20,4 +30,3 @@ class JournalEntry extends Resource
     ) {
     }
 }
-

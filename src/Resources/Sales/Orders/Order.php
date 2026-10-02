@@ -72,7 +72,7 @@ class Order extends Resource implements KbDocumentContract
     public string $updated_at;
     /** @var array<int, mixed> */
     public array $taxs = [];
-    public string $network_link;
+    public ?string $network_link;
     public ?bool $mwst_is_net = null;
     public ?int $logopaper_id = null;
     public ?int $esr_id = null;

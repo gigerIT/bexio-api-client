@@ -5,7 +5,11 @@ use Bexio\Resources\Accounting\Accounts\Account;
 use Bexio\Resources\Accounting\Accounts\Requests\GetAccountsRequest;
 use Bexio\Resources\Accounting\Taxes\Requests\GetTaxesRequest;
 use Bexio\Resources\Accounting\Taxes\Tax;
+use Bexio\Resources\Contacts\Contacts\Contact;
+use Bexio\Resources\Other\Users\User;
+use Bexio\Resources\Projects\Projects\Project;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Saloon\Http\Faking\MockClient;
 use Saloon\Http\Faking\MockResponse;
 
@@ -66,6 +70,15 @@ function testClientDebug(): BexioClient
     return testClient()->debug();
 }
 
+function testFullAccountClient(): BexioClient
+{
+    if (env('BEXIO_TEST_ACCOUNT_PLAN') === 'trial') {
+        \PHPUnit\Framework\Assert::markTestSkipped('This live flow requires access unavailable on the configured trial account');
+    }
+
+    return testClient();
+}
+
 function testMockClient(string $requestClass, string $fixture): BexioClient
 {
     // For mock tests, we can use a dummy token since requests are mocked
@@ -79,6 +92,37 @@ function testMockClient(string $requestClass, string $fixture): BexioClient
 //endregion
 
 //region Helpers
+
+function withTestProject(callable $callback): mixed
+{
+    $client = testClient();
+    $user = User::useClient($client)->me();
+    $states = Project::states($client);
+    $types = Project::types($client);
+
+    if ($states === [] || $types === []) {
+        \PHPUnit\Framework\Assert::markTestSkipped('No compatible project configuration available');
+    }
+
+    $name = 'API sync ' . Str::uuid();
+    $contact = (new Contact(name_1: $name))->attachClient($client)->create();
+    try {
+        $project = (new Project(
+            name: $name,
+            pr_state_id: $states[0]['id'],
+            pr_project_type_id: $types[0]['id'],
+            contact_id: $contact->id,
+            user_id: $user->id,
+        ))->attachClient($client)->create();
+        try {
+            return $callback($project);
+        } finally {
+            $project->delete();
+        }
+    } finally {
+        $contact->delete();
+    }
+}
 
 function testContact()
 {

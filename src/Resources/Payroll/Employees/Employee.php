@@ -16,6 +16,8 @@ class Employee extends Resource
     public const CREATE_REQUEST = CreateEmployeeRequest::class;
     public const UPDATE_REQUEST = UpdateEmployeeRequest::class;
 
+    public ?string $stay_permit_category = null;
+
     public function __construct(
         public ?string $id = null,
         public ?string $email = null,
@@ -53,6 +55,7 @@ class Employee extends Resource
     {
         return $this->except(
             'id',
+            'stay_permit_category',
             'hours_per_week',
             'employment_level',
             'annual_vacation_days_total',

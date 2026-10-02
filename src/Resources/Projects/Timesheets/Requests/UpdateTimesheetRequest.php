@@ -27,7 +27,7 @@ class UpdateTimesheetRequest extends Request implements HasBody
 
     protected function defaultBody(): array
     {
-        return $this->timesheet->except('id')->toArray();
+        return $this->timesheet->toApi();
     }
 
     public function createDtoFromResponse(Response $response): Timesheet
@@ -35,5 +35,4 @@ class UpdateTimesheetRequest extends Request implements HasBody
         return Timesheet::from($response->json());
     }
 }
-
 

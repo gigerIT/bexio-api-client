@@ -25,6 +25,6 @@ class GetAbsenceRequest extends Request
 
     public function createDtoFromResponse(Response $response): Absence
     {
-        return Absence::from($response->json());
+        return Absence::from([...$response->json(), 'employee_id' => (string) $this->employeeId]);
     }
 }

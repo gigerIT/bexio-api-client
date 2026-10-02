@@ -43,6 +43,7 @@ $address = $addressFinder->attachClient($client)->find(5);
 $address = new AdditionalAddress(
     contact_id: $contactId,
     name: 'Warehouse',
+    name_addition: 'Receiving department',
     street_name: 'Industriestrasse',
     house_number: '10',
     postcode: '8005',
@@ -63,3 +64,10 @@ $created->delete();
 - Call `forContact($contactId)` before using the additional-address query builder.
 - `find()` and `delete()` require `contact_id` on the resource instance because the API route is contact-scoped.
 - The deprecated `address` property is response-only. Use structured address fields for writes.
+- `name_addition` is an optional second name line, supported on create, update, and read.
+- Updated and searched addresses retain `contact_id` for subsequent instance operations.
+
+The `name_addition` contract was checked on 2026-10-02 against the official
+[additional-address endpoint](https://docs.bexio.com/#operation/v2CreateAdditionalAddress).
+Create, update, refresh, and search were verified on a disposable live contact
+and address on the same date.

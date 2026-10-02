@@ -1,10 +1,9 @@
 <?php
 
 use Bexio\Resources\Purchase\PurchaseOrders\PurchaseOrder;
-use Saloon\Exceptions\Request\RequestException;
 
 it('can create a Purchase Order', function () {
-    $client = testClient();
+    $client = testFullAccountClient();
     $createdPurchaseOrder = null;
     $title = 'API purchase order ' . uniqid();
 
@@ -35,14 +34,6 @@ it('can create a Purchase Order', function () {
         expect($updatedPurchaseOrder)->toBeInstanceOf(PurchaseOrder::class)
             ->and($updatedPurchaseOrder->id)->toBe($createdPurchaseOrder->id)
             ->and($updatedPurchaseOrder->title)->toBe($createdPurchaseOrder->title);
-    } catch (RequestException $exception) {
-        if (in_array($exception->getStatus(), [402, 403, 404, 503], true)) {
-            \PHPUnit\Framework\Assert::markTestSkipped(
-                'Purchase order endpoint unavailable for this account: ' . $exception->getMessage()
-            );
-        }
-
-        throw $exception;
     } finally {
         if ($createdPurchaseOrder?->id !== null) {
             PurchaseOrder::useClient($client)->delete($createdPurchaseOrder->id);
