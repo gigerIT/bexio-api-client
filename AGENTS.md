@@ -26,6 +26,12 @@ Laravel package for Bexio API. Uses `saloonphp/saloon` for HTTP connectors/reque
 
 ## Agent skills
 
+### Upstream API synchronization
+
+Use [sync-bexio-api](.agents/skills/sync-bexio-api/SKILL.md) to check official API
+documentation updates and implement client changes. It extracts the embedded
+OpenAPI contract and keeps incremental review checkpoints in `docs/api-sync/`.
+
 ### Issue tracker
 
 Issues are tracked in this repository's GitHub Issues. See `docs/agents/issue-tracker.md`.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Sync Bexio API"
+  short_description: "Incrementally sync official Bexio API changes"
+  default_prompt: "Use $sync-bexio-api to check the official Bexio docs, resume pending changes, and implement and verify updates to this client."

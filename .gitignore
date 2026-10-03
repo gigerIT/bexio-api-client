@@ -9,3 +9,5 @@ composer.lock
 phpunit.xml.dist
 coverage/
 .php-cs-fixer.cache
+/docs/api-sync/.lock
+/docs/api-sync/**/.tmp-*
