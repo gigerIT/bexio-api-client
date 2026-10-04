@@ -65,8 +65,10 @@ Creating or editing this skill is not an instruction to run the synchronization.
 
 8. Run meaningful focused tests, required live API coverage, and type checks for
    changed PHP. Broaden to the suite when shared behavior changes. Observe the
-   repository's mock-only revocation exception and disposable-fixture rules.
-   A skipped or failed required live flow is pending verification, not success.
+   repository's mock-only revocation, disposable-fixture, and explicit trial-account
+   rules in [implementation.md](references/implementation.md). Report accepted
+   verification limits separately from passing live checks; other failed or
+   skipped required flows remain pending.
 9. Read [checkpoints.md](references/checkpoints.md) before recording dispositions.
    Resolve items only after their implementation and required verification are
    complete, or after documenting evidence that no implementation is necessary.
@@ -75,11 +77,12 @@ Creating or editing this skill is not an instruction to run the synchronization.
    items. A full reconciliation uses `check --reconcile`; `--force` only refreshes
    the download.
 10. Report the official source, last check, implemented changes, validation,
-    unresolved items, and state/report paths. Say whether the client is fully
-    synchronized or the run is partial. Commit, push, publication, external
-    messages, and scheduling follow the user's existing authorization; this
-    skill does not silently create any of them.
+    unresolved items, and state/report paths. Say whether the run is complete,
+    complete with accepted verification limits, or partial. Commit, push,
+    publication, external messages, and scheduling follow the user's existing
+    authorization; this skill does not silently create any of them.
 
 Completion means every item in scope has an evidenced disposition, required
-checks passed, documentation matches behavior, and the checkpoint reflects the
-actual result. Work outside a narrowed scope remains pending for a later run.
+checks passed or carry an accepted exception, documentation matches behavior, and
+the checkpoint reflects the actual result and verification limits. Work outside a
+narrowed scope remains pending for a later run.

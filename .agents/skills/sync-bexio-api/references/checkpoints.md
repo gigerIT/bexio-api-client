@@ -2,8 +2,9 @@
 
 The default state directory is `docs/api-sync/`, relative to the repository root.
 Use `--state-dir /tmp/...` **before the subcommand** for collector experiments.
-Experiment state is not an implementation checkpoint. No initial timestamp or
-successful baseline is shipped with the skill; the first actual run creates it.
+Experiment state is not an implementation checkpoint. Resume the repository's
+existing ledger and reports when present; only an absent ledger starts a first
+collection.
 
 ## State and ownership
 
@@ -31,6 +32,8 @@ from repository history or explicitly reconcile anew, preserving unresolved work
 partial or failed run, the previous success remains a historical checkpoint,
 not a claim that current work is complete. The report/status of the latest run
 always takes precedence for the current result.
+Queue completion does not certify live coverage: read the recorded decisions
+and review reports for accepted verification limits.
 
 ## Record decisions
 
@@ -64,7 +67,7 @@ Outcomes:
 
 | Outcome | Required evidence |
 | --- | --- |
-| `implemented` | Supporting files, actual passing validation, and why behavior now matches the source. Required live coverage must have run successfully. |
+| `implemented` | Supporting files, actual passing validation, and why behavior now matches the source. Required live coverage must pass or carry the explicit exception evidence in [implementation.md](implementation.md#accepted-account-limits). |
 | `already-current` | Existing implementation files and a concrete comparison showing compatibility. A coverage checkmark or a passing unrelated test is insufficient. |
 | `docs-only` | Explain why the change does not alter behavior; reference any updated documentation files. |
 | `not-applicable` | Explain why this item cannot affect this package, such as a schema with no public operation or Redoc metadata. A newly documented API or deferred work is not automatically inapplicable. |

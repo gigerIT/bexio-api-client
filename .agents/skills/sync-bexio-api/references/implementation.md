@@ -45,10 +45,11 @@ rules; do not disguise authorization/schema failures as missing remote data.
 
 Run narrow Saloon assertions for exact method, path, query/body serialization,
 DTO hydration, and response-only filtering where those changed. They complement
-the repository's required live resource tests. New API behavior is not complete
-on mocks alone. Item-position write changes need both the exact endpoint/body
-unit test and the affected live create/update flow. Token revocation remains
-mock-only to protect the shared OAuth session. Sending messages or triggering
+the repository's required live resource tests. New API behavior needs passing live
+coverage unless an [accepted account limit](#accepted-account-limits) applies.
+Item-position write changes need both the exact endpoint/body unit test and the
+affected live create/update flow. Token revocation remains mock-only to protect
+the shared OAuth session. Sending messages or triggering
 real customer financial actions requires the user's applicable authorization;
 use disposable/non-delivery test patterns and retain unverified actions pending.
 
@@ -57,7 +58,22 @@ files, `composer test:types`, and the architecture/operation coverage checks whe
 applicable. Run the broader suite for shared connector, Resource, query, or cast
 changes; do not run every live endpoint for an unrelated documentation edit.
 Record exact commands, pass/fail/skip results, and material limits. Skipped live
-coverage that is required to verify a changed flow stays pending, with its reason.
+coverage required for a changed flow stays pending unless an accepted exception
+below applies.
+
+### Accepted account limits
+
+Under the explicit trial policy in `AGENTS.md`, use
+`BEXIO_TEST_ACCOUNT_PLAN=trial` and the existing `testFullAccountClient()` gates
+in `tests/Pest.php` for only the documented flows. Keep their full-account live
+tests runnable and pass exact request/response contract tests. An item covered
+by this established exception can be resolved with a live-verification limit.
+Include the contract/live tests and gate helper in its evidence `files`; record
+the policy, affected flow, passing checks, and skipped-live reason in its `reason`
+and `checks`. Report the limit alongside completion; it does not prove live
+compatibility. Other unavailable or failing changed flows remain pending
+unless the user has explicitly accepted an applicable verification exception.
+Keep unexpected authorization, endpoint, and schema failures visible.
 
 ## Keep public guidance current
 
