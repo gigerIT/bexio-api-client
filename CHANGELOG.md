@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.11.1](https://github.com/gigerIT/bexio-api-client/compare/v4.11.0...v4.11.1) (2026-10-05)
+
+
+### Documentation
+
+* **skills:** honor accepted verification limits ([869c330](https://github.com/gigerIT/bexio-api-client/commit/869c33028b599e3a0fbc509a379c23987eac2708))
+
+
+### Miscellaneous Chores
+
+* **skills:** add Bexio API sync workflow ([7178abf](https://github.com/gigerIT/bexio-api-client/commit/7178abf174a6ded95341d3a731233bcc8fee7f02))
+
 ## [4.11.0](https://github.com/gigerIT/bexio-api-client/compare/v4.10.5...v4.11.0) (2026-10-02)
 
 
