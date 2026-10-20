@@ -286,6 +286,14 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 ## CI and Release
 
 - Workflow: `.github/workflows/CI.yml`.
+- PR CI runs the locked PHP 8.4/8.5 graph, with at most two test workers, using
+  `php vendor/bin/pest --configuration=phpunit.offline.xml --parallel --processes=2`.
+  This mode clears live account tokens, prevents unfaked Saloon requests and
+  rejects missing fixtures instead of recording them. It covers existing unit,
+  mocked-auth, architecture and endpoint-coverage contracts; it does not qualify
+  live API behavior or PHP/Laravel combinations outside the current locked graph.
+- PR jobs inherit a read-only token. Live tests retain their main-push path;
+  only the main-push Release job receives the existing write permissions.
 - Pushes to `main`:
   - `Test` job runs on PHP 8.4.
   - Runs `php vendor/bin/pest --colors=always -v --parallel --processes=6`.
