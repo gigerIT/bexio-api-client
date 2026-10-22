@@ -1,19 +1,52 @@
 name: CI
 
 on:
+  pull_request:
   push:
     branches:
       - main
 
 permissions:
-  contents: write
-  pull-requests: write
-  issues: write
+  contents: read
 
 jobs:
+  Offline:
+    name: Offline (PHP ${{ matrix.php }})
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        php: ['8.4', '8.5']
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Install locked dependencies
+        uses: ramsey/composer-install@v4
+        with:
+          composer-options: --prefer-dist
+
+      - name: Validate Composer contract
+        run: |
+          composer validate --no-check-publish
+          composer check-platform-reqs
+
+      - name: Run secret-independent contract tests
+        run: >-
+          php vendor/bin/pest --configuration=phpunit.offline.xml
+          --colors=always -v --parallel --processes=2
+
   Test:
     runs-on: ubuntu-latest
-    if: "!contains(github.event.head_commit.message, 'chore(main): release')" # Skip test job if it's a release commit
+    if: "github.event_name == 'push' && !contains(github.event.head_commit.message, 'chore(main): release')" # Skip test job if it's a release commit
 
     steps:
       - name: Setup PHP
@@ -38,9 +71,13 @@ jobs:
         run: php vendor/bin/pest --colors=always -v --parallel --processes=6
 
   Release:
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
     needs: [Test]
     runs-on: ubuntu-latest
-    if: "contains(github.event.head_commit.message, 'chore(main): release') || success()"
+    if: "github.event_name == 'push' && github.ref == 'refs/heads/main' && (contains(github.event.head_commit.message, 'chore(main): release') || success())"
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7

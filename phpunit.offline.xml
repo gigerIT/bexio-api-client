@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.3/phpunit.xsd"
+         bootstrap="tests/offline-bootstrap.php"
+         colors="true"
+>
+    <php>
+        <env name="COLLISION_PRINTER_MAX_WIDTH" value="200"/>
+    </php>
+    <testsuites>
+        <testsuite name="Offline contracts">
+            <directory suffix="Test.php">./tests/Unit</directory>
+            <directory suffix="Test.php">./tests/Auth</directory>
+            <file>./tests/ArchitectureTest.php</file>
+            <file>./tests/Resources/LiveApiOperationCoverageTest.php</file>
+            <file>./tests/OfflineGuard.php</file>
+        </testsuite>
+    </testsuites>
+    <source>
+        <include>
+            <directory suffix=".php">./src</directory>
+        </include>
+    </source>
+</phpunit>
