@@ -213,13 +213,16 @@ $invoices = Invoice::useClient($client)
     ->get();
 ```
 
-Invoice payload rules:
+Sales document payload rules:
 - `Invoice::createFromApiPayload()` backfills `invoice_date` from `is_valid_from` when needed.
-- `Invoice::toApi()` removes reporting and response-only fields before writes.
-- Keep `document_nr` out of invoice create/update payloads.
-- Invoice creation preserves explicit `mwst_is_net: false` (gross prices) and `true` (net prices).
-  Omit it or pass `null` to use the Bexio default. This setting affects totals when
-  `mwst_type` is `MwstType::INCLUDING`.
+- Invoices, orders, quotes, and item positions build request bodies with
+  `toWritePayload(WriteOperation::CREATE|UPDATE)`, which drops response-only fields, so a fetched
+  document or position can be written again. `toApi()`, `toUpdateApi()`, `toApiPayload()`, and
+  `toCreateApiPayload()` are deprecated.
+- `document_nr` is never written; Bexio assigns it while automatic numbering is on.
+- Invoice, order, and quote creation preserve explicit `mwst_is_net: false` (gross prices) and
+  `true` (net prices). Leave it unset or `null` to use the Bexio default; null is never sent. This
+  setting affects totals when `mwst_type` is `MwstType::INCLUDING`.
 
 Item payload rules:
 - Bexio item responses may hydrate `article_type_id` as `null`.
@@ -232,11 +235,14 @@ Order and quote query rules:
 - `OrderStatus` maps pending `5`, done `6`, partial `15`, and canceled `21`.
 
 Sales document item-position rules:
-- Orders, quotes, and invoices containing `ItemPositionArticle` are created as an empty document
-  first, then positions are added through dedicated item-position endpoints. Some Bexio widget
-  schemas reject inline `article_id` on sales document create endpoints.
+- Orders, quotes, and invoices containing `ItemPositionArticle` or `ItemPositionSubposition` are
+  created as an empty document first, then every position is added in order through dedicated
+  item-position endpoints. Bexio rejects inline subpositions.
+- A document create rejects positions with a `parent_id` before sending. Create the document, then
+  `attachTo()` the created parent and `createFor()` the document.
 - Updating an existing `ItemPositionArticle` omits `article_id` and `parent_id`; delete and recreate
   the article position to change the linked item.
+- Quotes and orders accept `is_optional` on every position type; invoice position writes omit it.
 - Sales document update payloads strip `positions`; manage positions through item-position endpoints.
 
 Purchase payload rules:
@@ -303,7 +309,7 @@ Prefer:
 - Contact reads accept `title_id` as public `titel_id`; create/update/bulk omit legacy `address` and response metadata.
 - Timesheet writes use `tracking`; computed date, duration, running and travel fields are omitted.
 - Quote manual addresses use `contact_address_manual` / `delivery_address_manual`; write project context as `pr_project_id` and read `project_id`.
-- Position DTOs retain calculated totals and quantities. Dedicated creates retain article/parent IDs where supported; updates omit immutable parent IDs, and invoice position writes omit `is_optional`.
+- Position DTOs retain calculated totals and quantities. Dedicated creates retain article/parent IDs where supported; updates omit immutable parent IDs.
 - V4 banking payments use UUIDs for instance operations, JSON numbers for amounts, and `type` on update. QR writes omit `allowance`; reference and additional-information fields remain writable.
 - Bill payloads preserve line/discount IDs on update and omit them, calculated line taxes, and create-incompatible metadata on create. Use request classes or `toApiPayload()`.
 - Outgoing purchase-payment lists require `query()->forBill($billId)`. Only IBAN/QR payments can be updated remotely.

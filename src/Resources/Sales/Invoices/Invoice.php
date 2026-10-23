@@ -6,9 +6,9 @@ namespace Bexio\Resources\Sales\Invoices;
 use Bexio\Resources\Resource;
 use Bexio\Resources\Sales\Comments\Enums\KbDocumentType;
 use Bexio\Resources\Sales\Comments\Traits\HasComments;
-use Bexio\Resources\Sales\Concerns\CreatesSalesDocumentsWithDeferredArticlePositions;
+use Bexio\Resources\Sales\Concerns\BuildsWritePayloads;
+use Bexio\Resources\Sales\Concerns\CreatesSalesDocumentsWithDeferredPositions;
 use Bexio\Resources\Sales\Concerns\ResolvesKbDocumentId;
-use Bexio\Resources\Sales\Concerns\SerializesSalesDocumentPayloads;
 use Bexio\Resources\Sales\DocumentCopyPayload;
 use Bexio\Resources\Sales\DocumentPdf;
 use Bexio\Resources\Sales\Email\Email;
@@ -35,9 +35,11 @@ use Bexio\Resources\Sales\ItemPositions\ItemPosition;
 use Bexio\Resources\Sales\ItemPositions\ItemPositionCast;
 use Bexio\Resources\Sales\KbDocumentContract;
 use Bexio\Resources\Sales\MwstType;
+use Bexio\Resources\Sales\ResponseOnly;
 use Bexio\Resources\Sales\SalesTax;
+use Bexio\Resources\Sales\Writable;
+use Bexio\Resources\Sales\WriteOperation;
 use Bexio\Support\Concerns\HasOfficeLink;
-use Illuminate\Support\Collection;
 use Saloon\Http\Response;
 use Spatie\LaravelData\Attributes\WithCast;
 
@@ -51,8 +53,8 @@ class Invoice extends Resource implements KbDocumentContract
     use HasSubItemPositions;
     use HasOfficeLink;
     use ResolvesKbDocumentId;
-    use CreatesSalesDocumentsWithDeferredArticlePositions;
-    use SerializesSalesDocumentPayloads;
+    use CreatesSalesDocumentsWithDeferredPositions;
+    use BuildsWritePayloads;
 
     const DOCUMENT_TYPE = KbDocumentType::INVOICE;
 
@@ -95,7 +97,10 @@ class Invoice extends Resource implements KbDocumentContract
 
 
     public function __construct(
+        #[ResponseOnly]
         public ?int                    $id = null,
+        // Rejected on create while automatic numbering is on; Bexio assigns it.
+        #[ResponseOnly]
         public ?string                 $document_nr = null,
         public ?string                 $title = null,
         public ?int                    $contact_id = null,
@@ -113,6 +118,8 @@ class Invoice extends Resource implements KbDocumentContract
         public ?string                 $footer = null,
 
         public ?MwstType               $mwst_type = null,
+        // Null is rejected; omitting it keeps the account default.
+        #[Writable(omitNull: true)]
         public ?bool                   $mwst_is_net = null,
         public ?bool                   $show_position_taxes = null,
 
@@ -126,44 +133,22 @@ class Invoice extends Resource implements KbDocumentContract
 
         public ?string                 $template_slug = null,
 
+        // Document updates reject positions; change them through the item-position endpoints.
         /** @var ItemPositionCollection<int, ItemPosition> */
         #[WithCast(ItemPositionCast::class)]
+        #[Writable(on: [WriteOperation::CREATE])]
         public ?ItemPositionCollection $positions = null,
     )
     {
         $this->positions = $positions ?? new ItemPositionCollection([]);
     }
 
+    /**
+     * @deprecated Use toWritePayload(WriteOperation::UPDATE).
+     */
     public function toUpdateApi(): Invoice
     {
-        return $this->salesDocumentPayload([
-            'id',
-            'document_nr',
-            'total_received_payments',
-            'total_credit_vouchers',
-            'total_remaining_payments',
-            'esr_id',
-            'qr_invoice_id',
-            'invoice_date',
-            'currency_code',
-            'exchange_rate',
-            'base_currency_amount',
-            'base_currency_code',
-            'project_id',
-            'positions',
-        ]);
-    }
-
-    protected function emptyPositionsForDeferredArticleCreate(): ItemPositionCollection
-    {
-        return new ItemPositionCollection();
-    }
-
-    protected function setPositionsForDeferredArticleCreate(Collection $positions): void
-    {
-        $this->positions = $positions instanceof ItemPositionCollection
-            ? $positions
-            : new ItemPositionCollection($positions->all());
+        return $this->only(...$this->writablePropertyNames(WriteOperation::UPDATE));
     }
 
     public static function createFromApiPayload(array $payload): static
@@ -187,24 +172,12 @@ class Invoice extends Resource implements KbDocumentContract
         return array_map(static fn (array $payload): static => static::createFromApiPayload($payload), $payloads);
     }
 
+    /**
+     * @deprecated Use toWritePayload(WriteOperation::CREATE); this keeps inline positions unfiltered.
+     */
     public function toApi(): Invoice
     {
-        // Preserve explicit gross/net pricing; omit null to retain the Bexio default.
-        return $this->salesDocumentPayload([
-            'id',
-            'document_nr',
-            'total_received_payments',
-            'total_credit_vouchers',
-            'total_remaining_payments',
-            'esr_id',
-            'qr_invoice_id',
-            'invoice_date',
-            'currency_code',
-            'exchange_rate',
-            'base_currency_amount',
-            'base_currency_code',
-            'project_id',
-        ], ['mwst_is_net' => $this->mwst_is_net === null]);
+        return $this->only(...$this->writablePropertyNames(WriteOperation::CREATE));
     }
 
 

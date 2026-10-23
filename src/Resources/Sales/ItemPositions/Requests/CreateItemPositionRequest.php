@@ -6,6 +6,7 @@ namespace Bexio\Resources\Sales\ItemPositions\Requests;
 
 use Bexio\Resources\Sales\Comments\Enums\KbDocumentType;
 use Bexio\Resources\Sales\ItemPositions\ItemPosition;
+use Bexio\Resources\Sales\WriteOperation;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -33,15 +34,7 @@ class CreateItemPositionRequest extends Request implements HasBody
      */
     protected function defaultBody(): array
     {
-        $payload = $this->itemPosition->toCreateApiPayload();
-        if ($this->documentType === KbDocumentType::INVOICE) {
-            unset($payload['is_optional']);
-        }
-        if (($payload['parent_id'] ?? null) === null) {
-            unset($payload['parent_id']);
-        }
-
-        return $payload;
+        return $this->itemPosition->toWritePayload(WriteOperation::CREATE, $this->documentType);
     }
 
     public function createDtoFromResponse(Response $response): ItemPosition

@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace Bexio\Resources\Sales\ItemPositions;
 
 use Bexio\Resources\Sales\ItemPositions\Enums\ItemPositionType;
+use Bexio\Resources\Sales\Writable;
+use Bexio\Resources\Sales\WriteOperation;
 
 class ItemPositionArticle extends ItemPosition
 {
@@ -23,26 +25,13 @@ class ItemPositionArticle extends ItemPosition
         public ?int    $tax_id,
         public ?string $text,
         public ?string $unit_price,
+        // Article position updates reject article_id.
+        #[Writable(on: [WriteOperation::CREATE, WriteOperation::INLINE])]
         public ?int    $article_id,
         public ?string $discount_in_percent,
     )
 
     {
 
-    }
-
-    public function toApiPayload(): array
-    {
-        $payload = parent::toApiPayload();
-
-        unset($payload['article_id'], $payload['parent_id']);
-
-        return $payload;
-    }
-
-    public function toCreateApiPayload(): array
-    {
-        // Dedicated creation accepts article_id and parent_id; updates do not.
-        return parent::toApiPayload();
     }
 }

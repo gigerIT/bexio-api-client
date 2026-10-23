@@ -6,6 +6,7 @@ namespace Bexio\Resources\Sales\ItemPositions\Requests;
 
 use Bexio\Resources\Sales\Comments\Enums\KbDocumentType;
 use Bexio\Resources\Sales\ItemPositions\ItemPositionSubposition;
+use Bexio\Resources\Sales\WriteOperation;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -33,10 +34,7 @@ class CreateItemSubPositionRequest extends Request implements HasBody
      */
     protected function defaultBody(): array
     {
-        $payload = $this->itemSubPosition->toCreateApiPayload();
-        unset($payload['parent_id'], $payload['is_optional']);
-
-        return $payload;
+        return $this->itemSubPosition->toWritePayload(WriteOperation::CREATE, $this->documentType);
     }
 
     public function createDtoFromResponse(Response $response): ItemPositionSubposition

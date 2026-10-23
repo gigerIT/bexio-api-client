@@ -5,6 +5,7 @@ namespace Bexio\Resources\Sales\ItemPositions\Requests;
 
 use Bexio\Resources\Sales\Comments\Enums\KbDocumentType;
 use Bexio\Resources\Sales\ItemPositions\ItemPosition;
+use Bexio\Resources\Sales\WriteOperation;
 use LogicException;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -32,14 +33,7 @@ class UpdateItemPositionRequest extends Request implements HasBody
 
     protected function defaultBody(): array
     {
-        $payload = $this->itemPosition->toApiPayload();
-        // Existing hierarchy is immutable; invoice widgets have no optional positions.
-        unset($payload['parent_id']);
-        if ($this->documentType === KbDocumentType::INVOICE) {
-            unset($payload['is_optional']);
-        }
-
-        return $payload;
+        return $this->itemPosition->toWritePayload(WriteOperation::UPDATE, $this->documentType);
     }
 
     public function createDtoFromResponse(Response $response): ItemPosition

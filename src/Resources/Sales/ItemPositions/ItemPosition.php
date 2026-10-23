@@ -4,25 +4,37 @@ declare(strict_types=1);
 namespace Bexio\Resources\Sales\ItemPositions;
 
 use Bexio\Resources\Resource;
+use Bexio\Resources\Sales\Comments\Enums\KbDocumentType;
+use Bexio\Resources\Sales\Concerns\BuildsWritePayloads;
 use Bexio\Resources\Sales\ItemPositions\Enums\ItemPositionType;
 use Bexio\Resources\Sales\ItemPositions\Requests\CreateItemPositionRequest;
 use Bexio\Resources\Sales\KbDocumentContract;
+use Bexio\Resources\Sales\Writable;
+use Bexio\Resources\Sales\WriteOperation;
 use ReflectionClass;
 
 class ItemPosition extends Resource
 {
+    use BuildsWritePayloads;
+
     const CREATE_REQUEST = CreateItemPositionRequest::class;
 
     const CAN_BE_ATTACHED = true;
 
+    // Inline positions require the type; the dedicated endpoints reject it.
+    #[Writable(on: [WriteOperation::INLINE])]
     public ItemPositionType $type;
 
     public ?int $id;
 
     public ?int $internal_pos;
 
+    // Only a dedicated create can nest a position; inline creates reject parent_id and updates ignore or reject it.
+    #[Writable(on: [WriteOperation::CREATE], omitNull: true)]
     public ?int $parent_id;
 
+    // Invoices have no optional positions and reject the field.
+    #[Writable(exceptFor: [KbDocumentType::INVOICE])]
     public ?bool $is_optional;
 
     public ?string $pos;
@@ -69,35 +81,20 @@ class ItemPosition extends Resource
         return array_map(static fn (array $payload): self => static::fromApiPayload($payload), $payloads);
     }
 
+    /**
+     * @deprecated Use toWritePayload(WriteOperation::UPDATE, $documentType).
+     */
     public function toApiPayload(): array
     {
-        $payload = $this->except(
-            'id',
-            'type',
-            'internal_pos',
-            'pos',
-            'position_total',
-            'tax_value',
-            'unit_name',
-            'amount_completed',
-            'amount_open',
-            'amount_reserved',
-            'show_pos_prices',
-            'total_sum',
-        )->toArray();
-
-        unset($payload['discount_total']);
-
-        if ($this instanceof ItemPositionSubtotal) {
-            unset($payload['value']);
-        }
-
-        return $payload;
+        return $this->toWritePayload(WriteOperation::UPDATE);
     }
 
+    /**
+     * @deprecated Use toWritePayload(WriteOperation::CREATE, $documentType).
+     */
     public function toCreateApiPayload(): array
     {
-        return $this->toApiPayload();
+        return $this->toWritePayload(WriteOperation::CREATE);
     }
 
     /**

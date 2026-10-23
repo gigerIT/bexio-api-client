@@ -6,10 +6,10 @@ namespace Bexio\Resources\Sales\Orders;
 use Bexio\Resources\Resource;
 use Bexio\Resources\Sales\Comments\Enums\KbDocumentType;
 use Bexio\Resources\Sales\Comments\Traits\HasComments;
+use Bexio\Resources\Sales\Concerns\BuildsWritePayloads;
 use Bexio\Resources\Sales\Concerns\ConvertsSalesDocuments;
-use Bexio\Resources\Sales\Concerns\CreatesSalesDocumentsWithDeferredArticlePositions;
+use Bexio\Resources\Sales\Concerns\CreatesSalesDocumentsWithDeferredPositions;
 use Bexio\Resources\Sales\Concerns\ResolvesKbDocumentId;
-use Bexio\Resources\Sales\Concerns\SerializesSalesDocumentPayloads;
 use Bexio\Resources\Sales\Deliveries\Delivery;
 use Bexio\Resources\Sales\DocumentPdf;
 use Bexio\Resources\Sales\Invoices\Invoice;
@@ -31,8 +31,10 @@ use Bexio\Resources\Sales\Orders\Requests\GetOrderRepetitionRequest;
 use Bexio\Resources\Sales\Orders\Requests\GetOrdersRequest;
 use Bexio\Resources\Sales\Orders\Requests\UpdateOrderRepetitionRequest;
 use Bexio\Resources\Sales\Orders\Requests\UpdateOrderRequest;
+use Bexio\Resources\Sales\ResponseOnly;
+use Bexio\Resources\Sales\Writable;
+use Bexio\Resources\Sales\WriteOperation;
 use Bexio\Support\Concerns\HasOfficeLink;
-use Illuminate\Support\Collection;
 use Spatie\LaravelData\Attributes\WithCast;
 
 /**
@@ -45,9 +47,9 @@ class Order extends Resource implements KbDocumentContract
     use HasSubItemPositions;
     use HasOfficeLink;
     use ResolvesKbDocumentId;
-    use CreatesSalesDocumentsWithDeferredArticlePositions;
+    use CreatesSalesDocumentsWithDeferredPositions;
     use ConvertsSalesDocuments;
-    use SerializesSalesDocumentPayloads;
+    use BuildsWritePayloads;
 
     public const DOCUMENT_TYPE = KbDocumentType::ORDER;
 
@@ -73,16 +75,22 @@ class Order extends Resource implements KbDocumentContract
     /** @var array<int, mixed> */
     public array $taxs = [];
     public ?string $network_link;
+    // Null is rejected; omitting it keeps the account default.
+    #[Writable(omitNull: true)]
     public ?bool $mwst_is_net = null;
+    #[Writable]
     public ?int $logopaper_id = null;
     public ?int $esr_id = null;
     public ?int $qr_invoice_id = null;
     public ?string $viewed_by_client_at = null;
     public ?int $project_id = null;
+    // Write-only: responses report the linked project as project_id.
+    #[Writable]
     public ?int $pr_project_id = null;
     public ?bool $is_recurring = null;
 
     public function __construct(
+        #[ResponseOnly]
         public ?int                    $id = null,
         public ?string                 $title = null,
         public ?int                    $contact_id = null,
@@ -97,61 +105,39 @@ class Order extends Resource implements KbDocumentContract
         public ?MwstType               $mwst_type = null,
         public ?bool                   $show_position_taxes = null,
         public ?string                 $is_valid_from = null,
+        // Order create and update reject is_valid_to and reference.
+        #[ResponseOnly]
         public ?string                 $is_valid_to = null,
         public ?string                 $contact_address_manual = null,
         public ?int                    $delivery_address_type = null,
         public ?string                 $delivery_address_manual = null,
+        #[ResponseOnly]
         public ?string                 $reference = null,
         public ?string                 $api_reference = null,
         public ?string                 $template_slug = null,
+        // Document updates reject positions; change them through the item-position endpoints.
         /** @var ItemPositionCollection<int, ItemPosition> */
         #[WithCast(ItemPositionCast::class)]
+        #[Writable(on: [WriteOperation::CREATE])]
         public ?ItemPositionCollection $positions = null,
     ) {
         $this->positions = $positions ?? new ItemPositionCollection([]);
     }
 
+    /**
+     * @deprecated Use toWritePayload(WriteOperation::CREATE); this keeps inline positions unfiltered.
+     */
     public function toApi(): Order
     {
-        return $this->salesDocumentPayload([
-            'id',
-            'delivery_address',
-            'mwst_is_net',
-            'esr_id',
-            'qr_invoice_id',
-            'project_id',
-            'is_valid_to',
-            'reference',
-            'is_recurring',
-        ]);
+        return $this->only(...$this->writablePropertyNames(WriteOperation::CREATE));
     }
 
+    /**
+     * @deprecated Use toWritePayload(WriteOperation::UPDATE).
+     */
     public function toUpdateApi(): Order
     {
-        return $this->salesDocumentPayload([
-            'id',
-            'document_nr',
-            'delivery_address',
-            'esr_id',
-            'qr_invoice_id',
-            'project_id',
-            'is_valid_to',
-            'reference',
-            'is_recurring',
-            'positions',
-        ]);
-    }
-
-    protected function emptyPositionsForDeferredArticleCreate(): ItemPositionCollection
-    {
-        return new ItemPositionCollection();
-    }
-
-    protected function setPositionsForDeferredArticleCreate(Collection $positions): void
-    {
-        $this->positions = $positions instanceof ItemPositionCollection
-            ? $positions
-            : new ItemPositionCollection($positions->all());
+        return $this->only(...$this->writablePropertyNames(WriteOperation::UPDATE));
     }
 
     public function pdf(?int $id = null, ?bool $logopaper = null): DocumentPdf

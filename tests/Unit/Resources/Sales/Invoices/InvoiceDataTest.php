@@ -1,12 +1,8 @@
 <?php
 
-use Bexio\BexioClient;
 use Bexio\Resources\Sales\Invoices\Enums\InvoiceStatus;
 use Bexio\Resources\Sales\Invoices\Invoice;
-use Bexio\Resources\Sales\Invoices\Requests\CreateInvoiceRequest;
 use Bexio\Resources\Sales\MwstType;
-use Saloon\Http\Faking\MockClient;
-use Saloon\Http\Faking\MockResponse;
 
 function invoiceApiPayload(array $overrides = []): array
 {
@@ -85,79 +81,4 @@ it('falls back invoice_date to is_valid_from when the api omits it', function ()
 
     expect($invoice->invoice_date)->toBe('2026-03-01')
         ->and($invoice->is_valid_from)->toBe('2026-03-01');
-});
-
-it('keeps response-only invoice fields out of create payloads', function () {
-    $invoice = new Invoice(
-        document_nr: 'RE-00999',
-        title: 'New Invoice',
-        contact_id: 14,
-        contact_sub_id: 15,
-        user_id: 1,
-        pr_project_id: 77,
-        logopaper_id: 3,
-        language_id: 1,
-        bank_account_id: 1,
-        currency_id: 2,
-        payment_type_id: 1,
-        header: 'Header',
-        footer: 'Footer',
-        mwst_type: MwstType::INCLUDING,
-        mwst_is_net: true,
-        show_position_taxes: false,
-        is_valid_from: '2026-01-15',
-        is_valid_to: '2026-02-14',
-        contact_address_manual: "ACME GmbH\nMain Street 1\n8000 Zurich",
-        reference: 'INV-REF',
-        api_reference: 'ERP-123',
-        template_slug: 'invoice-template',
-    );
-
-    $invoice->invoice_date = '2026-01-15';
-    $invoice->currency_code = 'EUR';
-    $invoice->exchange_rate = 0.9321456789;
-    $invoice->base_currency_amount = 100.25;
-    $invoice->base_currency_code = 'CHF';
-    $invoice->total = '108.100000';
-    $invoice->project_id = 88;
-
-    $payload = $invoice->toApi()->toArray();
-
-    expect($payload)
-        ->toHaveKey('logopaper_id')
-        ->toHaveKey('contact_address_manual')
-        ->not->toHaveKey('document_nr')
-        ->toHaveKey('mwst_is_net', true)
-        ->not->toHaveKey('invoice_date')
-        ->not->toHaveKey('currency_code')
-        ->not->toHaveKey('exchange_rate')
-        ->not->toHaveKey('base_currency_amount')
-        ->not->toHaveKey('base_currency_code')
-        ->not->toHaveKey('total')
-        ->not->toHaveKey('project_id')
-        ->and($payload['logopaper_id'])->toBe(3)
-        ->and($payload['contact_address_manual'])->toBe("ACME GmbH\nMain Street 1\n8000 Zurich");
-});
-
-it('preserves explicit invoice tax mode in the create request', function (bool $mode) {
-    $invoice = new Invoice(contact_id: 1, mwst_is_net: $mode);
-    $mock = new MockClient([CreateInvoiceRequest::class => MockResponse::make(invoiceApiPayload(['mwst_is_net' => $mode]))]);
-    $client = (new BexioClient('test-token'))->withMockClient($mock);
-    $client->send(new CreateInvoiceRequest($invoice));
-    $mock->assertSent(function (CreateInvoiceRequest $request) use ($mode): bool {
-        expect($request->resolveEndpoint())->toBe('/2.0/kb_invoice')
-            ->and($request->body()->all())->toHaveKey('mwst_is_net', $mode);
-
-        return true;
-    });
-    $body = (new CreateInvoiceRequest($invoice))->body()->all();
-
-    expect($body)->toHaveKey('mwst_is_net', $mode)
-        ->and($invoice->toApi()->toArray())->toHaveKey('mwst_is_net', $mode);
-})->with([false, true]);
-
-it('omits unspecified invoice tax mode from the create request', function () {
-    $body = (new CreateInvoiceRequest(new Invoice(contact_id: 1)))->body()->all();
-
-    expect($body)->not->toHaveKey('mwst_is_net');
 });

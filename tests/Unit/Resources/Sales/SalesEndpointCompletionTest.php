@@ -32,8 +32,6 @@ use Bexio\Resources\Sales\ItemPositions\Collections\ItemPositionCollection;
 use Bexio\Resources\Sales\ItemPositions\Enums\ItemPositionType;
 use Bexio\Resources\Sales\ItemPositions\ItemPositionArticle;
 use Bexio\Resources\Sales\ItemPositions\ItemPositionCustom;
-use Bexio\Resources\Sales\ItemPositions\ItemPositionDiscount;
-use Bexio\Resources\Sales\ItemPositions\ItemPositionSubtotal;
 use Bexio\Resources\Sales\ItemPositions\Requests\CreateItemPositionRequest;
 use Bexio\Resources\Sales\ItemPositions\Requests\DeleteItemPositionRequest;
 use Bexio\Resources\Sales\ItemPositions\Requests\GetItemPositionRequest;
@@ -766,17 +764,7 @@ it('updates article positions without resending the immutable article id', funct
 
     $updated = $order->updatePosition($position);
 
-    expect($position->toApiPayload())->toBe([
-        'amount' => '1.000000',
-        'unit_id' => 1,
-        'account_id' => 3200,
-        'tax_id' => 28,
-        'text' => 'Updated article position',
-        'unit_price' => '75.000000',
-        'discount_in_percent' => '0.000000',
-        'is_optional' => false,
-    ])
-        ->and($updated)->toBeInstanceOf(ItemPositionArticle::class)
+    expect($updated)->toBeInstanceOf(ItemPositionArticle::class)
         ->and($updated->article_id)->toBe(99);
 
     $mockClient->assertSent(function (SaloonRequest $request): bool {
@@ -792,31 +780,4 @@ it('updates article positions without resending the immutable article id', funct
             && ! array_key_exists('article_id', $body)
             && ! array_key_exists('parent_id', $body);
     });
-});
-
-it('strips computed item position fields from update payloads', function () {
-    $discount = ItemPositionDiscount::fromApiPayload([
-        'id' => 333,
-        'type' => ItemPositionType::DISCOUNT->value,
-        'text' => 'Partner discount',
-        'is_percentual' => true,
-        'value' => '10.000000',
-        'discount_total' => '1.780000',
-    ]);
-
-    $subtotal = ItemPositionSubtotal::fromApiPayload([
-        'id' => 444,
-        'type' => ItemPositionType::SUBTOTAL->value,
-        'text' => 'Subtotal',
-        'value' => '17.800000',
-    ]);
-
-    expect($discount->toApiPayload())->toBe([
-        'text' => 'Partner discount',
-        'is_percentual' => true,
-        'value' => '10.000000',
-    ])
-        ->and($subtotal->toApiPayload())->toBe([
-            'text' => 'Subtotal',
-        ]);
 });

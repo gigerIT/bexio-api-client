@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Bexio\Resources\Sales\Quotes\Requests;
 
 use Bexio\Resources\Sales\Quotes\Quote;
+use Bexio\Resources\Sales\WriteOperation;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -30,7 +31,7 @@ class UpdateQuoteRequest extends Request implements HasBody
 
     protected function defaultBody(): array
     {
-        return $this->quote->toUpdateApi()->toArray();
+        return $this->quote->toWritePayload(WriteOperation::UPDATE);
     }
 
     public function createDtoFromResponse(Response $response): Quote

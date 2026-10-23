@@ -95,6 +95,7 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 - Response-only fields usually normal public properties outside constructor.
 - Create/update requests usually call `$resource->except(...)->toArray()` to strip response-only fields before JSON.
 - Preserve split. Do not put response-only API fields in constructor-promoted properties unless valid create/update payload fields.
+- Sales documents and item positions enforce the split: `toWritePayload(WriteOperation, ?KbDocumentType)` from `src/Resources/Sales/Concerns/BuildsWritePayloads.php` writes constructor-promoted properties, skips `#[ResponseOnly]`, and adds or narrows properties marked `#[Writable(on:, omitNull:, exceptFor:)]`. Record each live-verified write quirk as an attribute with a one-line comment on its property, covered by `tests/Unit/Resources/Sales/WritePayloadTest.php` and `tests/Resources/Sales/WritePayloadRequestsTest.php`. Rationale: `docs/adr/0001-write-payloads-from-constructor-fields.md`.
 
 ### Request Class Pattern
 
@@ -140,7 +141,7 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 - `src/Resources/Sales/Invoices/Invoice.php` has custom API payload helpers:
   - `createFromApiPayload()` backfills `invoice_date` from `is_valid_from` when needed.
   - `collectFromApiPayload()` maps arrays through same normalization.
-  - `toApi()` strips response-only/reporting fields from create payloads, including API-rejected `document_nr`. Explicit `mwst_is_net` booleans are preserved; `null` is omitted so Bexio chooses the default.
+  - `toApi()`/`toUpdateApi()` are deprecated wrappers around `toWritePayload()`. Invoice, order, and quote creates all reject `document_nr` while automatic numbering is on, and all three reject a null `mwst_is_net` on create and update, so it is written only when set.
 - Keep helpers synced with invoice response payloads and `tests/Unit/Resources/Sales/Invoices/InvoiceDataTest.php`.
 
 ### Invoice query support
@@ -156,8 +157,8 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 - Order filtering: `POST /2.0/kb_order/search` via `src/Resources/Sales/Orders/Requests/SearchOrdersRequest.php`.
 - `src/Resources/Sales/Orders/OrderQueryBuilder.php` mirrors invoice builder: `status()`, `statusIn()`, `validFrom()`, `validTo()`, `validBetween()`.
 - Keep `Order::$kb_item_status_id` as `int`. `OrderStatus` maps documented states: pending `5`, done `6`, partial `15`, canceled `21`.
-- `src/Resources/Sales/Orders/Order.php::toApi()` strips response-only/API-rejected create fields: `taxs`, `mwst_is_net`, `is_valid_to`, `project_id`, `reference`.
-- Orders containing `ItemPositionArticle` must be created as an order shell and then populated through item-position endpoints. See the polymorphic item-position rules for the live-schema payload split.
+- Live order create and update reject `is_valid_to` and `reference` but accept and persist `mwst_is_net` and write-only `pr_project_id` (read back as `project_id`); `Order.php` attributes encode this.
+- Sales documents with `ItemPositionArticle` or `ItemPositionSubposition` are created empty, then all positions are added in order through item-position endpoints (`CreatesSalesDocumentsWithDeferredPositions`); positions with a `parent_id` throw before sending. Bexio rejects inline subpositions. A 2026-10-23 live probe accepted inline article positions with `article_id` on all three document types, so the original article rejection did not reproduce; keep deferring articles until a live test proves inline article creation through the package.
 
 ### Other task reminder payloads
 
@@ -219,13 +220,15 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 
 - `src/Resources/Sales/ItemPositions/ItemPositionCast.php` maps item-position payloads by `type` to concrete DTO classes.
 - Supported types asserted in `tests/Unit/ItemPositionCastTest.php`.
-- Item position create requests strip DTO-only `type` from outgoing payloads; keep `CreateItemPositionRequest` and `CreateItemSubPositionRequest` aligned.
-- Do not trust bundled Bexio docs alone for item-position write schemas. Live widget schemas are stricter and may reject fields documented on create/update samples; verify outgoing request bodies and live behavior before shipping changes.
-- `ItemPositionArticle` has split write semantics: dedicated create endpoints need `article_id`, but inline sales-document create can reject it, and article-position update rejects `article_id` and `parent_id`. Create orders, quotes, and invoices with article positions as an empty document first, then add positions through dedicated item-position endpoints. Do not reuse shared item-position payload assumptions without type-specific tests.
-- Any change touching item-position create/update serialization must include a mocked Saloon body assertion for the exact endpoint and a live disposable sales-document test for the affected create/update flow. Creation-only coverage is not enough when update payloads differ.
+- Position write rules are attributes on `ItemPosition` (`type` inline only, `parent_id` on dedicated create only, `is_optional` never on invoices) and `ItemPositionArticle` (`article_id` on create and inline only). The create and update requests send `toWritePayload()` unchanged.
+- Live item-position widget schemas are stricter than the docs and may reject fields shown on documented create/update samples.
+- `ItemPositionArticle` has split write semantics: dedicated create accepts `article_id`, while article-position update rejects `article_id` and a null `parent_id` and silently ignores an integer `parent_id`. Do not reuse shared item-position payload assumptions without type-specific tests.
+- Any change touching item-position create/update serialization must include a mocked Saloon body assertion for the exact endpoint (`tests/Unit/Resources/Sales/ItemPositionMetadataTest.php`) and a live disposable sales-document test for the affected create/update flow. Creation-only coverage is not enough when update payloads differ.
 - If Bexio adds item position type, update enum, cast, and test together.
 
-- Fetched position totals, tax values, quantities, numbering and group totals are response metadata. Dedicated create and update serialization must omit them; updates also omit `parent_id`, and invoice widgets reject `is_optional`. Keep non-null parent IDs for supported nested creates.
+- Fetched position totals, tax values, quantities, numbering and group totals are response metadata; they are never written because they are not constructor-promoted. Keep non-null parent IDs for supported nested creates.
+- Inline positions in a sales-document create require `type`, while a dedicated create rejects it (verified on custom). Inline positions reject any `parent_id` (even `null`), `id`, and fetched fields such as `internal_pos`, `pos`, `position_total`, `tax_value`, and `unit_name`; `KbPositionSubposition` is not supported inline. Document updates reject `positions`.
+- Quotes and orders accept `is_optional` on dedicated create and update for every position type and persist it for all but discount, whose responses omit it; inline custom positions accept it too. Invoices reject it on create, update, and inline.
 
 ### Item write payloads
 

@@ -1,7 +1,7 @@
 <?php
 
 use Bexio\BexioClient;
-use Bexio\Resources\Sales\Comments\Enums\KbDocumentType;
+use Bexio\Resources\Sales\Invoices\Invoice;
 use Bexio\Resources\Sales\ItemPositions\ItemPosition;
 use Bexio\Resources\Sales\ItemPositions\Requests\CreateItemPositionRequest;
 use Bexio\Resources\Sales\ItemPositions\Requests\CreateItemSubPositionRequest;
@@ -23,13 +23,14 @@ it('preserves position calculations without resending them on create or update',
         UpdateItemPositionRequest::class => MockResponse::make($payload),
     ]);
     $client = (new BexioClient('mock-token'))->withMockClient($mock);
-    $create = new $createClass(KbDocumentType::INVOICE, 42, $position);
-    $client->send($create);
-    $update = new UpdateItemPositionRequest(KbDocumentType::INVOICE, 42, $position);
-    $client->send($update);
+    $invoice = (new Invoice(id: 42))->attachClient($client);
+
+    $position->attachClient($client)->createFor($invoice);
+    $invoice->updatePosition($position);
+
     $updateFields = $fields;
     if ($type === 'article') {
-        unset($updateFields['article_id'], $updateFields['parent_id']);
+        unset($updateFields['article_id']);
     }
     $mock->assertSent(fn ($r): bool => $r->getMethod() === Method::POST && $r->resolveEndpoint() === $endpoint && $r->body()->all() === $fields);
     $mock->assertSent(fn ($r): bool => $r->getMethod() === Method::POST && $r->resolveEndpoint() === $endpoint . '/7' && $r->body()->all() === $updateFields);

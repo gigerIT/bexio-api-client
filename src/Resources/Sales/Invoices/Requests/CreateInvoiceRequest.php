@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bexio\Resources\Sales\Invoices\Requests;
 
 use Bexio\Resources\Sales\Invoices\Invoice;
+use Bexio\Resources\Sales\WriteOperation;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -29,7 +30,7 @@ class CreateInvoiceRequest extends Request implements HasBody
 
     protected function defaultBody(): array
     {
-        return $this->invoice->toApi()->toArray();
+        return $this->invoice->toWritePayload(WriteOperation::CREATE);
     }
 
     public function createDtoFromResponse(Response $response): Invoice

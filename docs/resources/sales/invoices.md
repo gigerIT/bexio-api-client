@@ -17,6 +17,6 @@ $invoice = new Invoice(
 $created = $invoice->attachClient($client)->create();
 ```
 
-For `MwstType::INCLUDING`, `false` means prices include tax and `true` means tax is added. Both explicit booleans are preserved in the create request. Omit `mwst_is_net` or pass `null` to omit the field and let Bexio choose the default. Reporting fields and `document_nr` remain excluded from invoice creation.
+For `MwstType::INCLUDING`, `false` means prices include tax and `true` means tax is added. Both explicit booleans are preserved in create and update requests. Omit `mwst_is_net` or pass `null` to leave the field out and let Bexio choose the default; Bexio rejects an explicit `null`. Reporting fields and `document_nr` remain excluded from invoice writes. Orders and quotes follow the same rule through their `mwst_is_net` property.
 
 See the [Bexio create invoice schema](https://docs.bexio.com/#tag/Invoices/operation/v2CreateInvoice).

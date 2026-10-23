@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Bexio\Resources\Sales\Orders\Requests;
 
 use Bexio\Resources\Sales\Orders\Order;
+use Bexio\Resources\Sales\WriteOperation;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -27,7 +28,7 @@ class CreateOrderRequest extends Request implements HasBody
 
     protected function defaultBody(): array
     {
-        return $this->order->toApi()->toArray();
+        return $this->order->toWritePayload(WriteOperation::CREATE);
     }
 
     public function createDtoFromResponse(Response $response): Order

@@ -6,10 +6,10 @@ namespace Bexio\Resources\Sales\Quotes;
 use Bexio\Resources\Resource;
 use Bexio\Resources\Sales\Comments\Enums\KbDocumentType;
 use Bexio\Resources\Sales\Comments\Traits\HasComments;
+use Bexio\Resources\Sales\Concerns\BuildsWritePayloads;
 use Bexio\Resources\Sales\Concerns\ConvertsSalesDocuments;
-use Bexio\Resources\Sales\Concerns\CreatesSalesDocumentsWithDeferredArticlePositions;
+use Bexio\Resources\Sales\Concerns\CreatesSalesDocumentsWithDeferredPositions;
 use Bexio\Resources\Sales\Concerns\ResolvesKbDocumentId;
-use Bexio\Resources\Sales\Concerns\SerializesSalesDocumentPayloads;
 use Bexio\Resources\Sales\DocumentCopyPayload;
 use Bexio\Resources\Sales\DocumentPdf;
 use Bexio\Resources\Sales\Email\Email;
@@ -38,8 +38,10 @@ use Bexio\Resources\Sales\Quotes\Requests\RejectQuoteRequest;
 use Bexio\Resources\Sales\Quotes\Requests\RevertIssueQuoteRequest;
 use Bexio\Resources\Sales\Quotes\Requests\SendQuoteRequest;
 use Bexio\Resources\Sales\Quotes\Requests\UpdateQuoteRequest;
+use Bexio\Resources\Sales\ResponseOnly;
 use Bexio\Resources\Sales\SalesTax;
-use Illuminate\Support\Collection;
+use Bexio\Resources\Sales\Writable;
+use Bexio\Resources\Sales\WriteOperation;
 use Saloon\Http\Response;
 use Spatie\LaravelData\Attributes\WithCast;
 
@@ -51,9 +53,9 @@ class Quote extends Resource implements KbDocumentContract
     use HasComments;
     use HasPositions;
     use ResolvesKbDocumentId;
-    use CreatesSalesDocumentsWithDeferredArticlePositions;
+    use CreatesSalesDocumentsWithDeferredPositions;
     use ConvertsSalesDocuments;
-    use SerializesSalesDocumentPayloads;
+    use BuildsWritePayloads;
 
     const DOCUMENT_TYPE = KbDocumentType::OFFER;
 
@@ -85,6 +87,8 @@ class Quote extends Resource implements KbDocumentContract
 
     public ?string $network_link;
 
+    // Null is rejected; omitting it keeps the account default.
+    #[Writable(omitNull: true)]
     public ?bool $mwst_is_net;
 
     public ?int $project_id = null;
@@ -94,6 +98,7 @@ class Quote extends Resource implements KbDocumentContract
 
 
     public function __construct(
+        #[ResponseOnly]
         public ?int        $id = null,
         public ?string     $title = null,
         public ?int        $contact_id = null,
@@ -119,12 +124,16 @@ class Quote extends Resource implements KbDocumentContract
 
         public ?string     $api_reference = null,
 
+        // Records when the customer opened the quote. Bexio accepts it on create, but a copy must not inherit it.
+        #[ResponseOnly]
         public ?string     $viewed_by_client_at = null,
         public ?int        $kb_terms_of_payment_template_id = null,
         public ?string     $template_slug = null,
 
+        // Document updates reject positions; change them through the item-position endpoints.
         /** @var ItemPositionCollection<int, ItemPosition> */
         #[WithCast(ItemPositionCast::class)]
+        #[Writable(on: [WriteOperation::CREATE])]
         public ?ItemPositionCollection $positions = null,
         public ?string $contact_address_manual = null,
         public ?string $delivery_address_manual = null,
@@ -133,43 +142,20 @@ class Quote extends Resource implements KbDocumentContract
         $this->positions = $positions ?? new ItemPositionCollection([]);
     }
 
+    /**
+     * @deprecated Use toWritePayload(WriteOperation::UPDATE).
+     */
     public function toUpdateApi(): Quote
     {
-        return $this->salesDocumentPayload([
-            'id',
-            'document_nr',
-            'project_id',
-            'show_total',
-            'delivery_address',
-            'positions',
-            'logopaper_id',
-        ]);
+        return $this->only(...$this->writablePropertyNames(WriteOperation::UPDATE));
     }
 
+    /**
+     * @deprecated Use toWritePayload(WriteOperation::CREATE); this keeps inline positions unfiltered.
+     */
     public function toApi(): Quote
     {
-        return $this->salesDocumentPayload([
-            'id',
-            'document_nr',
-            'project_id',
-            'show_total',
-            'delivery_address',
-            'logopaper_id',
-        ], [
-            'mwst_is_net' => ! isset($this->mwst_is_net),
-        ]);
-    }
-
-    protected function emptyPositionsForDeferredArticleCreate(): ItemPositionCollection
-    {
-        return new ItemPositionCollection();
-    }
-
-    protected function setPositionsForDeferredArticleCreate(Collection $positions): void
-    {
-        $this->positions = $positions instanceof ItemPositionCollection
-            ? $positions
-            : new ItemPositionCollection($positions->all());
+        return $this->only(...$this->writablePropertyNames(WriteOperation::CREATE));
     }
 
     public function issue(?int $id = null): Response
