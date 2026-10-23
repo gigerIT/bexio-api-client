@@ -32,7 +32,8 @@ independent updates.
 ## Verify against reality
 
 Bundled docs are a historical comparison source. The current official contract
-is the upstream source, but this repository contains verified live differences.
+shows what upstream changed, but only real API requests decide what the client
+sends; this repository contains verified live differences.
 Preserve those until endpoint-specific mock assertions and disposable live tests
 demonstrate the new behavior. Keep the discrepancy, exact source anchor, observed
 result, and required follow-up in the pending ledger if evidence is inconclusive.

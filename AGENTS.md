@@ -46,6 +46,7 @@ Domain documentation uses the single-context layout. See `docs/agents/domain.md`
 
 ## API Docs
 
+- The live API is the source of truth; every docs source below can disagree with live validation. Verify each assumption about fields, validation, endpoints, and behaviour with real requests against disposable records before relying on it, and record verified deviations as caveats in this file.
 - mcp: context7 `bexio api`
 - Local: `docs/bexio-api-docs.md`
 - `README.md` is source of truth for documented endpoint coverage. Its `## Available Resources` tables list each bundled-doc endpoint and implementation status. Check there first for endpoint gaps, new resource planning, or existing coverage.
