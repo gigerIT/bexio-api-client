@@ -1,5 +1,28 @@
 # Changelog
 
+## [4.12.0](https://github.com/gigerIT/bexio-api-client/compare/v4.11.1...v4.12.0) (2026-10-23)
+
+
+### Features
+
+* **sales:** add attribute-driven write payloads ([b2c0334](https://github.com/gigerIT/bexio-api-client/commit/b2c03348b2b9738b94f6e90ab8434f297a9daf51)), closes [#93](https://github.com/gigerIT/bexio-api-client/issues/93)
+
+
+### Bug Fixes
+
+* **resources:** fail fast on invalid operations ([701a49e](https://github.com/gigerIT/bexio-api-client/commit/701a49e75ea823243fced402675b4303af12197b))
+
+
+### Documentation
+
+* **agents:** treat the live API as source of truth ([fd6bf8b](https://github.com/gigerIT/bexio-api-client/commit/fd6bf8bd78d60647e2bbdb1501faeff2f3e49a58))
+
+
+### Continuous Integration
+
+* validate pull requests without live Bexio credentials ([a26077f](https://github.com/gigerIT/bexio-api-client/commit/a26077fc09621c095032569eb64b31f956892b5d))
+* validate pull requests without live Bexio credentials ([4109146](https://github.com/gigerIT/bexio-api-client/commit/4109146d00226b7a2726a30c248e10bf8f81f649))
+
 ## [4.11.1](https://github.com/gigerIT/bexio-api-client/compare/v4.11.0...v4.11.1) (2026-10-05)
 
 
