@@ -144,6 +144,10 @@ class QueryBuilder
      */
     protected function createIndexRequest(): Request
     {
+        if ($this->resourceClass::INDEX_REQUEST === Request::class) {
+            throw new RuntimeException($this->resourceClass . ' does not support this operation.');
+        }
+
         return $this->createRequestWithParameters(
             requestClass: $this->resourceClass::INDEX_REQUEST,
             parameters: $this->indexRequestArguments(),

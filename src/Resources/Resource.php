@@ -63,7 +63,7 @@ class Resource extends Data
 
     protected function newRequestInstance(?string $requestClass = null, ...$args): Request
     {
-        if (!$requestClass) {
+        if (!$requestClass || $requestClass === Request::class) {
             throw new RuntimeException(static::class . " does not support this operation.");
         }
 
@@ -107,7 +107,12 @@ class Resource extends Data
 
     public function update(): static
     {
-        $request = $this->newRequestInstance(static::UPDATE_REQUEST, $this);
+        // Without an id, most update endpoints resolve to the create endpoint.
+        if (! $this->hasResourceId()) {
+            throw new LogicException(static::class . ' cannot be updated without a persisted id.');
+        }
+
+        $request =$this->newRequestInstance(static::UPDATE_REQUEST, $this);
         $response = $this->client()->send($request);
         return $request->createDtoFromResponse($response)->attachClient($this->client());
     }

@@ -87,7 +87,8 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 - `attachClient()` stores client for instance methods.
 - Shared ops: `all()`, `find()`, `refresh()`, `create()`, `update()`, `save()`, `delete()`, `query()`.
 - Resources declare request classes through constants: `INDEX_REQUEST`, `SHOW_REQUEST`, `CREATE_REQUEST`, `UPDATE_REQUEST`, `DELETE_REQUEST`; optional `QUERY_BUILDER`.
-- Missing required request constant for an operation throws at runtime.
+- Undeclared request constants keep the base `Request::class` default; `Resource` operations and `QueryBuilder::get()` treat that as unsupported and throw `RuntimeException` before sending.
+- `update()` throws `LogicException` before sending when `hasResourceId()` is false, because most update routes without an id hit the create endpoint. Use `save()` for create-or-update.
 
 ### Constructor and Payload Conventions
 
