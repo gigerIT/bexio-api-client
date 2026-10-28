@@ -87,6 +87,7 @@ jobs:
 
       - name: Release Please
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # A PAT lets release PR checks start without manual approval.
+          GITHUB_TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN }}
           NODE_PATH: /tmp/release-please-runner/node_modules
         run: node .github/scripts/release-please.js
