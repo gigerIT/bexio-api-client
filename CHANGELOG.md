@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.12.1](https://github.com/gigerIT/bexio-api-client/compare/v4.12.0...v4.12.1) (2026-10-28)
+
+
+### Continuous Integration
+
+* run release PR workflows without manual approval ([f077d72](https://github.com/gigerIT/bexio-api-client/commit/f077d72c5cb1a1f05689b98549e7744556a34fda))
+
 ## [4.12.0](https://github.com/gigerIT/bexio-api-client/compare/v4.11.1...v4.12.0) (2026-10-23)
 
 
