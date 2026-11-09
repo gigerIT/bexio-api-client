@@ -12,13 +12,13 @@ class GetCalendarYearRequest extends Request
 {
     protected Method $method = Method::GET;
 
-    public function __construct(protected readonly string $uuid)
+    public function __construct(protected readonly int $id)
     {
     }
 
     public function resolveEndpoint(): string
     {
-        return "/3.0/accounting/calendar_years/{$this->uuid}";
+        return "/3.0/accounting/calendar_years/{$this->id}";
     }
 
     public function createDtoFromResponse(Response $response): CalendarYear

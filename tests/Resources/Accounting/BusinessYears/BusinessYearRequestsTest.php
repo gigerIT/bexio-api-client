@@ -25,8 +25,7 @@ it('can get a Business Year', function () {
         \PHPUnit\Framework\Assert::markTestSkipped('No business years available');
     }
 
-    $id = $years[0]->uuid ?? (string)$years[0]->id;
-    $year = BusinessYear::useClient(testClient())->find($id);
+    $year = BusinessYear::useClient(testClient())->find($years[0]->id);
 
     expect($year)->toBeInstanceOf(BusinessYear::class)
         ->and($year->id)->toBeInt()

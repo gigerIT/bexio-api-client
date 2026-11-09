@@ -4,6 +4,29 @@ use Bexio\Resources\Accounting\BusinessYears\BusinessYear;
 use Bexio\Resources\Accounting\CalendarYears\CalendarYear;
 use Bexio\Resources\Accounting\Accounts\Account;
 use Bexio\Resources\Accounting\AccountGroups\AccountGroup;
+use Bexio\BexioClient;
+use Bexio\Resources\Accounting\BusinessYears\Requests\GetBusinessYearRequest;
+use Bexio\Resources\Accounting\CalendarYears\Requests\GetCalendarYearRequest;
+use Saloon\Http\Faking\MockClient;
+use Saloon\Http\Faking\MockResponse;
+use Saloon\Http\Request;
+
+it('finds accounting years by their numeric id', function (string $resource, string $request, string $endpoint) {
+    $mockClient = new MockClient([
+        $request => MockResponse::make(['id' => 4, 'start' => '2026-01-01', 'end' => '2026-12-31']),
+    ]);
+
+    $year = $resource::useClient((new BexioClient('mock-token'))->withMockClient($mockClient))->find(4);
+
+    $mockClient->assertSent(fn (Request $sent): bool => $sent->resolveEndpoint() === $endpoint);
+    expect($year)->toBeInstanceOf($resource)
+        ->and($year->id)->toBe(4)
+        ->and($year->date_start)->toBe('2026-01-01')
+        ->and($year->date_end)->toBe('2026-12-31');
+})->with([
+    'calendar year' => [CalendarYear::class, GetCalendarYearRequest::class, '/3.0/accounting/calendar_years/4'],
+    'business year' => [BusinessYear::class, GetBusinessYearRequest::class, '/3.0/accounting/business_years/4'],
+]);
 
 it('hydrates account group id from the API response field', function () {
     $account = Account::from([

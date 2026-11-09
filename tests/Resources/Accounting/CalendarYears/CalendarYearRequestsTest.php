@@ -26,8 +26,7 @@ it('can get a Calendar Year', function () {
         \PHPUnit\Framework\Assert::markTestSkipped('No calendar years available');
     }
 
-    $id = $years[0]->uuid ?? (string)$years[0]->id;
-    $year = CalendarYear::useClient(testClient())->find($id);
+    $year = CalendarYear::useClient(testClient())->find($years[0]->id);
 
     expect($year)->toBeInstanceOf(CalendarYear::class)
         ->and($year->id)->toBeInt()
