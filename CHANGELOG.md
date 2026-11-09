@@ -1,5 +1,13 @@
 # Changelog
 
+## [4.12.2](https://github.com/gigerIT/bexio-api-client/compare/v4.12.1...v4.12.2) (2026-11-09)
+
+
+### Bug Fixes
+
+* **accounting:** accept numeric calendar- and business-year ids ([efe6924](https://github.com/gigerIT/bexio-api-client/commit/efe69245cb455b0ddc5b5dfaa02d845744991743)), closes [#97](https://github.com/gigerIT/bexio-api-client/issues/97)
+* **accounting:** accept numeric VAT-period ids in show request ([b783be7](https://github.com/gigerIT/bexio-api-client/commit/b783be736c18691d8277ae1df1cb84e3ab739e2a)), closes [#96](https://github.com/gigerIT/bexio-api-client/issues/96)
+
 ## [4.12.1](https://github.com/gigerIT/bexio-api-client/compare/v4.12.0...v4.12.1) (2026-10-28)
 
 
