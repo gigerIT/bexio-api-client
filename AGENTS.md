@@ -106,6 +106,7 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 - Search naming varies: `SearchContactRequest`, `SearchItemsRequest`, `SearchBusinessActivitiesRequest`. Match local convention; do not normalize unrelated files.
 - Search requests should extend `Bexio\Support\Requests\SearchRequest` for shared POST JSON `searchClauses` behavior. Keep per-request constructors only for route context, query parameters, validation, or response normalization.
 - Each request owns `resolveEndpoint()` and `createDtoFromResponse()`.
+- Type route-id constructor params like the documented path parameter (`int $id` for numeric ids). `Resource` passes ids through under `strict_types`, so a `string` param makes `find()`/`refresh()` throw on the hydrated integer `id`.
 - JSON body requests implement `HasBody` and use `HasJsonBody`.
 
 ### Query Builder Pattern

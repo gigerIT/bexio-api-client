@@ -22,7 +22,7 @@ it('can get a Vat Period', function () {
         \PHPUnit\Framework\Assert::markTestSkipped('No VAT periods available');
     }
 
-    $period = VatPeriod::useClient(testClient())->find($periods[0]->uuid ?? $periods[0]->id);
+    $period = VatPeriod::useClient(testClient())->find($periods[0]->id);
 
     expect($period)->toBeInstanceOf(VatPeriod::class)
         ->and($period->id)->toBeInt()
