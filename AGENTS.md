@@ -335,28 +335,8 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 - Keep `README.md` endpoint coverage synced with code changes. When adding/removing/renaming/changing API endpoint implementation, update relevant row in `## Available Resources` same task.
 - Every new API-facing feature ships with real API tests in `tests/Resources/...`, following existing live-request style.
 - If adding response-only fields, update outgoing payload filtering.
-- If adding new pattern or project caveat, update this file same task.
 
-## Documentation Placement and Maintenance
+## Documentation Placement
 
-**When to document**
-Update/add docs when task introduces verified changes, reveals missing context, or uncovers useful gaps. Use verified current-task facts only; no speculation.
-
-**Where to document**
-Decision rule before writing:
-
-1. Global, reusable, task-agnostic guidance -> `AGENTS.md`
-2. File/function/implementation-scoped insight -> code comment at relevant location
-3. Public package usage examples/resource-specific integration notes -> `docs/resources/<domain>/<resource>.md`
-4. AI-agent integration guidance for consumers -> keep Laravel Boost skill resource
-   `resources/boost/skills/bexio-api-client-development/SKILL.md` in sync when the
-   change is useful for agents integrating this package
-5. If both apply -> global rule in `AGENTS.md`, local detail in code comment
-
-Default to narrowest correct target.
-
-**Quality standard**
-Keep `AGENTS.md` high-signal and durable. Summarize, deduplicate, prune stale/overly narrow entries.
-
-**Completion check**
-Before final: confirm needed `AGENTS.md` updates and relevant code comments made, or explicitly verify none needed. Task incomplete until check passes.
+- Public package usage examples and resource-specific integration notes go in `docs/resources/<domain>/<resource>.md`.
+- Keep the consumer Boost skill `resources/boost/skills/bexio-api-client-development/SKILL.md` in sync when a change helps agents integrating this package.
