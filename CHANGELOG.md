@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.12.3](https://github.com/gigerIT/bexio-api-client/compare/v4.12.2...v4.12.3) (2026-11-11)
+
+
+### Documentation
+
+* **agents:** drop rules the global coding rules now cover ([1266cc0](https://github.com/gigerIT/bexio-api-client/commit/1266cc0916fe3bc71d05cd1c26673d123e65a0c4))
+
 ## [4.12.2](https://github.com/gigerIT/bexio-api-client/compare/v4.12.1...v4.12.2) (2026-11-09)
 
 
