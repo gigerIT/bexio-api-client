@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.12.4](https://github.com/gigerIT/bexio-api-client/compare/v4.12.3...v4.12.4) (2026-11-16)
+
+
+### Documentation
+
+* **boost:** point skill doc links at the vendor package path ([7a8823c](https://github.com/gigerIT/bexio-api-client/commit/7a8823cb3b2abab6cdd0761e0ddd90a306147693)), closes [#100](https://github.com/gigerIT/bexio-api-client/issues/100)
+
 ## [4.12.3](https://github.com/gigerIT/bexio-api-client/compare/v4.12.2...v4.12.3) (2026-11-11)
 
 
