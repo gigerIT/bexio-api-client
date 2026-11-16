@@ -268,10 +268,12 @@ Conversion rules:
 - Milestone updates use PATCH: the documented POST method returns 404 on the live
   API. Preserve the request method and project context when integrating milestones.
 - Bank account postal/clearing identifiers can be strings; preserve leading zeros.
-  Accounting response metadata is documented in `docs/resources/accounting/response-metadata.md`.
+  Accounting response metadata is documented in
+  `vendor/gigerit/bexio-api-client/docs/resources/accounting/response-metadata.md`.
 - For bills, expenses, and purchase outgoing payments, consult
-  `docs/resources/purchase/scopes.md`: their OAuth requirements differ from banking
-  payments and vary by operation. Use the existing `ApiScope` values.
+  `vendor/gigerit/bexio-api-client/docs/resources/purchase/scopes.md`: their OAuth
+  requirements differ from banking payments and vary by operation. Use the existing
+  `ApiScope` values.
 - Payroll paystubs: use `Payroll\Documents\Requests\DownloadPaystubPdfRequest` and
   read `$response->body()` for PDF bytes. The older `GetPaystubPdfRequest` returns
   a location DTO and is deprecated upstream. Both require `ApiScope::PAYROLL_PAYSTUB_SHOW`.

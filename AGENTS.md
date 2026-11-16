@@ -339,4 +339,4 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 ## Documentation Placement
 
 - Public package usage examples and resource-specific integration notes go in `docs/resources/<domain>/<resource>.md`.
-- Keep the consumer Boost skill `resources/boost/skills/bexio-api-client-development/SKILL.md` in sync when a change helps agents integrating this package.
+- Keep the consumer Boost skill `resources/boost/skills/bexio-api-client-development/SKILL.md` in sync when a change helps agents integrating this package. Boost copies only that `SKILL.md` into the consuming app's skill folders, so point it at package files as `vendor/gigerit/bexio-api-client/<path>`; repo-relative paths such as `docs/...` resolve against the app root there.
