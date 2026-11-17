@@ -89,22 +89,27 @@ it('can get an Order PDF', function () use (&$testOrder) {
 })->depends('it can create an Order');
 
 it('can manage an Order repetition', function () use (&$testOrder) {
+    $order = $testOrder->attachClient(testClient());
     $repetition = OrderRepetition::daily(
         start: date('Y-m-d', strtotime('+1 day')),
         end: date('Y-m-d', strtotime('+1 month')),
         interval: 1,
     );
 
+    expect($order->findRepetition())->toBeNull();
+
     try {
-        $updated = $testOrder->attachClient(testClient())->updateRepetition($repetition);
-        $fetched = $testOrder->attachClient(testClient())->getRepetition();
+        $updated = $order->updateRepetition($repetition);
+        $fetched = $order->findRepetition();
 
         expect($updated)->toBeInstanceOf(OrderRepetition::class)
             ->and($fetched)->toBeInstanceOf(OrderRepetition::class)
             ->and($fetched->repetition->type)->toBe(OrderRepetitionType::DAILY);
     } finally {
-        $testOrder->attachClient(testClient())->deleteRepetition();
+        $order->deleteRepetition();
     }
+
+    expect($order->findRepetition())->toBeNull();
 })->depends('it can create an Order');
 
 it('can find an Order via the search endpoint', function () use (&$testOrder) {

@@ -420,7 +420,7 @@ it('manages order repetition through typed dto requests', function () {
     );
 
     $updated = $order->updateRepetition($repetition, 123);
-    $fetched = $order->getRepetition(123);
+    $fetched = $order->findRepetition(123);
     $deleted = $order->deleteRepetition(123);
 
     expect($updated)->toBeInstanceOf(OrderRepetition::class)
@@ -444,3 +444,28 @@ it('manages order repetition through typed dto requests', function () {
             ];
     });
 });
+
+it('reports the empty response Bexio sends for non-recurring orders as no repetition', function () {
+    $mockClient = new MockClient([
+        GetOrderRepetitionRequest::class => MockResponse::make('', 200, ['Content-Type' => 'application/json']),
+    ]);
+    $order = Order::useClient((new BexioClient('mock-token'))->withMockClient($mockClient));
+
+    expect(fn () => $order->getRepetition(123))
+        ->toThrow(UnexpectedValueException::class, 'Order 123 has no repetition.')
+        ->and($order->findRepetition(123))->toBeNull();
+});
+
+it('rejects malformed non-empty order repetition responses', function (string $body) {
+    $mockClient = new MockClient([
+        GetOrderRepetitionRequest::class => MockResponse::make($body, 200, ['Content-Type' => 'application/json']),
+    ]);
+    $order = Order::useClient((new BexioClient('mock-token'))->withMockClient($mockClient));
+
+    expect(fn () => $order->findRepetition(123))
+        ->toThrow(UnexpectedValueException::class, 'Order repetition response field "start" must be a string.');
+})->with([
+    'empty object' => ['{}'],
+    'empty array' => ['[]'],
+    'missing start' => ['{"repetition":{"type":"daily","interval":1}}'],
+]);

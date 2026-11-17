@@ -111,7 +111,7 @@ $repetition = OrderRepetition::weekly(
 );
 
 $updated = Order::useClient($client)->updateRepetition($repetition, 1);
-$current = Order::useClient($client)->getRepetition(1);
+$current = Order::useClient($client)->findRepetition(1); // null when the order does not repeat
 
 Order::useClient($client)->deleteRepetition(1);
 ```
@@ -151,4 +151,5 @@ $invoice = Order::useClient($client)->createInvoice(1);
 - Updating an existing `ItemPositionArticle` keeps the current linked item; `article_id` and response-only nesting context are omitted from update payloads. Delete and recreate the article position to link a different item.
 - PDF responses are returned as a `DocumentPdf` DTO with base64 `content` and `decodedContent()`.
 - Repetition helpers use `OrderRepetition` plus enums for type-specific values such as weekdays and monthly schedules.
+- `findRepetition()` returns `null` for orders without a repetition, including after `deleteRepetition()`, because Bexio answers those with an empty `200` body. Malformed repetition payloads still throw `UnexpectedValueException`. `getRepetition()` is deprecated; it throws `UnexpectedValueException` when the order has no repetition.
 - `createDelivery()` and `createInvoice()` call the Bexio conversion endpoints and automatically send source-position references when no explicit conversion positions are provided.

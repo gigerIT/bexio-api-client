@@ -36,6 +36,7 @@ use Bexio\Resources\Sales\Writable;
 use Bexio\Resources\Sales\WriteOperation;
 use Bexio\Support\Concerns\HasOfficeLink;
 use Spatie\LaravelData\Attributes\WithCast;
+use UnexpectedValueException;
 
 /**
  * @method OrderQueryBuilder query()
@@ -147,11 +148,24 @@ class Order extends Resource implements KbDocumentContract
         return $request->createDtoFromResponse($this->client()->send($request));
     }
 
-    public function getRepetition(?int $id = null): OrderRepetition
+    public function findRepetition(?int $id = null): ?OrderRepetition
     {
         $request = new GetOrderRepetitionRequest($this->resolveOrderId($id));
+        $response = $this->client()->send($request);
 
-        return $request->createDtoFromResponse($this->client()->send($request));
+        // Bexio answers non-recurring orders with an empty 200 body; `{}` or `[]` stay malformed.
+        return $response->body() === '' ? null : $request->createDtoFromResponse($response);
+    }
+
+    /**
+     * @deprecated Use findRepetition(), which returns null for orders without a repetition.
+     */
+    public function getRepetition(?int $id = null): OrderRepetition
+    {
+        $orderId = $this->resolveOrderId($id);
+
+        return $this->findRepetition($orderId)
+            ?? throw new UnexpectedValueException("Order {$orderId} has no repetition.");
     }
 
     public function updateRepetition(OrderRepetition $repetition, ?int $id = null): OrderRepetition

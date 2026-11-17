@@ -233,6 +233,8 @@ Order and quote query rules:
 - Unfiltered quotes use `GET /2.0/kb_offer`; filtered quotes use `POST /2.0/kb_offer/search`.
 - Quote validity searches use API field `is_valid_until`; do not use `is_valid_to` for quote helpers.
 - `OrderStatus` maps pending `5`, done `6`, partial `15`, and canceled `21`.
+- Read an order's repetition with `Order::findRepetition()`; it returns `null` when the order does
+  not repeat. Deprecated `getRepetition()` throws in that case.
 
 Sales document item-position rules:
 - Orders, quotes, and invoices containing `ItemPositionArticle` or `ItemPositionSubposition` are
