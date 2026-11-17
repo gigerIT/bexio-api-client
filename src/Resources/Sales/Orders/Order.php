@@ -147,7 +147,10 @@ class Order extends Resource implements KbDocumentContract
         return $request->createDtoFromResponse($this->client()->send($request));
     }
 
-    public function getRepetition(?int $id = null): OrderRepetition
+    /**
+     * Returns null when the order has no repetition.
+     */
+    public function getRepetition(?int $id = null): ?OrderRepetition
     {
         $request = new GetOrderRepetitionRequest($this->resolveOrderId($id));
 

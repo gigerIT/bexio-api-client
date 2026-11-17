@@ -387,6 +387,26 @@ it('returns a document pdf dto for an order pdf request', function () {
     });
 });
 
+it('returns no repetition for the empty response of a non-recurring order', function () {
+    $mockClient = new MockClient([
+        GetOrderRepetitionRequest::class => MockResponse::make('', 200, ['Content-Type' => 'application/json']),
+    ]);
+
+    $client = (new BexioClient('mock-token'))->withMockClient($mockClient);
+
+    expect(Order::useClient($client)->getRepetition(123))->toBeNull();
+});
+
+it('rejects a non-empty order repetition response without a schedule', function () {
+    $mockClient = new MockClient([
+        GetOrderRepetitionRequest::class => MockResponse::make('{}', 200, ['Content-Type' => 'application/json']),
+    ]);
+
+    $client = (new BexioClient('mock-token'))->withMockClient($mockClient);
+
+    Order::useClient($client)->getRepetition(123);
+})->throws(UnexpectedValueException::class, 'Order repetition response field "start" must be a string.');
+
 it('manages order repetition through typed dto requests', function () {
     $mockClient = new MockClient([
         UpdateOrderRepetitionRequest::class => MockResponse::make([

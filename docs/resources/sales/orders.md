@@ -116,6 +116,8 @@ $current = Order::useClient($client)->getRepetition(1);
 Order::useClient($client)->deleteRepetition(1);
 ```
 
+`getRepetition()` returns `null` for an order without a repetition.
+
 Monthly repetitions use `OrderRepetitionMonthlySchedule`:
 
 ```php

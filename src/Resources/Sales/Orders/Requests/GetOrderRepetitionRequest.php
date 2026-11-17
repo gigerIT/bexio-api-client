@@ -21,8 +21,13 @@ class GetOrderRepetitionRequest extends Request
         return "/2.0/kb_order/{$this->orderId}/repetition";
     }
 
-    public function createDtoFromResponse(Response $response): OrderRepetition
+    public function createDtoFromResponse(Response $response): ?OrderRepetition
     {
+        // Bexio answers 200 with an empty body for orders without a repetition.
+        if ($response->body() === '') {
+            return null;
+        }
+
         return OrderRepetition::fromApiPayload($response->json());
     }
 }

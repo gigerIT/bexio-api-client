@@ -160,6 +160,7 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 - Order filtering: `POST /2.0/kb_order/search` via `src/Resources/Sales/Orders/Requests/SearchOrdersRequest.php`.
 - `src/Resources/Sales/Orders/OrderQueryBuilder.php` mirrors invoice builder: `status()`, `statusIn()`, `validFrom()`, `validTo()`, `validBetween()`.
 - Keep `Order::$kb_item_status_id` as `int`. `OrderStatus` maps documented states: pending `5`, done `6`, partial `15`, canceled `21`.
+- Live `GET /2.0/kb_order/{id}/repetition` answers 200 with an empty body for orders without a repetition, including after a delete; `getRepetition()` returns `null` only for that empty body.
 - Live order create and update reject `is_valid_to` and `reference` but accept and persist `mwst_is_net` and write-only `pr_project_id` (read back as `project_id`); `Order.php` attributes encode this.
 - Sales documents with `ItemPositionArticle` or `ItemPositionSubposition` are created empty, then all positions are added in order through item-position endpoints (`CreatesSalesDocumentsWithDeferredPositions`); positions with a `parent_id` throw before sending. Bexio rejects inline subpositions. A 2026-10-23 live probe accepted inline article positions with `article_id` on all three document types, so the original article rejection did not reproduce; keep deferring articles until a live test proves inline article creation through the package.
 
