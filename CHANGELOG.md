@@ -1,5 +1,18 @@
 # Changelog
 
+## [4.12.5](https://github.com/gigerIT/bexio-api-client/compare/v4.12.4...v4.12.5) (2026-11-17)
+
+
+### Bug Fixes
+
+* **orders:** return null from getRepetition() for orders without a repetition ([ed7d3ad](https://github.com/gigerIT/bexio-api-client/commit/ed7d3ad8c59720cd4106ca2c82ac2e687e5f9048)), closes [#103](https://github.com/gigerIT/bexio-api-client/issues/103)
+
+
+### Documentation
+
+* **agents:** note the zero-rate test tax and filtered live-run cleanup ([32f444d](https://github.com/gigerIT/bexio-api-client/commit/32f444df502336ff44045b7de8617e8802ccc51d))
+* **sales:** explain that MwstType::EXCLUDING calculates no tax ([97a014f](https://github.com/gigerIT/bexio-api-client/commit/97a014fe0d052d2749114872f98dc9d535c3667d)), closes [#102](https://github.com/gigerIT/bexio-api-client/issues/102)
+
 ## [4.12.4](https://github.com/gigerIT/bexio-api-client/compare/v4.12.3...v4.12.4) (2026-11-16)
 
 
