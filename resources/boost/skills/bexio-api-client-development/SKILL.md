@@ -222,7 +222,8 @@ Sales document payload rules:
 - `document_nr` is never written; Bexio assigns it while automatic numbering is on.
 - Invoice, order, and quote creation preserve explicit `mwst_is_net: false` (gross prices) and
   `true` (net prices). Leave it unset or `null` to use the Bexio default; null is never sent. This
-  setting affects totals when `mwst_type` is `MwstType::INCLUDING`.
+  setting affects totals when `mwst_type` is `MwstType::INCLUDING`. `MwstType::EXCLUDING` and
+  `MwstType::EXEMPT` calculate no tax; add VAT to net prices with `INCLUDING` and `mwst_is_net: true`.
 
 Item payload rules:
 - Bexio item responses may hydrate `article_type_id` as `null`.
