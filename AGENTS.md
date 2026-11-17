@@ -271,6 +271,7 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
   - `testClient()` for live API via `BexioClient::testAccount()`
   - `testMockClient()` for Saloon mock responses
   - cached helpers: `testSaleTax()`, `testSalesAccount()`, `testAccountId()`
+- `testSaleTax()` returns the account's first sales tax, a 0 % tax (`U00`) in the shared test account, so total or tax-amount assertions built on it pass for any tax mode. Tests that check tax amounts pick an active sales tax with `value > 0`, as in `tests/Resources/Sales/Invoices/InvoiceTaxModeTest.php`.
 - Resource coverage should use real API requests. API key exists locally and CI. New API feature/resource tests should use `testClient()` and real Bexio endpoints, not mocks.
 - `tests/Resources/LiveApiOperationCoverageTest.php` guards exposed `SHOW_REQUEST` operations: any resource advertising `find()` must have live resource-level show coverage and a matching README coverage-table row.
 - Keep mocks/fixtures for narrow unit tests only: DTO, casting, request construction. Mocked tests alone are insufficient for new API features.
@@ -278,6 +279,7 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
   - create/update/delete disposable records as in `tests/Resources/Contacts/Contacts/ContactRequestsTest.php`, `tests/Resources/Purchase/Bills/BillRequestsTest.php`, `tests/Resources/Sales/Invoices/InvoiceRequestsTest.php`
   - read/search/query-builder tests fetch small live datasets, skip only when remote account lacks data, as in `tests/Resources/Projects/Projects/ProjectRequestsTest.php`, `tests/Resources/Banking/PaymentRequestsTest.php`
 - Parallel live tests share one Bexio account. Do not assert that an unfiltered `orderBy('id', 'desc')` or `first()` result is the record just created by the current test; another worker may create a newer record. Scope the query by unique fixture data when testing a specific record, or assert only stable ordering/type/id invariants.
+- Live files that share one record through `->depends()` (e.g. `$testOrder` in `tests/Resources/Sales/Orders/OrderRequestsTest.php`) delete it only in their final delete test. A `--filter` run must include that delete test and every test it depends on, or Pest skips it and the record stays in the shared account; delete leftovers yourself after such a run.
 - For write endpoints, create prerequisite record in test instead of depending on existing account data.
 - For read-only/account-data endpoints, fetch small live dataset first; skip only when no compatible remote records.
 - One Saloon fixture exists: `tests/Fixtures/Saloon/contacts/contacts/get.json`.
