@@ -23,6 +23,10 @@ foreach ($entries as $entry) {
 Calendar timestamps are response-only and are excluded when a hydrated
 `CalendarYear` is reused for creation. Journal IDs retain the existing public
 string representation; currency amounts and factors hydrate as floats.
+`JournalEntry::$account_uuid` and `JournalEntry::$currency_code` are deprecated
+and always null: the journal endpoint returns neither field (verified live on
+2026-11-23, with and without the account filter). `account_uuid` is
+only a `GetJournalRequest` filter, and the entry currency is `currency_id`.
 
 Verified with live list responses on 2026-10-02. Sources:
 [accounts](https://docs.bexio.com/#operation/v2ListAccounts),

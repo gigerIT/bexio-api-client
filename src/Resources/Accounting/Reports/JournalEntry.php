@@ -23,9 +23,11 @@ class JournalEntry extends Resource
     public function __construct(
         public ?string $id = null,
         public ?string $date = null,
+        /** @deprecated The journal endpoint never returns this field; filter with GetJournalRequest's account_uuid and read debit_account_id/credit_account_id. */
         public ?string $account_uuid = null,
         public ?string $description = null,
         public ?float $amount = null,
+        /** @deprecated The journal endpoint never returns this field; use currency_id. */
         public ?string $currency_code = null,
     ) {
     }
