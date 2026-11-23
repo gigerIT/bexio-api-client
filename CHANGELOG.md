@@ -1,5 +1,22 @@
 # Changelog
 
+## [4.13.0](https://github.com/gigerIT/bexio-api-client/compare/v4.12.5...v4.13.0) (2026-11-23)
+
+
+### Features
+
+* **accounting:** deprecate JournalEntry account_uuid and currency_code ([f6c8576](https://github.com/gigerIT/bexio-api-client/commit/f6c85764a38c9eef4818f17c847a6c44740174c7)), closes [#106](https://github.com/gigerIT/bexio-api-client/issues/106)
+
+
+### Documentation
+
+* **agents:** seed disposable records before skipping read-only live tests ([4c1e674](https://github.com/gigerIT/bexio-api-client/commit/4c1e674e96949a1876f5ab03d17ff17ef6a3a05d))
+
+
+### Tests
+
+* **accounting:** book a disposable entry so journal live tests run ([a0e087c](https://github.com/gigerIT/bexio-api-client/commit/a0e087c3731bc23c7d6b520d85f1490c6ae2f1a8))
+
 ## [4.12.5](https://github.com/gigerIT/bexio-api-client/compare/v4.12.4...v4.12.5) (2026-11-17)
 
 
