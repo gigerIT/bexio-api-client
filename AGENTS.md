@@ -281,7 +281,7 @@ All API DTOs extend `src/Resources/Resource.php`, which extends `Spatie\LaravelD
 - Parallel live tests share one Bexio account. Do not assert that an unfiltered `orderBy('id', 'desc')` or `first()` result is the record just created by the current test; another worker may create a newer record. Scope the query by unique fixture data when testing a specific record, or assert only stable ordering/type/id invariants.
 - Live files that share one record through `->depends()` (e.g. `$testOrder` in `tests/Resources/Sales/Orders/OrderRequestsTest.php`) delete it only in their final delete test. A `--filter` run must include that delete test and every test it depends on, or Pest skips it and the record stays in the shared account; delete leftovers yourself after such a run.
 - For write endpoints, create prerequisite record in test instead of depending on existing account data.
-- For read-only/account-data endpoints, fetch small live dataset first; skip only when no compatible remote records.
+- For read-only/account-data endpoints, fetch small live dataset first; skip only when no compatible remote records exist and no write endpoint can create a disposable one. The shared account has no bookings, so journal tests book a manual entry, which appears in `/3.0/accounting/journal` immediately and leaves it on delete.
 - One Saloon fixture exists: `tests/Fixtures/Saloon/contacts/contacts/get.json`.
 
 ### Test environment behavior
